@@ -1,0 +1,2 @@
+# This file ensures the models/ directory structure is preserved in Git.
+# Actual model weights and checkpoints are ignored.

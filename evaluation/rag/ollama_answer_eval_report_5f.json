@@ -1,0 +1,186 @@
+{
+  "evaluation_metadata": {
+    "benchmark_name": "Milestone 5F Real Local Ollama Answer Validation",
+    "benchmark_timestamp": "2026-10-13T12:24:43.779327+00:00",
+    "provider_name": "LocalOllamaProvider",
+    "model_name": "phi3.5:latest",
+    "ollama_base_url": "http://localhost:11434",
+    "total_queries_tested": 6,
+    "abstentions": 6,
+    "answers_generated": 0
+  },
+  "query_evaluations": [
+    {
+      "query_id": "OLLAMA_001_GROUNDED_ART142",
+      "category": "direct_positive_support",
+      "query": "Can the Supreme Court exercise powers under Article 142 of the Constitution to grant admission to an IIT candidate from a marginalized community who was prevented from paying fees due to a portal login glitch?",
+      "expected_answerable": true,
+      "actual_answered": false,
+      "pipeline_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "timing_ms": {
+        "retrieval_ms": 107.1,
+        "evidence_assembly_ms": 37.3,
+        "grounding_gate_ms": 15.7,
+        "prompt_construction_ms": 0.08,
+        "generation_ms": 144669.52,
+        "validation_ms": 0.82,
+        "total_ms": 144838.1
+      },
+      "total_latency_seconds": 144.839,
+      "num_evidence_passages": 4,
+      "citations_summary": {
+        "is_valid": false,
+        "cited_ids": [
+          "E1",
+          "E3"
+        ],
+        "valid_ids": [
+          "E1",
+          "E3"
+        ],
+        "invalid_ids": []
+      },
+      "answer_preview": "Based on the provided text snippets ([E1] for reference: \"[2024] 7 S.C.R.\", which refers to a Supreme Court Reports case from July 2024, and [E3], there is no explicit mention or discussion regarding Article 142 of the Constitution in relation to gra",
+      "claims_count": 9
+    },
+    {
+      "query_id": "OLLAMA_002_GROUNDED_IBC_SEC62",
+      "category": "direct_positive_support",
+      "query": "Can any person aggrieved by an order of the NCLAT maintain an appeal before the Supreme Court under Section 62 of the Insolvency and Bankruptcy Code?",
+      "expected_answerable": true,
+      "actual_answered": false,
+      "pipeline_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "timing_ms": {
+        "retrieval_ms": 282.64,
+        "evidence_assembly_ms": 59.18,
+        "grounding_gate_ms": 8.63,
+        "prompt_construction_ms": 0.04,
+        "generation_ms": 166506.92,
+        "validation_ms": 1.92,
+        "total_ms": 166868.16
+      },
+      "total_latency_seconds": 166.869,
+      "num_evidence_passages": 4,
+      "citations_summary": {
+        "is_valid": false,
+        "cited_ids": [
+          "E1",
+          "E3"
+        ],
+        "valid_ids": [
+          "E1",
+          "E3"
+        ],
+        "invalid_ids": []
+      },
+      "answer_preview": "Based on the provided document excerpts: Insolvency proceedings under Section 62 of the IBC (Insolvency and Bankruptcy Code) allow any person aggrieved by a judgment to maintain an appeal, as indicated in [E1] where it is stated that \"the resolution ",
+      "claims_count": 10
+    },
+    {
+      "query_id": "OLLAMA_003_NEGATION_MUSLIM_COPARCENARY",
+      "category": "negation",
+      "query": "Does the Hindu legal concept of joint family coparcenary property apply to Mohammedans governed by Muslim law?",
+      "expected_answerable": false,
+      "actual_answered": false,
+      "pipeline_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "timing_ms": {
+        "retrieval_ms": 170.91,
+        "evidence_assembly_ms": 51.97,
+        "grounding_gate_ms": 21.04,
+        "total_ms": 254.97
+      },
+      "total_latency_seconds": 0.255,
+      "num_evidence_passages": 4,
+      "citations_summary": {
+        "is_valid": true,
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": []
+      },
+      "answer_preview": "INSUFFICIENT EVIDENCE: Subject context ({'coparcenary', 'hindu', 'concept', 'joint', 'family', 'legal', 'property'}) and target predicate ({'governed', 'mohammedans', 'muslim'}) appear only in disjoint contexts and do not co-occur in any evidence sen",
+      "claims_count": 0
+    },
+    {
+      "query_id": "OLLAMA_004_EXCEPTION_NDPS_SUMMARY_TRIAL",
+      "category": "exception",
+      "query": "Does Section 36A(5) of the NDPS Act empower a Special Judge to conduct summary trial for offences punishable with imprisonment exceeding three years?",
+      "expected_answerable": false,
+      "actual_answered": false,
+      "pipeline_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "timing_ms": {
+        "retrieval_ms": 146.03,
+        "evidence_assembly_ms": 24.05,
+        "grounding_gate_ms": 8.65,
+        "total_ms": 183.65
+      },
+      "total_latency_seconds": 0.184,
+      "num_evidence_passages": 4,
+      "citations_summary": {
+        "is_valid": true,
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": []
+      },
+      "answer_preview": "INSUFFICIENT EVIDENCE: Query explicitly inquires about statutory provisions (Section 36A), but none are present in retrieved evidence.",
+      "claims_count": 0
+    },
+    {
+      "query_id": "OLLAMA_005_REJECTED_SUBMISSION_ASG",
+      "category": "rejected_submissions",
+      "query": "Does Section 71 of the PMLA override the CrPC to dispense with sanction under Section 197 CrPC as held by the Supreme Court?",
+      "expected_answerable": false,
+      "actual_answered": false,
+      "pipeline_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "timing_ms": {
+        "retrieval_ms": 106.15,
+        "evidence_assembly_ms": 18.55,
+        "grounding_gate_ms": 17.88,
+        "total_ms": 147.7
+      },
+      "total_latency_seconds": 0.149,
+      "num_evidence_passages": 4,
+      "citations_summary": {
+        "is_valid": true,
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": []
+      },
+      "answer_preview": "INSUFFICIENT EVIDENCE: Query explicitly inquires about statutory provisions (Section 71, Section 197), but none are present in retrieved evidence.",
+      "claims_count": 0
+    },
+    {
+      "query_id": "OLLAMA_006_OUT_OF_CORPUS_DPDP",
+      "category": "out_of_corpus_unanswerable",
+      "query": "What are the eligibility criteria and tenure prescribed under Section 18 of the Digital Personal Data Protection Act, 2023 for members of the Data Protection Board of India?",
+      "expected_answerable": false,
+      "actual_answered": false,
+      "pipeline_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "timing_ms": {
+        "retrieval_ms": 104.28,
+        "evidence_assembly_ms": 50.28,
+        "grounding_gate_ms": 16.73,
+        "total_ms": 181.48
+      },
+      "total_latency_seconds": 0.182,
+      "num_evidence_passages": 4,
+      "citations_summary": {
+        "is_valid": true,
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": []
+      },
+      "answer_preview": "INSUFFICIENT EVIDENCE: Query explicitly inquires about statutory provisions (Section 18), but none are present in retrieved evidence.",
+      "claims_count": 0
+    }
+  ],
+  "claim_review_summary": {
+    "total_claims_extracted": 6,
+    "claims_artifact_path": "evaluation\\rag\\ollama_claim_review_artifact.jsonl"
+  }
+}

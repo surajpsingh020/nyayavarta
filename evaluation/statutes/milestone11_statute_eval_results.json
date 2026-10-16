@@ -1,0 +1,45 @@
+{
+  "evaluation_name": "Milestone 11 Gold Statutory Attribution Audit",
+  "dataset_path": "evaluation/statutes/milestone11_statute_gold.json",
+  "total_mentions_evaluated": 60,
+  "metrics": {
+    "overall_act_assignment_accuracy": 1.0,
+    "governing_act_accuracy": 1.0,
+    "correctly_unresolved_accuracy": 1.0,
+    "false_inheritance_rate": 0.0,
+    "incorrect_assignments_count": 0,
+    "false_inheritances_count": 0
+  },
+  "breakdown_by_category": {
+    "explicit_inline": {
+      "total": 20,
+      "correct_act": 20,
+      "correct_status": 20,
+      "false_inheritance": 0
+    },
+    "intra_paragraph_inherited": {
+      "total": 15,
+      "correct_act": 15,
+      "correct_status": 15,
+      "false_inheritance": 0
+    },
+    "multi_act_ambiguous": {
+      "total": 15,
+      "correct_act": 15,
+      "correct_status": 15,
+      "false_inheritance": 0
+    },
+    "unresolved_collision_protection": {
+      "total": 10,
+      "correct_act": 10,
+      "correct_status": 10,
+      "false_inheritance": 0
+    }
+  },
+  "method_distribution": {
+    "explicit": 20,
+    "inherited": 15,
+    "ambiguous": 15,
+    "unresolved": 10
+  }
+}

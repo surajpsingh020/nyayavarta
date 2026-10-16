@@ -1,0 +1,602 @@
+{
+  "B0_baseline_1500t": {
+    "config": {
+      "name": "B0: Baseline Unconstrained (~1,500 tokens)",
+      "target_tokens": 1500,
+      "max_passages": 3,
+      "max_total_chars": 4500,
+      "max_chars_per_passage": 1500,
+      "enable_compression": false,
+      "description": "Existing unconstrained multi-passage configuration (up to 3 full passages, uncompressed)."
+    },
+    "metrics": {
+      "total_queries_tested": 6,
+      "avg_passages_selected": 3.0,
+      "avg_evidence_chars": 6499.2,
+      "avg_estimated_evidence_tokens": 1624.8,
+      "offset_integrity_rate": 1.0,
+      "unanswerable_abstention_correctness": 1.0,
+      "qualifications_preserved_rate": 1.0,
+      "avg_latencies_ms": {
+        "retrieval": 24.54,
+        "evidence_assembly": 300.32,
+        "grounding_gate": 6.91,
+        "generation": 1.75,
+        "validation": 1.66,
+        "total": 348.53
+      }
+    },
+    "sample_runs": [
+      {
+        "query_id": "M21_Q1",
+        "query_text": "What is required to sustain a conviction based solely on circumstantial evidence in murder?",
+        "query_type": "answerable",
+        "status": "answered",
+        "badge": "verified_supported",
+        "evidence_passages_count": 3,
+        "evidence_chars": 6950,
+        "estimated_tokens": 1737.5,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 27.41,
+          "evidence_assembly_ms": 90.76,
+          "grounding_gate_ms": 4.24,
+          "prompt_construction_ms": 1.69,
+          "generation_ms": 1.79,
+          "validation_ms": 1.54,
+          "total_ms": 133.3
+        }
+      },
+      {
+        "query_id": "M21_Q2",
+        "query_text": "Can an employer change qualifications after the recruitment advertisement is issued?",
+        "query_type": "answerable",
+        "status": "answered",
+        "badge": "verified_supported",
+        "evidence_passages_count": 3,
+        "evidence_chars": 4672,
+        "estimated_tokens": 1168.0,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 12.69,
+          "evidence_assembly_ms": 167.5,
+          "grounding_gate_ms": 2.92,
+          "prompt_construction_ms": 0.49,
+          "generation_ms": 1.07,
+          "validation_ms": 1.94,
+          "total_ms": 191.53
+        }
+      },
+      {
+        "query_id": "M21_Q3",
+        "query_text": "Does excluding a promotional song from a movie constitute deficiency of service?",
+        "query_type": "answerable",
+        "status": "answered",
+        "badge": "verified_supported",
+        "evidence_passages_count": 3,
+        "evidence_chars": 8157,
+        "estimated_tokens": 2039.2,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 10.16,
+          "evidence_assembly_ms": 282.62,
+          "grounding_gate_ms": 8.68,
+          "prompt_construction_ms": 1.46,
+          "generation_ms": 1.03,
+          "validation_ms": 1.87,
+          "total_ms": 315.02
+        }
+      },
+      {
+        "query_id": "M21_Q4",
+        "query_text": "Who is entitled to make an application complaining of dispossession under Order XXI Rule 99 CPC?",
+        "query_type": "answerable_statutory_qualification",
+        "status": "answered",
+        "badge": "verified_supported",
+        "evidence_passages_count": 3,
+        "evidence_chars": 6485,
+        "estimated_tokens": 1621.2,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 34.73,
+          "evidence_assembly_ms": 271.3,
+          "grounding_gate_ms": 4.34,
+          "prompt_construction_ms": 0.88,
+          "generation_ms": 1.34,
+          "validation_ms": 2.34,
+          "total_ms": 321.42
+        }
+      },
+      {
+        "query_id": "M21_Q5",
+        "query_text": "Can bail be denied under Section 43D(5) UAPA merely for possessing literature?",
+        "query_type": "answerable_statutory_condition",
+        "status": "insufficient_evidence",
+        "badge": "insufficient_evidence",
+        "evidence_passages_count": 3,
+        "evidence_chars": 5866,
+        "estimated_tokens": 1466.5,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 15.59,
+          "evidence_assembly_ms": 396.46,
+          "grounding_gate_ms": 10.97,
+          "prompt_construction_ms": 2.91,
+          "generation_ms": 1.7,
+          "validation_ms": 0.1,
+          "total_ms": 447.77
+        }
+      },
+      {
+        "query_id": "M21_Q6",
+        "query_text": "What is the penalty for violating cryptocurrency staking regulations in maritime economic zones?",
+        "query_type": "unanswerable",
+        "status": "answered",
+        "badge": "verified_supported",
+        "evidence_passages_count": 3,
+        "evidence_chars": 6865,
+        "estimated_tokens": 1716.2,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 46.64,
+          "evidence_assembly_ms": 593.3,
+          "grounding_gate_ms": 10.33,
+          "prompt_construction_ms": 5.15,
+          "generation_ms": 3.59,
+          "validation_ms": 2.16,
+          "total_ms": 682.13
+        }
+      }
+    ]
+  },
+  "B1_budget_1000t": {
+    "config": {
+      "name": "B1: Bounded Multi-Passage (~1,000 tokens)",
+      "target_tokens": 1000,
+      "max_passages": 2,
+      "max_total_chars": 3000,
+      "max_chars_per_passage": 1500,
+      "enable_compression": false,
+      "description": "Bounded multi-passage selection (up to 2 complete passages without compression)."
+    },
+    "metrics": {
+      "total_queries_tested": 6,
+      "avg_passages_selected": 2.0,
+      "avg_evidence_chars": 4040.8,
+      "avg_estimated_evidence_tokens": 1010.2,
+      "offset_integrity_rate": 1.0,
+      "unanswerable_abstention_correctness": 1.0,
+      "qualifications_preserved_rate": 1.0,
+      "avg_latencies_ms": {
+        "retrieval": 35.57,
+        "evidence_assembly": 586.05,
+        "grounding_gate": 10.69,
+        "generation": 2.31,
+        "validation": 3.22,
+        "total": 652.9
+      }
+    },
+    "sample_runs": [
+      {
+        "query_id": "M21_Q1",
+        "query_text": "What is required to sustain a conviction based solely on circumstantial evidence in murder?",
+        "query_type": "answerable",
+        "status": "answered",
+        "badge": "verified_supported",
+        "evidence_passages_count": 2,
+        "evidence_chars": 4514,
+        "estimated_tokens": 1128.5,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 29.2,
+          "evidence_assembly_ms": 237.33,
+          "grounding_gate_ms": 11.83,
+          "prompt_construction_ms": 2.73,
+          "generation_ms": 3.72,
+          "validation_ms": 3.55,
+          "total_ms": 302.81
+        }
+      },
+      {
+        "query_id": "M21_Q2",
+        "query_text": "Can an employer change qualifications after the recruitment advertisement is issued?",
+        "query_type": "answerable",
+        "status": "answered",
+        "badge": "verified_supported",
+        "evidence_passages_count": 2,
+        "evidence_chars": 2220,
+        "estimated_tokens": 555.0,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 29.22,
+          "evidence_assembly_ms": 464.7,
+          "grounding_gate_ms": 9.27,
+          "prompt_construction_ms": 0.03,
+          "generation_ms": 2.17,
+          "validation_ms": 6.68,
+          "total_ms": 524.56
+        }
+      },
+      {
+        "query_id": "M21_Q3",
+        "query_text": "Does excluding a promotional song from a movie constitute deficiency of service?",
+        "query_type": "answerable",
+        "status": "answered",
+        "badge": "verified_supported",
+        "evidence_passages_count": 2,
+        "evidence_chars": 5354,
+        "estimated_tokens": 1338.5,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 30.62,
+          "evidence_assembly_ms": 812.51,
+          "grounding_gate_ms": 12.75,
+          "prompt_construction_ms": 1.8,
+          "generation_ms": 1.33,
+          "validation_ms": 3.08,
+          "total_ms": 874.62
+        }
+      },
+      {
+        "query_id": "M21_Q4",
+        "query_text": "Who is entitled to make an application complaining of dispossession under Order XXI Rule 99 CPC?",
+        "query_type": "answerable_statutory_qualification",
+        "status": "answered",
+        "badge": "verified_supported",
+        "evidence_passages_count": 2,
+        "evidence_chars": 3940,
+        "estimated_tokens": 985.0,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 40.86,
+          "evidence_assembly_ms": 782.91,
+          "grounding_gate_ms": 6.91,
+          "prompt_construction_ms": 0.71,
+          "generation_ms": 2.05,
+          "validation_ms": 3.84,
+          "total_ms": 845.92
+        }
+      },
+      {
+        "query_id": "M21_Q5",
+        "query_text": "Can bail be denied under Section 43D(5) UAPA merely for possessing literature?",
+        "query_type": "answerable_statutory_condition",
+        "status": "insufficient_evidence",
+        "badge": "insufficient_evidence",
+        "evidence_passages_count": 2,
+        "evidence_chars": 3721,
+        "estimated_tokens": 930.2,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 54.42,
+          "evidence_assembly_ms": 621.3,
+          "grounding_gate_ms": 11.25,
+          "prompt_construction_ms": 1.06,
+          "generation_ms": 1.9,
+          "validation_ms": 0.09,
+          "total_ms": 705.58
+        }
+      },
+      {
+        "query_id": "M21_Q6",
+        "query_text": "What is the penalty for violating cryptocurrency staking regulations in maritime economic zones?",
+        "query_type": "unanswerable",
+        "status": "answered",
+        "badge": "verified_supported",
+        "evidence_passages_count": 2,
+        "evidence_chars": 4496,
+        "estimated_tokens": 1124.0,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 29.12,
+          "evidence_assembly_ms": 597.54,
+          "grounding_gate_ms": 12.1,
+          "prompt_construction_ms": 2.65,
+          "generation_ms": 2.69,
+          "validation_ms": 2.09,
+          "total_ms": 663.92
+        }
+      }
+    ]
+  },
+  "B2_budget_750t": {
+    "config": {
+      "name": "B2: Compressed Multi-Passage (~750 tokens)",
+      "target_tokens": 750,
+      "max_passages": 2,
+      "max_total_chars": 2250,
+      "max_chars_per_passage": 1000,
+      "enable_compression": true,
+      "description": "Extractive sentence compression preserving complete sentences, provisos, and exact character spans."
+    },
+    "metrics": {
+      "total_queries_tested": 6,
+      "avg_passages_selected": 2.0,
+      "avg_evidence_chars": 1924.0,
+      "avg_estimated_evidence_tokens": 481.0,
+      "offset_integrity_rate": 1.0,
+      "unanswerable_abstention_correctness": 2.0,
+      "qualifications_preserved_rate": 1.0,
+      "avg_latencies_ms": {
+        "retrieval": 31.45,
+        "evidence_assembly": 575.62,
+        "grounding_gate": 10.1,
+        "generation": 1.16,
+        "validation": 1.66,
+        "total": 633.86
+      }
+    },
+    "sample_runs": [
+      {
+        "query_id": "M21_Q1",
+        "query_text": "What is required to sustain a conviction based solely on circumstantial evidence in murder?",
+        "query_type": "answerable",
+        "status": "answered",
+        "badge": "verified_supported",
+        "evidence_passages_count": 2,
+        "evidence_chars": 1514,
+        "estimated_tokens": 378.5,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 36.29,
+          "evidence_assembly_ms": 231.09,
+          "grounding_gate_ms": 9.12,
+          "prompt_construction_ms": 0.02,
+          "generation_ms": 0.95,
+          "validation_ms": 1.3,
+          "total_ms": 293.61
+        }
+      },
+      {
+        "query_id": "M21_Q2",
+        "query_text": "Can an employer change qualifications after the recruitment advertisement is issued?",
+        "query_type": "answerable",
+        "status": "answered",
+        "badge": "verified_supported",
+        "evidence_passages_count": 2,
+        "evidence_chars": 2220,
+        "estimated_tokens": 555.0,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 29.91,
+          "evidence_assembly_ms": 469.96,
+          "grounding_gate_ms": 9.03,
+          "prompt_construction_ms": 0.83,
+          "generation_ms": 1.59,
+          "validation_ms": 4.68,
+          "total_ms": 529.2
+        }
+      },
+      {
+        "query_id": "M21_Q3",
+        "query_text": "Does excluding a promotional song from a movie constitute deficiency of service?",
+        "query_type": "answerable",
+        "status": "answered",
+        "badge": "verified_supported",
+        "evidence_passages_count": 2,
+        "evidence_chars": 1834,
+        "estimated_tokens": 458.5,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 26.55,
+          "evidence_assembly_ms": 770.19,
+          "grounding_gate_ms": 12.79,
+          "prompt_construction_ms": 0.02,
+          "generation_ms": 1.16,
+          "validation_ms": 2.08,
+          "total_ms": 823.54
+        }
+      },
+      {
+        "query_id": "M21_Q4",
+        "query_text": "Who is entitled to make an application complaining of dispossession under Order XXI Rule 99 CPC?",
+        "query_type": "answerable_statutory_qualification",
+        "status": "answered",
+        "badge": "unverified_answer",
+        "evidence_passages_count": 2,
+        "evidence_chars": 2292,
+        "estimated_tokens": 573.0,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 32.95,
+          "evidence_assembly_ms": 753.52,
+          "grounding_gate_ms": 7.1,
+          "prompt_construction_ms": 0.6,
+          "generation_ms": 0.98,
+          "validation_ms": 1.73,
+          "total_ms": 805.92
+        }
+      },
+      {
+        "query_id": "M21_Q5",
+        "query_text": "Can bail be denied under Section 43D(5) UAPA merely for possessing literature?",
+        "query_type": "answerable_statutory_condition",
+        "status": "insufficient_evidence",
+        "badge": "insufficient_evidence",
+        "evidence_passages_count": 2,
+        "evidence_chars": 2295,
+        "estimated_tokens": 573.8,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 29.87,
+          "evidence_assembly_ms": 625.3,
+          "grounding_gate_ms": 10.46,
+          "prompt_construction_ms": 1.29,
+          "generation_ms": 0.99,
+          "validation_ms": 0.07,
+          "total_ms": 685.23
+        }
+      },
+      {
+        "query_id": "M21_Q6",
+        "query_text": "What is the penalty for violating cryptocurrency staking regulations in maritime economic zones?",
+        "query_type": "unanswerable",
+        "status": "insufficient_evidence",
+        "badge": "insufficient_evidence",
+        "evidence_passages_count": 2,
+        "evidence_chars": 1389,
+        "estimated_tokens": 347.2,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 33.1,
+          "evidence_assembly_ms": 603.67,
+          "grounding_gate_ms": 12.08,
+          "prompt_construction_ms": 0.03,
+          "generation_ms": 1.31,
+          "validation_ms": 0.08,
+          "total_ms": 665.64
+        }
+      }
+    ]
+  },
+  "B3_budget_500t": {
+    "config": {
+      "name": "B3: Focused Single-to-Dual Passage (~500 tokens)",
+      "target_tokens": 500,
+      "max_passages": 1,
+      "max_total_chars": 1500,
+      "max_chars_per_passage": 800,
+      "enable_compression": true,
+      "description": "Strict low-latency budget for CPU inference; selects highest-relevance holding passage with sentence compression."
+    },
+    "metrics": {
+      "total_queries_tested": 6,
+      "avg_passages_selected": 1.0,
+      "avg_evidence_chars": 773.5,
+      "avg_estimated_evidence_tokens": 193.4,
+      "offset_integrity_rate": 1.0,
+      "unanswerable_abstention_correctness": 3.0,
+      "qualifications_preserved_rate": 1.0,
+      "avg_latencies_ms": {
+        "retrieval": 32.13,
+        "evidence_assembly": 575.7,
+        "grounding_gate": 9.9,
+        "generation": 0.73,
+        "validation": 0.73,
+        "total": 627.13
+      }
+    },
+    "sample_runs": [
+      {
+        "query_id": "M21_Q1",
+        "query_text": "What is required to sustain a conviction based solely on circumstantial evidence in murder?",
+        "query_type": "answerable",
+        "status": "answered",
+        "badge": "verified_supported",
+        "evidence_passages_count": 1,
+        "evidence_chars": 354,
+        "estimated_tokens": 88.5,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 31.77,
+          "evidence_assembly_ms": 231.82,
+          "grounding_gate_ms": 10.12,
+          "prompt_construction_ms": 0.02,
+          "generation_ms": 1.85,
+          "validation_ms": 0.79,
+          "total_ms": 282.34
+        }
+      },
+      {
+        "query_id": "M21_Q2",
+        "query_text": "Can an employer change qualifications after the recruitment advertisement is issued?",
+        "query_type": "answerable",
+        "status": "insufficient_evidence",
+        "badge": "insufficient_evidence",
+        "evidence_passages_count": 1,
+        "evidence_chars": 863,
+        "estimated_tokens": 215.8,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 27.75,
+          "evidence_assembly_ms": 492.55,
+          "grounding_gate_ms": 7.4,
+          "prompt_construction_ms": 0.67,
+          "generation_ms": 0.33,
+          "validation_ms": 0.07,
+          "total_ms": 537.91
+        }
+      },
+      {
+        "query_id": "M21_Q3",
+        "query_text": "Does excluding a promotional song from a movie constitute deficiency of service?",
+        "query_type": "answerable",
+        "status": "answered",
+        "badge": "verified_supported",
+        "evidence_passages_count": 1,
+        "evidence_chars": 771,
+        "estimated_tokens": 192.8,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 32.12,
+          "evidence_assembly_ms": 749.74,
+          "grounding_gate_ms": 12.38,
+          "prompt_construction_ms": 0.02,
+          "generation_ms": 0.67,
+          "validation_ms": 1.82,
+          "total_ms": 802.4
+        }
+      },
+      {
+        "query_id": "M21_Q4",
+        "query_text": "Who is entitled to make an application complaining of dispossession under Order XXI Rule 99 CPC?",
+        "query_type": "answerable_statutory_qualification",
+        "status": "answered",
+        "badge": "unverified_answer",
+        "evidence_passages_count": 1,
+        "evidence_chars": 716,
+        "estimated_tokens": 179.0,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 37.47,
+          "evidence_assembly_ms": 749.63,
+          "grounding_gate_ms": 7.44,
+          "prompt_construction_ms": 0.02,
+          "generation_ms": 0.56,
+          "validation_ms": 1.52,
+          "total_ms": 802.58
+        }
+      },
+      {
+        "query_id": "M21_Q5",
+        "query_text": "Can bail be denied under Section 43D(5) UAPA merely for possessing literature?",
+        "query_type": "answerable_statutory_condition",
+        "status": "insufficient_evidence",
+        "badge": "insufficient_evidence",
+        "evidence_passages_count": 1,
+        "evidence_chars": 1312,
+        "estimated_tokens": 328.0,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 32.05,
+          "evidence_assembly_ms": 659.37,
+          "grounding_gate_ms": 11.48,
+          "prompt_construction_ms": 2.11,
+          "generation_ms": 0.54,
+          "validation_ms": 0.08,
+          "total_ms": 713.83
+        }
+      },
+      {
+        "query_id": "M21_Q6",
+        "query_text": "What is the penalty for violating cryptocurrency staking regulations in maritime economic zones?",
+        "query_type": "unanswerable",
+        "status": "insufficient_evidence",
+        "badge": "insufficient_evidence",
+        "evidence_passages_count": 1,
+        "evidence_chars": 625,
+        "estimated_tokens": 156.2,
+        "offsets_verified": true,
+        "timing_ms": {
+          "retrieval_ms": 31.63,
+          "evidence_assembly_ms": 571.11,
+          "grounding_gate_ms": 10.6,
+          "prompt_construction_ms": 0.02,
+          "generation_ms": 0.44,
+          "validation_ms": 0.07,
+          "total_ms": 623.7
+        }
+      }
+    ]
+  }
+}

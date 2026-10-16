@@ -1,0 +1,257 @@
+{
+    "validator_version": "1.0.0",
+    "milestone": "4A.1",
+    "audit_timestamp": "2026-10-12T12:00:00Z",
+    "corpus_documents_verified": 782,
+    "summary": {
+        "case_citations_count": 54750,
+        "statutory_references_count": 66284,
+        "resolved_entities_count": 54750,
+        "alignment_1_to_1": true,
+        "all_targets_valid_foreign_keys": true,
+        "status_invariants_preserved": true,
+        "manifest_verified": true
+    },
+    "case_citations_audit": {
+        "total_records": 54750,
+        "schema_errors": 0,
+        "invalid_source_doc_ids": 0,
+        "exact_duplicate_records_count": 1,
+        "exact_duplicate_samples": [
+            {
+                "line": 7762,
+                "doc_id": "2024_11_1142_1232",
+                "raw_text": "As held in Bharat Aluminium vs Kaiser Aluminium",
+                "span": [
+                    31173,
+                    31221
+                ]
+            }
+        ],
+        "overlapping_spans_count": 2318,
+        "overlapping_span_distribution": {
+            "neutral_insc <-> case_title": 700,
+            "case_title <-> unanchored_mention": 657,
+            "unanchored_mention <-> case_title": 366,
+            "scc <-> case_title": 278,
+            "case_title <-> scc": 71,
+            "scr <-> case_title": 105,
+            "air <-> case_title": 17,
+            "scc_online <-> case_title": 49,
+            "case_title <-> scc_online": 51,
+            "case_title <-> air": 14,
+            "case_title <-> neutral_insc": 7,
+            "case_title <-> scr": 2,
+            "unanchored_mention <-> scc": 1
+        },
+        "overlapping_span_samples": [
+            {
+                "doc_id": "2024_10_108_125",
+                "span_a": [
+                    23,
+                    36,
+                    "neutral_insc",
+                    "2024 INSC 735"
+                ],
+                "span_b": [
+                    28,
+                    91,
+                    "case_title",
+                    "INSC 735\nVijay Singh @ Vijay Kr. Sharma \nv. \nThe S"
+                ]
+            },
+            {
+                "doc_id": "2024_10_126_149",
+                "span_a": [
+                    23,
+                    36,
+                    "neutral_insc",
+                    "2024 INSC 748"
+                ],
+                "span_b": [
+                    28,
+                    94,
+                    "case_title",
+                    "INSC 748\nV. Vincent Velankanni  \nv. \nThe Union of "
+                ]
+            },
+            {
+                "doc_id": "2024_10_126_149",
+                "span_a": [
+                    17300,
+                    17365,
+                    "case_title",
+                    "Court in the case of L. Chandrakishore Singh v. \nS"
+                ],
+                "span_b": [
+                    17306,
+                    17346,
+                    "unanchored_mention",
+                    "in the case of L. Chandrakishore Singh v"
+                ]
+            },
+            {
+                "doc_id": "2024_10_126_149",
+                "span_a": [
+                    17678,
+                    17723,
+                    "case_title",
+                    "Court in the case of BSNL v. R. Santhakumari"
+                ],
+                "span_b": [
+                    17684,
+                    17705,
+                    "unanchored_mention",
+                    "in the case of BSNL v"
+                ]
+            },
+            {
+                "doc_id": "2024_10_126_149",
+                "span_a": [
+                    30402,
+                    30442,
+                    "unanchored_mention",
+                    "In the case of L. Chandrakishore Singh v"
+                ],
+                "span_b": [
+                    30402,
+                    30465,
+                    "case_title",
+                    "In the case of L. Chandrakishore Singh v. State of"
+                ]
+            },
+            {
+                "doc_id": "2024_10_126_149",
+                "span_a": [
+                    30802,
+                    30876,
+                    "case_title",
+                    "This view \nhas been reiterated in the case of Ajit"
+                ],
+                "span_b": [
+                    30833,
+                    30865,
+                    "unanchored_mention",
+                    "in the case of Ajit Kumar Rath v"
+                ]
+            },
+            {
+                "doc_id": "2024_10_1313_1343",
+                "span_a": [
+                    24,
+                    37,
+                    "neutral_insc",
+                    "2024 INSC 755"
+                ],
+                "span_b": [
+                    29,
+                    82,
+                    "case_title",
+                    "INSC 755\nRama Devi \nv. \nThe State of Bihar and Oth"
+                ]
+            },
+            {
+                "doc_id": "2024_10_1313_1343",
+                "span_a": [
+                    33447,
+                    33463,
+                    "scc",
+                    "(1969) 3 SCC 890"
+                ],
+                "span_b": [
+                    33456,
+                    33513,
+                    "case_title",
+                    "SCC 890\n17\t\nPonnam Chandraiah v. State of Andhra P"
+                ]
+            },
+            {
+                "doc_id": "2024_10_1344_1358",
+                "span_a": [
+                    24,
+                    37,
+                    "neutral_insc",
+                    "2024 INSC 763"
+                ],
+                "span_b": [
+                    29,
+                    100,
+                    "case_title",
+                    "INSC 763\nShashi Bhushan Prasad Singh \nv. \nThe Stat"
+                ]
+            },
+            {
+                "doc_id": "2024_10_1344_1358",
+                "span_a": [
+                    19159,
+                    19175,
+                    "scc",
+                    "(2021) 12 SCC 80"
+                ],
+                "span_b": [
+                    19169,
+                    19212,
+                    "case_title",
+                    "SCC 80 and The Chairman \nSBI & Anr. vs. M.J"
+                ]
+            }
+        ],
+        "type_distribution": {
+            "scr": 8225,
+            "neutral_insc": 1623,
+            "case_title": 26325,
+            "scc": 12956,
+            "air": 1007,
+            "scc_online": 1209,
+            "unanchored_mention": 3405
+        }
+    },
+    "statutory_references_audit": {
+        "total_records": 66284,
+        "schema_errors": 0,
+        "invalid_source_doc_ids": 0,
+        "exact_duplicate_records_count": 0,
+        "type_distribution": {
+            "statutory_section": 28973,
+            "statute_act": 23436,
+            "constitutional_article": 10082,
+            "procedural_order_rule": 2760,
+            "statutory_schedule": 1033
+        }
+    },
+    "resolved_entities_audit": {
+        "total_records": 54750,
+        "schema_errors": 0,
+        "status_invariants_violations_count": 0,
+        "invalid_target_doc_ids_count": 0,
+        "invalid_ambiguous_candidates_count": 0,
+        "status_distribution": {
+            "unresolved": 45434,
+            "resolved": 8844,
+            "ambiguous": 472
+        },
+        "match_methods_distribution": {
+            "unmatched_reporter": 1418,
+            "exact_neutral_citation": 866,
+            "no_title_match": 16996,
+            "title_keyword_overlap": 7822,
+            "historical_reporter_pre_2024": 21979,
+            "insufficient_title_keywords": 1094,
+            "unanchored_no_corpus_match": 2127,
+            "unanchored_insufficient_keywords": 1063,
+            "multiple_title_candidates": 413,
+            "neutral_citation_not_in_corpus": 757,
+            "unanchored_unique_keyword_match": 156,
+            "unanchored_multiple_candidates": 59
+        },
+        "linking_breakdown": {
+            "self_citations_resolved": 8184,
+            "cross_document_resolved": 660,
+            "self_citation_percentage": 92.54
+        }
+    },
+    "manifest_audit": {
+        "manifest_path": "data/processed/extraction/v1\\extraction_manifest.json",
+        "manifest_discrepancies": []
+    }
+}

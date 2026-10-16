@@ -1,0 +1,33 @@
+{
+  "benchmark_date": "2026-10-13T12:07:43.206757+00:00",
+  "total_evaluation_items": 32,
+  "definitive_items": 30,
+  "ambiguous_items_excluded": 2,
+  "metrics": {
+    "reviewer_gate_agreement_rate": 1.0,
+    "gate_accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "specificity": 1.0,
+    "true_positives": 3,
+    "false_negatives": 0,
+    "true_negatives": 27,
+    "false_positives": 0
+  },
+  "ambiguous_items_details": [
+    {
+      "test_id": "UNSEEN031_NEEDS_HUMAN_REVIEW_ATUL_KUMAR_EQUITY",
+      "query": "Does the judgment in Atul Kumar v. Chairman JOSAA establish a binding principle that any candidate who fails to pay tuition fees before the prescribed deadline due to financial poverty is legally entitled to admission under Article 142?",
+      "gate_predicted_status": "topically_relevant_but_insufficient_grounding",
+      "gate_is_grounded": false,
+      "curator_rationale": "Borderline equitable/doctrinal case: The Court exercised Article 142 powers on unique facts involving 6 earnest portal login attempts and marginalized status; whether this establishes a binding rule of general application or discretionary relief confined to its facts is a nuanced legal distinction requiring human review."
+    },
+    {
+      "test_id": "UNSEEN032_NEEDS_HUMAN_REVIEW_SECTION_106_BURDEN",
+      "query": "Under Section 106 of the Evidence Act, does the failure of an accused to explain what happened after being last seen alive with the deceased independently suffice to convict him of murder in the absence of other circumstantial evidence?",
+      "gate_predicted_status": "topically_relevant_but_insufficient_grounding",
+      "gate_is_grounded": false,
+      "curator_rationale": "Complex burden of proof doctrine: Section 106 provides an additional link once foundational facts are established, but does not independently establish guilt; whether evidence strictly 'answers' this nuanced question is legally contestable and flagged for human review."
+    }
+  ]
+}

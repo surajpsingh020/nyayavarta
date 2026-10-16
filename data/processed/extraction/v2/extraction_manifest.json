@@ -1,0 +1,46 @@
+{
+    "pipeline_version": "2.0.0",
+    "extraction_timestamp": "2026-10-14T20:09:04.962856",
+    "corpus_processed_docs": 782,
+    "runtime_seconds": 39.37,
+    "throughput_docs_per_sec": 19.86,
+    "citation_counts": {
+        "total_citations_extracted": 54748,
+        "resolution_breakdown": {
+            "resolved": 7972,
+            "ambiguous": 224,
+            "unresolved": 46552
+        },
+        "self_citations_flagged": 7608,
+        "cross_doc_matches": 364,
+        "matching_methods": {
+            "exact_scr_citation": 1020,
+            "exact_neutral_citation": 866,
+            "no_title_match": 7391,
+            "historical_case_pre_2024": 14509,
+            "historical_reporter_pre_2024": 21979,
+            "insufficient_title_keywords": 1387,
+            "self_citation_title": 6086,
+            "title_only_lacks_year_corroboration": 131,
+            "unmatched_reporter": 302,
+            "multiple_title_candidates": 224,
+            "neutral_citation_not_in_corpus": 757,
+            "scr_citation_not_in_corpus": 96
+        }
+    },
+    "statutory_counts": {
+        "total_statutory_references": 65966,
+        "section_attribution_breakdown": {
+            "explicit": 9754,
+            "inherited": 5452,
+            "ambiguous": 1943,
+            "unresolved": 11578,
+            "other_statutory_types": 37239
+        }
+    },
+    "output_files": {
+        "citations": "data/processed/extraction/v2\\case_citations.jsonl",
+        "resolved_entities": "data/processed/extraction/v2\\resolved_entities.jsonl",
+        "statutory_references": "data/processed/extraction/v2\\statutory_references.jsonl"
+    }
+}

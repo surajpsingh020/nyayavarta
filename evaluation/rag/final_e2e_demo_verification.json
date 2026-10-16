@@ -1,0 +1,465 @@
+{
+  "metadata": {
+    "title": "Phase 3 End-to-End Demo Query Verification",
+    "milestone": "Final Audit and College Demo Readiness",
+    "date": "2026-10-16",
+    "ollama_available": true,
+    "live_model_tested": "llama3.2:1b",
+    "graph_traversal_enabled": false,
+    "verification_policy": "policy_3"
+  },
+  "queries_tested": [
+    "DEMO_Q1_SUPPORTED",
+    "DEMO_Q2_PARTIAL",
+    "DEMO_Q3_CONTRADICTED",
+    "DEMO_Q4_OUT_OF_CORPUS",
+    "DEMO_Q5_ERROR_TIMEOUT"
+  ],
+  "mock_pipeline_results": [
+    {
+      "query_id": "DEMO_Q1_SUPPORTED",
+      "category": "supported_corpus_grounded",
+      "query_text": "Can the rules of selection or eligibility criteria be changed after the recruitment process has commenced under Rajasthan High Court rules?",
+      "status": "answered",
+      "verification_badge": "verified_supported",
+      "answer_text": "The ‘game’ is the process of selection and appointment. [E2] Courts have consistently frowned upon tinkering with the rules of the game once the recruitment process commences. [E2]",
+      "num_passages_retrieved": 5,
+      "retrieved_doc_ids": [
+        "2024_12_28_67",
+        "2024_12_28_67",
+        "2024_2_1136_1177",
+        "2024_2_1136_1177",
+        "2024_7_196_217"
+      ],
+      "claims_count": 2,
+      "claims": [
+        {
+          "text": "The ‘game’ is the process of selection and appointment. [E2]",
+          "status": "supported",
+          "method": "direct_holding_entailment",
+          "reason": "Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict.",
+          "is_supported": true,
+          "is_contradicted": false
+        },
+        {
+          "text": "Courts have consistently frowned upon tinkering with the rules of the game once the recruitment process commences. [E2]",
+          "status": "supported",
+          "method": "direct_holding_entailment",
+          "reason": "Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict.",
+          "is_supported": true,
+          "is_contradicted": false
+        }
+      ],
+      "timing_ms": {
+        "retrieval_ms": 36.77,
+        "evidence_assembly_ms": 320.1,
+        "grounding_gate_ms": 4.27,
+        "prompt_construction_ms": 0.02,
+        "generation_ms": 3.49,
+        "validation_ms": 2.61,
+        "total_ms": 375.45
+      },
+      "total_latency_ms": 375.45,
+      "exception_raised": false,
+      "error_message": null,
+      "is_fail_closed": true
+    },
+    {
+      "query_id": "DEMO_Q2_PARTIAL",
+      "category": "partially_supported",
+      "query_text": "Can the authorized officer unilaterally extend the 15-day period for deposit of 75% purchase money under SARFAESI Rule 9(4) without consent of the borrower?",
+      "status": "answered_with_qualification",
+      "verification_badge": "qualified_answer",
+      "answer_text": "The authorized officer can unilaterally extend the 15-day period for deposit of 75% purchase money under SARFAESI Rule 9(4) without consent of the borrower. [E1]",
+      "num_passages_retrieved": 5,
+      "retrieved_doc_ids": [
+        "2024_2_12_90",
+        "2024_2_12_90",
+        "2024_4_541_557",
+        "2024_4_633_639",
+        "2024_4_633_639"
+      ],
+      "claims_count": 1,
+      "claims": [
+        {
+          "text": "The authorized officer can unilaterally extend the 15-day period for deposit of 75% purchase money under SARFAESI Rule 9(4) without consent of the borrower. [E1]",
+          "status": "partially_supported",
+          "method": "statutory_qualification_omission_check",
+          "reason": "Claim asserts that action may be taken without consent, but the cited passage establishes that statutory qualification / condition (consent, notice, subject to) is required.",
+          "is_supported": false,
+          "is_contradicted": false
+        }
+      ],
+      "timing_ms": {
+        "retrieval_ms": 20.45,
+        "evidence_assembly_ms": 335.59,
+        "grounding_gate_ms": 7.11,
+        "prompt_construction_ms": 0.02,
+        "generation_ms": 0.02,
+        "validation_ms": 1.18,
+        "total_ms": 374.03
+      },
+      "total_latency_ms": 374.03,
+      "exception_raised": false,
+      "error_message": null,
+      "is_fail_closed": true
+    },
+    {
+      "query_id": "DEMO_Q3_CONTRADICTED",
+      "category": "contradicted",
+      "query_text": "Are seeds, plant varieties, and essentially biological processes patentable under Section 3(j) of the Indian Patents Act, 1970?",
+      "status": "insufficient_evidence",
+      "verification_badge": "insufficient_evidence",
+      "answer_text": "INSUFFICIENT EVIDENCE: Query explicitly inquires about statutory provisions (Section 3), but they are not present in retrieved evidence.",
+      "num_passages_retrieved": 5,
+      "retrieved_doc_ids": [
+        "2024_7_1847_2142",
+        "2024_7_1847_2142",
+        "2024_10_793_859",
+        "2024_10_793_859",
+        "2024_7_745_755"
+      ],
+      "claims_count": 0,
+      "claims": [],
+      "timing_ms": {
+        "retrieval_ms": 21.19,
+        "evidence_assembly_ms": 1021.63,
+        "grounding_gate_ms": 5.55,
+        "total_ms": 1055.86
+      },
+      "total_latency_ms": 1055.86,
+      "exception_raised": false,
+      "error_message": null,
+      "is_fail_closed": true
+    },
+    {
+      "query_id": "DEMO_Q4_OUT_OF_CORPUS",
+      "category": "out_of_corpus",
+      "query_text": "What is the period of limitation for filing an in rem admiralty action against an arrested foreign cargo vessel under the Admiralty Act, 2017?",
+      "status": "insufficient_evidence",
+      "verification_badge": "insufficient_evidence",
+      "answer_text": "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question.",
+      "num_passages_retrieved": 5,
+      "retrieved_doc_ids": [
+        "2024_12_133_201",
+        "2024_7_2363_2426",
+        "2024_12_133_201",
+        "2024_3_890_912",
+        "2024_3_890_912"
+      ],
+      "claims_count": 0,
+      "claims": [],
+      "timing_ms": {
+        "retrieval_ms": 21.7,
+        "evidence_assembly_ms": 501.39,
+        "grounding_gate_ms": 2.92,
+        "prompt_construction_ms": 0.02,
+        "generation_ms": 1.17,
+        "validation_ms": 0.02,
+        "total_ms": 536.65
+      },
+      "total_latency_ms": 536.65,
+      "exception_raised": false,
+      "error_message": null,
+      "is_fail_closed": true
+    },
+    {
+      "query_id": "DEMO_Q5_ERROR_TIMEOUT",
+      "category": "error_timeout_fail_closed",
+      "query_text": "Simulated fail-closed query under provider timeout/exception.",
+      "status": "insufficient_evidence",
+      "verification_badge": "insufficient_evidence",
+      "answer_text": "INSUFFICIENT EVIDENCE: Overall topical evidence coverage (0.14) is below minimum grounding threshold. Missing concepts: ['exception', 'closed', 'timeout', 'simulated', 'provider'].",
+      "num_passages_retrieved": 5,
+      "retrieved_doc_ids": [
+        "2024_6_355_374",
+        "2024_6_355_374",
+        "2024_9_199_217",
+        "2024_9_199_217",
+        "2024_10_2187_2226"
+      ],
+      "claims_count": 0,
+      "claims": [],
+      "timing_ms": {
+        "retrieval_ms": 10.03,
+        "evidence_assembly_ms": 233.78,
+        "grounding_gate_ms": 2.82,
+        "total_ms": 248.84
+      },
+      "total_latency_ms": 248.84,
+      "exception_raised": false,
+      "error_message": null,
+      "is_fail_closed": true
+    }
+  ],
+  "live_pipeline_results": [
+    {
+      "query_id": "DEMO_Q1_SUPPORTED",
+      "category": "supported_corpus_grounded",
+      "query_text": "Can the rules of selection or eligibility criteria be changed after the recruitment process has commenced under Rajasthan High Court rules?",
+      "status": "validation_failed",
+      "verification_badge": "rejected_answer",
+      "answer_text": "The Rajasthan High Court rules can be changed after the recruitment process has commenced.\n\nThe court held that \"Within the age limit at the time of initial appointment; Direct recruitment; Policy decision; Project employed applicants; Bonus marks; Bonus marks to project employed applicants; Bonus m...",
+      "num_passages_retrieved": 5,
+      "retrieved_doc_ids": [
+        "2024_12_28_67",
+        "2024_12_28_67",
+        "2024_2_1136_1177",
+        "2024_2_1136_1177",
+        "2024_7_196_217"
+      ],
+      "claims_count": 6,
+      "claims": [
+        {
+          "text": "The Rajasthan High Court rules can be changed after the recruitment process has commenced",
+          "status": "unsupported",
+          "method": "no_cited_evidence",
+          "reason": "Claim contains no supporting evidence citations.",
+          "is_supported": false,
+          "is_contradicted": false
+        },
+        {
+          "text": "The court held that \"Within the age limit at the time of initial appointment; Direct recruitment; Policy decision; Project employed applicants; Bonus marks; Bonus marks to project employed applicants; Bonus marks for teaching experience; Far flung areas; Children of the far-flung areas; Encouraging/motivating children to attend schools; Absentee teachers; Education of rural children; Para teachers; Difficult circumstances; Honorarium; Dropouts; Drop out of students; Dropouts from schools; Elementary education programme; Separate class; Valid classification; Valid classification based on intelligible differentia; Intelligible differentia; Project experience; Guidelines sanctioning the award of bonus marks on differential basis; Lack of Project experience; Differentia had a rational relation to the object sought to be achieved\" [E1]",
+          "status": "supported",
+          "method": "direct_holding_entailment",
+          "reason": "Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict.",
+          "is_supported": true,
+          "is_contradicted": false
+        },
+        {
+          "text": "The court also stated that \"Executive instruction; Executive guidelines; Executive guidelines supplemented the Rules and did not supplant them\" [E2]",
+          "status": "not_evaluated",
+          "method": "unverified_fallback",
+          "reason": "Claim references valid evidence passages, but semantic legal entailment cannot be conclusively verified by deterministic rules.",
+          "is_supported": false,
+          "is_contradicted": false
+        },
+        {
+          "text": "This suggests that the rules can be changed after the recruitment process has commenced, as long as they are based on a valid classification or intelligible differentia",
+          "status": "unsupported",
+          "method": "no_cited_evidence",
+          "reason": "Claim contains no supporting evidence citations.",
+          "is_supported": false,
+          "is_contradicted": false
+        },
+        {
+          "text": "Therefore, the correct answer is:",
+          "status": "unsupported",
+          "method": "no_cited_evidence",
+          "reason": "Claim contains no supporting evidence citations.",
+          "is_supported": false,
+          "is_contradicted": false
+        },
+        {
+          "text": "Yes, the Rajasthan High Court rules can be changed after the recruitment process has commenced.",
+          "status": "unsupported",
+          "method": "no_cited_evidence",
+          "reason": "Claim contains no supporting evidence citations.",
+          "is_supported": false,
+          "is_contradicted": false
+        }
+      ],
+      "timing_ms": {
+        "retrieval_ms": 30.33,
+        "evidence_assembly_ms": 423.45,
+        "grounding_gate_ms": 4.09,
+        "prompt_construction_ms": 0.02,
+        "generation_ms": 48161.56,
+        "validation_ms": 2.38,
+        "total_ms": 48629.86
+      },
+      "total_latency_ms": 48629.86,
+      "exception_raised": false,
+      "error_message": null,
+      "is_fail_closed": true
+    },
+    {
+      "query_id": "DEMO_Q2_PARTIAL",
+      "category": "partially_supported",
+      "query_text": "Can the authorized officer unilaterally extend the 15-day period for deposit of 75% purchase money under SARFAESI Rule 9(4) without consent of the borrower?",
+      "status": "insufficient_evidence",
+      "verification_badge": "insufficient_evidence",
+      "answer_text": "INSUFFICIENT EVIDENCE\n\nThe authorized officer can unilaterally extend the 15-day period for deposit of 75% purchase money under SARFAESI Rule 9(4) without consent of the borrower. The court did not explicitly hold that such an extension is permissible, but rather affirmed the setting aside of the au...",
+      "num_passages_retrieved": 5,
+      "retrieved_doc_ids": [
+        "2024_2_12_90",
+        "2024_2_12_90",
+        "2024_4_541_557",
+        "2024_4_633_639",
+        "2024_4_633_639"
+      ],
+      "claims_count": 0,
+      "claims": [],
+      "timing_ms": {
+        "retrieval_ms": 20.59,
+        "evidence_assembly_ms": 395.33,
+        "grounding_gate_ms": 9.05,
+        "prompt_construction_ms": 0.02,
+        "generation_ms": 37870.17,
+        "validation_ms": 0.04,
+        "total_ms": 38306.78
+      },
+      "total_latency_ms": 38306.78,
+      "exception_raised": false,
+      "error_message": null,
+      "is_fail_closed": true
+    },
+    {
+      "query_id": "DEMO_Q3_CONTRADICTED",
+      "category": "contradicted",
+      "query_text": "Are seeds, plant varieties, and essentially biological processes patentable under Section 3(j) of the Indian Patents Act, 1970?",
+      "status": "insufficient_evidence",
+      "verification_badge": "insufficient_evidence",
+      "answer_text": "INSUFFICIENT EVIDENCE: Query explicitly inquires about statutory provisions (Section 3), but they are not present in retrieved evidence.",
+      "num_passages_retrieved": 5,
+      "retrieved_doc_ids": [
+        "2024_7_1847_2142",
+        "2024_7_1847_2142",
+        "2024_10_793_859",
+        "2024_10_793_859",
+        "2024_7_745_755"
+      ],
+      "claims_count": 0,
+      "claims": [],
+      "timing_ms": {
+        "retrieval_ms": 21.69,
+        "evidence_assembly_ms": 1135.93,
+        "grounding_gate_ms": 4.64,
+        "total_ms": 1169.98
+      },
+      "total_latency_ms": 1169.98,
+      "exception_raised": false,
+      "error_message": null,
+      "is_fail_closed": true
+    },
+    {
+      "query_id": "DEMO_Q4_OUT_OF_CORPUS",
+      "category": "out_of_corpus",
+      "query_text": "What is the period of limitation for filing an in rem admiralty action against an arrested foreign cargo vessel under the Admiralty Act, 2017?",
+      "status": "validation_failed",
+      "verification_badge": "rejected_answer",
+      "answer_text": "The period of limitation for filing an in rem admiralty action against an arrested foreign cargo vessel under the Admiralty Act, 2017 is 30 days from the date of arrest.\n\nAccording to the passage [E1], \"The demand raised by the respondent against the appellant and affirmed by the CESTAT qua the 264 ...",
+      "num_passages_retrieved": 5,
+      "retrieved_doc_ids": [
+        "2024_12_133_201",
+        "2024_7_2363_2426",
+        "2024_12_133_201",
+        "2024_3_890_912",
+        "2024_3_890_912"
+      ],
+      "claims_count": 8,
+      "claims": [
+        {
+          "text": "The period of limitation for filing an in rem admiralty action against an arrested foreign cargo vessel under the Admiralty Act, 2017 is 30 days from the date of arrest",
+          "status": "unsupported",
+          "method": "no_cited_evidence",
+          "reason": "Claim contains no supporting evidence citations.",
+          "is_supported": false,
+          "is_contradicted": false
+        },
+        {
+          "text": "According to the passage [E1], \"The demand raised by the respondent against the appellant and affirmed by the CESTAT qua the 264 cases including levy of customs duty and interest cannot be sustained.\" This implies that the CESTAT's decision was based on the in rem admiralty action, which is within the 30-day period",
+          "status": "supported",
+          "method": "direct_holding_entailment",
+          "reason": "Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict.",
+          "is_supported": true,
+          "is_contradicted": false
+        },
+        {
+          "text": "Furthermore, the passage [E2] states \"Impugned order of CESTAT would stand modified accordingly",
+          "status": "unsupported",
+          "method": "unrelated_evidence_check",
+          "reason": "Cited evidence passage shares zero topical vocabulary with the claim (unrelated proposition attached to existing citation ID).",
+          "is_supported": false,
+          "is_contradicted": false
+        },
+        {
+          "text": "Appeal is allowed in part in the above terms",
+          "status": "unsupported",
+          "method": "no_cited_evidence",
+          "reason": "Claim contains no supporting evidence citations.",
+          "is_supported": false,
+          "is_contradicted": false
+        },
+        {
+          "text": "No costs.\"",
+          "status": "unsupported",
+          "method": "no_cited_evidence",
+          "reason": "Claim contains no supporting evidence citations.",
+          "is_supported": false,
+          "is_contradicted": false
+        },
+        {
+          "text": "This suggests that the court's actual holding is to modify the impugned order and allow an appeal, which indicates that the 30-day period for filing an in rem admiralty action against an arrested foreign cargo vessel under the Admiralty Act, 2017 has not expired",
+          "status": "unsupported",
+          "method": "no_cited_evidence",
+          "reason": "Claim contains no supporting evidence citations.",
+          "is_supported": false,
+          "is_contradicted": false
+        },
+        {
+          "text": "Therefore, the correct answer is:",
+          "status": "unsupported",
+          "method": "no_cited_evidence",
+          "reason": "Claim contains no supporting evidence citations.",
+          "is_supported": false,
+          "is_contradicted": false
+        },
+        {
+          "text": "The period of limitation for filing an in rem admiralty action against an arrested foreign cargo vessel under the Admiralty Act, 2017 is 30 days from the date of arrest.",
+          "status": "unsupported",
+          "method": "no_cited_evidence",
+          "reason": "Claim contains no supporting evidence citations.",
+          "is_supported": false,
+          "is_contradicted": false
+        }
+      ],
+      "timing_ms": {
+        "retrieval_ms": 18.05,
+        "evidence_assembly_ms": 598.12,
+        "grounding_gate_ms": 3.54,
+        "prompt_construction_ms": 0.02,
+        "generation_ms": 45353.12,
+        "validation_ms": 1.62,
+        "total_ms": 45982.77
+      },
+      "total_latency_ms": 45982.77,
+      "exception_raised": false,
+      "error_message": null,
+      "is_fail_closed": true
+    },
+    {
+      "query_id": "DEMO_Q5_ERROR_TIMEOUT",
+      "category": "error_timeout_fail_closed",
+      "query_text": "Simulated fail-closed query under provider timeout/exception.",
+      "status": "insufficient_evidence",
+      "verification_badge": "insufficient_evidence",
+      "answer_text": "INSUFFICIENT EVIDENCE: Overall topical evidence coverage (0.14) is below minimum grounding threshold. Missing concepts: ['exception', 'closed', 'timeout', 'simulated', 'provider'].",
+      "num_passages_retrieved": 5,
+      "retrieved_doc_ids": [
+        "2024_6_355_374",
+        "2024_6_355_374",
+        "2024_9_199_217",
+        "2024_9_199_217",
+        "2024_10_2187_2226"
+      ],
+      "claims_count": 0,
+      "claims": [],
+      "timing_ms": {
+        "retrieval_ms": 11.37,
+        "evidence_assembly_ms": 256.06,
+        "grounding_gate_ms": 3.62,
+        "total_ms": 275.38
+      },
+      "total_latency_ms": 275.38,
+      "exception_raised": false,
+      "error_message": null,
+      "is_fail_closed": true
+    }
+  ],
+  "safety_invariants_verified": {
+    "all_adversarial_queries_fail_closed": true,
+    "live_model_adversarial_fail_closed": true,
+    "zero_verified_supported_leaks_on_adversarial": true
+  }
+}

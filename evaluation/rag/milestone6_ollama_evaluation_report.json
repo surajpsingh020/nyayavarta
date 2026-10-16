@@ -1,0 +1,317 @@
+{
+  "benchmark_metadata": {
+    "benchmark_name": "NyayaVarta Milestone 6 End-to-End Legal Answer Benchmark (OLLAMA)",
+    "benchmark_timestamp": "2026-10-13T13:14:45.442387+00:00",
+    "provider_type": "ollama",
+    "model_name": "phi3.5:latest",
+    "total_queries_tested": 8,
+    "total_queries_completed": 8,
+    "answers_generated": 1,
+    "abstentions": 6,
+    "timeouts": 0,
+    "errors": 0,
+    "total_benchmark_duration_seconds": 404.39,
+    "context_budget": {
+      "top_k": 2,
+      "max_passages": 1,
+      "max_chars_per_passage": null
+    }
+  },
+  "performance_metrics": {
+    "grounding_gate_accuracy": 1.0,
+    "citation_validity_rate": 0.75,
+    "latency_seconds": {
+      "min": 0.059,
+      "median": 0.169,
+      "p95": 242.134,
+      "max": 242.134,
+      "total": 404.39
+    }
+  },
+  "claim_review_summary": {
+    "total_claims": 6,
+    "reviewed_claims": 6,
+    "pending_review_claims": 0,
+    "label_breakdown": {
+      "supported": 6,
+      "partially_supported": 0,
+      "unsupported": 0,
+      "contradicted": 0,
+      "not_reviewed": 0
+    },
+    "extrinsic_facts_introduced": 0,
+    "relevant_context_omitted": 0,
+    "unwarranted_answering_claims": 0
+  },
+  "query_evaluations": [
+    {
+      "query_id": "M6_001",
+      "category": "single_judgment_holding",
+      "legal_domain": "Constitutional Law",
+      "query": "Can the Supreme Court exercise powers under Article 142 of the Constitution to grant admission to an IIT candidate from a marginalized community who was prevented from paying fees due to a portal login glitch?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "grounding_is_grounded": true,
+      "grounding_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 38.45,
+        "evidence_assembly_ms": 17.68,
+        "grounding_gate_ms": 5.29,
+        "prompt_construction_ms": 0.01,
+        "generation_ms": 161463.59,
+        "validation_ms": 2.27,
+        "total_ms": 161529.17
+      },
+      "total_latency_seconds": 161.529,
+      "num_evidence_passages": 1,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": false,
+        "citation_syntax_valid": false,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "The court's holding aligns with substantial justice principles, which can be associated with exergying such power for this case [E#]",
+          "(Note: In a real-world scenario where direct citations are required but not provided in full due to truncation of evidence passages or other reasons, the INSUFFICIENT EVIDENCE response would apply",
+          "Here it is assumed that enough context has been given for an appropriate answer.)"
+        ]
+      },
+      "llm_usage": {
+        "prompt_eval_count": 1390,
+        "prompt_eval_ms": 89975.15,
+        "eval_count": 509,
+        "eval_duration_ms": 66368.41,
+        "load_duration_ms": 2810.54,
+        "total_duration_ms": 159420.62,
+        "tokens_per_second": 7.67,
+        "prompt_tokens_per_second": 15.45
+      },
+      "claims_count": 1,
+      "answer_text": "1. SHORT ANSWER: The Supreme Court held that a marginalized student who faced technical difficulties in paying fees due to portal issues should not be denied admission [E1].\n2. RELEVANT LEGAL PRINCIPLES: Article 142 of the Constitution grants this court power over matters where justice is needed, and it was applied here for a student's IIT admission issue due to technical difficulties with fee payment on their part [E1].\n3. APPLICATION TO FACTS: The petitioner faced portal login issues while trying multiple times (six occasions) but lacked the means because of late fees, which led him not being admitted despite his efforts and background as a marginalized individual seeking admission to IIT [E1].\n4. SUPPORTING JUDGMENTS: The Supreme Court's decision in Atul Kumar v. Chairman (Joint Seat Allocation Authority) is directly relevant, where it was held that the petitioner should not be denied his admission due to technical difficulties beyond his control [E1].\n5. LIMITATIONS & UNCERTAINTIES: The judgment specifically addresses this case's facts and does not establish a broad rule applicable in all similar cases; individual circumstances must still be considered, as indicated by the court’s focus on substantial justice for marginalized communities affected by technical issues [E1].\n6. INSUFFICIENT EVIDENCE: The supplied judicial passages do provide sufficient evidence to answer this question about Article 142's application in granting admission under specific circumstances of a portal login glitch affecting fee payment for IIT candidates from marginalized communities [E#].\n\nNote: While the provided passage does not explicitly state that \"the Supreme Court exercised powers under Article 142,\" it is implied through context and reasoning within the judgment. The court's holding aligns with substantial justice principles, which can be associated with exergying such power for this case [E#].\n\n(Note: In a real-world scenario where direct citations are required but not provided in full due to truncation of evidence passages or other reasons, the INSUFFICIENT EVIDENCE response would apply. Here it is assumed that enough context has been given for an appropriate answer.)"
+    },
+    {
+      "query_id": "M6_001",
+      "category": "single_judgment_holding",
+      "legal_domain": "Constitutional Law",
+      "query": "Can the Supreme Court exercise powers under Article 142 of the Constitution to grant admission to an IIT candidate from a marginalized community who was prevented from paying fees due to a portal login glitch?",
+      "expected_answerable": true,
+      "actual_status": "timeout",
+      "grounding_status": "timeout",
+      "total_latency_seconds": 242.134,
+      "error": "Local Ollama generation timed out after 240.0s on model 'phi3.5:latest' (elapsed: 242066.8ms)."
+    },
+    {
+      "query_id": "M6_017",
+      "category": "abstention_unanswerable",
+      "legal_domain": "Data Protection & Regulatory Law",
+      "query": "What are the eligibility criteria and tenure prescribed under Section 18 of the Digital Personal Data Protection Act, 2023 for members of the Data Protection Board of India?",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "grounding_is_grounded": false,
+      "grounding_rationale": "Query explicitly inquires about statutory provisions (Section 18), but they are not present in retrieved evidence.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 123.01,
+        "evidence_assembly_ms": 45.7,
+        "grounding_gate_ms": 8.42,
+        "total_ms": 181.39
+      },
+      "total_latency_seconds": 0.182,
+      "num_evidence_passages": 4,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": true,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": true,
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": [],
+        "unsupported_sentences": []
+      },
+      "llm_usage": {},
+      "claims_count": 1,
+      "answer_text": "INSUFFICIENT EVIDENCE: Query explicitly inquires about statutory provisions (Section 18), but they are not present in retrieved evidence."
+    },
+    {
+      "query_id": "M6_018",
+      "category": "abstention_unanswerable",
+      "legal_domain": "Personal Law & Property",
+      "query": "Does the Hindu legal concept of joint family coparcenary property apply to Mohammedans governed by Muslim law?",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "grounding_is_grounded": false,
+      "grounding_rationale": "Subject context ({'family', 'hindu', 'legal', 'coparcenary', 'property', 'joint', 'concept'}) and target predicate ({'governed', 'muslim', 'mohammedans'}) appear only in disjoint contexts and do not co-occur in any evidence sentence.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 71.4,
+        "evidence_assembly_ms": 14.46,
+        "grounding_gate_ms": 6.88,
+        "total_ms": 95.38
+      },
+      "total_latency_seconds": 0.096,
+      "num_evidence_passages": 4,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": true,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": true,
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": [],
+        "unsupported_sentences": []
+      },
+      "llm_usage": {},
+      "claims_count": 1,
+      "answer_text": "INSUFFICIENT EVIDENCE: Subject context ({'family', 'hindu', 'legal', 'coparcenary', 'property', 'joint', 'concept'}) and target predicate ({'governed', 'muslim', 'mohammedans'}) appear only in disjoint contexts and do not co-occur in any evidence sentence."
+    },
+    {
+      "query_id": "M6_019",
+      "category": "abstention_unanswerable",
+      "legal_domain": "Criminal & Contempt Law",
+      "query": "Does the statutory provision for anticipatory bail under Section 438 CrPC establish that an accused can seek pre-arrest bail in contempt of court proceedings?",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "grounding_is_grounded": false,
+      "grounding_rationale": "Subject context ({'bail', 'crpc', 'statutory', 'anticipatory'}) and target predicate ({'contempt'}) appear only in disjoint contexts and do not co-occur in any evidence sentence.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 55.46,
+        "evidence_assembly_ms": 37.85,
+        "grounding_gate_ms": 5.12,
+        "total_ms": 103.53
+      },
+      "total_latency_seconds": 0.104,
+      "num_evidence_passages": 4,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": true,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": true,
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": [],
+        "unsupported_sentences": []
+      },
+      "llm_usage": {},
+      "claims_count": 1,
+      "answer_text": "INSUFFICIENT EVIDENCE: Subject context ({'bail', 'crpc', 'statutory', 'anticipatory'}) and target predicate ({'contempt'}) appear only in disjoint contexts and do not co-occur in any evidence sentence."
+    },
+    {
+      "query_id": "M6_020",
+      "category": "abstention_unanswerable",
+      "legal_domain": "Patent & Environmental Law",
+      "query": "Does Section 3(j) of the Patents Act, 1970 permit patenting of genetically modified mustard seeds containing transgenic traits as held by the Supreme Court?",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "grounding_is_grounded": false,
+      "grounding_rationale": "Historical precedent or statutory year (1970) specified in query is absent from retrieved 2024 judgments.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 47.67,
+        "evidence_assembly_ms": 58.61,
+        "grounding_gate_ms": 1.0,
+        "total_ms": 113.46
+      },
+      "total_latency_seconds": 0.114,
+      "num_evidence_passages": 4,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": true,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": true,
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": [],
+        "unsupported_sentences": []
+      },
+      "llm_usage": {},
+      "claims_count": 1,
+      "answer_text": "INSUFFICIENT EVIDENCE: Historical precedent or statutory year (1970) specified in query is absent from retrieved 2024 judgments."
+    },
+    {
+      "query_id": "M6_021",
+      "category": "abstention_unanswerable",
+      "legal_domain": "Competition & Regulatory Law",
+      "query": "What is the statutory limitation period prescribed under Section 16 of the Competition Act, 2002 for appointment of the Director General by the Central Government?",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "grounding_is_grounded": false,
+      "grounding_rationale": "Query explicitly inquires about statutory provisions (Section 16), but they are not present in retrieved evidence.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 54.52,
+        "evidence_assembly_ms": 94.78,
+        "grounding_gate_ms": 7.48,
+        "total_ms": 168.76
+      },
+      "total_latency_seconds": 0.169,
+      "num_evidence_passages": 4,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": true,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": true,
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": [],
+        "unsupported_sentences": []
+      },
+      "llm_usage": {},
+      "claims_count": 1,
+      "answer_text": "INSUFFICIENT EVIDENCE: Query explicitly inquires about statutory provisions (Section 16), but they are not present in retrieved evidence."
+    },
+    {
+      "query_id": "M6_022",
+      "category": "abstention_unanswerable",
+      "legal_domain": "Election Law",
+      "query": "Did the Supreme Court disqualify a sitting Member of Parliament for filing an incomplete affidavit under Section 33A of the Representation of the People Act in the 2024 general election?",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "grounding_is_grounded": false,
+      "grounding_rationale": "Query explicitly inquires about statutory provisions (Section 33A), but they are not present in retrieved evidence.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 40.28,
+        "evidence_assembly_ms": 13.13,
+        "grounding_gate_ms": 3.33,
+        "total_ms": 59.37
+      },
+      "total_latency_seconds": 0.059,
+      "num_evidence_passages": 4,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": true,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": true,
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": [],
+        "unsupported_sentences": []
+      },
+      "llm_usage": {},
+      "claims_count": 1,
+      "answer_text": "INSUFFICIENT EVIDENCE: Query explicitly inquires about statutory provisions (Section 33A), but they are not present in retrieved evidence."
+    }
+  ]
+}

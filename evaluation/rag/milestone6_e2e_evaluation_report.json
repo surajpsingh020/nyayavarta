@@ -1,0 +1,988 @@
+{
+  "benchmark_metadata": {
+    "benchmark_name": "NyayaVarta Milestone 6 End-to-End Legal Answer Benchmark (MOCK)",
+    "benchmark_timestamp": "2026-10-13T12:56:47.001690+00:00",
+    "provider_type": "mock",
+    "model_name": "phi3.5:latest",
+    "total_queries_tested": 22,
+    "total_queries_completed": 22,
+    "answers_generated": 16,
+    "abstentions": 6,
+    "timeouts": 0,
+    "errors": 0,
+    "total_benchmark_duration_seconds": 1.35,
+    "context_budget": {
+      "top_k": 2,
+      "max_passages": 1,
+      "max_chars_per_passage": null
+    }
+  },
+  "performance_metrics": {
+    "grounding_gate_accuracy": 1.0,
+    "citation_validity_rate": 0.2727,
+    "latency_seconds": {
+      "min": 0.035,
+      "median": 0.059,
+      "p95": 0.102,
+      "max": 0.142,
+      "total": 1.35
+    }
+  },
+  "claim_review_summary": {
+    "total_claims": 37,
+    "reviewed_claims": 37,
+    "pending_review_claims": 0,
+    "label_breakdown": {
+      "supported": 21,
+      "partially_supported": 16,
+      "unsupported": 0,
+      "contradicted": 0,
+      "not_reviewed": 0
+    },
+    "extrinsic_facts_introduced": 0,
+    "relevant_context_omitted": 16,
+    "unwarranted_answering_claims": 0
+  },
+  "query_evaluations": [
+    {
+      "query_id": "M6_001",
+      "category": "single_judgment_holding",
+      "legal_domain": "Constitutional Law",
+      "query": "Can the Supreme Court exercise powers under Article 142 of the Constitution to grant admission to an IIT candidate from a marginalized community who was prevented from paying fees due to a portal login glitch?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "grounding_is_grounded": true,
+      "grounding_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 30.64,
+        "evidence_assembly_ms": 15.14,
+        "grounding_gate_ms": 8.76,
+        "prompt_construction_ms": 0.01,
+        "generation_ms": 2.35,
+        "validation_ms": 0.54,
+        "total_ms": 59.2
+      },
+      "total_latency_seconds": 0.063,
+      "num_evidence_passages": 1,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": false,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "The Chairman (Joint Seat Allocation Authority) and Others (Writ Petition (Civil) No 609 of 2024) 30 September 2024 [Dr Dhananjaya Y Chandrachud, CJI, J B Pardiwala and Manoj Misra, JJ.] Issue for Consideration Matter pertains to Schedule caste category student who lost his admission to IIT since he was late in paying the online admission fee of Rs 17,500/- by a few minutes."
+        ]
+      },
+      "llm_usage": {
+        "prompt_tokens": 421,
+        "completion_tokens": 270
+      },
+      "claims_count": 2,
+      "answer_text": "The Chairman (Joint Seat Allocation Authority) and Others (Writ Petition (Civil) No 609 of 2024) 30 September 2024 [Dr Dhananjaya Y Chandrachud, CJI, J B Pardiwala and Manoj Misra, JJ.] Issue for Consideration Matter pertains to Schedule caste category student who lost his admission to IIT since he was late in paying the online admission fee of Rs 17,500/- by a few minutes. [E1] 142 – Exercise of power under – Indian Institute of Technology IIT-Admission – Schedule caste category student allotted seat in Electrical Engineering course at IIT – Took all steps to comply with all formalities pursuant to the allotment to him of a seat for the course, however, lost his admission to IIT since he was late in paying the online admission fee of Rs 17,500/- by a few minutes – Challenge to: Held: Petitioner logged in as many as on six occasions and uploaded the documents, which evidently indicates that he was making earnest efforts to log into the portal – No conceivable reason why the petitioner would not have done so if he had the wherewithal to pay the fees of Rs 17,500 – Talented student like the petitioner who belongs to a marginalized group of citizens and has done everything to secure admission should not be left in the lurch – Power of this Court u/Art.142 to do substantial justice is meant precisely to cover such a situation – Petitioner to be granted admission to IIT Dhanbad against the seat which was allotted to him in the branch of Electrical Engineering – Supernumerary seat to be created for the petitioner, if so required. [E1]"
+    },
+    {
+      "query_id": "M6_002",
+      "category": "statutory_interpretation",
+      "legal_domain": "Insolvency Law",
+      "query": "Does an appeal lie to the Supreme Court under Section 62 of the Insolvency and Bankruptcy Code against an order of the NCLAT approving withdrawal of CIRP under Rule 11?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "grounding_is_grounded": true,
+      "grounding_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 120.01,
+        "evidence_assembly_ms": 16.13,
+        "grounding_gate_ms": 2.88,
+        "prompt_construction_ms": 0.01,
+        "generation_ms": 0.47,
+        "validation_ms": 0.16,
+        "total_ms": 141.56
+      },
+      "total_latency_seconds": 0.142,
+      "num_evidence_passages": 1,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": false,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "Pardiwala and Manoj Misra, JJ.] Issue for Consideration Whether the appellant, who was not a party to the settlement between the second respondent-BCCI (Operational Creditor) and the Corporate Debtor, has locus in the proceedings before this Court; whether the NCLAT erred in invoking its inherent powers under Rule 11 of the NCLAT Rules 2016 in the presence of a prescribed procedure for withdrawal of Corporate Insolvency Resolution Process (CIRP) and settlement of claims between parties; and without prejudice to the above, whether the NCLAT adequately addressed the objections raised by the appellant, while exercising its discretionary power under Rule 11 of the NCLAT Rules 2016."
+        ]
+      },
+      "llm_usage": {
+        "prompt_tokens": 408,
+        "completion_tokens": 257
+      },
+      "claims_count": 2,
+      "answer_text": "Pardiwala and Manoj Misra, JJ.] Issue for Consideration Whether the appellant, who was not a party to the settlement between the second respondent-BCCI (Operational Creditor) and the Corporate Debtor, has locus in the proceedings before this Court; whether the NCLAT erred in invoking its inherent powers under Rule 11 of the NCLAT Rules 2016 in the presence of a prescribed procedure for withdrawal of Corporate Insolvency Resolution Process (CIRP) and settlement of claims between parties; and without prejudice to the above, whether the NCLAT adequately addressed the objections raised by the appellant, while exercising its discretionary power under Rule 11 of the NCLAT Rules 2016. [E1] Headnotes† Insolvency and Bankruptcy Code, 2016 – s.62 – Appeal to Supreme Court – “any person aggrieved” – Appellant claiming to be a Financial Creditor, if falls within the ambit of the phrase “any person aggrieved” and has the locus standi to institute the present appeal: Held: Yes – Under Section 62 governing statutory appeals to the Supreme Court from the orders of the NCLAT, “any person” aggrieved by the order of the NCLAT may file an appeal before the Supreme Court – Section 61 which provides for appeals to NCLAT from orders of the NCLT uses similar language – The use of the phrase “any person aggrieved” indicates that there is no rigid locus requirement to institute an appeal challenging an order of the NCLT, before the NCLAT or an order of the NCLAT, before this Court – Any person who is aggrieved by the order may * Author [E1]"
+    },
+    {
+      "query_id": "M6_003",
+      "category": "single_judgment_holding",
+      "legal_domain": "Consumer Protection & Torts",
+      "query": "Under the Consumer Protection Act, can a medical practitioner be held liable for medical negligence under the Bolam test if an alternative recognized surgical technique was adopted without proving lack of reasonable competence?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "grounding_is_grounded": true,
+      "grounding_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 73.17,
+        "evidence_assembly_ms": 5.79,
+        "grounding_gate_ms": 1.97,
+        "prompt_construction_ms": 0.01,
+        "generation_ms": 0.37,
+        "validation_ms": 0.13,
+        "total_ms": 82.46
+      },
+      "total_latency_seconds": 0.083,
+      "num_evidence_passages": 1,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": false,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "272 of 2012) 25 October 2024 [Pamidighantam Sri Narasimha and Pankaj Mithal,* JJ.] Issue for Consideration The NCDRC held appellant-doctor liable for negligence in medical treatment and liable for payment of compensation."
+        ]
+      },
+      "llm_usage": {
+        "prompt_tokens": 408,
+        "completion_tokens": 253
+      },
+      "claims_count": 2,
+      "answer_text": "272 of 2012) 25 October 2024 [Pamidighantam Sri Narasimha and Pankaj Mithal,* JJ.] Issue for Consideration The NCDRC held appellant-doctor liable for negligence in medical treatment and liable for payment of compensation. [E1] Headnotes† Negligence – Medical negligence – Complainants are father and son – Son was diagnosed of congenital disorder in his left eye (PTOSIS) for which a minor surgery was performed by appellant-doctor – It was alleged that surgery was performed in a negligent manner and eye further deteriorated post-surgery – The State Commission, upon examination of the records, concluded that the complainants failed to establish any negligence or carelessness on part of the doctor – However, the NCDRC held appellant-doctor liable for negligence in medical treatment and liable for payment of compensation – Correctness: Held: It is found that doctor was a competent and a skilled doctor possessing requisite qualification to perform PTOSIS surgery and to administer the requisite treatment and that he had followed the accepted mode of practice in performing the surgery and that there was no material to establish any overt act or omission to prove negligence on his part – No evidence was adduced to prove that he had not exercised sufficient care or has failed to exercise due skill in performing the surgery – It is settled that a professional may be held liable for negligence if he is not possessed of the requisite skill which he supposes to have or has failed to exercise the same with reasonable competence – The * Author [E1]"
+    },
+    {
+      "query_id": "M6_004",
+      "category": "statutory_interpretation",
+      "legal_domain": "Insolvency & Limitation Law",
+      "query": "Is a specific and clear entry in the balance sheet of a Corporate Debtor required to constitute an acknowledgment of debt under Section 18 of the Limitation Act for IBC proceedings?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "grounding_is_grounded": true,
+      "grounding_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 50.33,
+        "evidence_assembly_ms": 10.56,
+        "grounding_gate_ms": 6.83,
+        "prompt_construction_ms": 0.01,
+        "generation_ms": 0.63,
+        "validation_ms": 0.21,
+        "total_ms": 70.98
+      },
+      "total_latency_seconds": 0.071,
+      "num_evidence_passages": 1,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": false,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "1031 of 2022) 22 October 2024 [Pamidighantam Sri Narasimha* and Sandeep Mehta, JJ.] Issue for Consideration Whether specific and clear acknowledgement of debt by the Corporate Debtor in its balance sheet is necessary while considering limitation under Section 18 of the Limitation Act, 1963."
+        ]
+      },
+      "llm_usage": {
+        "prompt_tokens": 438,
+        "completion_tokens": 249
+      },
+      "claims_count": 2,
+      "answer_text": "1031 of 2022) 22 October 2024 [Pamidighantam Sri Narasimha* and Sandeep Mehta, JJ.] Issue for Consideration Whether specific and clear acknowledgement of debt by the Corporate Debtor in its balance sheet is necessary while considering limitation under Section 18 of the Limitation Act, 1963. [E1] Headnotes† Insolvency and Bankruptcy Code, 2016 – s.238A – s.18 of Limitation Act – No specific and clear acknowledge of debt in the balance sheet entries necessary while computing limitation u/s.18 Limitation Act r/w s.238A of the IBC: Held: It was contended by the Appellant that there is no unequivocal, unambiguous and specific acknowledgement of debt owed to Respondent – Financial Creditor in the balance sheet entries of Corporate Debtor for the years 2017 and 2019 – The CIRP was admitted by the NCLT on the ground that there is acknowledgement of debt in the balance sheet entries as well as Auditors Report for the year ending 31.01.2017 – The order of admission of CIRP affirmed by the NCLAT – The Appellant contended that the name of Financial Creditor in question is not specifically mentioned in the relied upon entry in the balance sheet – It was contended that in the absence of clear demarcation as to what the Corporate Debtor owes to the Financial Creditor in question, the balance sheet entries cannot be relied on for the purpose of extending the period of limitation in terms of Section 18 of the Limitation Act – By relying on Asset Reconstruction Company (India) Ltd. [E1]"
+    },
+    {
+      "query_id": "M6_005",
+      "category": "statutory_interpretation",
+      "legal_domain": "Commercial Criminal Law",
+      "query": "Can an authorized signatory who signs a cheque on behalf of a company be directed to deposit an interim sum under Section 148 of the Negotiable Instruments Act upon appeal against conviction under Section 138?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "grounding_is_grounded": true,
+      "grounding_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 55.27,
+        "evidence_assembly_ms": 7.39,
+        "grounding_gate_ms": 2.22,
+        "prompt_construction_ms": 0.01,
+        "generation_ms": 0.42,
+        "validation_ms": 0.14,
+        "total_ms": 66.51
+      },
+      "total_latency_seconds": 0.067,
+      "num_evidence_passages": 1,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": false,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "Ravikumar* and Sanjay Karol, JJ.] Issue for Consideration Whether the signatory of a cheque authorized by the Company is a drawer and whether such a signatory could be directed to deposit any sum out of the fine or compensation awarded by the trial Court u/s.148 of the Negotiable Instruments Act, 1881, as a condition for suspending the sentence in an appeal filed against his conviction u/s.138 of the NI Act."
+        ]
+      },
+      "llm_usage": {
+        "prompt_tokens": 431,
+        "completion_tokens": 289
+      },
+      "claims_count": 2,
+      "answer_text": "Ravikumar* and Sanjay Karol, JJ.] Issue for Consideration Whether the signatory of a cheque authorized by the Company is a drawer and whether such a signatory could be directed to deposit any sum out of the fine or compensation awarded by the trial Court u/s.148 of the Negotiable Instruments Act, 1881, as a condition for suspending the sentence in an appeal filed against his conviction u/s.138 of the NI Act. [E1] Headnotes† Negotiable Instruments Act, 1881 – ss.138 and 148 – Appellant is the authorized signatory of the company – The signed cheques were presented in the bank – The cheques were dishonoured and returned with the endorsement “payment stopped by the drawer” – Trial Court found appellant guilty and accordingly was convicted and sentenced – Appellant filed criminal appeals before the Principal City Civil and Session Judge – The sentence was suspended with condition to deposit 20% of the fine/compensation – It is against the said direction to deposit 20% of the compensation amount that the appellant approached the High Court, which culminated in the impugned common order dated 09.01.2024: Held: In the case of the position qua Section 143A, NI Act, merely because an officer of a company concerned is the authorised signatory of the cheque concerned by itself will not make such an officer ‘drawer of the cheque’ under Section 148, NI Act, so as to empower the Appellate Court, in an appeal against conviction for an offence under Section 138, NI Act, to direct to deposit compensation of any sum under Section 148(1), of the NI Act – It is settled that an Appellate Court in an appeal against conviction under Section 138, NI Act, could not place a condition to deposit * Author [E1]"
+    },
+    {
+      "query_id": "M6_006",
+      "category": "single_judgment_holding",
+      "legal_domain": "Constitutional & Administrative Law",
+      "query": "Can the executive authorities demolish the residential house or shelter of an accused person as a punitive measure without following due process of law?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "grounding_is_grounded": true,
+      "grounding_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 44.46,
+        "evidence_assembly_ms": 17.79,
+        "grounding_gate_ms": 3.16,
+        "prompt_construction_ms": 0.01,
+        "generation_ms": 0.27,
+        "validation_ms": 0.05,
+        "total_ms": 67.52
+      },
+      "total_latency_seconds": 0.068,
+      "num_evidence_passages": 1,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": false,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "Viswanathan, JJ.] Issue for Consideration Whether the executive should be permitted to take away the shelter of a family or families as a measure for infliction of penalty on a person who is accused in a crime."
+        ]
+      },
+      "llm_usage": {
+        "prompt_tokens": 452,
+        "completion_tokens": 74
+      },
+      "claims_count": 2,
+      "answer_text": "Viswanathan, JJ.] Issue for Consideration Whether the executive should be permitted to take away the shelter of a family or families as a measure for infliction of penalty on a person who is accused in a crime. [E1] In other words, whether properties of persons, who are accused of committing certain crimes or for that matter even convicted for commission of criminal offences, can be demolished without following the due process of law. [E1]"
+    },
+    {
+      "query_id": "M6_007",
+      "category": "single_judgment_holding",
+      "legal_domain": "Constitutional Law",
+      "query": "Are prison rules that assign manual labour and segregated duties according to the caste of inmates constitutional under Articles 14 and 15 of the Constitution?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "grounding_is_grounded": true,
+      "grounding_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 44.81,
+        "evidence_assembly_ms": 34.07,
+        "grounding_gate_ms": 2.34,
+        "prompt_construction_ms": 0.01,
+        "generation_ms": 0.48,
+        "validation_ms": 0.23,
+        "total_ms": 85.86
+      },
+      "total_latency_seconds": 0.086,
+      "num_evidence_passages": 1,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": false,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "Digital Supreme Court Reports references or definitions of “habitual offenders” in the impugned prison manuals/rules unconstitutional; that the “caste” column and any references to caste in undertrial and/or convicts’ prisoners’ registers inside the prisons to be deleted; that the Police to follow the guidelines issued in Arnesh Kumar’s case and Amanatullah Khan’s case to ensure that members of Denotified Tribes are not subjected to arbitrary arrest; that this Court to take suo motu cognizance of the discrimination inside prisons; that all States and the Union government to file a compliance report on this judgment, on the first hearing of the suo motu petition; and that NALSA to file joint status report after compiling reports of inspection conducted by DLSAs and Board of Visitors and of SLSAs before this Court."
+        ]
+      },
+      "llm_usage": {
+        "prompt_tokens": 501,
+        "completion_tokens": 385
+      },
+      "claims_count": 2,
+      "answer_text": "Digital Supreme Court Reports references or definitions of “habitual offenders” in the impugned prison manuals/rules unconstitutional; that the “caste” column and any references to caste in undertrial and/or convicts’ prisoners’ registers inside the prisons to be deleted; that the Police to follow the guidelines issued in Arnesh Kumar’s case and Amanatullah Khan’s case to ensure that members of Denotified Tribes are not subjected to arbitrary arrest; that this Court to take suo motu cognizance of the discrimination inside prisons; that all States and the Union government to file a compliance report on this judgment, on the first hearing of the suo motu petition; and that NALSA to file joint status report after compiling reports of inspection conducted by DLSAs and Board of Visitors and of SLSAs before this Court. [E1] [Paras 161-231] Prisons – Prison Manuals – Plea that Prison Manuals cast disparate burdens on prisoners based on their caste-identity, if violative of Art.14 – Caste, if an intelligible and rational principle of classification and has a rational nexus with the object of the classification: Held: Caste can be an intelligible principle of classification as it has been used to create protective policies for the marginalized castes – Constitution recognises caste as a proscribed ground of discrimination u/Art.15(1), and envisions a society free from caste- prejudices – However, caste cannot be a ground to discriminate against members of marginalized castes – Any use of caste as a basis for classification must withstand judicial scrutiny to ensure it does not perpetuate discrimination against the oppressed castes – While caste-based classifications are permissible under certain constitutional provisions, they are strictly regulated to ensure they serve the purpose of promoting equality and social justice – Classification of prisoners has been considered both from the point of view of security and discipline as well as reform and rehabilitation – However, there is no nexus between classifying prisoners based on caste and securing the objectives of security or reform – Limitations on inmates that are cruel, or irrelevant to rehabilitation are per se unreasonable, arbitrary and constitutionally suspect – Differentia between inmates that distinguishes on the basis of “habit”, “custom”, “superior mode of living”, and “natural tendency to escape”, is unconstitutionally vague and indeterminate – Objective of classification for labour for treatment and for conferment of entitlements such as [E1]"
+    },
+    {
+      "query_id": "M6_008",
+      "category": "explicit_legal_exception",
+      "legal_domain": "Disability Rights & Constitutional Law",
+      "query": "Can an applicant under the PwD category be disqualified from MBBS admission merely because benchmark disability is quantified at 44% or 45% without functional assessment?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "grounding_is_grounded": true,
+      "grounding_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 24.12,
+        "evidence_assembly_ms": 17.15,
+        "grounding_gate_ms": 2.31,
+        "prompt_construction_ms": 0.01,
+        "generation_ms": 0.38,
+        "validation_ms": 0.14,
+        "total_ms": 46.17
+      },
+      "total_latency_seconds": 0.046,
+      "num_evidence_passages": 1,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": false,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "Viswanathan,* JJ.] Issue for Consideration Whether the appellant should be disqualified from obtaining admission under the PwD category for the MBBS Course merely because his disability is quantified at 44% /45%."
+        ]
+      },
+      "llm_usage": {
+        "prompt_tokens": 427,
+        "completion_tokens": 280
+      },
+      "claims_count": 2,
+      "answer_text": "Viswanathan,* JJ.] Issue for Consideration Whether the appellant should be disqualified from obtaining admission under the PwD category for the MBBS Course merely because his disability is quantified at 44% /45%. [E1] Headnotes† Rights of Persons with Disabilities Act, 2016 – MBBS course – Admission for academic year 2024-25 – PwD category – Appellant has speech and language disability and is diagnosed with Hypernasality with Misarticulation IN K/C/O Repaired Bilateral CLEFT of palate – Appellant appeared for the NEET (UG) 2024 and qualified the same – As required, appellant underwent medical examination – The Designated Disability Certification Centre certified that the appellant has physical disability of speech and language of 44% (in some reports, it was mentioned as 45%) and recorded that based on quantification of disability, the appellant was not eligible to pursue the medical course as per NMC norms – Propriety: Held: The Appendix H-I in the notification of 13.05.2019, issued by the Medical Council of India provides a peculiar scenario – While people with less than 40% disability are not eligible for PwD quota, though they can pursue the Medical Course, persons with equal to or more than 40% disability are not eligible for the medical course – In any event, adopting a purposive interpretation of the RPwD Act, this Court is of the opinion that merely because of the quantification of the disability for speech and language at 40% or above, a candidate does not forfeit his right to stake a claim for admission to course of their choice – Appendix H-1 cannot be interpreted to mean that merely because on the quantification of the disability percentage exceeding the prescribed limits, a person * Author [E1]"
+    },
+    {
+      "query_id": "M6_009",
+      "category": "statutory_interpretation",
+      "legal_domain": "Taxation Law",
+      "query": "Does Section 17(5)(d) of the CGST Act apply the functionality test to determine whether a building constructed for leasing qualifies as a plant for input tax credit?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "grounding_is_grounded": true,
+      "grounding_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 27.13,
+        "evidence_assembly_ms": 25.97,
+        "grounding_gate_ms": 2.7,
+        "prompt_construction_ms": 0.01,
+        "generation_ms": 0.36,
+        "validation_ms": 0.13,
+        "total_ms": 59.18
+      },
+      "total_latency_seconds": 0.059,
+      "num_evidence_passages": 1,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": false,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "Oka* and Sanjay Karol, JJ.] Issue for Consideration Whether the definition of “plant and machinery” in the explanation appended to Section 17 of the Central Goods and Services Tax Act, 2017 applies to the expression “plant or machinery” used in clause (d) of sub-section (5) of Section 17; if it is held that the explanation does not apply to “plant or machinery”, what is the meaning of the word “plant”; and whether clauses (c) and (d) of Section 17(5) and Section 16(4) of the CGST Act are unconstitutional."
+        ]
+      },
+      "llm_usage": {
+        "prompt_tokens": 454,
+        "completion_tokens": 178
+      },
+      "claims_count": 2,
+      "answer_text": "Oka* and Sanjay Karol, JJ.] Issue for Consideration Whether the definition of “plant and machinery” in the explanation appended to Section 17 of the Central Goods and Services Tax Act, 2017 applies to the expression “plant or machinery” used in clause (d) of sub-section (5) of Section 17; if it is held that the explanation does not apply to “plant or machinery”, what is the meaning of the word “plant”; and whether clauses (c) and (d) of Section 17(5) and Section 16(4) of the CGST Act are unconstitutional. [E1] Headnotes† Central Goods and Services Tax Act, 2017 – s.17(5)(c), (d), s.16(4) – Constitutional validity – Challenge to – Eligibility and conditions for taking Input Tax Credit (ITC) – Apportionment of blocked credits – Whether the construction of an immovable property is a “plant” for the purposes of s.17(5)(d) – Shopping mall in question, if was a “plant” – Plea of the assessees inter alia that they were not able to avail the credit on GST paid on goods and services used in the construction of buildings etc. [E1]"
+    },
+    {
+      "query_id": "M6_010",
+      "category": "statutory_interpretation",
+      "legal_domain": "Arbitration Law",
+      "query": "Can the High Court grant an unconditional stay on the execution of an arbitral award without directing deposit or bank guarantee under Section 36 of the Arbitration and Conciliation Act?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "grounding_is_grounded": true,
+      "grounding_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 31.9,
+        "evidence_assembly_ms": 7.66,
+        "grounding_gate_ms": 4.49,
+        "prompt_construction_ms": 0.01,
+        "generation_ms": 0.37,
+        "validation_ms": 0.05,
+        "total_ms": 45.72
+      },
+      "total_latency_seconds": 0.046,
+      "num_evidence_passages": 1,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": false,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "The arbitral proceedings commenced and the three-member arbitral tribunal made an award on 7 March 2024 directing the respondent to: a."
+        ]
+      },
+      "llm_usage": {
+        "prompt_tokens": 478,
+        "completion_tokens": 46
+      },
+      "claims_count": 2,
+      "answer_text": "The arbitral proceedings commenced and the three-member arbitral tribunal made an award on 7 March 2024 directing the respondent to: a. [E1] Both parties filed applications under Section 33 of the Arbitration and Conciliation Act 19961for correction of the award and for additional arbitral awards. [E1]"
+    },
+    {
+      "query_id": "M6_011",
+      "category": "statutory_interpretation",
+      "legal_domain": "Criminal Law",
+      "query": "Does mere viewing or downloading of child sexual abuse material without sharing, transmitting, or distributing it constitute an offence under Section 15 of the POCSO Act?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "grounding_is_grounded": true,
+      "grounding_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 24.7,
+        "evidence_assembly_ms": 34.09,
+        "grounding_gate_ms": 5.38,
+        "prompt_construction_ms": 0.01,
+        "generation_ms": 0.42,
+        "validation_ms": 0.13,
+        "total_ms": 68.39
+      },
+      "total_latency_seconds": 0.068,
+      "num_evidence_passages": 1,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": false,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "Pardiwala,* J.] Issue for Consideration What is the scope of Section 15 of the Protection of Children from Sexual Offences Act, 2012 (POCSO); what is the underlying distinction between sub-section(s) (1), (2) and (3) respectively of the POCSO; whether, mere viewing, possessing or storing of any child pornographic material is punishable under the POCSO; what is the true scope of Section 67B of the IT Act; what is the scope of Section 30 of the POCSO; what are the foundational facts necessary for invoking the statutory presumption of culpable mental state in respect of Section 15 of the POCSO; whether, the statutory presumption contained in Section 30 of the POCSO can be invoked only at the stage of trial by the Special Court alone established under the POCSO; whether it is permissible for the High Court in a quashing petition filed under Section 482 of the Cr.P.C."
+        ]
+      },
+      "llm_usage": {
+        "prompt_tokens": 458,
+        "completion_tokens": 289
+      },
+      "claims_count": 2,
+      "answer_text": "Pardiwala,* J.] Issue for Consideration What is the scope of Section 15 of the Protection of Children from Sexual Offences Act, 2012 (POCSO); what is the underlying distinction between sub-section(s) (1), (2) and (3) respectively of the POCSO; whether, mere viewing, possessing or storing of any child pornographic material is punishable under the POCSO; what is the true scope of Section 67B of the IT Act; what is the scope of Section 30 of the POCSO; what are the foundational facts necessary for invoking the statutory presumption of culpable mental state in respect of Section 15 of the POCSO; whether, the statutory presumption contained in Section 30 of the POCSO can be invoked only at the stage of trial by the Special Court alone established under the POCSO; whether it is permissible for the High Court in a quashing petition filed under Section 482 of the Cr.P.C. [E1] Headnotes† Protection of Children from Sexual Offences Act, 2012 – s.15 – Scope – Interpretation – Protection of Children from Sexual Offences (Amendment) Act, 2019 – Mere viewing, possessing or storing of any child pornographic material, if punishable under the POCSO: Held: Yes – Any activity of viewing, distributing or displaying etc., of any child pornographic material by a person over the internet without any actual or physical possession or storage of such material in any device or in any form or manner would amount to ‘possession’ in terms of Section 15 of the POCSO, provided the said person exercised an invariable degree of control over such material, by virtue of the doctrine of constructive possession (possession beyond physical control, having the power and intention to control the contraband) – s.15 provides for three distinct offences that penalize * Author [E1]"
+    },
+    {
+      "query_id": "M6_012",
+      "category": "multi_passage_ratio_exceptions",
+      "legal_domain": "Criminal Procedure & Appellate Law",
+      "query": "Can a High Court reverse a Trial Court judgment of acquittal without establishing perversity or complete misappreciation of evidence on record?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "grounding_is_grounded": true,
+      "grounding_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 25.28,
+        "evidence_assembly_ms": 9.21,
+        "grounding_gate_ms": 3.45,
+        "prompt_construction_ms": 0.01,
+        "generation_ms": 0.76,
+        "validation_ms": 0.21,
+        "total_ms": 40.18
+      },
+      "total_latency_seconds": 0.04,
+      "num_evidence_passages": 1,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": false,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "Headnotes Code of Criminal Procedure, 1973 – s.378 – Appeal in case of acquittal – Scope of interference by an appellate Court for reversing the judgment of acquittal recorded by the trial Court: Held: It is beyond the pale of doubt that the scope of interference by an appellate Court for reversing the judgment of acquittal recorded by the trial Court in favour of the accused has to be exercised within the four corners of the following principles: (a) That the judgment of acquittal suffers from patent perversity; (b) That the same is based on a misreading/omission to consider material evidence on record; (c) That no two reasonable views are possible and only the view consistent with the guilt of the accused is possible from the evidence available on record – The appellate Court, in order to interfere with the judgment of acquittal would have to record pertinent findings on the above factors if it is inclined to reverse the judgment of acquittal rendered by the trial Court."
+        ]
+      },
+      "llm_usage": {
+        "prompt_tokens": 448,
+        "completion_tokens": 169
+      },
+      "claims_count": 1,
+      "answer_text": "Headnotes Code of Criminal Procedure, 1973 – s.378 – Appeal in case of acquittal – Scope of interference by an appellate Court for reversing the judgment of acquittal recorded by the trial Court: Held: It is beyond the pale of doubt that the scope of interference by an appellate Court for reversing the judgment of acquittal recorded by the trial Court in favour of the accused has to be exercised within the four corners of the following principles: (a) That the judgment of acquittal suffers from patent perversity; (b) That the same is based on a misreading/omission to consider material evidence on record; (c) That no two reasonable views are possible and only the view consistent with the guilt of the accused is possible from the evidence available on record – The appellate Court, in order to interfere with the judgment of acquittal would have to record pertinent findings on the above factors if it is inclined to reverse the judgment of acquittal rendered by the trial Court. [E1]"
+    },
+    {
+      "query_id": "M6_013",
+      "category": "single_judgment_holding",
+      "legal_domain": "Constitutional & Human Rights Law",
+      "query": "Are undertrial prisoners entitled to free and timely legal aid under Article 21 and Article 39-A of the Constitution of India?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "grounding_is_grounded": true,
+      "grounding_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 23.82,
+        "evidence_assembly_ms": 9.9,
+        "grounding_gate_ms": 4.04,
+        "prompt_construction_ms": 0.01,
+        "generation_ms": 0.48,
+        "validation_ms": 0.19,
+        "total_ms": 39.94
+      },
+      "total_latency_seconds": 0.04,
+      "num_evidence_passages": 1,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": false,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "Viswanathan,* JJ.] Issue for Consideration Access to free and timely legal aid for prison inmates."
+        ]
+      },
+      "llm_usage": {
+        "prompt_tokens": 404,
+        "completion_tokens": 258
+      },
+      "claims_count": 2,
+      "answer_text": "Viswanathan,* JJ.] Issue for Consideration Access to free and timely legal aid for prison inmates. [E1] Headnotes† Free Legal Aid – Constitutional and Statutory Framework – Constitution of India – Articles 21, 39-A – Equal justice and free legal aid – Legal Services Authorities Act, 1987 – ss.3, 4, 6, 9, 12-15 – Policies and Schemes by NALSA for making legal services available, creating awareness about convict’s right of appeal, availability of free legal services – Standard Operating Procedures (SOP) by NALSA on Access to Legal Aid Services to Prisoners and Functioning of the Prison Legal Aid Clinics 2022 (SOP-2022); SOP For (Under Trial Review Committees (UTRCs); Introduction of the Legal Aid Defense Counsel System; Special Campaigns for prisoners to ensure timely access to justice; Awareness measures; Compilation, Translation of Documents; Pre-Litigation Assistance; E-Prison Module/E-kiosks in Prisons for effective monitoring of cases, access to case updates – Elucidated – Work done by NALSA, SLSAs and DLSAs praised – Directions issued: Held: NALSA with SLSAs and DLSAs, to ensure efficient implementation and periodic updates of the SOP-2022 – Legal Services Authorities to strengthen the monitoring of PLACs and periodically review their functioning – Legal Services Authorities will periodically update and address shortcomings; ensure full implementation of Legal Aid Defence Counsel System; periodically review and update SOP-2022 for the UTRC – Awareness crucial for legal aid mechanism; robust, regularly updated mechanism to be in place by following measures such as boards with legal aid contact details be displayed at public places like police stations, bus stands, railway stations etc. [E1]"
+    },
+    {
+      "query_id": "M6_014",
+      "category": "multi_passage_ratio_exceptions",
+      "legal_domain": "Criminal Law",
+      "query": "Does mere harassment without active instigation or proximate mens rea satisfy the legal threshold for abetment of suicide under Section 306 of the Indian Penal Code?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "grounding_is_grounded": true,
+      "grounding_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 24.55,
+        "evidence_assembly_ms": 6.61,
+        "grounding_gate_ms": 2.29,
+        "prompt_construction_ms": 0.01,
+        "generation_ms": 0.4,
+        "validation_ms": 0.15,
+        "total_ms": 35.11
+      },
+      "total_latency_seconds": 0.035,
+      "num_evidence_passages": 1,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": false,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "Pardiwala and Manoj Misra, JJ.] Issue for Consideration Conviction of the appellant for the offence punishable u/s.306, Penal Code, 1860, if justified."
+        ]
+      },
+      "llm_usage": {
+        "prompt_tokens": 443,
+        "completion_tokens": 304
+      },
+      "claims_count": 2,
+      "answer_text": "Pardiwala and Manoj Misra, JJ.] Issue for Consideration Conviction of the appellant for the offence punishable u/s.306, Penal Code, 1860, if justified. [E1] Headnotes Penal Code, 1860 – s.306 – Abetment of suicide – Evidence Act, 1872 – s.113A – Presumption as to abetment of suicide by a married woman – When cannot be raised – Conviction of the appellant u/s.306, IPC – Correctness: Held: In order to convict a person u/s.306, IPC there has to be a clear mens rea to commit the offence – Mere harassment is not sufficient to hold an accused guilty of abetting the commission of suicide – It also requires an active act or direct act which led the deceased to commit suicide – The ingredient of mens rea cannot be assumed to be ostensibly present but has to be visible and conspicuous – Presumption u/s.113A is discretionary – Before the said presumption is raised, the prosecution must show evidence of cruelty or incessant harassment in that regard – The mere fact that the deceased committed suicide within a period of seven years of her marriage, the presumption u/s.113A, Evidence Act would not automatically apply – PW-4 and PW-5 (brother and father of the deceased) only stated that after the marriage, there was a demand of some money by the appellant, as he wanted to start a ration shop and on account of such demand, the deceased used to remain tense – However, what ultimately led the deceased to take such a drastic step of committing suicide is not clear – Their evidence does not disclose any form of incessant cruelty or harassment on his part which would in ordinary circumstances drag the wife to commit suicide as if she was left with no other alternative – Mere demand of money from the wife or her parents [E1]"
+    },
+    {
+      "query_id": "M6_015",
+      "category": "single_judgment_holding",
+      "legal_domain": "Taxation Law",
+      "query": "Can a banking company claim a revenue deduction for broken period interest paid on purchase of government securities under the Income Tax Act?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "grounding_is_grounded": true,
+      "grounding_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 22.04,
+        "evidence_assembly_ms": 13.28,
+        "grounding_gate_ms": 2.15,
+        "prompt_construction_ms": 0.01,
+        "generation_ms": 0.64,
+        "validation_ms": 0.15,
+        "total_ms": 39.88
+      },
+      "total_latency_seconds": 0.04,
+      "num_evidence_passages": 1,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": false,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "Oka* and Pankaj Mithal, JJ.] Issue for Consideration Issue arose as regards the treatment to be given to broken period interest, whether a deduction of the broken period interest can be claimed by the Bank, purchaser of the government Securities."
+        ]
+      },
+      "llm_usage": {
+        "prompt_tokens": 430,
+        "completion_tokens": 234
+      },
+      "claims_count": 2,
+      "answer_text": "Oka* and Pankaj Mithal, JJ.] Issue for Consideration Issue arose as regards the treatment to be given to broken period interest, whether a deduction of the broken period interest can be claimed by the Bank, purchaser of the government Securities. [E1] Headnotes† Income Tax Act, 1961 – s.28 – Interest on securities – Interest on Held to Maturity (HTM) government securities – Interest for the broken period, if allowed as a deduction: Held: As the securities were treated as stock-in-trade, the interest on the broken period cannot be considered as capital expenditure and will have to be treated as revenue expenditure, which can be allowed as a deduction – Whether the Bank holds the HTM security as investment or stock-in-trade will depend on the facts of each case – If it is found that HTM Security is held as an investment, the benefit of broken period interest will not be available and if it is held as a trading asset, deduction for broken period interest can be claimed – If deduction on account of broken period interest is not allowed, the broken period interest as capital expense will have to be added to the acquisition cost of the securities, which will then be deducted from the sale proceeds when such securities are sold in the subsequent years – Profit earned from the sale would be reduced by the amount of broken period interest. [E1]"
+    },
+    {
+      "query_id": "M6_016",
+      "category": "explicit_legal_exception",
+      "legal_domain": "Criminal Procedure",
+      "query": "Can a successor Sessions Judge pass an order on the quantum of sentence under Section 235(2) CrPC when the conviction was recorded by the predecessor judge?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "grounding_is_grounded": true,
+      "grounding_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 26.57,
+        "evidence_assembly_ms": 5.24,
+        "grounding_gate_ms": 2.84,
+        "prompt_construction_ms": 0.01,
+        "generation_ms": 0.36,
+        "validation_ms": 0.06,
+        "total_ms": 36.18
+      },
+      "total_latency_seconds": 0.036,
+      "num_evidence_passages": 1,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": false,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "4080 of 2024) 01 October 2024 [Surya Kant and Ujjal Bhuyan, JJ.] Issue for Consideration The Judge who had convicted the appellant was transferred post conviction, before the appellant could be heard on the quantum of sentence and a new Judge was posted in his place."
+        ]
+      },
+      "llm_usage": {
+        "prompt_tokens": 434,
+        "completion_tokens": 88
+      },
+      "claims_count": 2,
+      "answer_text": "4080 of 2024) 01 October 2024 [Surya Kant and Ujjal Bhuyan, JJ.] Issue for Consideration The Judge who had convicted the appellant was transferred post conviction, before the appellant could be heard on the quantum of sentence and a new Judge was posted in his place. [E1] High Court whether justified in dismissing the petition filed by the appellant and directing the new Presiding Officer to hear the appellant on the question of sentence and pass an appropriate order in terms of Section 235(2) of the Cr.P.C. [E1]"
+    },
+    {
+      "query_id": "M6_017",
+      "category": "abstention_unanswerable",
+      "legal_domain": "Data Protection & Regulatory Law",
+      "query": "What are the eligibility criteria and tenure prescribed under Section 18 of the Digital Personal Data Protection Act, 2023 for members of the Data Protection Board of India?",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "grounding_is_grounded": false,
+      "grounding_rationale": "Query explicitly inquires about statutory provisions (Section 18), but they are not present in retrieved evidence.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 20.02,
+        "evidence_assembly_ms": 14.3,
+        "grounding_gate_ms": 4.46,
+        "total_ms": 40.59
+      },
+      "total_latency_seconds": 0.041,
+      "num_evidence_passages": 4,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": true,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": true,
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": [],
+        "unsupported_sentences": []
+      },
+      "llm_usage": {},
+      "claims_count": 1,
+      "answer_text": "INSUFFICIENT EVIDENCE: Query explicitly inquires about statutory provisions (Section 18), but they are not present in retrieved evidence."
+    },
+    {
+      "query_id": "M6_018",
+      "category": "abstention_unanswerable",
+      "legal_domain": "Personal Law & Property",
+      "query": "Does the Hindu legal concept of joint family coparcenary property apply to Mohammedans governed by Muslim law?",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "grounding_is_grounded": false,
+      "grounding_rationale": "Subject context ({'family', 'property', 'joint', 'hindu', 'concept', 'legal', 'coparcenary'}) and target predicate ({'muslim', 'governed', 'mohammedans'}) appear only in disjoint contexts and do not co-occur in any evidence sentence.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 18.81,
+        "evidence_assembly_ms": 11.01,
+        "grounding_gate_ms": 3.5,
+        "total_ms": 34.51
+      },
+      "total_latency_seconds": 0.035,
+      "num_evidence_passages": 4,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": true,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": true,
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": [],
+        "unsupported_sentences": []
+      },
+      "llm_usage": {},
+      "claims_count": 1,
+      "answer_text": "INSUFFICIENT EVIDENCE: Subject context ({'family', 'property', 'joint', 'hindu', 'concept', 'legal', 'coparcenary'}) and target predicate ({'muslim', 'governed', 'mohammedans'}) appear only in disjoint contexts and do not co-occur in any evidence sentence."
+    },
+    {
+      "query_id": "M6_019",
+      "category": "abstention_unanswerable",
+      "legal_domain": "Criminal & Contempt Law",
+      "query": "Does the statutory provision for anticipatory bail under Section 438 CrPC establish that an accused can seek pre-arrest bail in contempt of court proceedings?",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "grounding_is_grounded": false,
+      "grounding_rationale": "Subject context ({'statutory', 'bail', 'anticipatory', 'crpc'}) and target predicate ({'contempt'}) appear only in disjoint contexts and do not co-occur in any evidence sentence.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 27.08,
+        "evidence_assembly_ms": 21.33,
+        "grounding_gate_ms": 4.35,
+        "total_ms": 55.1
+      },
+      "total_latency_seconds": 0.055,
+      "num_evidence_passages": 4,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": true,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": true,
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": [],
+        "unsupported_sentences": []
+      },
+      "llm_usage": {},
+      "claims_count": 1,
+      "answer_text": "INSUFFICIENT EVIDENCE: Subject context ({'statutory', 'bail', 'anticipatory', 'crpc'}) and target predicate ({'contempt'}) appear only in disjoint contexts and do not co-occur in any evidence sentence."
+    },
+    {
+      "query_id": "M6_020",
+      "category": "abstention_unanswerable",
+      "legal_domain": "Patent & Environmental Law",
+      "query": "Does Section 3(j) of the Patents Act, 1970 permit patenting of genetically modified mustard seeds containing transgenic traits as held by the Supreme Court?",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "grounding_is_grounded": false,
+      "grounding_rationale": "Historical precedent or statutory year (1970) specified in query is absent from retrieved 2024 judgments.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 21.01,
+        "evidence_assembly_ms": 54.56,
+        "grounding_gate_ms": 0.92,
+        "total_ms": 84.12
+      },
+      "total_latency_seconds": 0.084,
+      "num_evidence_passages": 4,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": true,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": true,
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": [],
+        "unsupported_sentences": []
+      },
+      "llm_usage": {},
+      "claims_count": 1,
+      "answer_text": "INSUFFICIENT EVIDENCE: Historical precedent or statutory year (1970) specified in query is absent from retrieved 2024 judgments."
+    },
+    {
+      "query_id": "M6_021",
+      "category": "abstention_unanswerable",
+      "legal_domain": "Competition & Regulatory Law",
+      "query": "What is the statutory limitation period prescribed under Section 16 of the Competition Act, 2002 for appointment of the Director General by the Central Government?",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "grounding_is_grounded": false,
+      "grounding_rationale": "Query explicitly inquires about statutory provisions (Section 16), but they are not present in retrieved evidence.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 27.43,
+        "evidence_assembly_ms": 61.27,
+        "grounding_gate_ms": 4.94,
+        "total_ms": 101.94
+      },
+      "total_latency_seconds": 0.102,
+      "num_evidence_passages": 4,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": true,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": true,
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": [],
+        "unsupported_sentences": []
+      },
+      "llm_usage": {},
+      "claims_count": 1,
+      "answer_text": "INSUFFICIENT EVIDENCE: Query explicitly inquires about statutory provisions (Section 16), but they are not present in retrieved evidence."
+    },
+    {
+      "query_id": "M6_022",
+      "category": "abstention_unanswerable",
+      "legal_domain": "Election Law",
+      "query": "Did the Supreme Court disqualify a sitting Member of Parliament for filing an incomplete affidavit under Section 33A of the Representation of the People Act in the 2024 general election?",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "grounding_is_grounded": false,
+      "grounding_rationale": "Query explicitly inquires about statutory provisions (Section 33A), but they are not present in retrieved evidence.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 29.29,
+        "evidence_assembly_ms": 12.19,
+        "grounding_gate_ms": 2.4,
+        "total_ms": 45.44
+      },
+      "total_latency_seconds": 0.045,
+      "num_evidence_passages": 4,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": true,
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": true,
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": [],
+        "unsupported_sentences": []
+      },
+      "llm_usage": {},
+      "claims_count": 1,
+      "answer_text": "INSUFFICIENT EVIDENCE: Query explicitly inquires about statutory provisions (Section 33A), but they are not present in retrieved evidence."
+    }
+  ]
+}

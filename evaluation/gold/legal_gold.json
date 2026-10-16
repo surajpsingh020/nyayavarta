@@ -1,0 +1,415 @@
+[
+  {
+    "query_id": "LQ001",
+    "relevant_document_ids": [
+      "2024_10_393_410",
+      "2024_3_778_811"
+    ],
+    "relevance_grades": {
+      "2024_10_393_410": 2,
+      "2024_3_778_811": 1
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_393_410 directly addresses statutory conditions for bail under Section 45 PMLA and prolonged incarceration; 2024_3_778_811 partially addresses bail principles under PMLA."
+  },
+  {
+    "query_id": "LQ002",
+    "relevant_document_ids": [
+      "2024_10_108_125",
+      "2024_10_1757_1768"
+    ],
+    "relevance_grades": {
+      "2024_10_108_125": 2,
+      "2024_10_1757_1768": 1
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_108_125 directly examines whether an appellate court can reverse an acquittal into conviction in circumstantial evidence cases without a complete chain of evidence; 2024_10_1757_1768 discusses standards for reversing trial court acquittals based on circumstantial evidence."
+  },
+  {
+    "query_id": "LQ003",
+    "relevant_document_ids": [
+      "2024_10_1359_1370",
+      "2024_10_901_910"
+    ],
+    "relevance_grades": {
+      "2024_10_1359_1370": 2,
+      "2024_10_901_910": 1
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_1359_1370 directly decides whether a pendente lite transferee stranger to the suit can maintain an application under Order XXI Rule 99 CPC for re-delivery after dispossession; 2024_10_901_910 partially covers the rights and lis pendens status of pendente lite purchasers."
+  },
+  {
+    "query_id": "LQ004",
+    "relevant_document_ids": [
+      "2024_10_1344_1358",
+      "2024_10_98_107"
+    ],
+    "relevance_grades": {
+      "2024_10_1344_1358": 2,
+      "2024_10_98_107": 1
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_1344_1358 directly addresses the rule against changing the rules of the game after the game is played and scrapping a completed select list; 2024_10_98_107 partially relates to validity of recruitment selection criteria."
+  },
+  {
+    "query_id": "LQ005",
+    "relevant_document_ids": [
+      "2024_10_1371_1380"
+    ],
+    "relevance_grades": {
+      "2024_10_1371_1380": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_1371_1380 directly resolves whether Rule 9(4) of the Security Interest Rules permits extension of time for depositing balance auction consideration and bars bank from cancelling confirmed auction when purchaser was not in default."
+  },
+  {
+    "query_id": "LQ006",
+    "relevant_document_ids": [
+      "2024_10_1381_1403"
+    ],
+    "relevance_grades": {
+      "2024_10_1381_1403": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_1381_1403 directly adjudicates whether a municipal corporation can levy royalty or fees on advertisements under Article 265 of the Constitution without legislative sanction."
+  },
+  {
+    "query_id": "LQ007",
+    "relevant_document_ids": [
+      "2024_10_1404_1447"
+    ],
+    "relevance_grades": {
+      "2024_10_1404_1447": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_1404_1447 directly answers whether an economic regulatory body (AERA) can be impleaded or appeal against appellate tribunal orders modifying tariff determinations depending on adjudicatory vs regulatory role."
+  },
+  {
+    "query_id": "LQ008",
+    "relevant_document_ids": [
+      "2024_10_1448_1461"
+    ],
+    "relevance_grades": {
+      "2024_10_1448_1461": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_1448_1461 directly discusses the power of the appropriate government under Section 432 CrPC and Section 473 BNSS to impose valid conditions when granting remission of life sentence."
+  },
+  {
+    "query_id": "LQ009",
+    "relevant_document_ids": [
+      "2024_10_1462_1474"
+    ],
+    "relevance_grades": {
+      "2024_10_1462_1474": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_1462_1474 directly determines whether specific acknowledgement of debt in corporate debtor balance sheets serves as Section 18 Limitation Act acknowledgement for IBC insolvency admission."
+  },
+  {
+    "query_id": "LQ010",
+    "relevant_document_ids": [
+      "2024_10_1475_1482"
+    ],
+    "relevance_grades": {
+      "2024_10_1475_1482": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_1475_1482 directly defines the legal requirements and standard of medical care expected from a surgeon, reversing an unjustified finding of medical negligence under consumer law."
+  },
+  {
+    "query_id": "LQ011",
+    "relevant_document_ids": [
+      "2024_10_1483_1502",
+      "2024_10_54_61"
+    ],
+    "relevance_grades": {
+      "2024_10_1483_1502": 2,
+      "2024_10_54_61": 1
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_1483_1502 directly formulates tests for mens rea and instigation under Section 306 IPC and principles for quashing proceedings before trial; 2024_10_54_61 deals with Section 306 IPC in the context of matrimonial cruelty."
+  },
+  {
+    "query_id": "LQ012",
+    "relevant_document_ids": [
+      "2024_10_1503_1512"
+    ],
+    "relevance_grades": {
+      "2024_10_1503_1512": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_1503_1512 directly rules that the Arbitration and Conciliation Act is a self-contained code that does not differentiate between statutory governmental undertakings and private parties when ordering security or stay under Section 36."
+  },
+  {
+    "query_id": "LQ013",
+    "relevant_document_ids": [
+      "2024_10_150_153"
+    ],
+    "relevance_grades": {
+      "2024_10_150_153": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_150_153 directly addresses the fact situation where an underprivileged Dalit candidate was denied IIT seat allocation due to missing the online fee deadline by a few minutes, invoking Article 142 to secure admission."
+  },
+  {
+    "query_id": "LQ014",
+    "relevant_document_ids": [
+      "2024_10_1513_1632"
+    ],
+    "relevance_grades": {
+      "2024_10_1513_1632": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_1513_1632 lays down comprehensive national guidelines for enforcement of the Prohibition of Child Marriage Act 2006, appointment of Child Marriage Prohibition Officers, and inter-agency coordination."
+  },
+  {
+    "query_id": "LQ015",
+    "relevant_document_ids": [
+      "2024_10_154_314"
+    ],
+    "relevance_grades": {
+      "2024_10_154_314": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_154_314 directly decides whether viewing or streaming child pornography over the internet without physical storage constitutes 'possession' under Section 15 of POCSO and Section 67B of IT Act."
+  },
+  {
+    "query_id": "LQ016",
+    "relevant_document_ids": [
+      "2024_10_1633_1708"
+    ],
+    "relevance_grades": {
+      "2024_10_1633_1708": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_1633_1708 directly resolves whether the time extension under TOLA applies to reassessment notices issued under the amended Section 148 regime of the Income Tax Act post-April 2021."
+  },
+  {
+    "query_id": "LQ017",
+    "relevant_document_ids": [
+      "2024_10_1709_1725",
+      "2024_10_2278_2302"
+    ],
+    "relevance_grades": {
+      "2024_10_1709_1725": 2,
+      "2024_10_2278_2302": 1
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_1709_1725 directly details the comparable sales exemplar methodology for computing fair market value under Land Acquisition Act 1894; 2024_10_2278_2302 covers acquisition proceedings and Section 5A inquiries."
+  },
+  {
+    "query_id": "LQ018",
+    "relevant_document_ids": [
+      "2024_10_1726_1735"
+    ],
+    "relevance_grades": {
+      "2024_10_1726_1735": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_1726_1735 directly addresses the effect of admission of documents under Section 294 CrPC and rules that remand to re-examine witnesses after dispensing with formal proof is improper."
+  },
+  {
+    "query_id": "LQ019",
+    "relevant_document_ids": [
+      "2024_10_1802_1854"
+    ],
+    "relevance_grades": {
+      "2024_10_1802_1854": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_1802_1854 directly decides locus standi under Section 62 IBC for major lenders not party to a bilateral settlement and sets aside NCLAT's invocation of Rule 11 inherent powers to bypass CIRP withdrawal rules."
+  },
+  {
+    "query_id": "LQ020",
+    "relevant_document_ids": [
+      "2024_10_1876_1889",
+      "2024_10_37_44"
+    ],
+    "relevance_grades": {
+      "2024_10_1876_1889": 2,
+      "2024_10_37_44": 1
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_1876_1889 directly examines the reliability and care required before acting on an oral dying declaration made to an interested relative; 2024_10_37_44 discusses reliability of magistrate-recorded dying declarations."
+  },
+  {
+    "query_id": "LQ021",
+    "relevant_document_ids": [
+      "2024_10_1890_1901",
+      "2024_10_2248_2264"
+    ],
+    "relevance_grades": {
+      "2024_10_1890_1901": 2,
+      "2024_10_2248_2264": 1
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_1890_1901 directly clarifies that an authorized signatory of a company is not a 'drawer' under Section 148 NI Act and cannot be directed to deposit interim compensation; 2024_10_2248_2264 covers liability under Section 138 NI Act."
+  },
+  {
+    "query_id": "LQ022",
+    "relevant_document_ids": [
+      "2024_10_417_424",
+      "2024_10_650_672"
+    ],
+    "relevance_grades": {
+      "2024_10_417_424": 2,
+      "2024_10_650_672": 1
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_417_424 directly deals with quashing criminal prosecution under Section 482 CrPC where a bank loan transaction has been compromised and cleared under OTS; 2024_10_650_672 reiterates principles for quashing commercial/civil disputes after settlement."
+  },
+  {
+    "query_id": "LQ023",
+    "relevant_document_ids": [
+      "2024_10_445_492"
+    ],
+    "relevance_grades": {
+      "2024_10_445_492": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_445_492 directly tests the constitutional validity under Article 14 of single-entity legislation (Khalsa University Repeal Act) targeting one private institution without reasonable differentia."
+  },
+  {
+    "query_id": "LQ024",
+    "relevant_document_ids": [
+      "2024_10_45_53"
+    ],
+    "relevance_grades": {
+      "2024_10_45_53": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_45_53 directly examines the scope of Section 25(2) of the Domestic Violence Act regarding alteration or revocation of maintenance orders upon change in circumstances."
+  },
+  {
+    "query_id": "LQ025",
+    "relevant_document_ids": [
+      "2024_10_493_638"
+    ],
+    "relevance_grades": {
+      "2024_10_493_638": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_493_638 directly holds caste-based labor allocation, caste discrimination, and segregation in state prison manuals violative of Articles 14, 15, 17, 21, and 23 of the Constitution."
+  },
+  {
+    "query_id": "LQ026",
+    "relevant_document_ids": [
+      "2024_10_62_78",
+      "2024_10_639_649"
+    ],
+    "relevance_grades": {
+      "2024_10_62_78": 2,
+      "2024_10_639_649": 1
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_62_78 directly orders quashing of Section 498A IPC charges against distant in-laws where allegations are vague and omnibus; 2024_10_639_649 discusses parameters of Section 482 CrPC inherent powers."
+  },
+  {
+    "query_id": "LQ027",
+    "relevant_document_ids": [
+      "2024_10_961_1312",
+      "2024_10_736_752"
+    ],
+    "relevance_grades": {
+      "2024_10_961_1312": 2,
+      "2024_10_736_752": 1
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_961_1312 is the Constitution Bench decision directly upholding the constitutional validity of Section 6A of the Citizenship Act 1955; 2024_10_736_752 partially addresses constitutional provisions governing citizenship."
+  },
+  {
+    "query_id": "LQ028",
+    "relevant_document_ids": [
+      "2024_10_793_859"
+    ],
+    "relevance_grades": {
+      "2024_10_793_859": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_793_859 directly addresses Section 17(5)(d) CGST Act, interpretation of 'plant or machinery', and entitlement to Input Tax Credit for construction of commercial malls leased out for business."
+  },
+  {
+    "query_id": "LQ029",
+    "relevant_document_ids": [
+      "2024_10_911_919"
+    ],
+    "relevance_grades": {
+      "2024_10_911_919": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_911_919 directly rules that an application under Section 319 CrPC can be decided based on examination-in-chief without awaiting cross-examination of prosecution witnesses."
+  },
+  {
+    "query_id": "LQ030",
+    "relevant_document_ids": [
+      "2024_10_939_951",
+      "2024_10_786_792"
+    ],
+    "relevance_grades": {
+      "2024_10_939_951": 2,
+      "2024_10_786_792": 1
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_939_951 directly holds that an Aadhaar card is proof of identity but not conclusive proof of date of birth, giving precedence to school leaving certificates for MACT claims; 2024_10_786_792 relates to evidence assessment in motor accident claims."
+  },
+  {
+    "query_id": "LQ031",
+    "relevant_document_ids": [
+      "2024_10_952_960"
+    ],
+    "relevance_grades": {
+      "2024_10_952_960": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_952_960 directly determines that once a registered gift deed is accepted and title passes, the donor cannot unilaterally revoke the gift under Section 126 Transfer of Property Act without a reserved revocation power."
+  },
+  {
+    "query_id": "LQ032",
+    "relevant_document_ids": [
+      "2024_11_1042_1063"
+    ],
+    "relevance_grades": {
+      "2024_11_1042_1063": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_11_1042_1063 directly holds that all High Court judges form a homogenous class under Article 216 and any disparity in General Provident Fund or service conditions based on recruitment source violates the Constitution."
+  },
+  {
+    "query_id": "LQ033",
+    "relevant_document_ids": [
+      "2024_10_2303_2313"
+    ],
+    "relevance_grades": {
+      "2024_10_2303_2313": 2
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_2303_2313 directly interprets Section 2(s) of the Industrial Disputes Act 1947 and sets the tests to distinguish workers performing supervisory duties from workmen."
+  },
+  {
+    "query_id": "LQ034",
+    "relevant_document_ids": [
+      "2024_11_1099_1129",
+      "2024_10_901_910"
+    ],
+    "relevance_grades": {
+      "2024_11_1099_1129": 2,
+      "2024_10_901_910": 1
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_11_1099_1129 directly explains the doctrine of time as essence of contract in specific performance suits for sale of immovable property; 2024_10_901_910 covers specific performance and sale agreements under property law."
+  },
+  {
+    "query_id": "LQ035",
+    "relevant_document_ids": [
+      "2024_10_411_416",
+      "2024_5_501_509"
+    ],
+    "relevance_grades": {
+      "2024_10_411_416": 2,
+      "2024_5_501_509": 1
+    },
+    "annotation_method": "topic_matching",
+    "annotation_note": "2024_10_411_416 directly affirms that a claim of juvenility under the Juvenile Justice Act can be raised at any stage even after the conviction and sentence have attained finality; 2024_5_501_509 addresses verification of juvenility claims."
+  }
+]

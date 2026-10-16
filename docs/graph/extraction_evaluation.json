@@ -1,0 +1,1145 @@
+{
+    "benchmark_sample_passages": 19,
+    "total_gold_citations": 116,
+    "total_extracted_citations": 113,
+    "true_positives": 105,
+    "false_positives": 8,
+    "false_negatives": 11,
+    "overall_precision": 0.9292,
+    "overall_recall": 0.9052,
+    "overall_f1": 0.917,
+    "entity_resolution": {
+        "total_evaluated": 105,
+        "correct_predictions": 85,
+        "resolution_accuracy": 0.8095,
+        "unresolved_rate": 0.8762,
+        "ambiguous_rate": 0.0095,
+        "predicted_status_counts": {
+            "resolved": 12,
+            "ambiguous": 1,
+            "unresolved": 92
+        },
+        "gold_status_counts": {
+            "resolved": 24,
+            "ambiguous": 1,
+            "unresolved": 80
+        }
+    },
+    "breakdown_by_type": {
+        "air": {
+            "gold_count": 13,
+            "extracted_count": 13,
+            "true_positives": 13,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": 1.0,
+            "recall": 1.0
+        },
+        "case_title": {
+            "gold_count": 45,
+            "extracted_count": 43,
+            "true_positives": 38,
+            "false_positives": 5,
+            "false_negatives": 7,
+            "precision": 0.8837,
+            "recall": 0.8444
+        },
+        "neutral_insc": {
+            "gold_count": 9,
+            "extracted_count": 9,
+            "true_positives": 9,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": 1.0,
+            "recall": 1.0
+        },
+        "scc": {
+            "gold_count": 29,
+            "extracted_count": 27,
+            "true_positives": 27,
+            "false_positives": 0,
+            "false_negatives": 2,
+            "precision": 1.0,
+            "recall": 0.931
+        },
+        "scc_online": {
+            "gold_count": 2,
+            "extracted_count": 2,
+            "true_positives": 2,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": 1.0,
+            "recall": 1.0
+        },
+        "scr": {
+            "gold_count": 15,
+            "extracted_count": 13,
+            "true_positives": 13,
+            "false_positives": 0,
+            "false_negatives": 2,
+            "precision": 1.0,
+            "recall": 0.8667
+        },
+        "unanchored_mention": {
+            "gold_count": 3,
+            "extracted_count": 6,
+            "true_positives": 3,
+            "false_positives": 3,
+            "false_negatives": 0,
+            "precision": 0.5,
+            "recall": 1.0
+        }
+    },
+    "detailed_matches": [
+        {
+            "sample_id": "SAMPLE_001",
+            "raw_text": "[2024] 10 S.C.R. 108",
+            "citation_type": "scr",
+            "gold_status": "resolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": "2024_10_108_125",
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_001",
+            "raw_text": "2024 INSC 735",
+            "citation_type": "neutral_insc",
+            "gold_status": "resolved",
+            "pred_status": "resolved",
+            "resolved_doc_id": "2024_10_108_125",
+            "target_doc_id": "2024_10_108_125",
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_001",
+            "raw_text": "INSC 735 Vijay Singh @ Vijay Kr. Sharma v. The State of Bihar",
+            "citation_type": "case_title",
+            "gold_status": "resolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": "2024_10_108_125",
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_001",
+            "raw_text": "Appeal No. 1031 of 2015). Also referred to Labh Singh v. State of Punjab",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_001",
+            "raw_text": "(1976) 1 SCC 181",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_001",
+            "raw_text": "(1982) 1 SCC 488",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_002",
+            "raw_text": "Mineral Area Development Authority v. Steel Authority of India",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "ambiguous",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_002",
+            "raw_text": "[2024] 8 SCR 540",
+            "citation_type": "scr",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_002",
+            "raw_text": "2024 SCC OnLine SC 1796",
+            "citation_type": "scc_online",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_002",
+            "raw_text": "AIR 1965 SC 177",
+            "citation_type": "air",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_003",
+            "raw_text": "[2024] 10 S.C.R. 1371",
+            "citation_type": "scr",
+            "gold_status": "resolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": "2024_10_1371_1380",
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_003",
+            "raw_text": "2024 INSC 780",
+            "citation_type": "neutral_insc",
+            "gold_status": "resolved",
+            "pred_status": "resolved",
+            "resolved_doc_id": "2024_10_1371_1380",
+            "target_doc_id": "2024_10_1371_1380",
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_003",
+            "raw_text": "INSC 780 IDBI Bank Ltd. v. Ramswaroop Daliya and Ors",
+            "citation_type": "case_title",
+            "gold_status": "resolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": "2024_10_1371_1380",
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_003",
+            "raw_text": "Relied upon State Bank of India v. V. Ramakrishnan",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_003",
+            "raw_text": "(2018) 17 SCC 394",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_003",
+            "raw_text": "[2023] 14 SCR 666",
+            "citation_type": "scr",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_003",
+            "raw_text": "(2023) 10 SCC 232",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_004",
+            "raw_text": "In Maneka Gandhi v. Union of India",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_004",
+            "raw_text": "[1978] 2 SCR 621",
+            "citation_type": "scr",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_004",
+            "raw_text": "AIR 1978 SC 597",
+            "citation_type": "air",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_004",
+            "raw_text": "AIR 1978 SC 597, as also in Express Newspapers Pvt. Ltd. v. Union of India",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_004",
+            "raw_text": "(1986) 1 SCC 133",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_004",
+            "raw_text": "in the case of Shreya Singhal",
+            "citation_type": "unanchored_mention",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_004",
+            "raw_text": "(2015) 5 SCC 1",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_005",
+            "raw_text": "2024 INSC 810",
+            "citation_type": "neutral_insc",
+            "gold_status": "resolved",
+            "pred_status": "resolved",
+            "resolved_doc_id": "2024_10_1462_1474",
+            "target_doc_id": "2024_10_1462_1474",
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_005",
+            "raw_text": "INSC 810 Vidyasagar Prasad v. UCO Bank & Anr",
+            "citation_type": "case_title",
+            "gold_status": "resolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": "2024_10_1462_1474",
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_005",
+            "raw_text": "The principles laid down in Dena Bank v. C. Shivakumar Reddy",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_005",
+            "raw_text": "(2021) 10 SCC 330",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_005",
+            "raw_text": "SCC 330 and Asset Reconstruction Company (India) Limited v. Bishal Jaiswal",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_005",
+            "raw_text": "(2021) 6 SCC 366",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_006",
+            "raw_text": "[2024] 10 S.C.R. 1448",
+            "citation_type": "scr",
+            "gold_status": "resolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": "2024_10_1448_1461",
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_006",
+            "raw_text": "2024 INSC 806",
+            "citation_type": "neutral_insc",
+            "gold_status": "resolved",
+            "pred_status": "resolved",
+            "resolved_doc_id": "2024_10_1448_1461",
+            "target_doc_id": "2024_10_1448_1461",
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_006",
+            "raw_text": "INSC 806 Mafabhai Motibhai Sagar v. State of Gujarat",
+            "citation_type": "case_title",
+            "gold_status": "resolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": "2024_10_1448_1461",
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_006",
+            "raw_text": "Reference made to Union of India v. Sriharan",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_006",
+            "raw_text": "(2016) 7 SCC 1",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_006",
+            "raw_text": "SCC 1 and State of Haryana v. Mahender Singh",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_006",
+            "raw_text": "(2007) 13 SCC 606",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_007",
+            "raw_text": "[2024] 1 S.C.R. 1",
+            "citation_type": "scr",
+            "gold_status": "resolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": "2024_1_1_10",
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_007",
+            "raw_text": "2024 INSC 2",
+            "citation_type": "neutral_insc",
+            "gold_status": "resolved",
+            "pred_status": "resolved",
+            "resolved_doc_id": "2024_1_1_10",
+            "target_doc_id": "2024_1_1_10",
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_007",
+            "raw_text": "INSC 2 Case Details Vashist Narayan Kumar v. The State of Bihar & Ors",
+            "citation_type": "case_title",
+            "gold_status": "resolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": "2024_1_1_10",
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_007",
+            "raw_text": "Reliance was placed on Commissioner of Police v. Sandeep Kumar",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_007",
+            "raw_text": "(2011) 4 SCC 644",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_007",
+            "raw_text": "AIR 2011 SC 2901",
+            "citation_type": "air",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_008",
+            "raw_text": "In Vijay Madanlal Choudhary v. Union of India 2022 SCC OnLine SC 929",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_008",
+            "raw_text": "2022 SCC OnLine SC 929",
+            "citation_type": "scc_online",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_008",
+            "raw_text": "2024 INSC 595",
+            "citation_type": "neutral_insc",
+            "gold_status": "unresolved",
+            "pred_status": "resolved",
+            "resolved_doc_id": "2024_8_1061_1085",
+            "target_doc_id": null,
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_008",
+            "raw_text": "decision in Kalvakuntla Kavitha",
+            "citation_type": "unanchored_mention",
+            "gold_status": "unresolved",
+            "pred_status": "resolved",
+            "resolved_doc_id": "2024_8_717_726",
+            "target_doc_id": null,
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_009",
+            "raw_text": "Hindustan Petroleum Corporation Limited v. Darius Shapur Chenai",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_009",
+            "raw_text": "(2005) 7 SCC 627",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_009",
+            "raw_text": "SCC 627 and as held in K.P. Varghese v. ITO",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_009",
+            "raw_text": "(1981) 4 SCC 173",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_009",
+            "raw_text": "AIR 1981 SC 1922",
+            "citation_type": "air",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_010",
+            "raw_text": "State of Punjab v. Davinder Singh",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "resolved",
+            "resolved_doc_id": "2024_8_1321_1672",
+            "target_doc_id": null,
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_010",
+            "raw_text": "(2020) 8 SCC 1",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_010",
+            "raw_text": "(2005) 1 SCC 394",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_011",
+            "raw_text": "In State of Haryana v. Bhajan Lal 1992 Supp",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_011",
+            "raw_text": "AIR 1992 SC 604",
+            "citation_type": "air",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_011",
+            "raw_text": "View taken in R.P. Kapur v. State of Punjab AIR 1960 SC 866 reaffirms this",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_011",
+            "raw_text": "AIR 1960 SC 866",
+            "citation_type": "air",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_012",
+            "raw_text": "[2023] 6 SCR 669",
+            "citation_type": "scr",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_012",
+            "raw_text": "(2023) 14 SCC 1",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_012",
+            "raw_text": "AIR 1956 SC 44",
+            "citation_type": "air",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_012",
+            "raw_text": "[1955] 2 SCR 925",
+            "citation_type": "scr",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_012",
+            "raw_text": "ratio in P.P. Unnikrishnan",
+            "citation_type": "unanchored_mention",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_012",
+            "raw_text": "(2000) 7 SCC 409",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_013",
+            "raw_text": "Hardeep Singh v. State of Punjab",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_013",
+            "raw_text": "(2014) 3 SCC 92",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_013",
+            "raw_text": "[2014] 1 SCR 1121",
+            "citation_type": "scr",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_013",
+            "raw_text": "SCR 1121 and as held in Brijendra Singh v. State of Rajasthan",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_013",
+            "raw_text": "(2017) 7 SCC 706",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_014",
+            "raw_text": "Chand Rani v. Kamal Rani",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_014",
+            "raw_text": "(1993) 1 SCC 519",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_014",
+            "raw_text": "AIR 1993 SC 1742",
+            "citation_type": "air",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_014",
+            "raw_text": "AIR 1993 SC 1742 and Welspun Specialty Solutions Limited v. ONGC",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_014",
+            "raw_text": "(2022) 2 SCC 382",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_015",
+            "raw_text": "[2024] 10 S.C.R. 126",
+            "citation_type": "scr",
+            "gold_status": "resolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": "2024_10_126_149",
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_015",
+            "raw_text": "2024 INSC 748",
+            "citation_type": "neutral_insc",
+            "gold_status": "resolved",
+            "pred_status": "resolved",
+            "resolved_doc_id": "2024_10_126_149",
+            "target_doc_id": "2024_10_126_149",
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_015",
+            "raw_text": "INSC 748 V. Vincent Velankanni v. The Union of India and Others",
+            "citation_type": "case_title",
+            "gold_status": "resolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": "2024_10_126_149",
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_015",
+            "raw_text": "Referred to Indra Sawhney v. Union of India 1992 Supp",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_015",
+            "raw_text": "AIR 1993 SC 477",
+            "citation_type": "air",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_015",
+            "raw_text": "AIR 1993 SC 477 and Sonia v. State of Haryana AIR 1975 SC 613",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_015",
+            "raw_text": "AIR 1975 SC 613",
+            "citation_type": "air",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_016",
+            "raw_text": "[2024] 10 S.C.R. 1313",
+            "citation_type": "scr",
+            "gold_status": "resolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": "2024_10_1313_1343",
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_016",
+            "raw_text": "2024 INSC 755",
+            "citation_type": "neutral_insc",
+            "gold_status": "resolved",
+            "pred_status": "resolved",
+            "resolved_doc_id": "2024_10_1313_1343",
+            "target_doc_id": "2024_10_1313_1343",
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_016",
+            "raw_text": "INSC 755 Rama Devi v. The State of Bihar and Others",
+            "citation_type": "case_title",
+            "gold_status": "resolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": "2024_10_1313_1343",
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_016",
+            "raw_text": "Cited Sharad Birdhichand Sarda v. State of Maharashtra",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_016",
+            "raw_text": "(1984) 4 SCC 116",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_016",
+            "raw_text": "AIR 1984 SC 1622",
+            "citation_type": "air",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_016",
+            "raw_text": "AIR 1952 SC 343",
+            "citation_type": "air",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_017",
+            "raw_text": "[2024] 10 S.C.R. 1344",
+            "citation_type": "scr",
+            "gold_status": "resolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": "2024_10_1344_1358",
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_017",
+            "raw_text": "2024 INSC 763",
+            "citation_type": "neutral_insc",
+            "gold_status": "resolved",
+            "pred_status": "resolved",
+            "resolved_doc_id": "2024_10_1344_1358",
+            "target_doc_id": "2024_10_1344_1358",
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_017",
+            "raw_text": "INSC 763 Shashi Bhushan Prasad Singh v. The State of Bihar and Others",
+            "citation_type": "case_title",
+            "gold_status": "resolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": "2024_10_1344_1358",
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_017",
+            "raw_text": "Relied on Punjab National Bank v. Kunj Behari Misra",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_017",
+            "raw_text": "(1998) 7 SCC 84",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_017",
+            "raw_text": "SCC 84 and Managing Director, ECIL v. B. Karunakar",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_017",
+            "raw_text": "(1993) 4 SCC 727",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_018",
+            "raw_text": "Renjith K.G. & Others v. Sheeba",
+            "citation_type": "case_title",
+            "gold_status": "resolved",
+            "pred_status": "resolved",
+            "resolved_doc_id": "2024_10_1359_1370",
+            "target_doc_id": "2024_10_1359_1370",
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_018",
+            "raw_text": "Distinguished Shreenath v. Rajesh",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_018",
+            "raw_text": "(1998) 4 SCC 543",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_018",
+            "raw_text": "SCC 543 and Brahmdeo Chaudhary v. Rishikesh Prasad Jaiswal",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_018",
+            "raw_text": "(1997) 3 SCC 694",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_018",
+            "raw_text": "AIR 1997 SC 856",
+            "citation_type": "air",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_019",
+            "raw_text": "State of Madhya Pradesh v. Accused",
+            "citation_type": "case_title",
+            "gold_status": "ambiguous",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": false
+        },
+        {
+            "sample_id": "SAMPLE_019",
+            "raw_text": "The view in Keshavananda Bharati v. State of Kerala",
+            "citation_type": "case_title",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        },
+        {
+            "sample_id": "SAMPLE_019",
+            "raw_text": "(1973) 4 SCC 225",
+            "citation_type": "scc",
+            "gold_status": "unresolved",
+            "pred_status": "unresolved",
+            "resolved_doc_id": null,
+            "target_doc_id": null,
+            "resolution_correct": true
+        }
+    ]
+}

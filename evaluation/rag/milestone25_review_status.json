@@ -1,0 +1,33 @@
+{
+  "milestone": "Milestone 25",
+  "review_status": "PENDING_EXTERNAL_REVIEW",
+  "handoff_package_ready": true,
+  "handoff_package_files": {
+    "protocol": "docs/MILESTONE_25_REVIEW_PROTOCOL.md",
+    "reviewer_template": "evaluation/rag/milestone25_reviewer_template.jsonl",
+    "frozen_mapping": "evaluation/rag/milestone25_frozen_mapping.json"
+  },
+  "review_pack_metadata": {
+    "total_cases": 30,
+    "categories_covered": 9,
+    "category_distribution": {
+      "supported": 4,
+      "partially_supported": 4,
+      "unsupported_with_valid_citation": 3,
+      "contradicted": 4,
+      "statutory_exceptions_and_conditions": 3,
+      "party_submissions_vs_holdings": 3,
+      "quoted_precedents": 3,
+      "overgeneralized_holdings": 3,
+      "ambiguous_claims": 3
+    },
+    "blinding_verified": true,
+    "system_labels_in_template": false,
+    "scores_in_template": false
+  },
+  "external_reviewers_engaged": [],
+  "external_annotations_received": 0,
+  "independent_validation_completed": false,
+  "blocker_description": "External independent legal review requires engagement of an independent practicing advocate, retired judicial officer, or legal scholar who has no prior involvement in NyayaVarta prompt engineering or verifier rule construction. Until an external reviewer executes and returns the annotation protocol, the status remains PENDING_EXTERNAL_REVIEW.",
+  "release_gate_status": "HOLD_NOT_READY_FOR_EXTERNAL_PILOT"
+}

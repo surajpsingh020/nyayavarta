@@ -1,0 +1,572 @@
+{
+    "benchmark_file": "annotated_statutes_sample.json",
+    "milestone": "4A.1",
+    "legal_disclosure": "DISCLAIMER: Extracted statutory mentions indicate textual references within judicial opinions. They do NOT establish or imply that a provision currently governs the case, was applied by the court as the ratio decidendi, or remains in force/un-amended under contemporary Indian law.",
+    "overall_metrics": {
+        "gold_total": 55,
+        "extracted_total": 50,
+        "true_positives": 49,
+        "false_positives": 1,
+        "false_negatives": 6,
+        "precision": 0.98,
+        "recall": 0.8909,
+        "f1": 0.9333
+    },
+    "per_category_metrics": {
+        "statute_act": {
+            "gold_count": 20,
+            "pred_count": 15,
+            "true_positives": 14,
+            "false_positives": 1,
+            "false_negatives": 6,
+            "precision": 0.9333,
+            "recall": 0.7,
+            "f1": 0.8
+        },
+        "statutory_section": {
+            "gold_count": 22,
+            "pred_count": 22,
+            "true_positives": 22,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+        },
+        "constitutional_article": {
+            "gold_count": 7,
+            "pred_count": 7,
+            "true_positives": 7,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+        },
+        "procedural_order_rule": {
+            "gold_count": 3,
+            "pred_count": 3,
+            "true_positives": 3,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+        },
+        "statutory_schedule": {
+            "gold_count": 3,
+            "pred_count": 3,
+            "true_positives": 3,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+        }
+    },
+    "ambiguous_provisions_analysis": {
+        "gold_ambiguous_sections_total": 5,
+        "extracted_ambiguous_sections": 5,
+        "missed_ambiguous_sections": 0,
+        "ambiguous_provision_recall": 1.0,
+        "finding": "StatuteExtractor successfully captures bare unanchored sections (e.g. 'Section 5', 'Section 14') with governing_statute=null, preventing incorrect act attribution."
+    },
+    "detailed_matches": [
+        {
+            "sample_id": "STAT_SAMPLE_001",
+            "raw_text": "Sections 323, 302, 364, 449, 450, 380",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "Indian Penal Code, 1860",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_001",
+            "raw_text": "B of the Indian Penal Code, 1860",
+            "reference_type": "statute_act",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_001",
+            "raw_text": "Sections 342, 506",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": true
+        },
+        {
+            "sample_id": "STAT_SAMPLE_001",
+            "raw_text": "Section 34",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "IPC",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_001",
+            "raw_text": "IPC",
+            "reference_type": "statute_act",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_002",
+            "raw_text": "Article 14",
+            "reference_type": "constitutional_article",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "Constitution of India",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_002",
+            "raw_text": "Article 19",
+            "reference_type": "constitutional_article",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "Constitution of India",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_002",
+            "raw_text": "Article 21 of the Constitution",
+            "reference_type": "constitutional_article",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "Constitution of India",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_002",
+            "raw_text": "the Constitution",
+            "reference_type": "statute_act",
+            "match_status": "false_positive",
+            "governing_statute_extracted": null
+        },
+        {
+            "sample_id": "STAT_SAMPLE_002",
+            "raw_text": "Article 265",
+            "reference_type": "constitutional_article",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "Constitution of India",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_002",
+            "raw_text": "Constitution of India",
+            "reference_type": "statute_act",
+            "match_status": "false_negative",
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_003",
+            "raw_text": "under Section 45",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "Prevention of Money Laundering Act, 2002",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_003",
+            "raw_text": "Prevention of Money Laundering Act, 2002",
+            "reference_type": "statute_act",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_003",
+            "raw_text": "Section 439",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "Code of Criminal Procedure, 1973",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_003",
+            "raw_text": "Section 45 of the PMLA",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": "the PMLA",
+            "gold_governing_statute": "PMLA",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_003",
+            "raw_text": "PMLA",
+            "reference_type": "statute_act",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_003",
+            "raw_text": "Code of Criminal Procedure, 1973",
+            "reference_type": "statute_act",
+            "match_status": "false_negative",
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_004",
+            "raw_text": "Order XXI Rule 97",
+            "reference_type": "procedural_order_rule",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "Code of Civil Procedure, 1908",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_004",
+            "raw_text": "Order XXI Rule 99",
+            "reference_type": "procedural_order_rule",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "Code of Civil Procedure, 1908",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_004",
+            "raw_text": "Section 47",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "CPC",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_004",
+            "raw_text": "CPC",
+            "reference_type": "statute_act",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_004",
+            "raw_text": "Code of Civil Procedure, 1908",
+            "reference_type": "statute_act",
+            "match_status": "false_negative",
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_005",
+            "raw_text": "under Section 7 of the Insolvency and Bankruptcy Code",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": "Insolvency and Bankruptcy Code",
+            "gold_governing_statute": "Insolvency and Bankruptcy Code, 2016",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_005",
+            "raw_text": "Insolvency and Bankruptcy Code, 2016",
+            "reference_type": "statute_act",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_005",
+            "raw_text": "under Section 14",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "IBC",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_005",
+            "raw_text": "IBC",
+            "reference_type": "statute_act",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_005",
+            "raw_text": "Section 60(2)",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": true
+        },
+        {
+            "sample_id": "STAT_SAMPLE_006",
+            "raw_text": "Article 341",
+            "reference_type": "constitutional_article",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "Constitution of India",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_006",
+            "raw_text": "Article 342 of the Constitution",
+            "reference_type": "constitutional_article",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "Constitution of India",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_006",
+            "raw_text": "the Constitution",
+            "reference_type": "statute_act",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_006",
+            "raw_text": "Fifth Schedule",
+            "reference_type": "statutory_schedule",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "Constitution of India",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_006",
+            "raw_text": "Sixth Schedule",
+            "reference_type": "statutory_schedule",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "Constitution of India",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_006",
+            "raw_text": "Tenth Schedule",
+            "reference_type": "statutory_schedule",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "Constitution of India",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_007",
+            "raw_text": "under Section 3 of the Limitation Act",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": "Limitation Act, 1963",
+            "gold_governing_statute": "Limitation Act, 1963",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_007",
+            "raw_text": "Limitation Act, 1963",
+            "reference_type": "statute_act",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_007",
+            "raw_text": "under Section 5",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": true
+        },
+        {
+            "sample_id": "STAT_SAMPLE_007",
+            "raw_text": "Section 14",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": true
+        },
+        {
+            "sample_id": "STAT_SAMPLE_007",
+            "raw_text": "Section 18",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": true
+        },
+        {
+            "sample_id": "STAT_SAMPLE_008",
+            "raw_text": "Order 6 Rule 4",
+            "reference_type": "procedural_order_rule",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "Code of Civil Procedure, 1908",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_008",
+            "raw_text": "under Section 166 of the Motor Vehicles Act",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": "Motor Vehicles Act, 1988",
+            "gold_governing_statute": "Motor Vehicles Act, 1988",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_008",
+            "raw_text": "Motor Vehicles Act, 1988",
+            "reference_type": "statute_act",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_008",
+            "raw_text": "Section 173 of the Code",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": "the Code",
+            "gold_governing_statute": "Code of Criminal Procedure, 1973",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_008",
+            "raw_text": "Code of Civil Procedure",
+            "reference_type": "statute_act",
+            "match_status": "false_negative",
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_008",
+            "raw_text": "Code of Criminal Procedure, 1973",
+            "reference_type": "statute_act",
+            "match_status": "false_negative",
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_009",
+            "raw_text": "under Section 432",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "Code of Criminal Procedure, 1973",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_009",
+            "raw_text": "Section 433A of the Code",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": "the Code",
+            "gold_governing_statute": "Code of Criminal Procedure, 1973",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_009",
+            "raw_text": "under Section 302",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "IPC",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_009",
+            "raw_text": "IPC",
+            "reference_type": "statute_act",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_009",
+            "raw_text": "Article 161",
+            "reference_type": "constitutional_article",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": "Constitution of India",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_009",
+            "raw_text": "Code of Criminal Procedure, 1973",
+            "reference_type": "statute_act",
+            "match_status": "false_negative",
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_010",
+            "raw_text": "under Section 138 of the Negotiable Instruments Act",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": "Negotiable Instruments Act",
+            "gold_governing_statute": "Negotiable Instruments Act, 1881",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_010",
+            "raw_text": "Negotiable Instruments Act, 1881",
+            "reference_type": "statute_act",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_010",
+            "raw_text": "under Section 10 of the Specific Relief Act",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": "Specific Relief Act, 1963",
+            "gold_governing_statute": "Specific Relief Act, 1963",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_010",
+            "raw_text": "Specific Relief Act, 1963",
+            "reference_type": "statute_act",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_010",
+            "raw_text": "under Section 73 of the Contract",
+            "reference_type": "statutory_section",
+            "match_status": "true_positive",
+            "governing_statute_extracted": "Contract",
+            "gold_governing_statute": "Contract Act, 1872",
+            "is_ambiguous_provision": false
+        },
+        {
+            "sample_id": "STAT_SAMPLE_010",
+            "raw_text": "Contract Act, 1872",
+            "reference_type": "statute_act",
+            "match_status": "true_positive",
+            "governing_statute_extracted": null,
+            "gold_governing_statute": null,
+            "is_ambiguous_provision": false
+        }
+    ]
+}

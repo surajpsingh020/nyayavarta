@@ -1,0 +1,44 @@
+{
+    "created_at": "2026-10-12T21:29:46.706624",
+    "edges_by_type": {
+        "CITES": 311,
+        "CITES_EXTERNAL": 32334,
+        "MENTIONS_PROVISION": 16286,
+        "PART_OF_ACT": 2711
+    },
+    "edges_count": 51642,
+    "excluded_edges_count": 76194,
+    "exclusions_by_reason": {
+        "AMBIGUOUS_CANDIDATE": 472,
+        "BARE_SECTION_UNSPECIFIED_ACT": 22070,
+        "HISTORICAL_PRE_2024": 22684,
+        "SELF_CITATION": 8184,
+        "TITLE_ONLY_UNCORROBORATED": 34,
+        "UNRESOLVED_MENTION": 22750
+    },
+    "export_files": {
+        "edges": "data/processed/graph/v1\\edges.jsonl",
+        "excluded_edges": "data/processed/graph/v1\\excluded_edges.jsonl",
+        "nodes": "data/processed/graph/v1\\nodes.jsonl",
+        "sqlite_db": "data/processed/graph/v1\\graph.db"
+    },
+    "graph_version": "v1",
+    "manifest_version": "1.1.0",
+    "nodes_by_type": {
+        "Act": 2543,
+        "Article": 291,
+        "ExternalReference": 27739,
+        "Judgment": 782,
+        "Rule": 279,
+        "Schedule": 39,
+        "Section": 4447
+    },
+    "nodes_count": 36120,
+    "sha256_checksums": {
+        "edges.jsonl": "9707843258c6c6d76e3b3c33f3b9af295a28636485901a3f31de38f70ac969af",
+        "excluded_edges.jsonl": "2a3b78a2d7a54e3bd64730e06a7b532ec461e6a124aea3e65002853453459b72",
+        "graph.db": "315b6703a08884434a4dabaa06b5f8bbfeebe18ce69eba9f41b3f429c8f3bc95",
+        "nodes.jsonl": "0a4d9ee04d5ccdaec057f2411146133ce31014833ab5d55a67f57c758496f5f8"
+    },
+    "unresolved_external_references_count": 27739
+}

@@ -1,0 +1,947 @@
+[
+    {
+        "sample_id": "SAMPLE_001",
+        "source_doc_id": "2024_10_108_125",
+        "text_segment": "[2024] 10 S.C.R. 108 : 2024 INSC 735 Vijay Singh @ Vijay Kr. Sharma v. The State of Bihar (Criminal Appeal No. 1031 of 2015). Also referred to Labh Singh v. State of Punjab (1976) 1 SCC 181 and Suratlal v. State of M.P (1982) 1 SCC 488.",
+        "gold_citations": [
+            {
+                "raw_text": "[2024] 10 S.C.R. 108",
+                "citation_type": "scr",
+                "normalized": "[2024] 10 SCR 108",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_108_125"
+            },
+            {
+                "raw_text": "2024 INSC 735",
+                "citation_type": "neutral_insc",
+                "normalized": "2024INSC735",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_108_125"
+            },
+            {
+                "raw_text": "Vijay Singh @ Vijay Kr. Sharma v. The State of Bihar",
+                "citation_type": "case_title",
+                "normalized": "Vijay Singh v. The State of Bihar",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_108_125"
+            },
+            {
+                "raw_text": "Labh Singh v. State of Punjab",
+                "citation_type": "case_title",
+                "normalized": "Labh Singh v. State of Punjab",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(1976) 1 SCC 181",
+                "citation_type": "scc",
+                "normalized": "(1976) 1 SCC 181",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "Suratlal v. State of M.P",
+                "citation_type": "case_title",
+                "normalized": "Suratlal v. State of M.P",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(1982) 1 SCC 488",
+                "citation_type": "scc",
+                "normalized": "(1982) 1 SCC 488",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            }
+        ]
+    },
+    {
+        "sample_id": "SAMPLE_002",
+        "source_doc_id": "2024_10_1381_1403",
+        "text_segment": "Mineral Area Development Authority v. Steel Authority of India [2024] 8 SCR 540 : 2024 SCC OnLine SC 1796 - followed. Also cited Collector, AIR 1965 SC 177 : (1964) 6 SCR 666 too.",
+        "gold_citations": [
+            {
+                "raw_text": "Mineral Area Development Authority v. Steel Authority of India",
+                "citation_type": "case_title",
+                "normalized": "Mineral Area Development Authority v. Steel Authority of India",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "[2024] 8 SCR 540",
+                "citation_type": "scr",
+                "normalized": "[2024] 8 SCR 540",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "2024 SCC OnLine SC 1796",
+                "citation_type": "scc_online",
+                "normalized": "2024 SCC OnLine SC 1796",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "AIR 1965 SC 177",
+                "citation_type": "air",
+                "normalized": "AIR 1965 SC 177",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(1964) 6 SCR 666",
+                "citation_type": "scr",
+                "normalized": "[1964] 6 SCR 666",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            }
+        ]
+    },
+    {
+        "sample_id": "SAMPLE_003",
+        "source_doc_id": "2024_10_1371_1380",
+        "text_segment": "[2024] 10 S.C.R. 1371 : 2024 INSC 780 IDBI Bank Ltd. v. Ramswaroop Daliya and Ors. Relied upon State Bank of India v. V. Ramakrishnan (2018) 17 SCC 394 and held inapplicable [2023] 14 SCR 666 : (2023) 10 SCC 232.",
+        "gold_citations": [
+            {
+                "raw_text": "[2024] 10 S.C.R. 1371",
+                "citation_type": "scr",
+                "normalized": "[2024] 10 SCR 1371",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_1371_1380"
+            },
+            {
+                "raw_text": "2024 INSC 780",
+                "citation_type": "neutral_insc",
+                "normalized": "2024INSC780",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_1371_1380"
+            },
+            {
+                "raw_text": "IDBI Bank Ltd. v. Ramswaroop Daliya and Ors.",
+                "citation_type": "case_title",
+                "normalized": "IDBI Bank Ltd. v. Ramswaroop Daliya and Ors.",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_1371_1380"
+            },
+            {
+                "raw_text": "State Bank of India v. V. Ramakrishnan",
+                "citation_type": "case_title",
+                "normalized": "State Bank of India v. V. Ramakrishnan",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(2018) 17 SCC 394",
+                "citation_type": "scc",
+                "normalized": "(2018) 17 SCC 394",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "[2023] 14 SCR 666",
+                "citation_type": "scr",
+                "normalized": "[2023] 14 SCR 666",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(2023) 10 SCC 232",
+                "citation_type": "scc",
+                "normalized": "(2023) 10 SCC 232",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            }
+        ]
+    },
+    {
+        "sample_id": "SAMPLE_004",
+        "source_doc_id": "2024_10_1404_1447",
+        "text_segment": "In Maneka Gandhi v. Union of India [1978] 2 SCR 621 : AIR 1978 SC 597, as also in Express Newspapers Pvt. Ltd. v. Union of India (1986) 1 SCC 133 and in the case of Shreya Singhal (2015) 5 SCC 1.",
+        "gold_citations": [
+            {
+                "raw_text": "Maneka Gandhi v. Union of India",
+                "citation_type": "case_title",
+                "normalized": "Maneka Gandhi v. Union of India",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "[1978] 2 SCR 621",
+                "citation_type": "scr",
+                "normalized": "[1978] 2 SCR 621",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "AIR 1978 SC 597",
+                "citation_type": "air",
+                "normalized": "AIR 1978 SC 597",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "Express Newspapers Pvt. Ltd. v. Union of India",
+                "citation_type": "case_title",
+                "normalized": "Express Newspapers Pvt. Ltd. v. Union of India",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(1986) 1 SCC 133",
+                "citation_type": "scc",
+                "normalized": "(1986) 1 SCC 133",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "in the case of Shreya Singhal",
+                "citation_type": "unanchored_mention",
+                "normalized": "Shreya Singhal",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(2015) 5 SCC 1",
+                "citation_type": "scc",
+                "normalized": "(2015) 5 SCC 1",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            }
+        ]
+    },
+    {
+        "sample_id": "SAMPLE_005",
+        "source_doc_id": "2024_10_1462_1474",
+        "text_segment": "2024 INSC 810 Vidyasagar Prasad v. UCO Bank & Anr. The principles laid down in Dena Bank v. C. Shivakumar Reddy (2021) 10 SCC 330 and Asset Reconstruction Company (India) Limited v. Bishal Jaiswal (2021) 6 SCC 366 were applied.",
+        "gold_citations": [
+            {
+                "raw_text": "2024 INSC 810",
+                "citation_type": "neutral_insc",
+                "normalized": "2024INSC810",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_1462_1474"
+            },
+            {
+                "raw_text": "Vidyasagar Prasad v. UCO Bank & Anr.",
+                "citation_type": "case_title",
+                "normalized": "Vidyasagar Prasad v. UCO Bank",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_1462_1474"
+            },
+            {
+                "raw_text": "Dena Bank v. C. Shivakumar Reddy",
+                "citation_type": "case_title",
+                "normalized": "Dena Bank v. C. Shivakumar Reddy",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(2021) 10 SCC 330",
+                "citation_type": "scc",
+                "normalized": "(2021) 10 SCC 330",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "Asset Reconstruction Company (India) Limited v. Bishal Jaiswal",
+                "citation_type": "case_title",
+                "normalized": "Asset Reconstruction Company (India) Limited v. Bishal Jaiswal",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(2021) 6 SCC 366",
+                "citation_type": "scc",
+                "normalized": "(2021) 6 SCC 366",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            }
+        ]
+    },
+    {
+        "sample_id": "SAMPLE_006",
+        "source_doc_id": "2024_10_1448_1461",
+        "text_segment": "[2024] 10 S.C.R. 1448 : 2024 INSC 806 Mafabhai Motibhai Sagar v. State of Gujarat. Reference made to Union of India v. Sriharan (2016) 7 SCC 1 and State of Haryana v. Mahender Singh (2007) 13 SCC 606.",
+        "gold_citations": [
+            {
+                "raw_text": "[2024] 10 S.C.R. 1448",
+                "citation_type": "scr",
+                "normalized": "[2024] 10 SCR 1448",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_1448_1461"
+            },
+            {
+                "raw_text": "2024 INSC 806",
+                "citation_type": "neutral_insc",
+                "normalized": "2024INSC806",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_1448_1461"
+            },
+            {
+                "raw_text": "Mafabhai Motibhai Sagar v. State of Gujarat",
+                "citation_type": "case_title",
+                "normalized": "Mafabhai Motibhai Sagar v. State of Gujarat",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_1448_1461"
+            },
+            {
+                "raw_text": "Union of India v. Sriharan",
+                "citation_type": "case_title",
+                "normalized": "Union of India v. Sriharan",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(2016) 7 SCC 1",
+                "citation_type": "scc",
+                "normalized": "(2016) 7 SCC 1",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "State of Haryana v. Mahender Singh",
+                "citation_type": "case_title",
+                "normalized": "State of Haryana v. Mahender Singh",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(2007) 13 SCC 606",
+                "citation_type": "scc",
+                "normalized": "(2007) 13 SCC 606",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            }
+        ]
+    },
+    {
+        "sample_id": "SAMPLE_007",
+        "source_doc_id": "2024_1_1_10",
+        "text_segment": "[2024] 1 S.C.R. 1 : 2024 INSC 2 Case Details Vashist Narayan Kumar v. The State of Bihar & Ors. Reliance was placed on Commissioner of Police v. Sandeep Kumar (2011) 4 SCC 644 and Ram Kumar v. State of U.P. AIR 2011 SC 2901.",
+        "gold_citations": [
+            {
+                "raw_text": "[2024] 1 S.C.R. 1",
+                "citation_type": "scr",
+                "normalized": "[2024] 1 SCR 1",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_1_1_10"
+            },
+            {
+                "raw_text": "2024 INSC 2",
+                "citation_type": "neutral_insc",
+                "normalized": "2024INSC2",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_1_1_10"
+            },
+            {
+                "raw_text": "Vashist Narayan Kumar v. The State of Bihar & Ors.",
+                "citation_type": "case_title",
+                "normalized": "Vashist Narayan Kumar v. The State of Bihar",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_1_1_10"
+            },
+            {
+                "raw_text": "Commissioner of Police v. Sandeep Kumar",
+                "citation_type": "case_title",
+                "normalized": "Commissioner of Police v. Sandeep Kumar",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(2011) 4 SCC 644",
+                "citation_type": "scc",
+                "normalized": "(2011) 4 SCC 644",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "Ram Kumar v. State of U.P.",
+                "citation_type": "case_title",
+                "normalized": "Ram Kumar v. State of U.P.",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "AIR 2011 SC 2901",
+                "citation_type": "air",
+                "normalized": "AIR 2011 SC 2901",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            }
+        ]
+    },
+    {
+        "sample_id": "SAMPLE_008",
+        "source_doc_id": "2024_8_717_726",
+        "text_segment": "In Vijay Madanlal Choudhary v. Union of India 2022 SCC OnLine SC 929, the bench interpreted Section 45. Considered also Manish Sisodia v. Directorate of Enforcement 2024 INSC 595 and decision in Kalvakuntla Kavitha.",
+        "gold_citations": [
+            {
+                "raw_text": "Vijay Madanlal Choudhary v. Union of India",
+                "citation_type": "case_title",
+                "normalized": "Vijay Madanlal Choudhary v. Union of India",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "2022 SCC OnLine SC 929",
+                "citation_type": "scc_online",
+                "normalized": "2022 SCC OnLine SC 929",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "Manish Sisodia v. Directorate of Enforcement",
+                "citation_type": "case_title",
+                "normalized": "Manish Sisodia v. Directorate of Enforcement",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "2024 INSC 595",
+                "citation_type": "neutral_insc",
+                "normalized": "2024INSC595",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "decision in Kalvakuntla Kavitha",
+                "citation_type": "unanchored_mention",
+                "normalized": "Kalvakuntla Kavitha",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            }
+        ]
+    },
+    {
+        "sample_id": "SAMPLE_009",
+        "source_doc_id": "2024_3_363_376",
+        "text_segment": "Hindustan Petroleum Corporation Limited v. Darius Shapur Chenai (2005) 7 SCC 627 and as held in K.P. Varghese v. ITO (1981) 4 SCC 173 : AIR 1981 SC 1922.",
+        "gold_citations": [
+            {
+                "raw_text": "Hindustan Petroleum Corporation Limited v. Darius Shapur Chenai",
+                "citation_type": "case_title",
+                "normalized": "Hindustan Petroleum Corporation Limited v. Darius Shapur Chenai",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(2005) 7 SCC 627",
+                "citation_type": "scc",
+                "normalized": "(2005) 7 SCC 627",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "K.P. Varghese v. ITO",
+                "citation_type": "case_title",
+                "normalized": "K.P. Varghese v. ITO",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(1981) 4 SCC 173",
+                "citation_type": "scc",
+                "normalized": "(1981) 4 SCC 173",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "AIR 1981 SC 1922",
+                "citation_type": "air",
+                "normalized": "AIR 1981 SC 1922",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            }
+        ]
+    },
+    {
+        "sample_id": "SAMPLE_010",
+        "source_doc_id": "2024_12_617_626",
+        "text_segment": "State of Punjab v. Davinder Singh (2020) 8 SCC 1 and E.V. Chinnaiah v. State of A.P. (2005) 1 SCC 394 : [2004] Supp 5 SCR 533 were reviewed by the Constitution Bench.",
+        "gold_citations": [
+            {
+                "raw_text": "State of Punjab v. Davinder Singh",
+                "citation_type": "case_title",
+                "normalized": "State of Punjab v. Davinder Singh",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(2020) 8 SCC 1",
+                "citation_type": "scc",
+                "normalized": "(2020) 8 SCC 1",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "E.V. Chinnaiah v. State of A.P.",
+                "citation_type": "case_title",
+                "normalized": "E.V. Chinnaiah v. State of A.P.",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(2005) 1 SCC 394",
+                "citation_type": "scc",
+                "normalized": "(2005) 1 SCC 394",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "[2004] Supp 5 SCR 533",
+                "citation_type": "scr",
+                "normalized": "[2004] 5 SCR 533",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            }
+        ]
+    },
+    {
+        "sample_id": "SAMPLE_011",
+        "source_doc_id": "2024_5_537_544",
+        "text_segment": "In State of Haryana v. Bhajan Lal 1992 Supp (1) SCC 335 : AIR 1992 SC 604, guidelines for quashing were formulated. View taken in R.P. Kapur v. State of Punjab AIR 1960 SC 866 reaffirms this.",
+        "gold_citations": [
+            {
+                "raw_text": "State of Haryana v. Bhajan Lal",
+                "citation_type": "case_title",
+                "normalized": "State of Haryana v. Bhajan Lal",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "1992 Supp (1) SCC 335",
+                "citation_type": "scc",
+                "normalized": "(1992) 1 SCC 335",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "AIR 1992 SC 604",
+                "citation_type": "air",
+                "normalized": "AIR 1992 SC 604",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "R.P. Kapur v. State of Punjab",
+                "citation_type": "case_title",
+                "normalized": "R.P. Kapur v. State of Punjab",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "AIR 1960 SC 866",
+                "citation_type": "air",
+                "normalized": "AIR 1960 SC 866",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            }
+        ]
+    },
+    {
+        "sample_id": "SAMPLE_012",
+        "source_doc_id": "2024_11_1602_1627",
+        "text_segment": "Association of Victims of Uphaar Tragedy [2023] 6 SCR 669 : (2023) 14 SCC 1. Also cited Matajog Dobey v. H.C. Bhari AIR 1956 SC 44 : [1955] 2 SCR 925 and ratio in P.P. Unnikrishnan (2000) 7 SCC 409.",
+        "gold_citations": [
+            {
+                "raw_text": "Association of Victims of Uphaar Tragedy",
+                "citation_type": "case_title",
+                "normalized": "Association of Victims of Uphaar Tragedy",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "[2023] 6 SCR 669",
+                "citation_type": "scr",
+                "normalized": "[2023] 6 SCR 669",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(2023) 14 SCC 1",
+                "citation_type": "scc",
+                "normalized": "(2023) 14 SCC 1",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "Matajog Dobey v. H.C. Bhari",
+                "citation_type": "case_title",
+                "normalized": "Matajog Dobey v. H.C. Bhari",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "AIR 1956 SC 44",
+                "citation_type": "air",
+                "normalized": "AIR 1956 SC 44",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "[1955] 2 SCR 925",
+                "citation_type": "scr",
+                "normalized": "[1955] 2 SCR 925",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "ratio in P.P. Unnikrishnan",
+                "citation_type": "unanchored_mention",
+                "normalized": "P.P. Unnikrishnan",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(2000) 7 SCC 409",
+                "citation_type": "scc",
+                "normalized": "(2000) 7 SCC 409",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            }
+        ]
+    },
+    {
+        "sample_id": "SAMPLE_013",
+        "source_doc_id": "2024_11_1130_1141",
+        "text_segment": "Hardeep Singh v. State of Punjab (2014) 3 SCC 92 : [2014] 1 SCR 1121 and as held in Brijendra Singh v. State of Rajasthan (2017) 7 SCC 706.",
+        "gold_citations": [
+            {
+                "raw_text": "Hardeep Singh v. State of Punjab",
+                "citation_type": "case_title",
+                "normalized": "Hardeep Singh v. State of Punjab",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(2014) 3 SCC 92",
+                "citation_type": "scc",
+                "normalized": "(2014) 3 SCC 92",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "[2014] 1 SCR 1121",
+                "citation_type": "scr",
+                "normalized": "[2014] 1 SCR 1121",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "Brijendra Singh v. State of Rajasthan",
+                "citation_type": "case_title",
+                "normalized": "Brijendra Singh v. State of Rajasthan",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(2017) 7 SCC 706",
+                "citation_type": "scc",
+                "normalized": "(2017) 7 SCC 706",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            }
+        ]
+    },
+    {
+        "sample_id": "SAMPLE_014",
+        "source_doc_id": "2024_8_847_853",
+        "text_segment": "Chand Rani v. Kamal Rani (1993) 1 SCC 519 : AIR 1993 SC 1742 and Welspun Specialty Solutions Limited v. ONGC (2022) 2 SCC 382 were referred to.",
+        "gold_citations": [
+            {
+                "raw_text": "Chand Rani v. Kamal Rani",
+                "citation_type": "case_title",
+                "normalized": "Chand Rani v. Kamal Rani",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(1993) 1 SCC 519",
+                "citation_type": "scc",
+                "normalized": "(1993) 1 SCC 519",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "AIR 1993 SC 1742",
+                "citation_type": "air",
+                "normalized": "AIR 1993 SC 1742",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "Welspun Specialty Solutions Limited v. ONGC",
+                "citation_type": "case_title",
+                "normalized": "Welspun Specialty Solutions Limited v. ONGC",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(2022) 2 SCC 382",
+                "citation_type": "scc",
+                "normalized": "(2022) 2 SCC 382",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            }
+        ]
+    },
+    {
+        "sample_id": "SAMPLE_015",
+        "source_doc_id": "2024_10_126_149",
+        "text_segment": "[2024] 10 S.C.R. 126 : 2024 INSC 748 V. Vincent Velankanni v. The Union of India and Others. Referred to Indra Sawhney v. Union of India 1992 Supp (3) SCC 217 : AIR 1993 SC 477 and Sonia v. State of Haryana AIR 1975 SC 613.",
+        "gold_citations": [
+            {
+                "raw_text": "[2024] 10 S.C.R. 126",
+                "citation_type": "scr",
+                "normalized": "[2024] 10 SCR 126",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_126_149"
+            },
+            {
+                "raw_text": "2024 INSC 748",
+                "citation_type": "neutral_insc",
+                "normalized": "2024INSC748",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_126_149"
+            },
+            {
+                "raw_text": "V. Vincent Velankanni v. The Union of India and Others",
+                "citation_type": "case_title",
+                "normalized": "V. Vincent Velankanni v. The Union of India",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_126_149"
+            },
+            {
+                "raw_text": "Indra Sawhney v. Union of India",
+                "citation_type": "case_title",
+                "normalized": "Indra Sawhney v. Union of India",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "1992 Supp (3) SCC 217",
+                "citation_type": "scc",
+                "normalized": "(1992) 3 SCC 217",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "AIR 1993 SC 477",
+                "citation_type": "air",
+                "normalized": "AIR 1993 SC 477",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "Sonia v. State of Haryana",
+                "citation_type": "case_title",
+                "normalized": "Sonia v. State of Haryana",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "AIR 1975 SC 613",
+                "citation_type": "air",
+                "normalized": "AIR 1975 SC 613",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            }
+        ]
+    },
+    {
+        "sample_id": "SAMPLE_016",
+        "source_doc_id": "2024_10_1313_1343",
+        "text_segment": "[2024] 10 S.C.R. 1313 : 2024 INSC 755 Rama Devi v. The State of Bihar and Others. Cited Sharad Birdhichand Sarda v. State of Maharashtra (1984) 4 SCC 116 : AIR 1984 SC 1622 and Hanumant v. State of M.P. AIR 1952 SC 343.",
+        "gold_citations": [
+            {
+                "raw_text": "[2024] 10 S.C.R. 1313",
+                "citation_type": "scr",
+                "normalized": "[2024] 10 SCR 1313",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_1313_1343"
+            },
+            {
+                "raw_text": "2024 INSC 755",
+                "citation_type": "neutral_insc",
+                "normalized": "2024INSC755",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_1313_1343"
+            },
+            {
+                "raw_text": "Rama Devi v. The State of Bihar and Others",
+                "citation_type": "case_title",
+                "normalized": "Rama Devi v. The State of Bihar",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_1313_1343"
+            },
+            {
+                "raw_text": "Sharad Birdhichand Sarda v. State of Maharashtra",
+                "citation_type": "case_title",
+                "normalized": "Sharad Birdhichand Sarda v. State of Maharashtra",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(1984) 4 SCC 116",
+                "citation_type": "scc",
+                "normalized": "(1984) 4 SCC 116",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "AIR 1984 SC 1622",
+                "citation_type": "air",
+                "normalized": "AIR 1984 SC 1622",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "Hanumant v. State of M.P.",
+                "citation_type": "case_title",
+                "normalized": "Hanumant v. State of M.P.",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "AIR 1952 SC 343",
+                "citation_type": "air",
+                "normalized": "AIR 1952 SC 343",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            }
+        ]
+    },
+    {
+        "sample_id": "SAMPLE_017",
+        "source_doc_id": "2024_10_1344_1358",
+        "text_segment": "[2024] 10 S.C.R. 1344 : 2024 INSC 763 Shashi Bhushan Prasad Singh v. The State of Bihar and Others. Relied on Punjab National Bank v. Kunj Behari Misra (1998) 7 SCC 84 and Managing Director, ECIL v. B. Karunakar (1993) 4 SCC 727.",
+        "gold_citations": [
+            {
+                "raw_text": "[2024] 10 S.C.R. 1344",
+                "citation_type": "scr",
+                "normalized": "[2024] 10 SCR 1344",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_1344_1358"
+            },
+            {
+                "raw_text": "2024 INSC 763",
+                "citation_type": "neutral_insc",
+                "normalized": "2024INSC763",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_1344_1358"
+            },
+            {
+                "raw_text": "Shashi Bhushan Prasad Singh v. The State of Bihar and Others",
+                "citation_type": "case_title",
+                "normalized": "Shashi Bhushan Prasad Singh v. The State of Bihar",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_1344_1358"
+            },
+            {
+                "raw_text": "Punjab National Bank v. Kunj Behari Misra",
+                "citation_type": "case_title",
+                "normalized": "Punjab National Bank v. Kunj Behari Misra",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(1998) 7 SCC 84",
+                "citation_type": "scc",
+                "normalized": "(1998) 7 SCC 84",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "Managing Director, ECIL v. B. Karunakar",
+                "citation_type": "case_title",
+                "normalized": "Managing Director, ECIL v. B. Karunakar",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(1993) 4 SCC 727",
+                "citation_type": "scc",
+                "normalized": "(1993) 4 SCC 727",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            }
+        ]
+    },
+    {
+        "sample_id": "SAMPLE_018",
+        "source_doc_id": "2024_10_1359_1370",
+        "text_segment": "Renjith K.G. & Others v. Sheeba. Distinguished Shreenath v. Rajesh (1998) 4 SCC 543 and Brahmdeo Chaudhary v. Rishikesh Prasad Jaiswal (1997) 3 SCC 694 : AIR 1997 SC 856.",
+        "gold_citations": [
+            {
+                "raw_text": "Renjith K.G. & Others v. Sheeba",
+                "citation_type": "case_title",
+                "normalized": "Renjith K.G. v. Sheeba",
+                "gold_resolution": "resolved",
+                "target_doc_id": "2024_10_1359_1370"
+            },
+            {
+                "raw_text": "Shreenath v. Rajesh",
+                "citation_type": "case_title",
+                "normalized": "Shreenath v. Rajesh",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(1998) 4 SCC 543",
+                "citation_type": "scc",
+                "normalized": "(1998) 4 SCC 543",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "Brahmdeo Chaudhary v. Rishikesh Prasad Jaiswal",
+                "citation_type": "case_title",
+                "normalized": "Brahmdeo Chaudhary v. Rishikesh Prasad Jaiswal",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(1997) 3 SCC 694",
+                "citation_type": "scc",
+                "normalized": "(1997) 3 SCC 694",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "AIR 1997 SC 856",
+                "citation_type": "air",
+                "normalized": "AIR 1997 SC 856",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            }
+        ]
+    },
+    {
+        "sample_id": "SAMPLE_019",
+        "source_doc_id": "2024_8_782_787",
+        "text_segment": "State of Madhya Pradesh v. Accused. The view in Keshavananda Bharati v. State of Kerala (1973) 4 SCC 225 was reiterated as the basic structure doctrine.",
+        "gold_citations": [
+            {
+                "raw_text": "State of Madhya Pradesh v. Accused",
+                "citation_type": "case_title",
+                "normalized": "State of Madhya Pradesh v. Accused",
+                "gold_resolution": "ambiguous",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "Keshavananda Bharati v. State of Kerala",
+                "citation_type": "case_title",
+                "normalized": "Keshavananda Bharati v. State of Kerala",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            },
+            {
+                "raw_text": "(1973) 4 SCC 225",
+                "citation_type": "scc",
+                "normalized": "(1973) 4 SCC 225",
+                "gold_resolution": "unresolved",
+                "target_doc_id": null
+            }
+        ]
+    }
+]

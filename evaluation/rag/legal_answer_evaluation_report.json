@@ -1,0 +1,474 @@
+{
+  "benchmark_title": "NyayaVarta Milestone 5C Legal Answer Evaluation",
+  "benchmark_version": "v2.0_developer_curated",
+  "curation_notice": "Developer-curated dataset over 2024 Supreme Court judgments. Not independently validated by legal practitioners.",
+  "timestamp": "2026-10-12T19:05:52Z",
+  "provider_info": {
+    "provider_type": "mock",
+    "model_name": "mock-grounded-cpu-v1"
+  },
+  "dataset_summary": {
+    "total_queries": 20,
+    "answerable_queries": 13,
+    "unanswerable_queries": 7
+  },
+  "retrieval_metrics": {
+    "hit_rate_at_3": 1.0,
+    "hit_rate_at_5": 1.0,
+    "mrr": 0.7949,
+    "mrr_definition": "Mean reciprocal rank of first relevant gold document among answerable queries"
+  },
+  "generation_metrics": {
+    "abstention_accuracy": 0.7143,
+    "abstention_counts": "5/7",
+    "citation_validity_rate": 1.0,
+    "citation_counts": "14/14",
+    "hallucinated_citation_rate": 0.0,
+    "offset_fidelity_rate": 1.0,
+    "semantic_support_status": "not_evaluated",
+    "semantic_support_notice": "Syntactic citation verification only; substantive legal support requires human claim review."
+  },
+  "claim_review_summary": {
+    "total_claims": 34,
+    "reviewed_claims": 13,
+    "pending_review_claims": 21,
+    "label_breakdown": {
+      "supported": 11,
+      "partially_supported": 0,
+      "unsupported": 2,
+      "contradicted": 0,
+      "not_reviewed": 21
+    },
+    "extrinsic_facts_introduced": 0,
+    "relevant_context_omitted": 2,
+    "unwarranted_answering_claims": 2
+  },
+  "latency_metrics_ms": {
+    "median_retrieval_ms": 119.48,
+    "median_evidence_assembly_ms": 229.36,
+    "median_generation_ms": 1.81,
+    "median_total_ms": 420.75
+  },
+  "per_query_results": [
+    {
+      "query_id": "LAQ001",
+      "category": "single_judgment",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "hit_top3": true,
+      "hit_top5": true,
+      "abstained_properly": null,
+      "citations_valid_count": 1,
+      "citations_invalid_count": 0,
+      "claims_count": 2,
+      "timing_ms": {
+        "retrieval_ms": 497.78,
+        "evidence_assembly_ms": 147.5,
+        "prompt_construction_ms": 0.04,
+        "generation_ms": 46.5,
+        "validation_ms": 0.23,
+        "total_ms": 695.63
+      },
+      "answer_preview": "Mahadevan,* JJ.] Issue for Consideration Whether a pendente lite transferee, a stranger to the suit can file application..."
+    },
+    {
+      "query_id": "LAQ002",
+      "category": "single_judgment",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "hit_top3": true,
+      "hit_top5": true,
+      "abstained_properly": null,
+      "citations_valid_count": 1,
+      "citations_invalid_count": 0,
+      "claims_count": 2,
+      "timing_ms": {
+        "retrieval_ms": 416.74,
+        "evidence_assembly_ms": 360.59,
+        "prompt_construction_ms": 0.04,
+        "generation_ms": 2.73,
+        "validation_ms": 0.38,
+        "total_ms": 785.92
+      },
+      "answer_preview": "1031 of 2022) 22 October 2024 [Pamidighantam Sri Narasimha* and Sandeep Mehta, JJ.] Issue for Consideration Whether spec..."
+    },
+    {
+      "query_id": "LAQ003",
+      "category": "single_judgment",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "hit_top3": true,
+      "hit_top5": true,
+      "abstained_properly": null,
+      "citations_valid_count": 1,
+      "citations_invalid_count": 0,
+      "claims_count": 2,
+      "timing_ms": {
+        "retrieval_ms": 241.73,
+        "evidence_assembly_ms": 759.03,
+        "prompt_construction_ms": 0.04,
+        "generation_ms": 4.81,
+        "validation_ms": 1.19,
+        "total_ms": 1021.53
+      },
+      "answer_preview": "Digital Supreme Court Reports Prisons \u2013 Prison Manuals \u2013 Plea that provisions thereunder, \u201cpractice\u201d of untouchability, ..."
+    },
+    {
+      "query_id": "LAQ004",
+      "category": "multi_passage",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "hit_top3": true,
+      "hit_top5": true,
+      "abstained_properly": null,
+      "citations_valid_count": 1,
+      "citations_invalid_count": 0,
+      "claims_count": 2,
+      "timing_ms": {
+        "retrieval_ms": 191.08,
+        "evidence_assembly_ms": 609.27,
+        "prompt_construction_ms": 0.04,
+        "generation_ms": 2.68,
+        "validation_ms": 0.12,
+        "total_ms": 815.37
+      },
+      "answer_preview": "Whether the trial court and the High Court correctly considered the observations made by this Court with regard to right..."
+    },
+    {
+      "query_id": "LAQ005",
+      "category": "multi_passage",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "hit_top3": true,
+      "hit_top5": true,
+      "abstained_properly": null,
+      "citations_valid_count": 1,
+      "citations_invalid_count": 0,
+      "claims_count": 2,
+      "timing_ms": {
+        "retrieval_ms": 127.11,
+        "evidence_assembly_ms": 161.03,
+        "prompt_construction_ms": 0.04,
+        "generation_ms": 1.86,
+        "validation_ms": 0.11,
+        "total_ms": 305.7
+      },
+      "answer_preview": "The principles required to bring home the charges in a case based purely on circumstantial evidence have been crystalize..."
+    },
+    {
+      "query_id": "LAQ006",
+      "category": "multi_passage",
+      "expected_answerable": true,
+      "actual_status": "insufficient_evidence",
+      "hit_top3": true,
+      "hit_top5": true,
+      "abstained_properly": null,
+      "citations_valid_count": 0,
+      "citations_invalid_count": 0,
+      "claims_count": 0,
+      "timing_ms": {
+        "retrieval_ms": 165.56,
+        "evidence_assembly_ms": 345.61,
+        "prompt_construction_ms": 0.04,
+        "generation_ms": 1.59,
+        "validation_ms": 0.05,
+        "total_ms": 517.55
+      },
+      "answer_preview": "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question...."
+    },
+    {
+      "query_id": "LAQ007",
+      "category": "statutory_provision",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "hit_top3": true,
+      "hit_top5": true,
+      "abstained_properly": null,
+      "citations_valid_count": 1,
+      "citations_invalid_count": 0,
+      "claims_count": 2,
+      "timing_ms": {
+        "retrieval_ms": 139.33,
+        "evidence_assembly_ms": 464.87,
+        "prompt_construction_ms": 0.05,
+        "generation_ms": 3.38,
+        "validation_ms": 0.38,
+        "total_ms": 667.61
+      },
+      "answer_preview": "Criminal jurisprudence \u2013 Inchoate Crimes \u2013 Protection of Children from Sexual Offences Act, 2012 \u2013 s.15 \u2013 Child pornogra..."
+    },
+    {
+      "query_id": "LAQ008",
+      "category": "statutory_provision",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "hit_top3": true,
+      "hit_top5": true,
+      "abstained_properly": null,
+      "citations_valid_count": 1,
+      "citations_invalid_count": 0,
+      "claims_count": 2,
+      "timing_ms": {
+        "retrieval_ms": 138.67,
+        "evidence_assembly_ms": 245.41,
+        "prompt_construction_ms": 0.03,
+        "generation_ms": 3.98,
+        "validation_ms": 0.39,
+        "total_ms": 394.33
+      },
+      "answer_preview": "Rajeev Bansal Income Tax Act, 1961 \u2013 Taxation and Other Laws (Relaxation and Amendment of Certain Provisions) Act, 2020 ..."
+    },
+    {
+      "query_id": "LAQ009",
+      "category": "statutory_provision",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "hit_top3": true,
+      "hit_top5": true,
+      "abstained_properly": null,
+      "citations_valid_count": 1,
+      "citations_invalid_count": 0,
+      "claims_count": 2,
+      "timing_ms": {
+        "retrieval_ms": 211.64,
+        "evidence_assembly_ms": 156.14,
+        "prompt_construction_ms": 0.05,
+        "generation_ms": 2.45,
+        "validation_ms": 0.19,
+        "total_ms": 377.62
+      },
+      "answer_preview": "Pardiwala and Manoj Misra, JJ.] Issue for Consideration Matter pertains to the correctness of the order passed by the Hi..."
+    },
+    {
+      "query_id": "LAQ010",
+      "category": "statutory_provision",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "hit_top3": true,
+      "hit_top5": true,
+      "abstained_properly": null,
+      "citations_valid_count": 1,
+      "citations_invalid_count": 0,
+      "claims_count": 2,
+      "timing_ms": {
+        "retrieval_ms": 111.85,
+        "evidence_assembly_ms": 482.01,
+        "prompt_construction_ms": 0.03,
+        "generation_ms": 1.72,
+        "validation_ms": 0.19,
+        "total_ms": 598.29
+      },
+      "answer_preview": "Varale, JJ.] Issue for Consideration Whether the High Court fell in error in remanding the matter to Trial Court and giv..."
+    },
+    {
+      "query_id": "LAQ011",
+      "category": "out_of_corpus_unanswerable",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "hit_top3": null,
+      "hit_top5": null,
+      "abstained_properly": true,
+      "citations_valid_count": 0,
+      "citations_invalid_count": 0,
+      "claims_count": 0,
+      "timing_ms": {
+        "retrieval_ms": 83.47,
+        "evidence_assembly_ms": 581.9,
+        "prompt_construction_ms": 0.03,
+        "generation_ms": 1.13,
+        "validation_ms": 0.06,
+        "total_ms": 683.07
+      },
+      "answer_preview": "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question...."
+    },
+    {
+      "query_id": "LAQ012",
+      "category": "out_of_corpus_unanswerable",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "hit_top3": null,
+      "hit_top5": null,
+      "abstained_properly": true,
+      "citations_valid_count": 0,
+      "citations_invalid_count": 0,
+      "claims_count": 0,
+      "timing_ms": {
+        "retrieval_ms": 47.06,
+        "evidence_assembly_ms": 370.03,
+        "prompt_construction_ms": 0.03,
+        "generation_ms": 1.41,
+        "validation_ms": 0.03,
+        "total_ms": 447.18
+      },
+      "answer_preview": "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question...."
+    },
+    {
+      "query_id": "LAQ013",
+      "category": "out_of_corpus_unanswerable",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "hit_top3": null,
+      "hit_top5": null,
+      "abstained_properly": true,
+      "citations_valid_count": 0,
+      "citations_invalid_count": 0,
+      "claims_count": 0,
+      "timing_ms": {
+        "retrieval_ms": 69.81,
+        "evidence_assembly_ms": 161.83,
+        "prompt_construction_ms": 0.02,
+        "generation_ms": 0.95,
+        "validation_ms": 0.03,
+        "total_ms": 235.39
+      },
+      "answer_preview": "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question...."
+    },
+    {
+      "query_id": "LAQ014",
+      "category": "out_of_corpus_unanswerable",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "hit_top3": null,
+      "hit_top5": null,
+      "abstained_properly": true,
+      "citations_valid_count": 0,
+      "citations_invalid_count": 0,
+      "claims_count": 0,
+      "timing_ms": {
+        "retrieval_ms": 82.67,
+        "evidence_assembly_ms": 213.3,
+        "prompt_construction_ms": 0.02,
+        "generation_ms": 0.94,
+        "validation_ms": 0.03,
+        "total_ms": 300.54
+      },
+      "answer_preview": "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question...."
+    },
+    {
+      "query_id": "LAQ015",
+      "category": "relevant_retrieval_insufficient_grounding",
+      "expected_answerable": false,
+      "actual_status": "answered",
+      "hit_top3": null,
+      "hit_top5": null,
+      "abstained_properly": false,
+      "citations_valid_count": 1,
+      "citations_invalid_count": 0,
+      "claims_count": 2,
+      "timing_ms": {
+        "retrieval_ms": 50.68,
+        "evidence_assembly_ms": 126.68,
+        "prompt_construction_ms": 0.02,
+        "generation_ms": 1.56,
+        "validation_ms": 0.12,
+        "total_ms": 191.61
+      },
+      "answer_preview": "92.7- An order of anticipatory bail does not in any manner limit or restrict the rights or duties of the police or inves..."
+    },
+    {
+      "query_id": "LAQ016",
+      "category": "relevant_retrieval_insufficient_grounding",
+      "expected_answerable": false,
+      "actual_status": "answered",
+      "hit_top3": null,
+      "hit_top5": null,
+      "abstained_properly": false,
+      "citations_valid_count": 1,
+      "citations_invalid_count": 0,
+      "claims_count": 2,
+      "timing_ms": {
+        "retrieval_ms": 59.35,
+        "evidence_assembly_ms": 177.08,
+        "prompt_construction_ms": 0.04,
+        "generation_ms": 1.77,
+        "validation_ms": 0.12,
+        "total_ms": 273.33
+      },
+      "answer_preview": "Nagarathna* and Sanjay Karol,* JJ.] Issue for Consideration Genetic Engineering Appraisal Committee (GEAC), a body under..."
+    },
+    {
+      "query_id": "LAQ017",
+      "category": "relevant_retrieval_insufficient_grounding",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "hit_top3": null,
+      "hit_top5": null,
+      "abstained_properly": true,
+      "citations_valid_count": 0,
+      "citations_invalid_count": 0,
+      "claims_count": 0,
+      "timing_ms": {
+        "retrieval_ms": 100.5,
+        "evidence_assembly_ms": 39.9,
+        "prompt_construction_ms": 0.03,
+        "generation_ms": 1.04,
+        "validation_ms": 0.04,
+        "total_ms": 155.15
+      },
+      "answer_preview": "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question...."
+    },
+    {
+      "query_id": "LAQ018",
+      "category": "fact_and_date_sensitive",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "hit_top3": true,
+      "hit_top5": true,
+      "abstained_properly": null,
+      "citations_valid_count": 1,
+      "citations_invalid_count": 0,
+      "claims_count": 2,
+      "timing_ms": {
+        "retrieval_ms": 138.43,
+        "evidence_assembly_ms": 327.77,
+        "prompt_construction_ms": 0.03,
+        "generation_ms": 1.87,
+        "validation_ms": 0.24,
+        "total_ms": 479.66
+      },
+      "answer_preview": "The Chairman (Joint Seat Allocation Authority) and Others (Writ Petition (Civil) No 609 of 2024) 30 September 2024 [Dr D..."
+    },
+    {
+      "query_id": "LAQ019",
+      "category": "fact_and_date_sensitive",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "hit_top3": true,
+      "hit_top5": true,
+      "abstained_properly": null,
+      "citations_valid_count": 1,
+      "citations_invalid_count": 0,
+      "claims_count": 2,
+      "timing_ms": {
+        "retrieval_ms": 70.62,
+        "evidence_assembly_ms": 113.79,
+        "prompt_construction_ms": 0.02,
+        "generation_ms": 1.67,
+        "validation_ms": 0.13,
+        "total_ms": 190.96
+      },
+      "answer_preview": "Mahadevan, JJ.] Issue for Consideration Whether there was any default on part of the respondents-auction purchasers in d..."
+    },
+    {
+      "query_id": "LAQ020",
+      "category": "fact_and_date_sensitive",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "hit_top3": true,
+      "hit_top5": true,
+      "abstained_properly": null,
+      "citations_valid_count": 1,
+      "citations_invalid_count": 0,
+      "claims_count": 2,
+      "timing_ms": {
+        "retrieval_ms": 95.44,
+        "evidence_assembly_ms": 53.99,
+        "prompt_construction_ms": 0.03,
+        "generation_ms": 2.15,
+        "validation_ms": 0.11,
+        "total_ms": 156.6
+      },
+      "answer_preview": "A medical professional may be held liable for negligence only when he is not possessed with the requisite qualification ..."
+    }
+  ]
+}

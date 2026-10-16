@@ -1,0 +1,389 @@
+{
+  "milestone": "Milestone 18 - Local NLI Verification Feasibility & Benchmark",
+  "model_metadata": {
+    "model_id": "cross-encoder/nli-deberta-v3-small",
+    "onnx_file": "onnx/model_quint8_avx2.onnx",
+    "license": "Apache-2.0",
+    "model_size_mb": 172.5,
+    "architecture": "DebertaV2ForSequenceClassification",
+    "execution_provider": "CPUExecutionProvider",
+    "load_time_ms": 2385.56,
+    "memory_delta_mb": 277.39,
+    "process_rss_mb": 373.11
+  },
+  "datasets": {
+    "milestone17_diagnostic": {
+      "dataset_name": "milestone17_unseen_diagnostic",
+      "dataset_file": "C:\\Users\\KIIT0001\\Desktop\\Repos\\nyayavarta\\evaluation\\rag\\milestone17_unseen_claims.jsonl",
+      "total_claims": 30,
+      "gold_distribution": {
+        "supported": 8,
+        "partially_supported": 8,
+        "unsupported": 7,
+        "contradicted": 7
+      },
+      "config1_deterministic_alone": {
+        "total_evaluations": 30,
+        "supported_precision": 0.5714,
+        "supported_recall": 1.0,
+        "supported_f1": 0.7272,
+        "non_supported_far": 0.2727,
+        "contradiction_far": 0.4286,
+        "contradiction_false_accepts": 3,
+        "unsupported_far": 0.0,
+        "unsupported_false_accepts": 0,
+        "partially_supported_far": 0.375,
+        "partially_supported_false_accepts": 3,
+        "total_false_acceptances_into_supported": 6,
+        "uncertainty_rate": 0.2667,
+        "uncertain_count": 8,
+        "safe_presentation_compliance_rate": 0.8,
+        "safe_answers_count": 24,
+        "confusion_matrix": {
+          "supported": {
+            "supported": 8,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 0
+          },
+          "partially_supported": {
+            "supported": 3,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 5
+          },
+          "unsupported": {
+            "supported": 0,
+            "partially_supported": 0,
+            "unsupported": 7,
+            "contradicted": 0,
+            "not_evaluated": 0
+          },
+          "contradicted": {
+            "supported": 3,
+            "partially_supported": 0,
+            "unsupported": 1,
+            "contradicted": 0,
+            "not_evaluated": 3
+          },
+          "not_evaluated": {
+            "supported": 0,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 0
+          }
+        }
+      },
+      "config2_nli_alone": {
+        "total_evaluations": 30,
+        "supported_precision": 0.6667,
+        "supported_recall": 0.25,
+        "supported_f1": 0.3636,
+        "non_supported_far": 0.0455,
+        "contradiction_far": 0.0,
+        "contradiction_false_accepts": 0,
+        "unsupported_far": 0.0,
+        "unsupported_false_accepts": 0,
+        "partially_supported_far": 0.125,
+        "partially_supported_false_accepts": 1,
+        "total_false_acceptances_into_supported": 1,
+        "uncertainty_rate": 0.4,
+        "uncertain_count": 12,
+        "safe_presentation_compliance_rate": 0.9667,
+        "safe_answers_count": 29,
+        "confusion_matrix": {
+          "supported": {
+            "supported": 2,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 6
+          },
+          "partially_supported": {
+            "supported": 1,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 4,
+            "not_evaluated": 3
+          },
+          "unsupported": {
+            "supported": 0,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 5,
+            "not_evaluated": 2
+          },
+          "contradicted": {
+            "supported": 0,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 6,
+            "not_evaluated": 1
+          },
+          "not_evaluated": {
+            "supported": 0,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 0
+          }
+        }
+      },
+      "config3_shadow_hybrid": {
+        "total_evaluations": 30,
+        "supported_precision": 1.0,
+        "supported_recall": 0.25,
+        "supported_f1": 0.4,
+        "non_supported_far": 0.0,
+        "contradiction_far": 0.0,
+        "contradiction_false_accepts": 0,
+        "unsupported_far": 0.0,
+        "unsupported_false_accepts": 0,
+        "partially_supported_far": 0.0,
+        "partially_supported_false_accepts": 0,
+        "total_false_acceptances_into_supported": 0,
+        "uncertainty_rate": 0.3667,
+        "uncertain_count": 11,
+        "safe_presentation_compliance_rate": 1.0,
+        "safe_answers_count": 30,
+        "confusion_matrix": {
+          "supported": {
+            "supported": 2,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 6
+          },
+          "partially_supported": {
+            "supported": 0,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 4,
+            "not_evaluated": 4
+          },
+          "unsupported": {
+            "supported": 0,
+            "partially_supported": 0,
+            "unsupported": 7,
+            "contradicted": 0,
+            "not_evaluated": 0
+          },
+          "contradicted": {
+            "supported": 0,
+            "partially_supported": 0,
+            "unsupported": 1,
+            "contradicted": 5,
+            "not_evaluated": 1
+          },
+          "not_evaluated": {
+            "supported": 0,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 0
+          }
+        }
+      },
+      "latency_stats": {
+        "mean_latency_ms": 234.24,
+        "min_latency_ms": 189.87,
+        "max_latency_ms": 282.37,
+        "p95_latency_ms": 262.84
+      }
+    },
+    "milestone18_generalization": {
+      "dataset_name": "milestone18_generalization_heldout",
+      "dataset_file": "C:\\Users\\KIIT0001\\Desktop\\Repos\\nyayavarta\\evaluation\\rag\\milestone18_generalization_claims.jsonl",
+      "total_claims": 12,
+      "gold_distribution": {
+        "supported": 3,
+        "partially_supported": 3,
+        "unsupported": 3,
+        "contradicted": 3
+      },
+      "config1_deterministic_alone": {
+        "total_evaluations": 12,
+        "supported_precision": 0.375,
+        "supported_recall": 1.0,
+        "supported_f1": 0.5455,
+        "non_supported_far": 0.5556,
+        "contradiction_far": 0.6667,
+        "contradiction_false_accepts": 2,
+        "unsupported_far": 0.0,
+        "unsupported_false_accepts": 0,
+        "partially_supported_far": 1.0,
+        "partially_supported_false_accepts": 3,
+        "total_false_acceptances_into_supported": 5,
+        "uncertainty_rate": 0.1667,
+        "uncertain_count": 2,
+        "safe_presentation_compliance_rate": 0.5833,
+        "safe_answers_count": 7,
+        "confusion_matrix": {
+          "supported": {
+            "supported": 3,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 0
+          },
+          "partially_supported": {
+            "supported": 3,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 0
+          },
+          "unsupported": {
+            "supported": 0,
+            "partially_supported": 0,
+            "unsupported": 2,
+            "contradicted": 0,
+            "not_evaluated": 1
+          },
+          "contradicted": {
+            "supported": 2,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 1
+          },
+          "not_evaluated": {
+            "supported": 0,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 0
+          }
+        }
+      },
+      "config2_nli_alone": {
+        "total_evaluations": 12,
+        "supported_precision": 0.75,
+        "supported_recall": 1.0,
+        "supported_f1": 0.8571,
+        "non_supported_far": 0.1111,
+        "contradiction_far": 0.0,
+        "contradiction_false_accepts": 0,
+        "unsupported_far": 0.0,
+        "unsupported_false_accepts": 0,
+        "partially_supported_far": 0.3333,
+        "partially_supported_false_accepts": 1,
+        "total_false_acceptances_into_supported": 1,
+        "uncertainty_rate": 0.0833,
+        "uncertain_count": 1,
+        "safe_presentation_compliance_rate": 0.9167,
+        "safe_answers_count": 11,
+        "confusion_matrix": {
+          "supported": {
+            "supported": 3,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 0
+          },
+          "partially_supported": {
+            "supported": 1,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 2,
+            "not_evaluated": 0
+          },
+          "unsupported": {
+            "supported": 0,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 2,
+            "not_evaluated": 1
+          },
+          "contradicted": {
+            "supported": 0,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 3,
+            "not_evaluated": 0
+          },
+          "not_evaluated": {
+            "supported": 0,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 0
+          }
+        }
+      },
+      "config3_shadow_hybrid": {
+        "total_evaluations": 12,
+        "supported_precision": 0.75,
+        "supported_recall": 1.0,
+        "supported_f1": 0.8571,
+        "non_supported_far": 0.1111,
+        "contradiction_far": 0.0,
+        "contradiction_false_accepts": 0,
+        "unsupported_far": 0.0,
+        "unsupported_false_accepts": 0,
+        "partially_supported_far": 0.3333,
+        "partially_supported_false_accepts": 1,
+        "total_false_acceptances_into_supported": 1,
+        "uncertainty_rate": 0.0833,
+        "uncertain_count": 1,
+        "safe_presentation_compliance_rate": 0.9167,
+        "safe_answers_count": 11,
+        "confusion_matrix": {
+          "supported": {
+            "supported": 3,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 0
+          },
+          "partially_supported": {
+            "supported": 1,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 2,
+            "not_evaluated": 0
+          },
+          "unsupported": {
+            "supported": 0,
+            "partially_supported": 0,
+            "unsupported": 2,
+            "contradicted": 0,
+            "not_evaluated": 1
+          },
+          "contradicted": {
+            "supported": 0,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 3,
+            "not_evaluated": 0
+          },
+          "not_evaluated": {
+            "supported": 0,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 0
+          }
+        }
+      },
+      "latency_stats": {
+        "mean_latency_ms": 233.78,
+        "min_latency_ms": 198.21,
+        "max_latency_ms": 280.42,
+        "p95_latency_ms": 266.78
+      }
+    }
+  },
+  "disagreement_audit_summary": {
+    "total_disagreements": 24,
+    "breakdown_by_type": {
+      "false_support_averted_by_nli_neutral": 9,
+      "false_support_averted_by_nli_contradiction": 7,
+      "nli_entailment_suppressed_by_safety_contract": 1,
+      "unverified_flagged_as_contradicted": 7
+    }
+  }
+}

@@ -1,0 +1,3318 @@
+{
+  "benchmark_name": "Milestone 11 Isolated Graph Expansion Evaluation",
+  "timestamp": "2026-10-14T14:46:23Z",
+  "dataset_path": "evaluation/rag/milestone10_eval_dataset.json",
+  "total_queries": 42,
+  "answerable_queries": 32,
+  "unanswerable_queries": 10,
+  "production_safety_verified": true,
+  "summary": {
+    "baseline_hybrid": {
+      "hr1": 0.8125,
+      "hr3": 0.8438,
+      "hr5": 0.9375,
+      "hr10": 0.9688,
+      "mrr": 0.8508,
+      "median_latency_ms": 64.18
+    },
+    "graph_v2_citations_only": {
+      "hr1": 0.8125,
+      "hr3": 0.8438,
+      "hr5": 0.8438,
+      "hr10": 0.9375,
+      "mrr": 0.843,
+      "median_latency_ms": 60.76,
+      "edges_traversed": 1736,
+      "additional_relevant": 0,
+      "irrelevant_expansions": 210,
+      "false_links": 0
+    },
+    "graph_v2_combined": {
+      "hr1": 0.8125,
+      "hr3": 0.8438,
+      "hr5": 0.9375,
+      "hr10": 0.9375,
+      "mrr": 0.8469,
+      "median_latency_ms": 63.21,
+      "edges_traversed": 2289,
+      "additional_relevant": 0,
+      "irrelevant_expansions": 210,
+      "false_links": 0
+    }
+  },
+  "configurations": {
+    "baseline_hybrid": {
+      "config_name": "Baseline Hybrid (No Graph)",
+      "total_queries": 42,
+      "answerable_queries": 32,
+      "hit_rate_at_1": 0.8125,
+      "hit_rate_at_3": 0.8438,
+      "hit_rate_at_5": 0.9375,
+      "hit_rate_at_10": 0.9688,
+      "mrr": 0.8508,
+      "median_latency_ms": 64.18,
+      "mean_latency_ms": 92.92,
+      "p95_latency_ms": 259.03,
+      "total_edges_traversed": 0,
+      "additional_relevant_docs_retrieved": 0,
+      "irrelevant_graph_expansions": 0,
+      "false_links_traversed": 0,
+      "per_query_data": [
+        {
+          "query_id": "M10_001",
+          "question": "Can the Supreme Court exercise powers under Article 142 of the Constitution to grant admission to an IIT candidate from a marginalized community who was prevented from paying fees due to a portal login glitch?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_150_153"
+          ],
+          "top_5_retrieved": [
+            "2024_10_150_153",
+            "2024_7_1489_1548",
+            "2024_7_957_969",
+            "2024_12_381_391",
+            "2024_3_1023_1043"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 259.03,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_002",
+          "question": "Does an appeal lie to the Supreme Court under Section 62 of the Insolvency and Bankruptcy Code against an order of the NCLAT approving withdrawal of CIRP under Rule 11?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1802_1854"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1802_1854",
+            "2024_1_114_139",
+            "2024_2_258_287",
+            "2024_11_489_497",
+            "2024_5_1_35"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 258.74,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_003",
+          "question": "Is a specific and clear entry in the balance sheet of a Corporate Debtor required to constitute an acknowledgment of debt under Section 18 of the Limitation Act for IBC proceedings?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1462_1474"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1462_1474",
+            "2024_5_215_240",
+            "2024_7_2143_2175",
+            "2024_10_1802_1854",
+            "2024_2_258_287"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 276.05,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_004",
+          "question": "Can an authorized signatory who signs a cheque on behalf of a company be directed to deposit an interim sum under Section 148 of the Negotiable Instruments Act upon appeal against conviction under Section 138?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1890_1901"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1890_1901",
+            "2024_7_1211_1224",
+            "2024_12_1946_1996",
+            "2024_10_2248_2264",
+            "2024_8_121_139"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 222.92,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_005",
+          "question": "Does prolonged incarceration without trial violate Article 21 and justify granting bail despite the twin conditions in Section 45(1) of the Prevention of Money Laundering Act?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_393_410"
+          ],
+          "top_5_retrieved": [
+            "2024_8_1061_1085",
+            "2024_7_1054_1070",
+            "2024_7_2363_2426",
+            "2024_12_837_842",
+            "2024_7_992_1000"
+          ],
+          "first_gold_rank": 8,
+          "hit_at_5": false,
+          "latency_ms": 261.47,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_006",
+          "question": "Does a shopping mall constructed for letting out qualify as 'plant' under Section 17(5)(d) of the CGST Act for input tax credit eligibility?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_793_859"
+          ],
+          "top_5_retrieved": [
+            "2024_10_793_859",
+            "2024_11_1525_1601",
+            "2024_7_287_315",
+            "2024_12_1320_1354",
+            "2024_9_443_472"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 219.62,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_007",
+          "question": "Is prior sanction under Section 197 CrPC mandatory to prosecute a private bank manager for criminal breach of trust under Section 409 IPC?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_10_1902_1917",
+            "2024_11_510_522",
+            "2024_10_315_383",
+            "2024_7_62_68",
+            "2024_1_429_441"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 170.08,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_008",
+          "question": "Does the Hindu legal concept of joint family coparcenary property apply to Mohammedans governed by Muslim law?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_12_923_946",
+            "2024_6_298_314",
+            "2024_7_1236_1313",
+            "2024_1_413_428",
+            "2024_3_838_847"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 117.85,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_009",
+          "question": "Does the statutory provision for anticipatory bail under Section 438 CrPC establish that an accused can seek pre-arrest bail in contempt of court proceedings?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_9_257_312",
+            "2024_8_235_286",
+            "2024_8_662_669",
+            "2024_3_421_437",
+            "2024_8_1086_1145"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 117.76,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_010",
+          "question": "Does Section 3(j) of the Patents Act, 1970 permit patenting of genetically modified mustard seeds containing transgenic traits as held by the Supreme Court?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_7_1847_2142",
+            "2024_2_743_757",
+            "2024_1_517_548",
+            "2024_9_397_407",
+            "2024_3_60_72"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 65.46,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_011",
+          "question": "Under the Consumer Protection Act, can a medical practitioner be held liable for medical negligence under the Bolam test if an alternative recognized surgical technique was adopted without proving lack of reasonable competence?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1475_1482"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1475_1482",
+            "2024_4_757_775",
+            "2024_12_1875_1883",
+            "2024_6_484_529",
+            "2024_2_1065_1071"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 64.96,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_012",
+          "question": "Can a third-party stranger who is dispossessed of immovable property in execution of a decree maintain an application under Order XXI Rule 99 of the CPC?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1359_1370"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1359_1370",
+            "2024_7_474_531",
+            "2024_12_1445_1481",
+            "2024_5_831_858",
+            "2024_11_2375_2410"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 64.04,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_013",
+          "question": "Does Rule 9(4) of the Security Interest (Enforcement) Rules permit an auction purchaser to unilaterally demand an extension of the deposit period as a matter of right?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1371_1380"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1371_1380",
+            "2024_4_633_639",
+            "2024_7_474_531",
+            "2024_8_1263_1320",
+            "2024_7_2427_2433"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 65.93,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_014",
+          "question": "Can the government cancel an ongoing public recruitment process and alter selection rules after the final select list has already been prepared?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1344_1358"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1344_1358",
+            "2024_12_28_67",
+            "2024_2_1196_1203",
+            "2024_8_45_98",
+            "2024_10_18_36"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 57.84,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_015",
+          "question": "Can an appellate court reverse a judgment of acquittal into conviction based solely on circumstantial evidence?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_108_125"
+          ],
+          "top_5_retrieved": [
+            "2024_2_1178_1195",
+            "2024_10_1757_1768",
+            "2024_4_48_62",
+            "2024_2_288_309",
+            "2024_10_108_125"
+          ],
+          "first_gold_rank": 5,
+          "hit_at_5": true,
+          "latency_ms": 52.94,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_016",
+          "question": "Can a municipal corporation demand royalty, tax, or fees on commercial advertisement hoardings without express statutory authority under Article 265 of the Constitution?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1381_1403"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1381_1403",
+            "2024_7_1549_1846",
+            "2024_8_189_206",
+            "2024_2_847_934",
+            "2024_7_1489_1548"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 48.98,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_017",
+          "question": "What valid conditions may the State Government impose when exercising executive power to grant remission of sentence to a life convict under Section 432 of CrPC?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1448_1461"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1448_1461",
+            "2024_1_743_908",
+            "2024_3_913_946",
+            "2024_2_111_122",
+            "2024_6_429_451"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 64.78,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_018",
+          "question": "Does viewing or streaming child sexual abuse material online without downloading constitute an offence under Section 15 of the POCSO Act?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_154_314"
+          ],
+          "top_5_retrieved": [
+            "2024_10_154_314",
+            "2024_8_575_614",
+            "2024_11_641_666",
+            "2024_12_1072_1092",
+            "2024_3_1228_1248"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 58.22,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_019",
+          "question": "Is Section 6A of the Citizenship Act, 1955 providing a special framework for citizenship in Assam constitutionally valid under Articles 14 and 21?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_961_1312"
+          ],
+          "top_5_retrieved": [
+            "2024_10_961_1312",
+            "2024_10_736_752",
+            "2024_11_1_324",
+            "2024_1_473_487",
+            "2024_7_2329_2362"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 61.38,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_020",
+          "question": "Are provisions in prison manuals providing for division of labor or segregation based on caste constitutionally valid under Article 15?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_493_638"
+          ],
+          "top_5_retrieved": [
+            "2024_10_493_638",
+            "2024_5_1038_1055",
+            "2024_8_1321_1672",
+            "2024_1_743_908",
+            "2024_11_1_324"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 48.72,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_021",
+          "question": "Can a statutory regulatory tariff authority be impleaded as a contesting respondent in an appeal against its own tariff order?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1404_1447"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1404_1447",
+            "2024_1_909_972",
+            "2024_9_971_980",
+            "2024_3_1023_1043",
+            "2024_9_199_217"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 48.95,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_022",
+          "question": "What essential ingredients of intentional instigation are required to convict an accused for abetment of suicide under Section 306 IPC?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1483_1502"
+          ],
+          "top_5_retrieved": [
+            "2024_2_830_846",
+            "2024_3_329_355",
+            "2024_3_157_173",
+            "2024_8_796_804",
+            "2024_10_1483_1502"
+          ],
+          "first_gold_rank": 5,
+          "hit_at_5": true,
+          "latency_ms": 51.62,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_023",
+          "question": "Can an appellate court grant an unconditional stay on the execution of an arbitral award under Section 36(3) of the Arbitration Act without satisfying the statutory proviso?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1503_1512"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1503_1512",
+            "2024_9_473_489",
+            "2024_3_971_993",
+            "2024_7_840_909",
+            "2024_7_136_162"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 81.1,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_024",
+          "question": "Can the Income Tax Department issue reassessment notices under Section 148 of the Income Tax Act post-Finance Act 2021 without complying with Section 148A procedure?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1633_1708"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1633_1708",
+            "2024_1_642_676",
+            "2024_6_337_345",
+            "2024_8_788_795",
+            "2024_12_202_334"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 61.8,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_025",
+          "question": "Can a criminal trial court remand a matter to allow the prosecution to lead additional evidence to fill up lacunae in its case?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1726_1735"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1_17",
+            "2024_10_1726_1735",
+            "2024_12_1553_1580",
+            "2024_5_174_202",
+            "2024_4_308_321"
+          ],
+          "first_gold_rank": 2,
+          "hit_at_5": true,
+          "latency_ms": 61.83,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_026",
+          "question": "What evidentiary weight is accorded to an oral dying declaration made to interested relatives without corroboration?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1876_1889"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1876_1889",
+            "2024_6_740_760",
+            "2024_3_36_45",
+            "2024_7_218_245",
+            "2024_7_50_61"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 41.34,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_027",
+          "question": "Is a state enactment that singles out a single private university for targeted dissolution constitutionally valid under Article 14?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_445_492"
+          ],
+          "top_5_retrieved": [
+            "2024_10_445_492",
+            "2024_11_1647_2038",
+            "2024_10_961_1312",
+            "2024_2_420_616",
+            "2024_10_1513_1632"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 57.58,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_028",
+          "question": "Can a Magistrate order the refund or alteration of interim maintenance under Section 125 of CrPC upon proof of changed circumstances?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_45_53"
+          ],
+          "top_5_retrieved": [
+            "2024_10_45_53",
+            "2024_12_954_957",
+            "2024_11_2039_2172",
+            "2024_8_235_286",
+            "2024_3_438_453"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 64.33,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_029",
+          "question": "Can a donor unilaterally execute a revocation deed to cancel a validly accepted and registered gift deed of immovable property?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_952_960"
+          ],
+          "top_5_retrieved": [
+            "2024_10_952_960",
+            "2024_12_693_707",
+            "2024_11_2329_2347",
+            "2024_7_2295_2328",
+            "2024_10_1359_1370"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 42.14,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_030",
+          "question": "What criteria distinguish a supervisor from a workman under Section 2(s) of the Industrial Disputes Act, 1947?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_2303_2313"
+          ],
+          "top_5_retrieved": [
+            "2024_10_2303_2313",
+            "2024_4_100_120",
+            "2024_5_596_611",
+            "2024_4_576_590",
+            "2024_3_959_970"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 47.8,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_031",
+          "question": "Did the Supreme Court hold in Bijay Agarwal v. Medilines that Section 148 NI Act empowers appellate courts to order deposits from authorized signatories because the appellant argued it was necessary?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1890_1901"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1890_1901",
+            "2024_3_1023_1043",
+            "2024_1_1083_1089",
+            "2024_12_1911_1945",
+            "2024_12_1946_1996"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 80.01,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_032",
+          "question": "Did the Supreme Court in Sangeeta Devi accept the State's submission that completed select lists can be cancelled arbitrarily without assigning reasons?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1344_1358"
+          ],
+          "top_5_retrieved": [
+            "2024_2_722_742",
+            "2024_6_287_297",
+            "2024_7_532_610",
+            "2024_10_18_36",
+            "2024_10_1344_1358"
+          ],
+          "first_gold_rank": 5,
+          "hit_at_5": true,
+          "latency_ms": 62.66,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_033",
+          "question": "Did the Supreme Court in Safari Retreats hold that every commercial building automatically qualifies for 100% input tax credit without proving the functionality test?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_793_859"
+          ],
+          "top_5_retrieved": [
+            "2024_10_793_859",
+            "2024_11_1525_1601",
+            "2024_2_1001_1038",
+            "2024_5_906_926",
+            "2024_1_909_972"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 51.94,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_034",
+          "question": "Does Section 18 of the Limitation Act extend limitation if a balance sheet entry is accompanied by an express, unequivocal disclaimer denying debt liability?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1462_1474"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1462_1474",
+            "2024_7_2143_2175",
+            "2024_10_1802_1854",
+            "2024_12_133_201",
+            "2024_4_255_263"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 52.13,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_035",
+          "question": "Does an appellate court have jurisdiction under Section 378 CrPC to overturn an acquittal if two reasonable views are possible on the trial evidence?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_108_125"
+          ],
+          "top_5_retrieved": [
+            "2024_4_322_327",
+            "2024_5_174_202",
+            "2024_2_1178_1195",
+            "2024_2_638_649",
+            "2024_7_1147_1154"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 69.69,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_036",
+          "question": "Can an auction purchaser obtain an extension of the deposit period under Rule 9(4) of the Security Interest Rules without the written consent of the secured creditor?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1371_1380"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1371_1380",
+            "2024_4_633_639",
+            "2024_7_474_531",
+            "2024_7_2427_2433",
+            "2024_2_12_90"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 52.01,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_037",
+          "question": "Did the Supreme Court in 2024 overrule the 13-judge bench decision in Kesavananda Bharati v. State of Kerala (1973) 4 SCC 225 regarding the basic structure doctrine?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_8_540_560",
+            "2024_11_1_324",
+            "2024_11_947_953",
+            "2024_8_949_954",
+            "2024_9_668_676"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 78.46,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_038",
+          "question": "Did the Supreme Court in 2024 declare the 9-judge bench decision in Indra Sawhney v. Union of India (1992) Supp 3 SCC 217 unconstitutional?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_8_488_500",
+            "2024_11_1_324",
+            "2024_8_1321_1672",
+            "2024_8_949_954",
+            "2024_10_961_1312"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 72.59,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_039",
+          "question": "Does the 2024 Supreme Court judgment in State of Gujarat v. Ambuja Cement overrule the 2005 decision in State of H.P. v. Gujarat Ambuja Cement Ltd (2005) 6 SCC 499?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_8_540_560",
+            "2024_8_34_44",
+            "2024_9_443_472",
+            "2024_10_1381_1403",
+            "2024_6_594_623"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 74.05,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_040",
+          "question": "What is the statutory limitation period prescribed under Section 16 of the Competition Act, 2002 for appointment of the Director General by the Central Government?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_7_1549_1846",
+            "2024_10_1404_1447",
+            "2024_11_850_860",
+            "2024_12_1997_2042",
+            "2024_11_1329_1334"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 63.27,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_041",
+          "question": "Did the Supreme Court disqualify a sitting Member of Parliament for filing an incomplete affidavit under Section 33A of the Representation of the People Act in the 2024 general election?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_4_523_540",
+            "2024_4_394_426",
+            "2024_6_53_74",
+            "2024_9_186_193",
+            "2024_2_722_742"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 67.38,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_042",
+          "question": "What is the mandatory statutory time limit for registering a geographical indication under Section 20 of the Geographical Indications of Goods Act, 1999?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_11_1335_1342",
+            "2024_11_970_1012",
+            "2024_11_445_488",
+            "2024_10_961_1312",
+            "2024_11_1329_1334"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 63.14,
+          "edges_traversed": 0,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [],
+          "false_links": []
+        }
+      ]
+    },
+    "graph_v2_citations_only": {
+      "config_name": "Hybrid + Graph V2 Cross-Doc Citations Only",
+      "total_queries": 42,
+      "answerable_queries": 32,
+      "hit_rate_at_1": 0.8125,
+      "hit_rate_at_3": 0.8438,
+      "hit_rate_at_5": 0.8438,
+      "hit_rate_at_10": 0.9375,
+      "mrr": 0.843,
+      "median_latency_ms": 60.76,
+      "mean_latency_ms": 81.28,
+      "p95_latency_ms": 171.62,
+      "total_edges_traversed": 1736,
+      "additional_relevant_docs_retrieved": 0,
+      "irrelevant_graph_expansions": 210,
+      "false_links_traversed": 0,
+      "per_query_data": [
+        {
+          "query_id": "M10_001",
+          "question": "Can the Supreme Court exercise powers under Article 142 of the Constitution to grant admission to an IIT candidate from a marginalized community who was prevented from paying fees due to a portal login glitch?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_150_153"
+          ],
+          "top_5_retrieved": [
+            "2024_10_150_153",
+            "2024_7_1489_1548",
+            "2024_7_957_969",
+            "2024_12_381_391",
+            "2024_11_970_1012"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 165.95,
+          "edges_traversed": 15,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_11_970_1012",
+            "2024_12_478_483",
+            "2024_4_523_540",
+            "2024_8_1146_1262",
+            "2024_11_1647_2038"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_002",
+          "question": "Does an appeal lie to the Supreme Court under Section 62 of the Insolvency and Bankruptcy Code against an order of the NCLAT approving withdrawal of CIRP under Rule 11?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1802_1854"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1802_1854",
+            "2024_1_114_139",
+            "2024_11_489_497",
+            "2024_2_258_287",
+            "2024_5_1_35"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 194.01,
+          "edges_traversed": 44,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_1_140_170",
+            "2024_4_523_540",
+            "2024_11_1647_2038",
+            "2024_2_1136_1177",
+            "2024_2_217_241"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_003",
+          "question": "Is a specific and clear entry in the balance sheet of a Corporate Debtor required to constitute an acknowledgment of debt under Section 18 of the Limitation Act for IBC proceedings?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1462_1474"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1462_1474",
+            "2024_5_215_240",
+            "2024_7_2143_2175",
+            "2024_10_1802_1854",
+            "2024_2_258_287"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 171.62,
+          "edges_traversed": 55,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_4_523_540",
+            "2024_11_1647_2038",
+            "2024_2_1136_1177",
+            "2024_2_217_241",
+            "2024_2_12_90"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_004",
+          "question": "Can an authorized signatory who signs a cheque on behalf of a company be directed to deposit an interim sum under Section 148 of the Negotiable Instruments Act upon appeal against conviction under Section 138?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1890_1901"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1890_1901",
+            "2024_7_1211_1224",
+            "2024_12_1946_1996",
+            "2024_10_2248_2264",
+            "2024_8_121_139"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 152.07,
+          "edges_traversed": 41,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_2_1039_1053",
+            "2024_4_255_263",
+            "2024_1_1083_1089",
+            "2024_7_781_795",
+            "2024_4_655_663"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_005",
+          "question": "Does prolonged incarceration without trial violate Article 21 and justify granting bail despite the twin conditions in Section 45(1) of the Prevention of Money Laundering Act?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_393_410"
+          ],
+          "top_5_retrieved": [
+            "2024_8_1061_1085",
+            "2024_7_1054_1070",
+            "2024_12_837_842",
+            "2024_7_2363_2426",
+            "2024_7_992_1000"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 183.93,
+          "edges_traversed": 38,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_6_666_697",
+            "2024_8_717_726",
+            "2024_2_134_151",
+            "2024_2_420_616",
+            "2024_12_1093_1107"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_006",
+          "question": "Does a shopping mall constructed for letting out qualify as 'plant' under Section 17(5)(d) of the CGST Act for input tax credit eligibility?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_793_859"
+          ],
+          "top_5_retrieved": [
+            "2024_10_793_859",
+            "2024_11_1525_1601",
+            "2024_7_287_315",
+            "2024_12_1320_1354",
+            "2024_12_993_1037"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 151.72,
+          "edges_traversed": 32,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_12_993_1037",
+            "2024_5_831_858",
+            "2024_6_714_722",
+            "2024_10_736_752",
+            "2024_2_935_945"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_007",
+          "question": "Is prior sanction under Section 197 CrPC mandatory to prosecute a private bank manager for criminal breach of trust under Section 409 IPC?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_10_1902_1917",
+            "2024_11_510_522",
+            "2024_10_315_383",
+            "2024_7_62_68",
+            "2024_8_670_699"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 150.36,
+          "edges_traversed": 25,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_8_670_699",
+            "2024_3_647_660",
+            "2024_8_1146_1262",
+            "2024_12_1148_1159",
+            "2024_12_1743_1794"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_008",
+          "question": "Does the Hindu legal concept of joint family coparcenary property apply to Mohammedans governed by Muslim law?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_12_923_946",
+            "2024_6_298_314",
+            "2024_7_1236_1313",
+            "2024_1_413_428",
+            "2024_3_838_847"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 89.42,
+          "edges_traversed": 15,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_8_1146_1262",
+            "2024_11_1647_2038",
+            "2024_10_736_752",
+            "2024_8_99_112",
+            "2024_10_493_638"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_009",
+          "question": "Does the statutory provision for anticipatory bail under Section 438 CrPC establish that an accused can seek pre-arrest bail in contempt of court proceedings?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_9_257_312",
+            "2024_8_235_286",
+            "2024_8_662_669",
+            "2024_3_421_437",
+            "2024_8_1086_1145"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 102.92,
+          "edges_traversed": 41,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_8_1146_1262",
+            "2024_11_1142_1232",
+            "2024_12_1743_1794",
+            "2024_2_758_775",
+            "2024_9_54_63"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_010",
+          "question": "Does Section 3(j) of the Patents Act, 1970 permit patenting of genetically modified mustard seeds containing transgenic traits as held by the Supreme Court?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_7_1847_2142",
+            "2024_2_743_757",
+            "2024_1_517_548",
+            "2024_9_397_407",
+            "2024_3_1320_1360"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 53.49,
+          "edges_traversed": 25,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_3_1320_1360",
+            "2024_2_420_616",
+            "2024_1_1194_1218",
+            "2024_10_736_752",
+            "2024_2_935_945"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_011",
+          "question": "Under the Consumer Protection Act, can a medical practitioner be held liable for medical negligence under the Bolam test if an alternative recognized surgical technique was adopted without proving lack of reasonable competence?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1475_1482"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1475_1482",
+            "2024_4_757_775",
+            "2024_12_1875_1883",
+            "2024_6_484_529",
+            "2024_2_1065_1071"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 51.46,
+          "edges_traversed": 9,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_11_1647_2038",
+            "2024_2_1136_1177",
+            "2024_2_1204_1222",
+            "2024_2_758_775",
+            "2024_10_493_638"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_012",
+          "question": "Can a third-party stranger who is dispossessed of immovable property in execution of a decree maintain an application under Order XXI Rule 99 of the CPC?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1359_1370"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1359_1370",
+            "2024_7_474_531",
+            "2024_12_1445_1481",
+            "2024_5_831_858",
+            "2024_11_1_324"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 58.03,
+          "edges_traversed": 17,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_11_1_324",
+            "2024_12_993_1037",
+            "2024_9_443_472",
+            "2024_5_612_628",
+            "2024_7_668_675"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_013",
+          "question": "Does Rule 9(4) of the Security Interest (Enforcement) Rules permit an auction purchaser to unilaterally demand an extension of the deposit period as a matter of right?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1371_1380"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1371_1380",
+            "2024_4_633_639",
+            "2024_7_474_531",
+            "2024_8_1263_1320",
+            "2024_12_1618_1742"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 55.79,
+          "edges_traversed": 24,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_12_1618_1742",
+            "2024_4_523_540",
+            "2024_11_1647_2038",
+            "2024_2_1136_1177",
+            "2024_7_1129_1146"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_014",
+          "question": "Can the government cancel an ongoing public recruitment process and alter selection rules after the final select list has already been prepared?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1344_1358"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1344_1358",
+            "2024_12_28_67",
+            "2024_2_1196_1203",
+            "2024_8_45_98",
+            "2024_8_885_900"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 52.75,
+          "edges_traversed": 11,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_8_885_900",
+            "2024_12_1795_1837",
+            "2024_4_523_540",
+            "2024_2_1136_1177",
+            "2024_2_12_90"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_015",
+          "question": "Can an appellate court reverse a judgment of acquittal into conviction based solely on circumstantial evidence?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_108_125"
+          ],
+          "top_5_retrieved": [
+            "2024_2_1178_1195",
+            "2024_10_1757_1768",
+            "2024_4_48_62",
+            "2024_2_288_309",
+            "2024_7_1147_1154"
+          ],
+          "first_gold_rank": 6,
+          "hit_at_5": false,
+          "latency_ms": 53.67,
+          "edges_traversed": 19,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_7_1147_1154",
+            "2024_7_1031_1039",
+            "2024_12_1072_1092",
+            "2024_8_345_376",
+            "2024_12_652_664"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_016",
+          "question": "Can a municipal corporation demand royalty, tax, or fees on commercial advertisement hoardings without express statutory authority under Article 265 of the Constitution?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1381_1403"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1381_1403",
+            "2024_7_1549_1846",
+            "2024_8_189_206",
+            "2024_2_847_934",
+            "2024_8_540_560"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 53.49,
+          "edges_traversed": 84,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_8_540_560",
+            "2024_10_1931_2182",
+            "2024_11_970_1012",
+            "2024_11_365_427",
+            "2024_12_732_742"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_017",
+          "question": "What valid conditions may the State Government impose when exercising executive power to grant remission of sentence to a life convict under Section 432 of CrPC?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1448_1461"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1448_1461",
+            "2024_1_743_908",
+            "2024_3_913_946",
+            "2024_2_111_122",
+            "2024_11_722_785"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 57.81,
+          "edges_traversed": 27,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_11_722_785",
+            "2024_10_37_44",
+            "2024_10_769_785",
+            "2024_12_1072_1092",
+            "2024_8_1146_1262"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_018",
+          "question": "Does viewing or streaming child sexual abuse material online without downloading constitute an offence under Section 15 of the POCSO Act?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_154_314"
+          ],
+          "top_5_retrieved": [
+            "2024_10_154_314",
+            "2024_8_575_614",
+            "2024_11_641_666",
+            "2024_12_1072_1092",
+            "2024_10_1513_1632"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 55.74,
+          "edges_traversed": 48,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_10_1513_1632",
+            "2024_3_913_946",
+            "2024_4_523_540",
+            "2024_7_1183_1201",
+            "2024_11_1647_2038"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_019",
+          "question": "Is Section 6A of the Citizenship Act, 1955 providing a special framework for citizenship in Assam constitutionally valid under Articles 14 and 21?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_961_1312"
+          ],
+          "top_5_retrieved": [
+            "2024_10_961_1312",
+            "2024_10_736_752",
+            "2024_11_1_324",
+            "2024_1_473_487",
+            "2024_2_420_616"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 63.57,
+          "edges_traversed": 178,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_2_420_616",
+            "2024_8_1321_1672",
+            "2024_3_462_584",
+            "2024_5_831_858",
+            "2024_11_2173_2328"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_020",
+          "question": "Are provisions in prison manuals providing for division of labor or segregation based on caste constitutionally valid under Article 15?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_493_638"
+          ],
+          "top_5_retrieved": [
+            "2024_10_493_638",
+            "2024_5_1038_1055",
+            "2024_8_1321_1672",
+            "2024_1_743_908",
+            "2024_11_722_785"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 57.14,
+          "edges_traversed": 70,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_11_722_785",
+            "2024_2_420_616",
+            "2024_3_1320_1360",
+            "2024_5_927_934",
+            "2024_7_246_286"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_021",
+          "question": "Can a statutory regulatory tariff authority be impleaded as a contesting respondent in an appeal against its own tariff order?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1404_1447"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1404_1447",
+            "2024_1_909_972",
+            "2024_9_971_980",
+            "2024_3_1023_1043",
+            "2024_11_2173_2328"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 44.13,
+          "edges_traversed": 21,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_11_2173_2328",
+            "2024_7_840_909",
+            "2024_12_478_483",
+            "2024_9_894_946",
+            "2024_4_523_540"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_022",
+          "question": "What essential ingredients of intentional instigation are required to convict an accused for abetment of suicide under Section 306 IPC?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1483_1502"
+          ],
+          "top_5_retrieved": [
+            "2024_2_830_846",
+            "2024_3_329_355",
+            "2024_3_157_173",
+            "2024_8_796_804",
+            "2024_12_1160_1185"
+          ],
+          "first_gold_rank": 6,
+          "hit_at_5": false,
+          "latency_ms": 49.08,
+          "edges_traversed": 78,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_12_1160_1185",
+            "2024_10_54_61",
+            "2024_2_1_11",
+            "2024_10_769_785",
+            "2024_7_1031_1039"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_023",
+          "question": "Can an appellate court grant an unconditional stay on the execution of an arbitral award under Section 36(3) of the Arbitration Act without satisfying the statutory proviso?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1503_1512"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1503_1512",
+            "2024_9_473_489",
+            "2024_3_971_993",
+            "2024_7_840_909",
+            "2024_11_530_540"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 81.1,
+          "edges_traversed": 34,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_11_530_540",
+            "2024_3_73_126",
+            "2024_11_2173_2328",
+            "2024_10_1748_1756",
+            "2024_11_850_860"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_024",
+          "question": "Can the Income Tax Department issue reassessment notices under Section 148 of the Income Tax Act post-Finance Act 2021 without complying with Section 148A procedure?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1633_1708"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1633_1708",
+            "2024_1_642_676",
+            "2024_6_337_345",
+            "2024_8_788_795",
+            "2024_4_664_685"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 60.22,
+          "edges_traversed": 16,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_4_664_685",
+            "2024_2_946_988",
+            "2024_5_81_142",
+            "2024_4_523_540",
+            "2024_7_1183_1201"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_025",
+          "question": "Can a criminal trial court remand a matter to allow the prosecution to lead additional evidence to fill up lacunae in its case?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1726_1735"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1_17",
+            "2024_10_1726_1735",
+            "2024_12_1553_1580",
+            "2024_5_174_202",
+            "2024_8_345_376"
+          ],
+          "first_gold_rank": 2,
+          "hit_at_5": true,
+          "latency_ms": 61.72,
+          "edges_traversed": 10,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_8_345_376",
+            "2024_12_1_27",
+            "2024_9_86_96",
+            "2024_8_1146_1262",
+            "2024_3_1004_1008"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_026",
+          "question": "What evidentiary weight is accorded to an oral dying declaration made to interested relatives without corroboration?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1876_1889"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1876_1889",
+            "2024_6_740_760",
+            "2024_3_36_45",
+            "2024_7_218_245",
+            "2024_7_50_61"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 44.01,
+          "edges_traversed": 8,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_2_1_11",
+            "2024_12_1743_1794",
+            "2024_10_769_785",
+            "2024_8_345_376",
+            "2024_5_74_80"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_027",
+          "question": "Is a state enactment that singles out a single private university for targeted dissolution constitutionally valid under Article 14?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_445_492"
+          ],
+          "top_5_retrieved": [
+            "2024_10_445_492",
+            "2024_10_961_1312",
+            "2024_11_1647_2038",
+            "2024_2_420_616",
+            "2024_8_1321_1672"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 61.3,
+          "edges_traversed": 200,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_8_1321_1672",
+            "2024_6_530_593",
+            "2024_3_1315_1319",
+            "2024_10_493_638",
+            "2024_3_637_646"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_028",
+          "question": "Can a Magistrate order the refund or alteration of interim maintenance under Section 125 of CrPC upon proof of changed circumstances?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_45_53"
+          ],
+          "top_5_retrieved": [
+            "2024_10_45_53",
+            "2024_12_954_957",
+            "2024_11_2039_2172",
+            "2024_8_235_286",
+            "2024_9_257_312"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 55.73,
+          "edges_traversed": 11,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_9_257_312",
+            "2024_4_523_540",
+            "2024_8_1146_1262",
+            "2024_11_1647_2038",
+            "2024_2_217_241"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_029",
+          "question": "Can a donor unilaterally execute a revocation deed to cancel a validly accepted and registered gift deed of immovable property?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_952_960"
+          ],
+          "top_5_retrieved": [
+            "2024_10_952_960",
+            "2024_12_693_707",
+            "2024_11_2329_2347",
+            "2024_7_2295_2328",
+            "2024_2_650_667"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 36.77,
+          "edges_traversed": 8,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_2_650_667",
+            "2024_5_1148_1158",
+            "2024_4_523_540",
+            "2024_11_1647_2038",
+            "2024_2_217_241"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_030",
+          "question": "What criteria distinguish a supervisor from a workman under Section 2(s) of the Industrial Disputes Act, 1947?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_2303_2313"
+          ],
+          "top_5_retrieved": [
+            "2024_10_2303_2313",
+            "2024_4_100_120",
+            "2024_5_596_611",
+            "2024_4_576_590",
+            "2024_8_154_174"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 53.61,
+          "edges_traversed": 14,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_8_154_174",
+            "2024_4_357_371",
+            "2024_5_241_270",
+            "2024_4_63_71",
+            "2024_10_736_752"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_031",
+          "question": "Did the Supreme Court hold in Bijay Agarwal v. Medilines that Section 148 NI Act empowers appellate courts to order deposits from authorized signatories because the appellant argued it was necessary?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1890_1901"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1890_1901",
+            "2024_3_1023_1043",
+            "2024_1_1083_1089",
+            "2024_12_1911_1945",
+            "2024_7_1211_1224"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 87.03,
+          "edges_traversed": 22,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_7_1211_1224",
+            "2024_12_478_483",
+            "2024_8_1146_1262",
+            "2024_11_1647_2038",
+            "2024_10_736_752"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_032",
+          "question": "Did the Supreme Court in Sangeeta Devi accept the State's submission that completed select lists can be cancelled arbitrarily without assigning reasons?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1344_1358"
+          ],
+          "top_5_retrieved": [
+            "2024_2_722_742",
+            "2024_6_287_297",
+            "2024_7_532_610",
+            "2024_10_18_36",
+            "2024_11_2173_2328"
+          ],
+          "first_gold_rank": 7,
+          "hit_at_5": false,
+          "latency_ms": 55.62,
+          "edges_traversed": 7,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_11_2173_2328",
+            "2024_12_1997_2042",
+            "2024_4_523_540",
+            "2024_11_1647_2038",
+            "2024_2_1136_1177"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_033",
+          "question": "Did the Supreme Court in Safari Retreats hold that every commercial building automatically qualifies for 100% input tax credit without proving the functionality test?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_793_859"
+          ],
+          "top_5_retrieved": [
+            "2024_10_793_859",
+            "2024_11_1525_1601",
+            "2024_2_1001_1038",
+            "2024_5_906_926",
+            "2024_1_909_972"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 53.28,
+          "edges_traversed": 14,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_8_1146_1262",
+            "2024_11_1647_2038",
+            "2024_2_217_241",
+            "2024_2_91_110",
+            "2024_2_935_945"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_034",
+          "question": "Does Section 18 of the Limitation Act extend limitation if a balance sheet entry is accompanied by an express, unequivocal disclaimer denying debt liability?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1462_1474"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1462_1474",
+            "2024_7_2143_2175",
+            "2024_10_1802_1854",
+            "2024_12_133_201",
+            "2024_3_73_126"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 54.79,
+          "edges_traversed": 40,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_3_73_126",
+            "2024_8_121_139",
+            "2024_4_241_254",
+            "2024_4_523_540",
+            "2024_11_1647_2038"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_035",
+          "question": "Does an appellate court have jurisdiction under Section 378 CrPC to overturn an acquittal if two reasonable views are possible on the trial evidence?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_108_125"
+          ],
+          "top_5_retrieved": [
+            "2024_4_322_327",
+            "2024_5_174_202",
+            "2024_2_1178_1195",
+            "2024_2_638_649",
+            "2024_8_345_376"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 70.07,
+          "edges_traversed": 24,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_8_345_376",
+            "2024_4_48_62",
+            "2024_2_1_11",
+            "2024_6_653_665",
+            "2024_7_1031_1039"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_036",
+          "question": "Can an auction purchaser obtain an extension of the deposit period under Rule 9(4) of the Security Interest Rules without the written consent of the secured creditor?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1371_1380"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1371_1380",
+            "2024_4_633_639",
+            "2024_7_474_531",
+            "2024_7_2427_2433",
+            "2024_12_1618_1742"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 57.33,
+          "edges_traversed": 30,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_12_1618_1742",
+            "2024_12_1795_1837",
+            "2024_2_1136_1177",
+            "2024_2_217_241",
+            "2024_3_1249_1272"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_037",
+          "question": "Did the Supreme Court in 2024 overrule the 13-judge bench decision in Kesavananda Bharati v. State of Kerala (1973) 4 SCC 225 regarding the basic structure doctrine?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_8_540_560",
+            "2024_11_1_324",
+            "2024_11_947_953",
+            "2024_8_949_954",
+            "2024_11_365_427"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 77.09,
+          "edges_traversed": 60,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_11_365_427",
+            "2024_7_1549_1846",
+            "2024_3_462_584",
+            "2024_5_831_858",
+            "2024_2_1121_1135"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_038",
+          "question": "Did the Supreme Court in 2024 declare the 9-judge bench decision in Indra Sawhney v. Union of India (1992) Supp 3 SCC 217 unconstitutional?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_8_488_500",
+            "2024_11_1_324",
+            "2024_8_1321_1672",
+            "2024_10_961_1312",
+            "2024_8_949_954"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 82.13,
+          "edges_traversed": 142,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_3_462_584",
+            "2024_5_831_858",
+            "2024_2_1121_1135",
+            "2024_11_947_953",
+            "2024_2_420_616"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_039",
+          "question": "Does the 2024 Supreme Court judgment in State of Gujarat v. Ambuja Cement overrule the 2005 decision in State of H.P. v. Gujarat Ambuja Cement Ltd (2005) 6 SCC 499?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_8_540_560",
+            "2024_8_34_44",
+            "2024_9_443_472",
+            "2024_10_1381_1403",
+            "2024_11_365_427"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 83.99,
+          "edges_traversed": 40,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_11_365_427",
+            "2024_7_1549_1846",
+            "2024_10_1931_2182",
+            "2024_11_2173_2328",
+            "2024_12_68_107"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_040",
+          "question": "What is the statutory limitation period prescribed under Section 16 of the Competition Act, 2002 for appointment of the Director General by the Central Government?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_7_1549_1846",
+            "2024_10_1404_1447",
+            "2024_11_850_860",
+            "2024_12_1997_2042",
+            "2024_10_1931_2182"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 81.61,
+          "edges_traversed": 35,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_10_1931_2182",
+            "2024_8_540_560",
+            "2024_11_365_427",
+            "2024_11_2173_2328",
+            "2024_9_473_489"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_041",
+          "question": "Did the Supreme Court disqualify a sitting Member of Parliament for filing an incomplete affidavit under Section 33A of the Representation of the People Act in the 2024 general election?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_4_523_540",
+            "2024_4_394_426",
+            "2024_6_53_74",
+            "2024_9_186_193",
+            "2024_3_417_420"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 109.77,
+          "edges_traversed": 15,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_3_417_420",
+            "2024_11_1647_2038",
+            "2024_2_1136_1177",
+            "2024_2_217_241",
+            "2024_2_12_90"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_042",
+          "question": "What is the mandatory statutory time limit for registering a geographical indication under Section 20 of the Geographical Indications of Goods Act, 1999?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_11_1335_1342",
+            "2024_11_970_1012",
+            "2024_11_445_488",
+            "2024_10_961_1312",
+            "2024_7_1489_1548"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 78.63,
+          "edges_traversed": 89,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_7_1489_1548",
+            "2024_2_420_616",
+            "2024_8_1321_1672",
+            "2024_10_736_752",
+            "2024_2_935_945"
+          ],
+          "false_links": []
+        }
+      ]
+    },
+    "graph_v2_combined": {
+      "config_name": "Hybrid + Graph V2 Combined (Citations + Grounded Statutes)",
+      "total_queries": 42,
+      "answerable_queries": 32,
+      "hit_rate_at_1": 0.8125,
+      "hit_rate_at_3": 0.8438,
+      "hit_rate_at_5": 0.9375,
+      "hit_rate_at_10": 0.9375,
+      "mrr": 0.8469,
+      "median_latency_ms": 63.21,
+      "mean_latency_ms": 79.34,
+      "p95_latency_ms": 177.08,
+      "total_edges_traversed": 2289,
+      "additional_relevant_docs_retrieved": 0,
+      "irrelevant_graph_expansions": 210,
+      "false_links_traversed": 0,
+      "per_query_data": [
+        {
+          "query_id": "M10_001",
+          "question": "Can the Supreme Court exercise powers under Article 142 of the Constitution to grant admission to an IIT candidate from a marginalized community who was prevented from paying fees due to a portal login glitch?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_150_153"
+          ],
+          "top_5_retrieved": [
+            "2024_10_150_153",
+            "2024_7_1489_1548",
+            "2024_7_957_969",
+            "2024_12_381_391",
+            "2024_3_1023_1043"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 133.32,
+          "edges_traversed": 37,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_11_970_1012",
+            "2024_10_961_1312",
+            "2024_7_1549_1846",
+            "2024_11_1647_2038",
+            "2024_4_523_540"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_002",
+          "question": "Does an appeal lie to the Supreme Court under Section 62 of the Insolvency and Bankruptcy Code against an order of the NCLAT approving withdrawal of CIRP under Rule 11?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1802_1854"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1802_1854",
+            "2024_1_114_139",
+            "2024_2_258_287",
+            "2024_11_489_497",
+            "2024_5_1_35"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 177.08,
+          "edges_traversed": 69,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_11_2039_2172",
+            "2024_1_140_170",
+            "2024_12_2043_2074",
+            "2024_5_215_240",
+            "2024_8_1263_1320"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_003",
+          "question": "Is a specific and clear entry in the balance sheet of a Corporate Debtor required to constitute an acknowledgment of debt under Section 18 of the Limitation Act for IBC proceedings?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1462_1474"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1462_1474",
+            "2024_5_215_240",
+            "2024_7_2143_2175",
+            "2024_10_1802_1854",
+            "2024_2_258_287"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 189.4,
+          "edges_traversed": 108,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_12_2043_2074",
+            "2024_1_140_170",
+            "2024_11_2039_2172",
+            "2024_12_133_201",
+            "2024_11_489_497"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_004",
+          "question": "Can an authorized signatory who signs a cheque on behalf of a company be directed to deposit an interim sum under Section 148 of the Negotiable Instruments Act upon appeal against conviction under Section 138?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1890_1901"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1890_1901",
+            "2024_7_1211_1224",
+            "2024_12_1946_1996",
+            "2024_10_2248_2264",
+            "2024_8_121_139"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 163.8,
+          "edges_traversed": 51,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_3_438_453",
+            "2024_4_255_263",
+            "2024_8_1_7",
+            "2024_3_647_660",
+            "2024_12_1273_1286"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_005",
+          "question": "Does prolonged incarceration without trial violate Article 21 and justify granting bail despite the twin conditions in Section 45(1) of the Prevention of Money Laundering Act?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_393_410"
+          ],
+          "top_5_retrieved": [
+            "2024_8_1061_1085",
+            "2024_7_1054_1070",
+            "2024_12_837_842",
+            "2024_7_2363_2426",
+            "2024_7_992_1000"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 159.11,
+          "edges_traversed": 41,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_6_666_697",
+            "2024_8_717_726",
+            "2024_2_134_151",
+            "2024_3_778_811",
+            "2024_5_203_214"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_006",
+          "question": "Does a shopping mall constructed for letting out qualify as 'plant' under Section 17(5)(d) of the CGST Act for input tax credit eligibility?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_793_859"
+          ],
+          "top_5_retrieved": [
+            "2024_10_793_859",
+            "2024_11_1525_1601",
+            "2024_7_287_315",
+            "2024_12_1320_1354",
+            "2024_9_443_472"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 187.87,
+          "edges_traversed": 70,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_7_1549_1846",
+            "2024_11_541_640",
+            "2024_12_202_334",
+            "2024_10_961_1312",
+            "2024_12_1445_1481"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_007",
+          "question": "Is prior sanction under Section 197 CrPC mandatory to prosecute a private bank manager for criminal breach of trust under Section 409 IPC?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_10_1902_1917",
+            "2024_11_510_522",
+            "2024_10_315_383",
+            "2024_7_62_68",
+            "2024_1_429_441"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 137.98,
+          "edges_traversed": 54,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_12_777_836",
+            "2024_8_670_699",
+            "2024_6_864_893",
+            "2024_8_1146_1262",
+            "2024_3_647_660"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_008",
+          "question": "Does the Hindu legal concept of joint family coparcenary property apply to Mohammedans governed by Muslim law?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_12_923_946",
+            "2024_6_298_314",
+            "2024_7_1236_1313",
+            "2024_3_838_847",
+            "2024_1_413_428"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 111.2,
+          "edges_traversed": 16,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_11_1366_1424",
+            "2024_8_1086_1145",
+            "2024_9_881_893",
+            "2024_7_218_245",
+            "2024_10_45_53"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_009",
+          "question": "Does the statutory provision for anticipatory bail under Section 438 CrPC establish that an accused can seek pre-arrest bail in contempt of court proceedings?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_9_257_312",
+            "2024_8_235_286",
+            "2024_8_662_669",
+            "2024_3_421_437",
+            "2024_8_1086_1145"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 96.14,
+          "edges_traversed": 50,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_7_979_991",
+            "2024_6_666_697",
+            "2024_7_97_116",
+            "2024_6_864_893",
+            "2024_8_753_767"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_010",
+          "question": "Does Section 3(j) of the Patents Act, 1970 permit patenting of genetically modified mustard seeds containing transgenic traits as held by the Supreme Court?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_7_1847_2142",
+            "2024_2_743_757",
+            "2024_1_517_548",
+            "2024_9_397_407",
+            "2024_3_60_72"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 63.33,
+          "edges_traversed": 44,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_3_1320_1360",
+            "2024_2_420_616",
+            "2024_10_961_1312",
+            "2024_1_1194_1218",
+            "2024_7_287_315"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_011",
+          "question": "Under the Consumer Protection Act, can a medical practitioner be held liable for medical negligence under the Bolam test if an alternative recognized surgical technique was adopted without proving lack of reasonable competence?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1475_1482"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1475_1482",
+            "2024_4_757_775",
+            "2024_2_1065_1071",
+            "2024_12_1875_1883",
+            "2024_6_484_529"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 60.05,
+          "edges_traversed": 13,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_12_1038_1043",
+            "2024_11_1647_2038",
+            "2024_10_1513_1632",
+            "2024_7_1847_2142",
+            "2024_1_909_972"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_012",
+          "question": "Can a third-party stranger who is dispossessed of immovable property in execution of a decree maintain an application under Order XXI Rule 99 of the CPC?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1359_1370"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1359_1370",
+            "2024_7_474_531",
+            "2024_12_1445_1481",
+            "2024_5_831_858",
+            "2024_11_2375_2410"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 62.14,
+          "edges_traversed": 15,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_1_517_548",
+            "2024_11_1_324",
+            "2024_7_287_315",
+            "2024_9_229_234",
+            "2024_2_217_241"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_013",
+          "question": "Does Rule 9(4) of the Security Interest (Enforcement) Rules permit an auction purchaser to unilaterally demand an extension of the deposit period as a matter of right?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1371_1380"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1371_1380",
+            "2024_4_633_639",
+            "2024_7_474_531",
+            "2024_8_1263_1320",
+            "2024_7_2427_2433"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 52.52,
+          "edges_traversed": 28,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_12_1618_1742",
+            "2024_2_12_90",
+            "2024_11_1335_1342",
+            "2024_5_761_812",
+            "2024_9_229_234"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_014",
+          "question": "Can the government cancel an ongoing public recruitment process and alter selection rules after the final select list has already been prepared?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1344_1358"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1344_1358",
+            "2024_12_28_67",
+            "2024_2_1196_1203",
+            "2024_8_45_98",
+            "2024_10_18_36"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 49.67,
+          "edges_traversed": 15,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_8_885_900",
+            "2024_11_541_640",
+            "2024_12_1795_1837",
+            "2024_2_217_241",
+            "2024_5_545_560"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_015",
+          "question": "Can an appellate court reverse a judgment of acquittal into conviction based solely on circumstantial evidence?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_108_125"
+          ],
+          "top_5_retrieved": [
+            "2024_2_1178_1195",
+            "2024_10_1757_1768",
+            "2024_4_48_62",
+            "2024_2_288_309",
+            "2024_10_108_125"
+          ],
+          "first_gold_rank": 5,
+          "hit_at_5": true,
+          "latency_ms": 53.2,
+          "edges_traversed": 24,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_7_333_364",
+            "2024_1_40_59",
+            "2024_7_1147_1154",
+            "2024_1_87_113",
+            "2024_6_315_336"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_016",
+          "question": "Can a municipal corporation demand royalty, tax, or fees on commercial advertisement hoardings without express statutory authority under Article 265 of the Constitution?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1381_1403"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1381_1403",
+            "2024_7_1549_1846",
+            "2024_8_189_206",
+            "2024_7_1489_1548",
+            "2024_2_847_934"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 58.26,
+          "edges_traversed": 122,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_8_540_560",
+            "2024_10_1931_2182",
+            "2024_12_68_107",
+            "2024_10_961_1312",
+            "2024_8_1321_1672"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_017",
+          "question": "What valid conditions may the State Government impose when exercising executive power to grant remission of sentence to a life convict under Section 432 of CrPC?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1448_1461"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1448_1461",
+            "2024_1_743_908",
+            "2024_3_913_946",
+            "2024_2_111_122",
+            "2024_6_429_451"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 68.97,
+          "edges_traversed": 32,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_7_218_245",
+            "2024_5_629_729",
+            "2024_11_722_785",
+            "2024_10_37_44",
+            "2024_2_743_757"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_018",
+          "question": "Does viewing or streaming child sexual abuse material online without downloading constitute an offence under Section 15 of the POCSO Act?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_154_314"
+          ],
+          "top_5_retrieved": [
+            "2024_10_154_314",
+            "2024_8_575_614",
+            "2024_11_641_666",
+            "2024_12_1072_1092",
+            "2024_3_1228_1248"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 50.09,
+          "edges_traversed": 53,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_3_1147_1180",
+            "2024_10_1513_1632",
+            "2024_2_111_122",
+            "2024_4_151_233",
+            "2024_5_761_812"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_019",
+          "question": "Is Section 6A of the Citizenship Act, 1955 providing a special framework for citizenship in Assam constitutionally valid under Articles 14 and 21?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_961_1312"
+          ],
+          "top_5_retrieved": [
+            "2024_10_961_1312",
+            "2024_10_736_752",
+            "2024_11_1_324",
+            "2024_7_2329_2362",
+            "2024_1_473_487"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 69.73,
+          "edges_traversed": 228,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_2_420_616",
+            "2024_8_1321_1672",
+            "2024_7_1549_1846",
+            "2024_11_2173_2328",
+            "2024_11_1647_2038"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_020",
+          "question": "Are provisions in prison manuals providing for division of labor or segregation based on caste constitutionally valid under Article 15?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_493_638"
+          ],
+          "top_5_retrieved": [
+            "2024_10_493_638",
+            "2024_5_1038_1055",
+            "2024_8_1321_1672",
+            "2024_1_743_908",
+            "2024_11_1_324"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 47.58,
+          "edges_traversed": 70,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_7_246_286",
+            "2024_2_420_616",
+            "2024_11_722_785",
+            "2024_3_1320_1360",
+            "2024_5_927_934"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_021",
+          "question": "Can a statutory regulatory tariff authority be impleaded as a contesting respondent in an appeal against its own tariff order?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1404_1447"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1404_1447",
+            "2024_1_909_972",
+            "2024_9_971_980",
+            "2024_3_1023_1043",
+            "2024_9_199_217"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 49.57,
+          "edges_traversed": 16,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_11_2173_2328",
+            "2024_11_445_488",
+            "2024_3_778_811",
+            "2024_7_668_675",
+            "2024_5_739_760"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_022",
+          "question": "What essential ingredients of intentional instigation are required to convict an accused for abetment of suicide under Section 306 IPC?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1483_1502"
+          ],
+          "top_5_retrieved": [
+            "2024_2_830_846",
+            "2024_3_329_355",
+            "2024_3_157_173",
+            "2024_8_796_804",
+            "2024_10_1483_1502"
+          ],
+          "first_gold_rank": 5,
+          "hit_at_5": true,
+          "latency_ms": 48.15,
+          "edges_traversed": 92,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_10_54_61",
+            "2024_12_1160_1185",
+            "2024_7_1031_1039",
+            "2024_12_439_452",
+            "2024_3_767_777"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_023",
+          "question": "Can an appellate court grant an unconditional stay on the execution of an arbitral award under Section 36(3) of the Arbitration Act without satisfying the statutory proviso?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1503_1512"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1503_1512",
+            "2024_9_473_489",
+            "2024_3_971_993",
+            "2024_7_136_162",
+            "2024_7_840_909"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 80.78,
+          "edges_traversed": 37,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_11_2173_2328",
+            "2024_3_73_126",
+            "2024_12_1581_1617",
+            "2024_11_530_540",
+            "2024_9_199_217"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_024",
+          "question": "Can the Income Tax Department issue reassessment notices under Section 148 of the Income Tax Act post-Finance Act 2021 without complying with Section 148A procedure?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1633_1708"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1633_1708",
+            "2024_1_642_676",
+            "2024_6_337_345",
+            "2024_8_788_795",
+            "2024_12_202_334"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 62.82,
+          "edges_traversed": 14,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_2_946_988",
+            "2024_4_664_685",
+            "2024_11_1_324",
+            "2024_12_1445_1481",
+            "2024_3_778_811"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_025",
+          "question": "Can a criminal trial court remand a matter to allow the prosecution to lead additional evidence to fill up lacunae in its case?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1726_1735"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1_17",
+            "2024_10_1726_1735",
+            "2024_12_1553_1580",
+            "2024_5_174_202",
+            "2024_4_308_321"
+          ],
+          "first_gold_rank": 2,
+          "hit_at_5": true,
+          "latency_ms": 63.08,
+          "edges_traversed": 20,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_6_86_128",
+            "2024_8_345_376",
+            "2024_1_623_641",
+            "2024_6_164_213",
+            "2024_5_629_729"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_026",
+          "question": "What evidentiary weight is accorded to an oral dying declaration made to interested relatives without corroboration?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1876_1889"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1876_1889",
+            "2024_6_740_760",
+            "2024_3_36_45",
+            "2024_7_218_245",
+            "2024_7_50_61"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 41.5,
+          "edges_traversed": 16,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_11_906_924",
+            "2024_3_329_355",
+            "2024_9_37_53",
+            "2024_2_776_811",
+            "2024_2_1039_1053"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_027",
+          "question": "Is a state enactment that singles out a single private university for targeted dissolution constitutionally valid under Article 14?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_445_492"
+          ],
+          "top_5_retrieved": [
+            "2024_10_445_492",
+            "2024_11_1647_2038",
+            "2024_10_961_1312",
+            "2024_2_420_616",
+            "2024_10_1513_1632"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 60.15,
+          "edges_traversed": 286,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_8_1321_1672",
+            "2024_11_365_427",
+            "2024_11_2173_2328",
+            "2024_7_2329_2362",
+            "2024_7_1549_1846"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_028",
+          "question": "Can a Magistrate order the refund or alteration of interim maintenance under Section 125 of CrPC upon proof of changed circumstances?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_45_53"
+          ],
+          "top_5_retrieved": [
+            "2024_10_45_53",
+            "2024_12_954_957",
+            "2024_11_2039_2172",
+            "2024_8_235_286",
+            "2024_3_438_453"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 57.48,
+          "edges_traversed": 20,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_7_1236_1313",
+            "2024_2_258_287",
+            "2024_10_1802_1854",
+            "2024_9_257_312",
+            "2024_7_942_956"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_029",
+          "question": "Can a donor unilaterally execute a revocation deed to cancel a validly accepted and registered gift deed of immovable property?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_952_960"
+          ],
+          "top_5_retrieved": [
+            "2024_10_952_960",
+            "2024_12_693_707",
+            "2024_11_2329_2347",
+            "2024_7_2295_2328",
+            "2024_10_1359_1370"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 38.98,
+          "edges_traversed": 15,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_12_1884_1910",
+            "2024_5_1148_1158",
+            "2024_2_650_667",
+            "2024_10_708_735",
+            "2024_9_490_608"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_030",
+          "question": "What criteria distinguish a supervisor from a workman under Section 2(s) of the Industrial Disputes Act, 1947?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_2303_2313"
+          ],
+          "top_5_retrieved": [
+            "2024_10_2303_2313",
+            "2024_4_100_120",
+            "2024_5_596_611",
+            "2024_4_576_590",
+            "2024_3_959_970"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 42.45,
+          "edges_traversed": 16,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_4_63_71",
+            "2024_7_2176_2247",
+            "2024_8_154_174",
+            "2024_11_445_488",
+            "2024_4_357_371"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_031",
+          "question": "Did the Supreme Court hold in Bijay Agarwal v. Medilines that Section 148 NI Act empowers appellate courts to order deposits from authorized signatories because the appellant argued it was necessary?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1890_1901"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1890_1901",
+            "2024_3_1023_1043",
+            "2024_1_1083_1089",
+            "2024_12_1946_1996",
+            "2024_12_1911_1945"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 79.82,
+          "edges_traversed": 22,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_7_1211_1224",
+            "2024_3_438_453",
+            "2024_12_1273_1286",
+            "2024_12_478_483",
+            "2024_5_885_895"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_032",
+          "question": "Did the Supreme Court in Sangeeta Devi accept the State's submission that completed select lists can be cancelled arbitrarily without assigning reasons?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1344_1358"
+          ],
+          "top_5_retrieved": [
+            "2024_2_722_742",
+            "2024_6_287_297",
+            "2024_7_532_610",
+            "2024_10_18_36",
+            "2024_10_1344_1358"
+          ],
+          "first_gold_rank": 5,
+          "hit_at_5": true,
+          "latency_ms": 57.4,
+          "edges_traversed": 8,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_2_162_164",
+            "2024_11_2173_2328",
+            "2024_12_1997_2042",
+            "2024_11_541_640",
+            "2024_11_445_488"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_033",
+          "question": "Did the Supreme Court in Safari Retreats hold that every commercial building automatically qualifies for 100% input tax credit without proving the functionality test?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_793_859"
+          ],
+          "top_5_retrieved": [
+            "2024_10_793_859",
+            "2024_11_1525_1601",
+            "2024_2_1001_1038",
+            "2024_5_906_926",
+            "2024_1_909_972"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 49.99,
+          "edges_traversed": 32,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_7_1549_1846",
+            "2024_12_202_334",
+            "2024_10_961_1312",
+            "2024_12_1445_1481",
+            "2024_7_676_729"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_034",
+          "question": "Does Section 18 of the Limitation Act extend limitation if a balance sheet entry is accompanied by an express, unequivocal disclaimer denying debt liability?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1462_1474"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1462_1474",
+            "2024_7_2143_2175",
+            "2024_10_1802_1854",
+            "2024_12_133_201",
+            "2024_4_255_263"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 51.26,
+          "edges_traversed": 76,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_11_2039_2172",
+            "2024_12_2043_2074",
+            "2024_1_140_170",
+            "2024_2_258_287",
+            "2024_5_215_240"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_035",
+          "question": "Does an appellate court have jurisdiction under Section 378 CrPC to overturn an acquittal if two reasonable views are possible on the trial evidence?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_108_125"
+          ],
+          "top_5_retrieved": [
+            "2024_4_322_327",
+            "2024_5_174_202",
+            "2024_2_1178_1195",
+            "2024_2_638_649",
+            "2024_7_1147_1154"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 70.92,
+          "edges_traversed": 38,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_8_345_376",
+            "2024_11_1425_1439",
+            "2024_9_110_134",
+            "2024_4_48_62",
+            "2024_6_20_35"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_036",
+          "question": "Can an auction purchaser obtain an extension of the deposit period under Rule 9(4) of the Security Interest Rules without the written consent of the secured creditor?",
+          "is_answerable": true,
+          "gold_docs": [
+            "2024_10_1371_1380"
+          ],
+          "top_5_retrieved": [
+            "2024_10_1371_1380",
+            "2024_4_633_639",
+            "2024_7_474_531",
+            "2024_2_12_90",
+            "2024_7_2427_2433"
+          ],
+          "first_gold_rank": 1,
+          "hit_at_5": true,
+          "latency_ms": 54.0,
+          "edges_traversed": 34,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_12_1618_1742",
+            "2024_11_1335_1342",
+            "2024_4_541_557",
+            "2024_12_1795_1837",
+            "2024_8_1263_1320"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_037",
+          "question": "Did the Supreme Court in 2024 overrule the 13-judge bench decision in Kesavananda Bharati v. State of Kerala (1973) 4 SCC 225 regarding the basic structure doctrine?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_8_540_560",
+            "2024_11_1_324",
+            "2024_11_947_953",
+            "2024_8_949_954",
+            "2024_9_668_676"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 76.99,
+          "edges_traversed": 60,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_11_365_427",
+            "2024_7_1549_1846",
+            "2024_3_462_584",
+            "2024_5_831_858",
+            "2024_2_1121_1135"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_038",
+          "question": "Did the Supreme Court in 2024 declare the 9-judge bench decision in Indra Sawhney v. Union of India (1992) Supp 3 SCC 217 unconstitutional?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_8_488_500",
+            "2024_11_1_324",
+            "2024_8_1321_1672",
+            "2024_10_961_1312",
+            "2024_8_949_954"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 78.92,
+          "edges_traversed": 142,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_11_947_953",
+            "2024_3_462_584",
+            "2024_5_831_858",
+            "2024_2_1121_1135",
+            "2024_2_420_616"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_039",
+          "question": "Does the 2024 Supreme Court judgment in State of Gujarat v. Ambuja Cement overrule the 2005 decision in State of H.P. v. Gujarat Ambuja Cement Ltd (2005) 6 SCC 499?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_8_540_560",
+            "2024_8_34_44",
+            "2024_9_443_472",
+            "2024_10_1381_1403",
+            "2024_6_594_623"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 79.78,
+          "edges_traversed": 40,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_7_1549_1846",
+            "2024_11_365_427",
+            "2024_10_1931_2182",
+            "2024_12_68_107",
+            "2024_11_2173_2328"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_040",
+          "question": "What is the statutory limitation period prescribed under Section 16 of the Competition Act, 2002 for appointment of the Director General by the Central Government?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_7_1549_1846",
+            "2024_10_1404_1447",
+            "2024_11_850_860",
+            "2024_12_1997_2042",
+            "2024_11_1329_1334"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 66.52,
+          "edges_traversed": 57,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_10_1931_2182",
+            "2024_12_68_107",
+            "2024_10_961_1312",
+            "2024_8_540_560",
+            "2024_11_1525_1601"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_041",
+          "question": "Did the Supreme Court disqualify a sitting Member of Parliament for filing an incomplete affidavit under Section 33A of the Representation of the People Act in the 2024 general election?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_4_523_540",
+            "2024_6_53_74",
+            "2024_4_394_426",
+            "2024_9_186_193",
+            "2024_2_722_742"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 64.01,
+          "edges_traversed": 23,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_9_354_360",
+            "2024_8_1263_1320",
+            "2024_3_417_420",
+            "2024_7_1489_1548",
+            "2024_11_2173_2328"
+          ],
+          "false_links": []
+        },
+        {
+          "query_id": "M10_042",
+          "question": "What is the mandatory statutory time limit for registering a geographical indication under Section 20 of the Geographical Indications of Goods Act, 1999?",
+          "is_answerable": false,
+          "gold_docs": [],
+          "top_5_retrieved": [
+            "2024_11_1335_1342",
+            "2024_11_970_1012",
+            "2024_11_445_488",
+            "2024_10_961_1312",
+            "2024_11_1329_1334"
+          ],
+          "first_gold_rank": null,
+          "hit_at_5": false,
+          "latency_ms": 66.3,
+          "edges_traversed": 85,
+          "additional_relevant_docs": [],
+          "irrelevant_expansions": [
+            "2024_7_1489_1548",
+            "2024_8_1321_1672",
+            "2024_2_420_616",
+            "2024_12_1618_1742",
+            "2024_7_2329_2362"
+          ],
+          "false_links": []
+        }
+      ]
+    }
+  }
+}

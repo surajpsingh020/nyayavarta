@@ -1,0 +1,602 @@
+[
+  {
+    "mention_id": "STAT_GOLD_001",
+    "raw_text": "Section 302 of the Indian Penal Code, 1860",
+    "section_number": "302",
+    "sample_document_text": "The proceedings involved Section 302 of the Indian Penal Code, 1860 in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Indian Penal Code, 1860",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_002",
+    "raw_text": "Section 307 IPC",
+    "section_number": "307",
+    "sample_document_text": "The proceedings involved Section 307 IPC in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Indian Penal Code, 1860",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_003",
+    "raw_text": "Section 438 of the Code of Criminal Procedure, 1973",
+    "section_number": "438",
+    "sample_document_text": "The proceedings involved Section 438 of the Code of Criminal Procedure, 1973 in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Code of Criminal Procedure, 1973",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_004",
+    "raw_text": "Section 482 CrPC",
+    "section_number": "482",
+    "sample_document_text": "The proceedings involved Section 482 CrPC in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Code of Criminal Procedure, 1973",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_005",
+    "raw_text": "Section 34 of the Arbitration and Conciliation Act, 1996",
+    "section_number": "34",
+    "sample_document_text": "The proceedings involved Section 34 of the Arbitration and Conciliation Act, 1996 in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Arbitration and Conciliation Act, 1996",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_006",
+    "raw_text": "Section 37 of the Arbitration Act",
+    "section_number": "37",
+    "sample_document_text": "The proceedings involved Section 37 of the Arbitration Act in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Arbitration and Conciliation Act, 1996",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_007",
+    "raw_text": "Section 138 of the Negotiable Instruments Act, 1881",
+    "section_number": "138",
+    "sample_document_text": "The proceedings involved Section 138 of the Negotiable Instruments Act, 1881 in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Negotiable Instruments Act, 1881",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_008",
+    "raw_text": "Section 141 NI Act",
+    "section_number": "141",
+    "sample_document_text": "The proceedings involved Section 141 NI Act in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Negotiable Instruments Act, 1881",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_009",
+    "raw_text": "Section 17(5)(d) of the Central Goods and Services Tax Act, 2017",
+    "section_number": "17(5)(d)",
+    "sample_document_text": "The proceedings involved Section 17(5)(d) of the Central Goods and Services Tax Act, 2017 in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Central Goods and Services Tax Act, 2017",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_010",
+    "raw_text": "Section 16 CGST Act",
+    "section_number": "16",
+    "sample_document_text": "The proceedings involved Section 16 CGST Act in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Central Goods and Services Tax Act, 2017",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_011",
+    "raw_text": "Section 45 of the Prevention of Money Laundering Act, 2002",
+    "section_number": "45",
+    "sample_document_text": "The proceedings involved Section 45 of the Prevention of Money Laundering Act, 2002 in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Prevention of Money Laundering Act, 2002",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_012",
+    "raw_text": "Section 3 PMLA",
+    "section_number": "3",
+    "sample_document_text": "The proceedings involved Section 3 PMLA in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Prevention of Money Laundering Act, 2002",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_013",
+    "raw_text": "Section 7 of the Insolvency and Bankruptcy Code, 2016",
+    "section_number": "7",
+    "sample_document_text": "The proceedings involved Section 7 of the Insolvency and Bankruptcy Code, 2016 in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Insolvency and Bankruptcy Code, 2016",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_014",
+    "raw_text": "Section 9 IBC",
+    "section_number": "9",
+    "sample_document_text": "The proceedings involved Section 9 IBC in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Insolvency and Bankruptcy Code, 2016",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_015",
+    "raw_text": "Section 5 of the Limitation Act, 1963",
+    "section_number": "5",
+    "sample_document_text": "The proceedings involved Section 5 of the Limitation Act, 1963 in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Limitation Act, 1963",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_016",
+    "raw_text": "Section 14 Limitation Act",
+    "section_number": "14",
+    "sample_document_text": "The proceedings involved Section 14 Limitation Act in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Limitation Act, 1963",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_017",
+    "raw_text": "Section 54 of the Transfer of Property Act, 1882",
+    "section_number": "54",
+    "sample_document_text": "The proceedings involved Section 54 of the Transfer of Property Act, 1882 in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Transfer of Property Act, 1882",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_018",
+    "raw_text": "Section 100 CPC",
+    "section_number": "100",
+    "sample_document_text": "The proceedings involved Section 100 CPC in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Code of Civil Procedure, 1908",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_019",
+    "raw_text": "Section 13 of the SARFAESI Act",
+    "section_number": "13",
+    "sample_document_text": "The proceedings involved Section 13 of the SARFAESI Act in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Securitisation and Reconstruction of Financial Assets and Enforcement of Security Interest Act, 2002",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_020",
+    "raw_text": "Section 20 of the Specific Relief Act, 1963",
+    "section_number": "20",
+    "sample_document_text": "The proceedings involved Section 20 of the Specific Relief Act, 1963 in the High Court.",
+    "gold_attribution_type": "explicit",
+    "gold_governing_statute": "Specific Relief Act, 1963",
+    "test_category": "explicit_inline",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_021",
+    "raw_text": "Section 34",
+    "section_number": "34",
+    "sample_document_text": "The petition arose under the Arbitration and Conciliation Act, 1996. The award was challenged under Section 34.",
+    "gold_attribution_type": "inherited",
+    "gold_governing_statute": "Arbitration and Conciliation Act, 1996",
+    "test_category": "intra_paragraph_inherited",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_022",
+    "raw_text": "Section 11(6)",
+    "section_number": "11(6)",
+    "sample_document_text": "An application was filed under the Arbitration and Conciliation Act, 1996. The Chief Justice was moved under Section 11(6).",
+    "gold_attribution_type": "inherited",
+    "gold_governing_statute": "Arbitration and Conciliation Act, 1996",
+    "test_category": "intra_paragraph_inherited",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_023",
+    "raw_text": "Section 45",
+    "section_number": "45",
+    "sample_document_text": "Prosecution was initiated under the Prevention of Money Laundering Act, 2002. Bail was sought under Section 45.",
+    "gold_attribution_type": "inherited",
+    "gold_governing_statute": "Prevention of Money Laundering Act, 2002",
+    "test_category": "intra_paragraph_inherited",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_024",
+    "raw_text": "Section 19",
+    "section_number": "19",
+    "sample_document_text": "Investigating officers acted under the Prevention of Money Laundering Act, 2002. Arrest was effected under Section 19.",
+    "gold_attribution_type": "inherited",
+    "gold_governing_statute": "Prevention of Money Laundering Act, 2002",
+    "test_category": "intra_paragraph_inherited",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_025",
+    "raw_text": "Section 17(5)(d)",
+    "section_number": "17(5)(d)",
+    "sample_document_text": "The assessee claimed input tax credit under the Central Goods and Services Tax Act, 2017. Revenue denied credit under Section 17(5)(d).",
+    "gold_attribution_type": "inherited",
+    "gold_governing_statute": "Central Goods and Services Tax Act, 2017",
+    "test_category": "intra_paragraph_inherited",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_026",
+    "raw_text": "Section 7",
+    "section_number": "7",
+    "sample_document_text": "Financial creditors moved under the Insolvency and Bankruptcy Code, 2016. Admission was ordered under Section 7.",
+    "gold_attribution_type": "inherited",
+    "gold_governing_statute": "Insolvency and Bankruptcy Code, 2016",
+    "test_category": "intra_paragraph_inherited",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_027",
+    "raw_text": "Section 31",
+    "section_number": "31",
+    "sample_document_text": "Resolution plan approved under the Insolvency and Bankruptcy Code, 2016. Adjudicating authority sanctioned under Section 31.",
+    "gold_attribution_type": "inherited",
+    "gold_governing_statute": "Insolvency and Bankruptcy Code, 2016",
+    "test_category": "intra_paragraph_inherited",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_028",
+    "raw_text": "Section 5",
+    "section_number": "5",
+    "sample_document_text": "The appeal was barred under the Limitation Act, 1963. Condonation of delay was sought under Section 5.",
+    "gold_attribution_type": "inherited",
+    "gold_governing_statute": "Limitation Act, 1963",
+    "test_category": "intra_paragraph_inherited",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_029",
+    "raw_text": "Section 14",
+    "section_number": "14",
+    "sample_document_text": "Exclusion of time was argued under the Limitation Act, 1963. The appellant relied upon Section 14.",
+    "gold_attribution_type": "inherited",
+    "gold_governing_statute": "Limitation Act, 1963",
+    "test_category": "intra_paragraph_inherited",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_030",
+    "raw_text": "Section 138",
+    "section_number": "138",
+    "sample_document_text": "Complaint was instituted under the Negotiable Instruments Act, 1881. Cheque bounce was prosecuted under Section 138.",
+    "gold_attribution_type": "inherited",
+    "gold_governing_statute": "Negotiable Instruments Act, 1881",
+    "test_category": "intra_paragraph_inherited",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_031",
+    "raw_text": "Section 438",
+    "section_number": "438",
+    "sample_document_text": "Anticipatory bail petition under the Code of Criminal Procedure, 1973. High Court rejected relief under Section 438.",
+    "gold_attribution_type": "inherited",
+    "gold_governing_statute": "Code of Criminal Procedure, 1973",
+    "test_category": "intra_paragraph_inherited",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_032",
+    "raw_text": "Section 311",
+    "section_number": "311",
+    "sample_document_text": "Witness examination under the Code of Criminal Procedure, 1973. Summons issued under Section 311.",
+    "gold_attribution_type": "inherited",
+    "gold_governing_statute": "Code of Criminal Procedure, 1973",
+    "test_category": "intra_paragraph_inherited",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_033",
+    "raw_text": "Section 302",
+    "section_number": "302",
+    "sample_document_text": "Charges framed under the Indian Penal Code, 1860. The trial court convicted under Section 302.",
+    "gold_attribution_type": "inherited",
+    "gold_governing_statute": "Indian Penal Code, 1860",
+    "test_category": "intra_paragraph_inherited",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_034",
+    "raw_text": "Section 420",
+    "section_number": "420",
+    "sample_document_text": "Allegations of cheating under the Indian Penal Code, 1860. Charge sheet filed under Section 420.",
+    "gold_attribution_type": "inherited",
+    "gold_governing_statute": "Indian Penal Code, 1860",
+    "test_category": "intra_paragraph_inherited",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_035",
+    "raw_text": "Section 166",
+    "section_number": "166",
+    "sample_document_text": "Claim petition filed under the Motor Vehicles Act, 1988. Compensation awarded under Section 166.",
+    "gold_attribution_type": "inherited",
+    "gold_governing_statute": "Motor Vehicles Act, 1988",
+    "test_category": "intra_paragraph_inherited",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_036",
+    "raw_text": "Section 389",
+    "section_number": "389",
+    "sample_document_text": "The appellant was charged under the Indian Penal Code, 1860 and Code of Criminal Procedure, 1973. Application filed under Section 389.",
+    "gold_attribution_type": "ambiguous",
+    "gold_governing_statute": null,
+    "test_category": "multi_act_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_037",
+    "raw_text": "Section 13",
+    "section_number": "13",
+    "sample_document_text": "Charges under the Indian Penal Code, 1860 and the Prevention of Corruption Act, 1988 were investigated. Relief was claimed under Section 13.",
+    "gold_attribution_type": "ambiguous",
+    "gold_governing_statute": null,
+    "test_category": "multi_act_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_038",
+    "raw_text": "Section 9",
+    "section_number": "9",
+    "sample_document_text": "Proceedings under the Companies Act, 2013 and the Insolvency and Bankruptcy Code, 2016 were pending. Action taken under Section 9.",
+    "gold_attribution_type": "ambiguous",
+    "gold_governing_statute": null,
+    "test_category": "multi_act_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_039",
+    "raw_text": "Section 37",
+    "section_number": "37",
+    "sample_document_text": "Matters under the Arbitration and Conciliation Act, 1996 and the Commercial Courts Act, 2015 were listed. Appeal preferred under Section 37.",
+    "gold_attribution_type": "ambiguous",
+    "gold_governing_statute": null,
+    "test_category": "multi_act_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_040",
+    "raw_text": "Section 14",
+    "section_number": "14",
+    "sample_document_text": "Provisions of the Limitation Act, 1963 and the Code of Civil Procedure, 1908 were considered. The court exercised powers under Section 14.",
+    "gold_attribution_type": "ambiguous",
+    "gold_governing_statute": null,
+    "test_category": "multi_act_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_041",
+    "raw_text": "Section 6",
+    "section_number": "6",
+    "sample_document_text": "Under the Indian Penal Code, 1860 and the Protection of Children from Sexual Offences Act, 2012 offences were alleged. Trial conducted under Section 6.",
+    "gold_attribution_type": "ambiguous",
+    "gold_governing_statute": null,
+    "test_category": "multi_act_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_042",
+    "raw_text": "Section 10",
+    "section_number": "10",
+    "sample_document_text": "Claims under the Transfer of Property Act, 1882 and the Specific Relief Act, 1963 were argued. Suit framed under Section 10.",
+    "gold_attribution_type": "ambiguous",
+    "gold_governing_statute": null,
+    "test_category": "multi_act_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_043",
+    "raw_text": "Section 50",
+    "section_number": "50",
+    "sample_document_text": "Offences under the Indian Penal Code, 1860 and Narcotic Drugs and Psychotropic Substances Act, 1985 were registered. Accused arrested under Section 50.",
+    "gold_attribution_type": "ambiguous",
+    "gold_governing_statute": null,
+    "test_category": "multi_act_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_044",
+    "raw_text": "Section 73",
+    "section_number": "73",
+    "sample_document_text": "Inquiries under the Central Goods and Services Tax Act, 2017 and Customs Act, 1962 were conducted. Notice issued under Section 73.",
+    "gold_attribution_type": "ambiguous",
+    "gold_governing_statute": null,
+    "test_category": "multi_act_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_045",
+    "raw_text": "Section 43D",
+    "section_number": "43D",
+    "sample_document_text": "Under the Indian Penal Code, 1860 and Unlawful Activities (Prevention) Act, 1967 charges were filed. Bail rejected under Section 43D.",
+    "gold_attribution_type": "ambiguous",
+    "gold_governing_statute": null,
+    "test_category": "multi_act_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_046",
+    "raw_text": "Section 151",
+    "section_number": "151",
+    "sample_document_text": "Petitions under the Code of Civil Procedure, 1908 and the Constitution of India were considered. Order passed under Section 151.",
+    "gold_attribution_type": "ambiguous",
+    "gold_governing_statute": null,
+    "test_category": "multi_act_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_047",
+    "raw_text": "Section 26",
+    "section_number": "26",
+    "sample_document_text": "Statutes including the Competition Act, 2002 and Companies Act, 2013 were reviewed. Inquiry initiated under Section 26.",
+    "gold_attribution_type": "ambiguous",
+    "gold_governing_statute": null,
+    "test_category": "multi_act_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_048",
+    "raw_text": "Section 164",
+    "section_number": "164",
+    "sample_document_text": "Under the Indian Evidence Act, 1872 and the Code of Criminal Procedure, 1973 evidence was taken. Statement recorded under Section 164.",
+    "gold_attribution_type": "ambiguous",
+    "gold_governing_statute": null,
+    "test_category": "multi_act_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_049",
+    "raw_text": "Section 9",
+    "section_number": "9",
+    "sample_document_text": "Provisions under the Mines and Minerals (Development and Regulation) Act, 1957 and Environment (Protection) Act, 1986 applied. Royalty demanded under Section 9.",
+    "gold_attribution_type": "ambiguous",
+    "gold_governing_statute": null,
+    "test_category": "multi_act_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_050",
+    "raw_text": "Section 357",
+    "section_number": "357",
+    "sample_document_text": "Under the Negotiable Instruments Act, 1881 and Code of Criminal Procedure, 1973 trial proceeded. Compensation ordered under Section 357.",
+    "gold_attribution_type": "ambiguous",
+    "gold_governing_statute": null,
+    "test_category": "multi_act_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_051",
+    "raw_text": "Section 5",
+    "section_number": "5",
+    "sample_document_text": "Paragraph 1: Motor Vehicles Act, 1988 was mentioned.\n\nParagraph 2: Relief sought under Section 5.",
+    "gold_attribution_type": "unresolved",
+    "gold_governing_statute": null,
+    "test_category": "unresolved_collision_protection",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_052",
+    "raw_text": "Section 9",
+    "section_number": "9",
+    "sample_document_text": "Paragraph 1: Land Acquisition Act, 1894 applied.\n\nParagraph 2: Objections under Section 9.",
+    "gold_attribution_type": "unresolved",
+    "gold_governing_statute": null,
+    "test_category": "unresolved_collision_protection",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_053",
+    "raw_text": "Section 14",
+    "section_number": "14",
+    "sample_document_text": "Paragraph 1: Indian Penal Code, 1860.\n\nParagraph 2: Application under Section 14.",
+    "gold_attribution_type": "unresolved",
+    "gold_governing_statute": null,
+    "test_category": "unresolved_collision_protection",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_054",
+    "raw_text": "Section 34",
+    "section_number": "34",
+    "sample_document_text": "Paragraph 1: Companies Act, 2013.\n\nParagraph 2: Arbitrator appointed under Section 34.",
+    "gold_attribution_type": "unresolved",
+    "gold_governing_statute": null,
+    "test_category": "unresolved_collision_protection",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_055",
+    "raw_text": "Section 100",
+    "section_number": "100",
+    "sample_document_text": "Paragraph 1: Negotiable Instruments Act, 1881.\n\nParagraph 2: Second appeal admitted under Section 100.",
+    "gold_attribution_type": "unresolved",
+    "gold_governing_statute": null,
+    "test_category": "unresolved_collision_protection",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_056",
+    "raw_text": "Section 302",
+    "section_number": "302",
+    "sample_document_text": "In the present appeal, the learned judge examined Section 302 without any Act mentioned.",
+    "gold_attribution_type": "unresolved",
+    "gold_governing_statute": null,
+    "test_category": "unresolved_collision_protection",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_057",
+    "raw_text": "Section 438",
+    "section_number": "438",
+    "sample_document_text": "The High Court rejected the application under Section 438 in limine.",
+    "gold_attribution_type": "unresolved",
+    "gold_governing_statute": null,
+    "test_category": "unresolved_collision_protection",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_058",
+    "raw_text": "Section 482",
+    "section_number": "482",
+    "sample_document_text": "The petition was moved under Section 482 on procedural grounds.",
+    "gold_attribution_type": "unresolved",
+    "gold_governing_statute": null,
+    "test_category": "unresolved_collision_protection",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_059",
+    "raw_text": "Section 138",
+    "section_number": "138",
+    "sample_document_text": "Relief claimed under Section 138 alone.",
+    "gold_attribution_type": "unresolved",
+    "gold_governing_statute": null,
+    "test_category": "unresolved_collision_protection",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "STAT_GOLD_060",
+    "raw_text": "Section 151",
+    "section_number": "151",
+    "sample_document_text": "Powers exercised under Section 151 in the trial court.",
+    "gold_attribution_type": "unresolved",
+    "gold_governing_statute": null,
+    "test_category": "unresolved_collision_protection",
+    "provenance": "developer_curated"
+  }
+]

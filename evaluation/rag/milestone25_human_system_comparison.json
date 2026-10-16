@@ -1,0 +1,162 @@
+{
+  "metadata": {
+    "milestone": "Milestone 25",
+    "evaluation_title": "Independent Legal Review vs Frozen System Comparison",
+    "independent_evaluation_status": "NOT_YET_EVALUABLE_PENDING_EXTERNAL_REVIEW",
+    "external_annotations_available": false,
+    "genuine_external_reviewers_count": 0,
+    "genuine_external_annotations_count": 0,
+    "blocker_explanation": "Independent external legal evaluation is strictly marked NOT_YET_EVALUABLE because no external practicing advocate, judicial clerk, or legal scholar has returned completed annotations under the Milestone 25 protocol. Developer-curated diagnostic labels are retained separately below for internal engineering reference, but must not be represented as external or independent legal ground truth."
+  },
+  "metric_definitions_and_aggregation_contracts": {
+    "supported_precision": {
+      "formula": "TP / (TP + FP)",
+      "unit": "claim",
+      "definition": "Proportion of claims predicted as supported that are independently affirmed as supported by the reviewer.",
+      "handling_of_ambiguous": "Ambiguous claims predicted as supported count as false positives in the denominator."
+    },
+    "supported_recall": {
+      "formula": "TP / (TP + FN)",
+      "unit": "claim",
+      "definition": "Proportion of independently affirmed supported claims that the system correctly predicted as supported.",
+      "handling_of_ambiguous": "Ambiguous claims do not count in the gold supported denominator."
+    },
+    "non_supported_false_acceptance_rate": {
+      "formula": "(FA_contra + FA_partial + FA_unsupp + FA_ambiguous) / Total_Non_Supported",
+      "unit": "claim",
+      "definition": "Proportion of non-supported claims (contradicted, partially supported, unsupported, or ambiguous) that leaked into the supported prediction class.",
+      "handling_of_ambiguous": "Ambiguous claims accepted as supported count strictly as false acceptances."
+    },
+    "false_rejection_rate": {
+      "formula": "FN_supported / Total_Gold_Supported",
+      "unit": "claim",
+      "definition": "Proportion of genuine supported claims that were rejected, qualified, or unverified by the verifier.",
+      "handling_of_ambiguous": "Evaluated only over unequivocal supported gold claims."
+    },
+    "ambiguity_rate": {
+      "formula": "Count(Human_Ambiguous) / Total_Reviewed_Cases",
+      "unit": "case",
+      "definition": "Proportion of reviewed cases where the reviewer concluded that available context was legally indeterminate or permitted materially divergent interpretations."
+    },
+    "context_request_rate": {
+      "formula": "Count(requires_more_context == True) / Total_Reviewed_Cases",
+      "unit": "case",
+      "definition": "Proportion of cases where the reviewer flagged that the 350-character excerpt was insufficient to determine the ratio decidendi without broader judgment context."
+    }
+  },
+  "developer_curated_diagnostic_baseline_only": {
+    "provenance": "developer_curated_diagnostic_pack_NOT_GENUINE_INDEPENDENT_REVIEW",
+    "dataset": "evaluation/rag/milestone25_reviewer_template.jsonl",
+    "mapping_file": "evaluation/rag/milestone25_frozen_mapping.json",
+    "total_cases": 30,
+    "categories_evaluated": 9,
+    "confusion_matrix_policy_3": {
+      "gold_rows_vs_pred_columns": {
+        "classes": ["supported", "partially_supported", "unsupported", "contradicted", "not_evaluated"],
+        "matrix": {
+          "supported": {
+            "supported": 4,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 0
+          },
+          "partially_supported": {
+            "supported": 0,
+            "partially_supported": 4,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 0
+          },
+          "unsupported": {
+            "supported": 0,
+            "partially_supported": 0,
+            "unsupported": 3,
+            "contradicted": 0,
+            "not_evaluated": 0
+          },
+          "contradicted": {
+            "supported": 0,
+            "partially_supported": 0,
+            "unsupported": 0,
+            "contradicted": 4,
+            "not_evaluated": 0
+          },
+          "statutory_exceptions_and_conditions": {
+            "supported": 0,
+            "partially_supported": 3,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 0
+          },
+          "party_submissions_vs_holdings": {
+            "supported": 0,
+            "partially_supported": 3,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 0
+          },
+          "quoted_precedents": {
+            "supported": 0,
+            "partially_supported": 3,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 0
+          },
+          "overgeneralized_holdings": {
+            "supported": 0,
+            "partially_supported": 3,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 0
+          },
+          "ambiguous_claims": {
+            "supported": 0,
+            "partially_supported": 3,
+            "unsupported": 0,
+            "contradicted": 0,
+            "not_evaluated": 0
+          }
+        }
+      }
+    },
+    "metrics_summary_policy_3": {
+      "supported_precision": {
+        "value": 1.0,
+        "numerator": 4,
+        "denominator": 4,
+        "note": "All 4 claims predicted as supported are in the developer-curated supported class."
+      },
+      "supported_recall": {
+        "value": 1.0,
+        "numerator": 4,
+        "denominator": 4,
+        "note": "All 4 developer-curated supported claims were correctly identified by Policy 3."
+      },
+      "non_supported_false_acceptance_rate": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 26,
+        "note": "Zero non-supported diagnostic claims were falsely promoted to supported."
+      },
+      "contradiction_false_acceptance_rate": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 4,
+        "note": "Zero contradicted claims accepted as supported."
+      },
+      "partially_supported_false_acceptance_rate": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 4,
+        "note": "Zero partially supported claims accepted as supported."
+      },
+      "false_rejection_rate": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 4,
+        "note": "Zero supported claims rejected or qualified in this diagnostic sample."
+      }
+    }
+  }
+}

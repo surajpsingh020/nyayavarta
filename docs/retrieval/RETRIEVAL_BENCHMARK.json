@@ -1,0 +1,118 @@
+{
+    "hardware": {
+        "os": "Windows-11-10.0.26300-SP0",
+        "cpu": "Intel64 Family 6 Model 154 Stepping 4, GenuineIntel",
+        "cpu_count": 12,
+        "ram_total_gb": 15.7,
+        "python": "3.13.3",
+        "timestamp": "2026-10-12T00:03:27.934719"
+    },
+    "config_version": "3.1.0",
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "reranker_default_enabled": false,
+    "corpus_size": 782,
+    "index_sizes_bytes": {
+        "bm25.db": 102633472,
+        "bm25.db-shm": 32768,
+        "bm25.db-wal": 0,
+        "dense.faiss": 1201197,
+        "dense_doc_ids.json": 18517,
+        "dense_model_config.json": 207,
+        "retrieval_config.json": 993
+    },
+    "peak_ram_mb": 1654.0,
+    "results_by_eval_set": {
+        "synthetic": [
+            {
+                "pipeline": "BM25",
+                "num_queries": 25,
+                "recall_5": 0.84,
+                "recall_10": 0.88,
+                "mrr": 0.773,
+                "ndcg_10": 0.7985670876465274,
+                "latency_median_ms": 18.102800007909536,
+                "latency_p95_ms": 48.335300001781434,
+                "latency_mean_ms": 22.231804002076387
+            },
+            {
+                "pipeline": "Dense",
+                "num_queries": 25,
+                "recall_5": 0.36,
+                "recall_10": 0.4,
+                "mrr": 0.21704761904761904,
+                "ndcg_10": 0.26174607837422564,
+                "latency_median_ms": 5.3872999851591885,
+                "latency_p95_ms": 8.142700011376292,
+                "latency_mean_ms": 5.79688400728628
+            },
+            {
+                "pipeline": "Hybrid",
+                "num_queries": 25,
+                "recall_5": 0.88,
+                "recall_10": 0.92,
+                "mrr": 0.5726666666666667,
+                "ndcg_10": 0.6565690138206212,
+                "latency_median_ms": 39.315100002568215,
+                "latency_p95_ms": 68.76480003120378,
+                "latency_mean_ms": 39.379143989644945
+            },
+            {
+                "pipeline": "Hybrid + Reranker",
+                "num_queries": 25,
+                "recall_5": 0.72,
+                "recall_10": 0.84,
+                "mrr": 0.5466666666666666,
+                "ndcg_10": 0.6150903963791162,
+                "latency_median_ms": 3301.2487000087276,
+                "latency_p95_ms": 3536.437399976421,
+                "latency_mean_ms": 3269.6148999989964
+            }
+        ],
+        "legal": [
+            {
+                "pipeline": "BM25",
+                "num_queries": 35,
+                "recall_5": 0.9142857142857143,
+                "recall_10": 0.9428571428571428,
+                "mrr": 0.687142857142857,
+                "ndcg_10": 0.6990197863379073,
+                "latency_median_ms": 36.747499951161444,
+                "latency_p95_ms": 55.87569996714592,
+                "latency_mean_ms": 36.99472571523594
+            },
+            {
+                "pipeline": "Dense",
+                "num_queries": 35,
+                "recall_5": 0.9714285714285714,
+                "recall_10": 1.0,
+                "mrr": 0.8723809523809524,
+                "ndcg_10": 0.8607631319959207,
+                "latency_median_ms": 6.131900008767843,
+                "latency_p95_ms": 8.481099968776107,
+                "latency_mean_ms": 6.313662857948137
+            },
+            {
+                "pipeline": "Hybrid",
+                "num_queries": 35,
+                "recall_5": 0.9714285714285714,
+                "recall_10": 1.0,
+                "mrr": 0.8999999999999999,
+                "ndcg_10": 0.8761118121894212,
+                "latency_median_ms": 45.90129997814074,
+                "latency_p95_ms": 67.21539999125525,
+                "latency_mean_ms": 46.335271424946505
+            },
+            {
+                "pipeline": "Hybrid + Reranker",
+                "num_queries": 35,
+                "recall_5": 0.9714285714285714,
+                "recall_10": 1.0,
+                "mrr": 0.9476190476190478,
+                "ndcg_10": 0.9099760362142806,
+                "latency_median_ms": 3307.9078000155278,
+                "latency_p95_ms": 3597.5632999907248,
+                "latency_mean_ms": 3328.120522857976
+            }
+        ]
+    }
+}

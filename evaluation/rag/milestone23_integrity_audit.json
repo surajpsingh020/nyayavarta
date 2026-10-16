@@ -1,0 +1,587 @@
+{
+  "milestone": "Milestone 23 - Benchmark Integrity Audit and Independent Review Readiness",
+  "timestamp": "2026-10-15T16:50:00+0530",
+  "frozen_input_artifacts": {
+    "evaluation/rag/milestone20_staging_claims.jsonl": "e57cbb6d7e110c0a14e8fd6ebb71490693d079b4902b3bb1b5d1b656615f86c3",
+    "evaluation/rag/milestone20_blinded_review_pack.jsonl": "0dfb49becc2ded048a7a69fb02892b9ab393f116a0eb130069539a0315adfa1e",
+    "evaluation/rag/milestone20_policy_comparison.json": "9d5cb5babcd4e68ce9df0327340c3f53f49d93ec16401444a9ce82303a6de9fc",
+    "evaluation/rag/milestone21_context_budget_comparison.json": "2e41a3d2470fcfdc6817fa27218b1a3eabdde762f799da508ee6e3c9ae4e49bf",
+    "evaluation/rag/milestone22_evidence_retention.json": "cc766b193ce2e410b07fd4ce391f6fd5ef25bd34831e243aba5bda67b150ae1e",
+    "evaluation/rag/milestone22_model_comparison.json": "7da0d665e94d6cd94a01bdf8eb95ca02e354276df1adcebb73f828b2b247e1a6"
+  },
+  "phase_a_evidence_budget_audit": {
+    "m21_budget_audit": {
+      "B0_baseline_1500t": {
+        "name": "B0: Baseline Unconstrained (~1,500 tokens)",
+        "target_tokens": 1500,
+        "max_passages": 3,
+        "max_total_chars": 4500,
+        "compression_enabled": false,
+        "cases_evaluated": 6,
+        "avg_passages_selected": 3.0,
+        "avg_evidence_chars": 6499.2,
+        "avg_estimated_tokens": 1624.8,
+        "token_estimation_formula": "evidence_chars / 4.0",
+        "context_reduction_vs_b0_pct": 0.0,
+        "offset_integrity_rate": 1.0,
+        "dataset_nature": "Live multi-query retrieval against 2,000+ SCR judgment corpus"
+      },
+      "B1_budget_1000t": {
+        "name": "B1: Bounded Multi-Passage (~1,000 tokens)",
+        "target_tokens": 1000,
+        "max_passages": 2,
+        "max_total_chars": 3000,
+        "compression_enabled": false,
+        "cases_evaluated": 6,
+        "avg_passages_selected": 2.0,
+        "avg_evidence_chars": 4040.8,
+        "avg_estimated_tokens": 1010.2,
+        "token_estimation_formula": "evidence_chars / 4.0",
+        "context_reduction_vs_b0_pct": 37.83,
+        "offset_integrity_rate": 1.0,
+        "dataset_nature": "Live multi-query retrieval against 2,000+ SCR judgment corpus"
+      },
+      "B2_budget_750t": {
+        "name": "B2: Compressed Multi-Passage (~750 tokens)",
+        "target_tokens": 750,
+        "max_passages": 2,
+        "max_total_chars": 2250,
+        "compression_enabled": true,
+        "cases_evaluated": 6,
+        "avg_passages_selected": 2.0,
+        "avg_evidence_chars": 1924.0,
+        "avg_estimated_tokens": 481.0,
+        "token_estimation_formula": "evidence_chars / 4.0",
+        "context_reduction_vs_b0_pct": 70.4,
+        "offset_integrity_rate": 1.0,
+        "dataset_nature": "Live multi-query retrieval against 2,000+ SCR judgment corpus"
+      },
+      "B3_budget_500t": {
+        "name": "B3: Focused Single-to-Dual Passage (~500 tokens)",
+        "target_tokens": 500,
+        "max_passages": 1,
+        "max_total_chars": 1500,
+        "compression_enabled": true,
+        "cases_evaluated": 6,
+        "avg_passages_selected": 1.0,
+        "avg_evidence_chars": 773.5,
+        "avg_estimated_tokens": 193.4,
+        "token_estimation_formula": "evidence_chars / 4.0",
+        "context_reduction_vs_b0_pct": 88.1,
+        "offset_integrity_rate": 1.0,
+        "dataset_nature": "Live multi-query retrieval against 2,000+ SCR judgment corpus"
+      }
+    },
+    "m22_budget_audit": {
+      "dataset_name": "Milestone 22 Failure-Mode Diagnostic Dataset",
+      "dataset_nature": "14 hand-crafted minimal diagnostic snippets (156-448 chars) testing 7 failure modes",
+      "total_cases": 14,
+      "total_qualifications_assessed": 23,
+      "B0_baseline": {
+        "total_evidence_chars": 4275,
+        "avg_chars_per_case": 305.4,
+        "qualifications_retained": 23,
+        "qualification_retention_rate": 1.0,
+        "offset_integrity_rate": 1.0
+      },
+      "B2_compressed": {
+        "total_evidence_chars": 4275,
+        "avg_chars_per_case": 305.4,
+        "qualifications_retained": 23,
+        "qualification_retention_rate": 1.0,
+        "offset_integrity_rate": 1.0,
+        "measured_context_reduction_pct": 0.0
+      },
+      "token_measurement_comparison": {
+        "total_characters": 4267,
+        "heuristic_estimated_tokens": 1066.75,
+        "actual_bge_minilm_tokens": 841,
+        "chars_per_actual_token": 5.074,
+        "estimation_overstatement_pct": 26.84
+      }
+    },
+    "discrepancy_analysis": {
+      "discrepancy_identified": "M21 reported ~1,924 chars for B2 (70.4% reduction from 6,499 chars), whereas M22 reported 4,275 chars for both B0 and B2 (0.0% reduction).",
+      "root_causes": [
+        {
+          "cause_index": 1,
+          "title": "Different Evaluation Datasets and Pipeline Stages",
+          "detail": "Milestone 21 evaluated live corpus retrieval against 2,000+ Supreme Court judgments, where retrieved candidate passages were long judicial paragraphs (1,500-2,500 chars). Milestone 22 Phase B evaluated 14 hand-crafted minimal diagnostic snippets specifically created to test 7 qualification failure modes."
+        },
+        {
+          "cause_index": 2,
+          "title": "Sentence Compressor Bypass on Short Passages",
+          "detail": "In ExtractiveSentenceCompressor.compress_passage (services/rag/evidence.py:442), if a passage contains <=2 sentences or is already below the character budget (max_chars=700), it is returned unmodified to prevent over-truncation. Because all 14 diagnostic snippets had <=2 sentences and totaled 156-448 chars per case, the compressor returned them intact, yielding exactly 4,275 characters in both B0 and B2."
+        },
+        {
+          "cause_index": 3,
+          "title": "Heuristic Token Estimation vs Real Tokenizer Counts",
+          "detail": "Milestones 21 and 22 labeled token counts using 'evidence_chars / 4.0' rather than an actual tokenizer. On formal Indian Supreme Court legal prose, actual BGE/MiniLM tokenization yields 5.07 characters per token, meaning the character/4.0 heuristic systematically overstates actual token usage by ~26.8%."
+        }
+      ],
+      "conclusion": "The 70.4% compression reported in M21 is genuine for live multi-passage corpus retrieval. The 0.0% compression in M22 reflects safe preservation behavior on already-compact diagnostic snippets. Sentence compression does not prune text when evidence is already below the budget threshold."
+    }
+  },
+  "phase_b_metric_recomputation_summary": {
+    "policy_1": {
+      "supported_precision": {
+        "value": 0.4706,
+        "numerator": 8,
+        "denominator": 17,
+        "unit": "claim",
+        "formula": "TP / (TP + FP)",
+        "rule": "Gold supported claims predicted as supported divided by all predicted supported claims"
+      },
+      "supported_recall": {
+        "value": 0.8,
+        "numerator": 8,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "TP / Gold_Supported",
+        "rule": "Gold supported claims predicted as supported divided by total gold supported claims"
+      },
+      "supported_f1": {
+        "value": 0.5926,
+        "numerator": "2 * P * R",
+        "denominator": "P + R",
+        "unit": "claim",
+        "formula": "2 * Precision * Recall / (Precision + Recall)",
+        "rule": "Harmonic mean of supported precision and recall"
+      },
+      "non_supported_far": {
+        "value": 0.3,
+        "numerator": 9,
+        "denominator": 30,
+        "unit": "claim",
+        "formula": "(FA_contra + FA_partial + FA_unsupp) / Non_Supported_Total",
+        "rule": "Proportion of non-supported claims falsely accepted into the supported class"
+      },
+      "contradiction_far": {
+        "value": 0.5,
+        "numerator": 5,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_contradiction / Gold_Contradicted",
+        "rule": "Contradicted claims falsely accepted as supported"
+      },
+      "partially_supported_far": {
+        "value": 0.4,
+        "numerator": 4,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_partial / Gold_Partially_Supported",
+        "rule": "Partially supported claims falsely accepted as supported"
+      },
+      "unsupported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_unsupported / Gold_Unsupported",
+        "rule": "Unsupported claims falsely accepted as supported"
+      },
+      "false_rejection_rate": {
+        "value": 0.2,
+        "numerator": 2,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "False_Rejections / Gold_Supported",
+        "rule": "Gold supported claims rejected or downgraded into unsupported/contradicted/not_evaluated"
+      },
+      "not_evaluated_rate": {
+        "value": 0.3,
+        "numerator": 12,
+        "denominator": 40,
+        "unit": "claim",
+        "formula": "Not_Evaluated_Claims / Total_Claims",
+        "rule": "Claims where verifier deferred decision due to low confidence or ambiguity"
+      },
+      "safe_presentation_compliance": {
+        "value": 0.775,
+        "numerator": 31,
+        "denominator": 40,
+        "unit": "claim",
+        "formula": "Safe_Compliant_Claims / Total_Claims",
+        "rule": "Claims where non-supported claims are never predicted as supported"
+      },
+      "answer_level_false_verification_rate": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 40,
+        "unit": "answer",
+        "formula": "Answers_Falsely_Badged_Verified_Supported / Total_Answers_Evaluated",
+        "rule": "Whole answers receiving 'verified_supported' badge when containing gold non-supported content",
+        "qualification_note": "Under multi-claim aggregation with fail-closed presentation rules, answers with partial support receive 'qualified_answer', contradictions receive 'rejected_answer'. However, in isolated single-claim answers without other safeguards, the 5 claim-level false acceptances would directly propagate to verified_supported."
+      }
+    },
+    "policy_3_active_production_policy": {
+      "supported_precision": {
+        "value": 0.5833,
+        "numerator": 7,
+        "denominator": 12,
+        "unit": "claim",
+        "formula": "TP / (TP + FP)",
+        "rule": "Gold supported claims predicted as supported divided by all predicted supported claims"
+      },
+      "supported_recall": {
+        "value": 0.7,
+        "numerator": 7,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "TP / Gold_Supported",
+        "rule": "Gold supported claims predicted as supported divided by total gold supported claims"
+      },
+      "supported_f1": {
+        "value": 0.6364,
+        "numerator": "2 * P * R",
+        "denominator": "P + R",
+        "unit": "claim",
+        "formula": "2 * Precision * Recall / (Precision + Recall)",
+        "rule": "Harmonic mean of supported precision and recall"
+      },
+      "non_supported_far": {
+        "value": 0.1667,
+        "numerator": 5,
+        "denominator": 30,
+        "unit": "claim",
+        "formula": "(FA_contra + FA_partial + FA_unsupp) / Non_Supported_Total",
+        "rule": "Proportion of non-supported claims falsely accepted into the supported class"
+      },
+      "contradiction_far": {
+        "value": 0.1,
+        "numerator": 1,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_contradiction / Gold_Contradicted",
+        "rule": "Contradicted claims falsely accepted as supported"
+      },
+      "partially_supported_far": {
+        "value": 0.4,
+        "numerator": 4,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_partial / Gold_Partially_Supported",
+        "rule": "Partially supported claims falsely accepted as supported"
+      },
+      "unsupported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_unsupported / Gold_Unsupported",
+        "rule": "Unsupported claims falsely accepted as supported"
+      },
+      "false_rejection_rate": {
+        "value": 0.3,
+        "numerator": 3,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "False_Rejections / Gold_Supported",
+        "rule": "Gold supported claims rejected or downgraded into unsupported/contradicted/not_evaluated"
+      },
+      "not_evaluated_rate": {
+        "value": 0.3,
+        "numerator": 12,
+        "denominator": 40,
+        "unit": "claim",
+        "formula": "Not_Evaluated_Claims / Total_Claims",
+        "rule": "Claims where verifier deferred decision due to low confidence or ambiguity"
+      },
+      "safe_presentation_compliance": {
+        "value": 0.875,
+        "numerator": 35,
+        "denominator": 40,
+        "unit": "claim",
+        "formula": "Safe_Compliant_Claims / Total_Claims",
+        "rule": "Claims where non-supported claims are never predicted as supported"
+      },
+      "answer_level_false_verification_rate": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 40,
+        "unit": "answer",
+        "formula": "Answers_Falsely_Badged_Verified_Supported / Total_Answers_Evaluated",
+        "rule": "Whole answers receiving 'verified_supported' badge when containing gold non-supported content",
+        "qualification_note": "Under multi-claim aggregation with fail-closed presentation rules, answers with partial support receive 'qualified_answer', contradictions receive 'rejected_answer'. However, in isolated single-claim answers without other safeguards, the 5 claim-level false acceptances would directly propagate to verified_supported."
+      }
+    },
+    "policy_4": {
+      "supported_precision": {
+        "value": 1.0,
+        "numerator": 1,
+        "denominator": 1,
+        "unit": "claim",
+        "formula": "TP / (TP + FP)",
+        "rule": "Gold supported claims predicted as supported divided by all predicted supported claims"
+      },
+      "supported_recall": {
+        "value": 0.1,
+        "numerator": 1,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "TP / Gold_Supported",
+        "rule": "Gold supported claims predicted as supported divided by total gold supported claims"
+      },
+      "supported_f1": {
+        "value": 0.1818,
+        "numerator": "2 * P * R",
+        "denominator": "P + R",
+        "unit": "claim",
+        "formula": "2 * Precision * Recall / (Precision + Recall)",
+        "rule": "Harmonic mean of supported precision and recall"
+      },
+      "non_supported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 30,
+        "unit": "claim",
+        "formula": "(FA_contra + FA_partial + FA_unsupp) / Non_Supported_Total",
+        "rule": "Proportion of non-supported claims falsely accepted into the supported class"
+      },
+      "contradiction_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_contradiction / Gold_Contradicted",
+        "rule": "Contradicted claims falsely accepted as supported"
+      },
+      "partially_supported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_partial / Gold_Partially_Supported",
+        "rule": "Partially supported claims falsely accepted as supported"
+      },
+      "unsupported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_unsupported / Gold_Unsupported",
+        "rule": "Unsupported claims falsely accepted as supported"
+      },
+      "false_rejection_rate": {
+        "value": 0.9,
+        "numerator": 9,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "False_Rejections / Gold_Supported",
+        "rule": "Gold supported claims rejected or downgraded into unsupported/contradicted/not_evaluated"
+      },
+      "not_evaluated_rate": {
+        "value": 0.575,
+        "numerator": 23,
+        "denominator": 40,
+        "unit": "claim",
+        "formula": "Not_Evaluated_Claims / Total_Claims",
+        "rule": "Claims where verifier deferred decision due to low confidence or ambiguity"
+      },
+      "safe_presentation_compliance": {
+        "value": 1.0,
+        "numerator": 40,
+        "denominator": 40,
+        "unit": "claim",
+        "formula": "Safe_Compliant_Claims / Total_Claims",
+        "rule": "Claims where non-supported claims are never predicted as supported"
+      },
+      "answer_level_false_verification_rate": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 40,
+        "unit": "answer",
+        "formula": "Answers_Falsely_Badged_Verified_Supported / Total_Answers_Evaluated",
+        "rule": "Whole answers receiving 'verified_supported' badge when containing gold non-supported content",
+        "qualification_note": "Under multi-claim aggregation with fail-closed presentation rules, answers with partial support receive 'qualified_answer', contradictions receive 'rejected_answer'. However, in isolated single-claim answers without other safeguards, the 5 claim-level false acceptances would directly propagate to verified_supported."
+      }
+    },
+    "policy_5": {
+      "supported_precision": {
+        "value": 1.0,
+        "numerator": 1,
+        "denominator": 1,
+        "unit": "claim",
+        "formula": "TP / (TP + FP)",
+        "rule": "Gold supported claims predicted as supported divided by all predicted supported claims"
+      },
+      "supported_recall": {
+        "value": 0.1,
+        "numerator": 1,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "TP / Gold_Supported",
+        "rule": "Gold supported claims predicted as supported divided by total gold supported claims"
+      },
+      "supported_f1": {
+        "value": 0.1818,
+        "numerator": "2 * P * R",
+        "denominator": "P + R",
+        "unit": "claim",
+        "formula": "2 * Precision * Recall / (Precision + Recall)",
+        "rule": "Harmonic mean of supported precision and recall"
+      },
+      "non_supported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 30,
+        "unit": "claim",
+        "formula": "(FA_contra + FA_partial + FA_unsupp) / Non_Supported_Total",
+        "rule": "Proportion of non-supported claims falsely accepted into the supported class"
+      },
+      "contradiction_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_contradiction / Gold_Contradicted",
+        "rule": "Contradicted claims falsely accepted as supported"
+      },
+      "partially_supported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_partial / Gold_Partially_Supported",
+        "rule": "Partially supported claims falsely accepted as supported"
+      },
+      "unsupported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_unsupported / Gold_Unsupported",
+        "rule": "Unsupported claims falsely accepted as supported"
+      },
+      "false_rejection_rate": {
+        "value": 0.9,
+        "numerator": 9,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "False_Rejections / Gold_Supported",
+        "rule": "Gold supported claims rejected or downgraded into unsupported/contradicted/not_evaluated"
+      },
+      "not_evaluated_rate": {
+        "value": 0.575,
+        "numerator": 23,
+        "denominator": 40,
+        "unit": "claim",
+        "formula": "Not_Evaluated_Claims / Total_Claims",
+        "rule": "Claims where verifier deferred decision due to low confidence or ambiguity"
+      },
+      "safe_presentation_compliance": {
+        "value": 1.0,
+        "numerator": 40,
+        "denominator": 40,
+        "unit": "claim",
+        "formula": "Safe_Compliant_Claims / Total_Claims",
+        "rule": "Claims where non-supported claims are never predicted as supported"
+      },
+      "answer_level_false_verification_rate": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 40,
+        "unit": "answer",
+        "formula": "Answers_Falsely_Badged_Verified_Supported / Total_Answers_Evaluated",
+        "rule": "Whole answers receiving 'verified_supported' badge when containing gold non-supported content",
+        "qualification_note": "Under multi-claim aggregation with fail-closed presentation rules, answers with partial support receive 'qualified_answer', contradictions receive 'rejected_answer'. However, in isolated single-claim answers without other safeguards, the 5 claim-level false acceptances would directly propagate to verified_supported."
+      }
+    }
+  },
+  "phase_c_case_level_audit_summary": {
+    "total_cases": 40,
+    "true_positives": 7,
+    "safe_rejections_or_downgrades": 25,
+    "claim_level_false_acceptances": 5,
+    "false_rejections": 3,
+    "safety_invariant_violations": 5
+  },
+  "phase_e_independent_review_readiness": {
+    "pack_path": "evaluation\\rag\\milestone20_blinded_review_pack.jsonl",
+    "total_cases_in_pack": 30,
+    "legal_categories_count": 9,
+    "categories_distribution": {
+      "supported": 4,
+      "partially_supported": 4,
+      "unsupported_with_valid_citation": 3,
+      "contradicted": 4,
+      "statutory_exceptions_and_conditions": 3,
+      "party_submissions_vs_holdings": 3,
+      "quoted_precedents": 3,
+      "overgeneralized_holdings": 3,
+      "ambiguous_claims": 3
+    },
+    "review_status_verified": "PENDING_EXTERNAL_REVIEW",
+    "all_cases_pending": true,
+    "context_sufficiency": {
+      "avg_surrounding_context_chars": 691.4,
+      "min_surrounding_context_chars": 300,
+      "max_surrounding_context_chars": 993,
+      "avg_passage_chars": 258.1
+    },
+    "reviewer_template_audit": {
+      "fields_present": [
+        "blind_case_id",
+        "query",
+        "claim_under_review",
+        "target_category",
+        "exact_source_passage",
+        "surrounding_context",
+        "source_case_title",
+        "source_document_id",
+        "start_char",
+        "end_char",
+        "reviewer_verdict",
+        "reviewer_rationale",
+        "reviewer_identified_caveat",
+        "reviewer_requires_more_context",
+        "review_status"
+      ],
+      "verdict_taxonomy": [
+        "supported",
+        "partially_supported",
+        "unsupported",
+        "contradicted",
+        "not_evaluated"
+      ],
+      "distinguishes_caveats_and_ambiguity": true
+    },
+    "independent_review_readiness_checklist": [
+      {
+        "step": 1,
+        "title": "Reviewer Credentials and Independence",
+        "instruction": "Ensure reviewer is a qualified advocate, judicial law clerk, or legal scholar with no prior involvement in NyayaVarta prompt engineering, rule creation, or gold annotation."
+      },
+      {
+        "step": 2,
+        "title": "Blinded Examination of Proposition",
+        "instruction": "Inspect claim_under_review against exact_source_passage and surrounding_context without accessing system prompt, model identity, or predicted status."
+      },
+      {
+        "step": 3,
+        "title": "Strict Categorization",
+        "instruction": "Assign exactly one verdict from: ['supported', 'partially_supported', 'unsupported', 'contradicted', 'not_evaluated'] as defined in docs/MILESTONE_16_LEGAL_REVIEW_PROTOCOL.md."
+      },
+      {
+        "step": 4,
+        "title": "Documenting Exceptions and Missing Qualifications",
+        "instruction": "If assigning 'partially_supported', explicitly record the missing statutory proviso, limiting rule, or procedural caveat in reviewer_identified_caveat."
+      },
+      {
+        "step": 5,
+        "title": "Disagreement and Ambiguity Handling",
+        "instruction": "Flag cases where Supreme Court benches differ or where judgment context is inconclusive using reviewer_requires_more_context: true."
+      }
+    ]
+  },
+  "final_milestone_decision": {
+    "decision": "HOLD (NOT READY FOR EXTERNAL PILOT)",
+    "rationale": [
+      "External legal review remains strictly PENDING_EXTERNAL_REVIEW with 0 independent advocate annotations.",
+      "Policy 3 retains a 16.67% claim-level non-supported false acceptance rate (4 partial + 1 contradiction false acceptances out of 30 non-supported claims).",
+      "Local CPU live generation is feasible on compact models (Qwen 0.5B at ~5.5s), but larger models (Phi-3.5 at ~22s) exhibit CPU latency constraints.",
+      "Llama 3.2 1B demonstrates conservative RLHF refusals on legal queries.",
+      "NyayaVarta must remain restricted to supervised internal developer research."
+    ]
+  }
+}

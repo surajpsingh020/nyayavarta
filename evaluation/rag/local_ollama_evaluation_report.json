@@ -1,0 +1,51 @@
+{
+    "benchmark_title": "NyayaVarta Real Local-LLM Benchmark",
+    "benchmark_version": "v1.0",
+    "evaluation_status": "completed",
+    "timestamp": "2026-10-12T18:28:17Z",
+    "model_metadata": {
+        "model_name": "phi3.5:latest",
+        "base_url": "http://localhost:11434",
+        "timeout_seconds": 90.0,
+        "execution_environment": "Local pure-CPU Ollama instance"
+    },
+    "aggregate_metrics": {
+        "total_queries_evaluated": 2,
+        "answerable_queries": 0,
+        "unanswerable_queries": 0,
+        "timeouts_count": 2,
+        "failures_count": 2,
+        "abstention_accuracy": 0.0,
+        "citation_reference_validity_rate": 1.0,
+        "semantic_support_status": "not_evaluated"
+    },
+    "latency_metrics_ms": {
+        "retrieval_median_ms": 0.0,
+        "generation_median_ms": 0.0,
+        "total_median_ms": 0.0
+    },
+    "per_query_results": [
+        {
+            "query_id": "RQ001",
+            "question": "What are the legal standards and grounds for granting bail to an accused facing prosecution under Section 45 of the Prevention of Money Laundering Act (PMLA)?",
+            "expected_answerability": "answerable",
+            "status": "timeout",
+            "raw_answer": "",
+            "error": "Local Ollama generation timed out after 90.0s on model 'phi3.5:latest' (elapsed: 92055.3ms).",
+            "timing_ms": {
+                "total_ms": 92116.13249999937
+            }
+        },
+        {
+            "query_id": "RQ002",
+            "question": "Can an appellate court reverse a judgment of acquittal into conviction based solely on circumstantial evidence?",
+            "expected_answerability": "answerable",
+            "status": "timeout",
+            "raw_answer": "",
+            "error": "Local Ollama generation timed out after 90.0s on model 'phi3.5:latest' (elapsed: 92072.2ms).",
+            "timing_ms": {
+                "total_ms": 92231.38110002037
+            }
+        }
+    ]
+}

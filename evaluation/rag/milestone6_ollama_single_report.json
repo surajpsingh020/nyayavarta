@@ -1,0 +1,102 @@
+{
+  "benchmark_metadata": {
+    "benchmark_name": "NyayaVarta Milestone 6 End-to-End Legal Answer Benchmark (OLLAMA)",
+    "benchmark_timestamp": "2026-10-13T13:19:29.721829+00:00",
+    "provider_type": "ollama",
+    "model_name": "phi3.5:latest",
+    "total_queries_tested": 1,
+    "total_queries_completed": 1,
+    "answers_generated": 1,
+    "abstentions": 0,
+    "timeouts": 0,
+    "errors": 0,
+    "total_benchmark_duration_seconds": 161.53,
+    "context_budget": {
+      "top_k": 2,
+      "max_passages": 1,
+      "max_chars_per_passage": 1400
+    }
+  },
+  "performance_metrics": {
+    "grounding_gate_accuracy": 1.0,
+    "citation_validity_rate": 0.0,
+    "latency_seconds": {
+      "min": 161.529,
+      "median": 161.529,
+      "p95": 161.529,
+      "max": 161.529,
+      "total": 161.53
+    }
+  },
+  "claim_review_summary": {
+    "total_claims": 1,
+    "reviewed_claims": 0,
+    "pending_review_claims": 1,
+    "label_breakdown": {
+      "supported": 0,
+      "partially_supported": 0,
+      "unsupported": 0,
+      "contradicted": 0,
+      "not_reviewed": 1
+    },
+    "extrinsic_facts_introduced": 0,
+    "relevant_context_omitted": 0,
+    "unwarranted_answering_claims": 0
+  },
+  "query_evaluations": [
+    {
+      "query_id": "M6_001",
+      "category": "single_judgment_holding",
+      "legal_domain": "Constitutional Law",
+      "query": "Can the Supreme Court exercise powers under Article 142 of the Constitution to grant admission to an IIT candidate from a marginalized community who was prevented from paying fees due to a portal login glitch?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "grounding_is_grounded": true,
+      "grounding_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "grounding_matches_gold": true,
+      "timing_ms": {
+        "retrieval_ms": 38.45,
+        "evidence_assembly_ms": 17.68,
+        "grounding_gate_ms": 5.29,
+        "prompt_construction_ms": 0.01,
+        "generation_ms": 161463.59,
+        "validation_ms": 2.27,
+        "total_ms": 161529.17
+      },
+      "total_latency_seconds": 161.529,
+      "num_evidence_passages": 1,
+      "offsets_verified": true,
+      "citations_summary": {
+        "is_valid": false,
+        "citation_syntax_valid": false,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "The court's holding aligns with substantial justice principles, which can be associated with exergying such power for this case [E#]",
+          "(Note: In a real-world scenario where direct citations are required but not provided in full due to truncation of evidence passages or other reasons, the INSUFFICIENT EVIDENCE response would apply",
+          "Here it is assumed that enough context has been given for an appropriate answer.)"
+        ]
+      },
+      "llm_usage": {
+        "prompt_eval_count": 1390,
+        "prompt_eval_ms": 89975.15,
+        "eval_count": 509,
+        "eval_duration_ms": 66368.41,
+        "load_duration_ms": 2810.54,
+        "total_duration_ms": 159420.62,
+        "tokens_per_second": 7.67,
+        "prompt_tokens_per_second": 15.45
+      },
+      "claims_count": 1,
+      "answer_text": "1. SHORT ANSWER: The Supreme Court held that a marginalized student who faced technical difficulties in paying fees due to portal issues should not be denied admission [E1].\n2. RELEVANT LEGAL PRINCIPLES: Article 142 of the Constitution grants this court power over matters where justice is needed, and it was applied here for a student's IIT admission issue due to technical difficulties with fee payment on their part [E1].\n3. APPLICATION TO FACTS: The petitioner faced portal login issues while trying multiple times (six occasions) but lacked the means because of late fees, which led him not being admitted despite his efforts and background as a marginalized individual seeking admission to IIT [E1].\n4. SUPPORTING JUDGMENTS: The Supreme Court's decision in Atul Kumar v. Chairman (Joint Seat Allocation Authority) is directly relevant, where it was held that the petitioner should not be denied his admission due to technical difficulties beyond his control [E1].\n5. LIMITATIONS & UNCERTAINTIES: The judgment specifically addresses this case's facts and does not establish a broad rule applicable in all similar cases; individual circumstances must still be considered, as indicated by the court’s focus on substantial justice for marginalized communities affected by technical issues [E1].\n6. INSUFFICIENT EVIDENCE: The supplied judicial passages do provide sufficient evidence to answer this question about Article 142's application in granting admission under specific circumstances of a portal login glitch affecting fee payment for IIT candidates from marginalized communities [E#].\n\nNote: While the provided passage does not explicitly state that \"the Supreme Court exercised powers under Article 142,\" it is implied through context and reasoning within the judgment. The court's holding aligns with substantial justice principles, which can be associated with exergying such power for this case [E#].\n\n(Note: In a real-world scenario where direct citations are required but not provided in full due to truncation of evidence passages or other reasons, the INSUFFICIENT EVIDENCE response would apply. Here it is assumed that enough context has been given for an appropriate answer.)"
+    }
+  ]
+}

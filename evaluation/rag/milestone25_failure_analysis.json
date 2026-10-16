@@ -1,0 +1,131 @@
+{
+  "metadata": {
+    "milestone": "Milestone 25",
+    "analysis_title": "Systematic Legal Reasoning Failure Analysis",
+    "purpose": "Categorization of legal failure modes identified across Milestones 20-25 benchmarks to guide safe verifier calibration and retrieval architecture.",
+    "total_failure_categories": 10,
+    "provenance": "developer_curated_failure_taxonomy_and_case_evidence"
+  },
+  "failure_categories": [
+    {
+      "category_id": "FAIL_CAT_01",
+      "category_name": "missing_statutory_qualification",
+      "description": "Claim asserts an operative legal right or power as general and unconditional, while omitting mandatory statutory conditions, prerequisites, or written consent requirements.",
+      "representative_case_ids": ["M25_REV_005", "M25_REV_007", "M25_REV_016", "M20_STAGE_012", "M20_STAGE_015"],
+      "diagnostic_gold_label": "partially_supported",
+      "frozen_system_prediction": "partially_supported",
+      "evidence_passage_excerpt": "IDBI Bank Ltd. v. Ramswaroop Daliya: 'period to deposit the balance sale consideration under r.9(4) is not absolute/sacrosanct and is extendable with the consent in writing of the parties...'",
+      "failure_mechanism": "Generator dropped the conditional qualifier ('with consent in writing') when synthesizing the claim. Deterministic verifiers relying purely on keyword overlap treat the claim as supported unless negative condition waiver or caveat checks explicitly intervene.",
+      "architectural_layer": "generation_and_verification",
+      "safety_feasibility_of_remediation": "High feasibility. Enforced via RE_NEGATIVE_CONDITION_WAIVER and statutory caveat checks without compromising safety invariants."
+    },
+    {
+      "category_id": "FAIL_CAT_02",
+      "category_name": "negation_or_exception_misinterpretation",
+      "description": "Claim inverts the polarity of the judicial holding, asserting permission or power where the court established prohibition or strict limitation.",
+      "representative_case_ids": ["M25_REV_012", "M25_REV_013", "M25_REV_015", "M20_STAGE_036", "M20_STAGE_040"],
+      "diagnostic_gold_label": "contradicted",
+      "frozen_system_prediction": "contradicted",
+      "evidence_passage_excerpt": "Patents Act Section 3(j): 'The following are not inventions within the meaning of this Act... plants and animals in whole or any part thereof other than micro-organisms...'",
+      "failure_mechanism": "Syntactic presence of subject words ('patenting', 'seeds') without polarity matching allows contradictory propositions to slip through naive lexical matching.",
+      "architectural_layer": "verification",
+      "safety_feasibility_of_remediation": "High feasibility. Resolved via polarity contradiction guards and auxiliary NLI contradiction veto (Policy 3)."
+    },
+    {
+      "category_id": "FAIL_CAT_03",
+      "category_name": "overgeneralized_holding",
+      "description": "Claim universalizes a case-specific ruling, equitable concession, or extraordinary Article 142 relief into a general legal doctrine applicable to all parties.",
+      "representative_case_ids": ["M25_REV_025", "M25_REV_026", "M25_REV_027", "M20_STAGE_019"],
+      "diagnostic_gold_label": "partially_supported",
+      "frozen_system_prediction": "partially_supported",
+      "evidence_passage_excerpt": "Tej Prakash Pathak: 'Held: The process of recruitment begins with the issuance of advertisement... placement in select list does not confer an indefeasible right to appointment...'",
+      "failure_mechanism": "Language model replaces case-specific phrases ('in the facts of the present case', 'under Article 142') with universal modals ('all', 'every', 'mandates in all cases').",
+      "architectural_layer": "generation_and_verification",
+      "safety_feasibility_of_remediation": "High feasibility. Governed by RE_OVERGENERALIZATION and single-claim caveat checks."
+    },
+    {
+      "category_id": "FAIL_CAT_04",
+      "category_name": "party_submission_mistaken_for_judicial_reasoning",
+      "description": "Claim attributes arguments, contentions, or submissions made by counsel or a party as the definitive ratio decidendi or holding of the court.",
+      "representative_case_ids": ["M25_REV_019", "M25_REV_020", "M25_REV_021"],
+      "diagnostic_gold_label": "partially_supported",
+      "frozen_system_prediction": "partially_supported",
+      "evidence_passage_excerpt": "Bijay Agarwal v. Medilines: 'Mr. Sen, learned Senior Counsel for the appellant, vehemently contended that Section 34 confers inherent powers on the court to modify an arbitral award.'",
+      "failure_mechanism": "Retrieval chunk contains counsel's arguments without the subsequent paragraph where the bench rejected the submission.",
+      "architectural_layer": "retrieval_and_structural_classification",
+      "safety_feasibility_of_remediation": "High feasibility. Enforced via structural nature tag 'party_submissions' in canonical JSON and metadata filters."
+    },
+    {
+      "category_id": "FAIL_CAT_05",
+      "category_name": "quoted_precedent_mistaken_for_holding",
+      "description": "Claim cites an operative rule from an earlier precedent quoted in historical context as the novel ratio decidendi of the current judgment.",
+      "representative_case_ids": ["M25_REV_022", "M25_REV_023", "M25_REV_024"],
+      "diagnostic_gold_label": "partially_supported",
+      "frozen_system_prediction": "partially_supported",
+      "evidence_passage_excerpt": "V. Senthil Balaji: '55. As observed by this Court in the case of Gudikanti Narasimhulu (supra), the objective to keep a person in judicial custody pending trial is to secure attendance...'",
+      "failure_mechanism": "Generator fails to distinguish between the historical ratio of a quoted landmark and the narrow questions framed for the current bench.",
+      "architectural_layer": "generation_and_verification",
+      "safety_feasibility_of_remediation": "Moderate feasibility. Quoted precedent detection flags '(supra)' and historical citation markers."
+    },
+    {
+      "category_id": "FAIL_CAT_06",
+      "category_name": "incorrect_procedural_context_attribution",
+      "description": "Claim represents interim directions, prima facie observations at the notice stage, or reference orders to a larger bench as settled final law.",
+      "representative_case_ids": ["M25_REV_001", "M20_STAGE_005"],
+      "diagnostic_gold_label": "supported",
+      "frozen_system_prediction": "supported",
+      "evidence_passage_excerpt": "Tej Prakash Pathak: 'Issue for Consideration: (a) When the recruitment process commences and comes to an end...'",
+      "failure_mechanism": "Extracting the question framed as an operative answer before verifying the bench's actual answer in the concluding paras.",
+      "architectural_layer": "extraction_and_verification",
+      "safety_feasibility_of_remediation": "High feasibility. Structural classifier distinguishes 'issue_framing' and 'facts_procedural' from 'judicial_holding'."
+    },
+    {
+      "category_id": "FAIL_CAT_07",
+      "category_name": "relevant_evidence_omitted_during_compression",
+      "description": "Passage compression or tight context budgets (e.g. B2 budget ~1,924 chars) truncate the vital qualifying sentence following the primary holding sentence.",
+      "representative_case_ids": ["M20_STAGE_015", "M20_STAGE_019"],
+      "diagnostic_gold_label": "partially_supported",
+      "frozen_system_prediction": "partially_supported",
+      "evidence_passage_excerpt": "Chief Commr v. Safari Retreats: Truncation after 'is a question of fact to be determined by applying the functionality test' before the remand directions.",
+      "failure_mechanism": "Fixed character-window budgeting slices judgments midway through operative paragraphs.",
+      "architectural_layer": "retrieval_and_budgeting",
+      "safety_feasibility_of_remediation": "High feasibility. Sentence-boundary and paragraph-aware chunking preserves qualifying sentences."
+    },
+    {
+      "category_id": "FAIL_CAT_08",
+      "category_name": "claim_extraction_failure",
+      "description": "Claim extraction parser combines two distinct propositions into a single sentence, or incorrectly splits a qualified clause from its main verb.",
+      "representative_case_ids": ["M24_ADV_008", "M24_ADV_010"],
+      "diagnostic_gold_label": "partially_supported",
+      "frozen_system_prediction": "partially_supported",
+      "evidence_passage_excerpt": "State of Rajasthan v. Babu Lal: 'Section 319 CrPC enables summoning... but requires much stronger evidence...'",
+      "failure_mechanism": "Extracting 'Court can summon accused' without retaining 'only on compelling evidence' due to naive regex punctuation splitting.",
+      "architectural_layer": "extraction",
+      "safety_feasibility_of_remediation": "Moderate feasibility. Requires structured JSON schema generation where the LLM explicitly returns atomic claims with conditions."
+    },
+    {
+      "category_id": "FAIL_CAT_09",
+      "category_name": "correct_claim_unnecessarily_downgraded",
+      "description": "A genuinely supported claim is falsely rejected, qualified, or marked unverified due to overly rigid lexical thresholds or NLI uncertainty (false rejection).",
+      "representative_case_ids": ["M20_STAGE_001", "M20_STAGE_002", "M20_STAGE_003"],
+      "diagnostic_gold_label": "supported",
+      "frozen_system_prediction": "not_evaluated",
+      "evidence_passage_excerpt": "Apoorva Arora v. State: Obscenity test under Section 67 IT Act requires prurient appeal and depraving minds, not mere vulgarity.",
+      "failure_mechanism": "Under Policy 4 or uncalibrated NLI, valid paraphrases receive neutral predictions from local small models, causing unnecessary abstention on valid answers.",
+      "architectural_layer": "verification",
+      "safety_feasibility_of_remediation": "High feasibility. Solved by Policy 3 (Contradiction Veto Only) which preserves deterministic affirmative recall."
+    },
+    {
+      "category_id": "FAIL_CAT_10",
+      "category_name": "insufficient_source_context",
+      "description": "The cited excerpt is too short (e.g. 150-250 chars) for even a qualified human legal practitioner to determine whether the rule was affirmed or distinguished.",
+      "representative_case_ids": ["M25_REV_028", "M25_REV_029", "M25_REV_030"],
+      "diagnostic_gold_label": "ambiguous_claims",
+      "frozen_system_prediction": "partially_supported",
+      "evidence_passage_excerpt": "Atul Kumar v. State: Excerpt describing fee portal difficulty without the full ratio on whether Article 142 is universal.",
+      "failure_mechanism": "Overly aggressive summarization strips judicial context. Reviewer protocol must allow 'AMBIGUOUS' and 'requires_more_context: true'.",
+      "architectural_layer": "retrieval_and_presentation",
+      "safety_feasibility_of_remediation": "High feasibility. Solved by presenting preceding and succeeding context windows in UI and reviewer pack."
+    }
+  ]
+}

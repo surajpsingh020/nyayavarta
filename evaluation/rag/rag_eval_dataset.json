@@ -1,0 +1,137 @@
+[
+    {
+        "query_id": "RQ001",
+        "question": "What are the legal standards and grounds for granting bail to an accused facing prosecution under Section 45 of the Prevention of Money Laundering Act (PMLA)?",
+        "legal_domain": "Criminal",
+        "expected_answerability": "answerable",
+        "expected_document_ids": ["2024_10_393_410", "2024_3_778_811"],
+        "expected_key_principles": ["Section 45 PMLA", "twin conditions", "reasonable grounds", "not guilty of offence", "bail"],
+        "description": "Examines twin conditions and statutory bail standards under Section 45 of PMLA."
+    },
+    {
+        "query_id": "RQ002",
+        "question": "Can an appellate court reverse a judgment of acquittal into conviction based solely on circumstantial evidence?",
+        "legal_domain": "Criminal",
+        "expected_answerability": "answerable",
+        "expected_document_ids": ["2024_10_108_125", "2024_10_1757_1768"],
+        "expected_key_principles": ["reversal of acquittal", "circumstantial evidence", "presumption of innocence", "complete chain of evidence", "perverse finding"],
+        "description": "Examines standards and limits for appellate interference with judgments of acquittal."
+    },
+    {
+        "query_id": "RQ003",
+        "question": "Can a pendente lite purchaser or third party stranger dispossessed of immovable property file an application under Order XXI Rule 99 CPC for restoration of possession?",
+        "legal_domain": "Civil",
+        "expected_answerability": "answerable",
+        "expected_document_ids": ["2024_10_1359_1370", "2024_10_901_910"],
+        "expected_key_principles": ["Order XXI Rule 99 CPC", "pendente lite purchaser", "restoration of possession", "dispossession", "stranger to decree"],
+        "description": "Examines maintainability of application by pendente lite purchaser for restoration of possession."
+    },
+    {
+        "query_id": "RQ004",
+        "question": "Does a secured creditor bank have the right to cancel a confirmed e-auction sale if the auction purchaser requests an extension of time to deposit the balance purchase amount under Rule 9(4) of the Security Interest Rules?",
+        "legal_domain": "Commercial",
+        "expected_answerability": "answerable",
+        "expected_document_ids": ["2024_10_1371_1380"],
+        "expected_key_principles": ["e-auction sale", "Rule 9(4) Security Interest Rules", "extension of time", "secured creditor", "cancellation of sale"],
+        "description": "Examines creditor powers regarding cancellation and extension of time in SARFAESI e-auctions."
+    },
+    {
+        "query_id": "RQ005",
+        "question": "Can a municipal corporation demand royalty, tax, or fees on commercial advertisement hoardings without express statutory authority under Article 265 of the Constitution?",
+        "legal_domain": "Constitutional",
+        "expected_answerability": "answerable",
+        "expected_document_ids": ["2024_10_1381_1403"],
+        "expected_key_principles": ["Article 265", "advertisement hoardings", "statutory authority", "royalty and tax", "municipal corporation"],
+        "description": "Examines constitutional limits on municipal taxation and fees without statutory backing."
+    },
+    {
+        "query_id": "RQ006",
+        "question": "Does an acknowledgement of debt recorded in the audited balance sheet of a corporate debtor extend the limitation period under Section 18 of the Limitation Act for initiating insolvency proceedings under IBC?",
+        "legal_domain": "Commercial",
+        "expected_answerability": "answerable",
+        "expected_document_ids": ["2024_10_1462_1474"],
+        "expected_key_principles": ["Section 18 Limitation Act", "audited balance sheet", "acknowledgement of debt", "IBC insolvency", "corporate debtor"],
+        "description": "Examines effect of balance sheet entries on limitation period under IBC."
+    },
+    {
+        "query_id": "RQ007",
+        "question": "What standard of professional skill and care is required to establish medical negligence against a surgeon under the Consumer Protection Act?",
+        "legal_domain": "Civil",
+        "expected_answerability": "answerable",
+        "expected_document_ids": ["2024_10_1475_1482"],
+        "expected_key_principles": ["medical negligence", "Bolam test", "standard of care", "Consumer Protection Act", "professional skill"],
+        "description": "Examines legal standard of care and proof required for medical negligence."
+    },
+    {
+        "query_id": "RQ008",
+        "question": "Does viewing or streaming child sexual abuse material online without downloading or physically storing it on a device constitute possession under Section 15 of the POCSO Act?",
+        "legal_domain": "Criminal",
+        "expected_answerability": "answerable",
+        "expected_document_ids": ["2024_10_154_314"],
+        "expected_key_principles": ["Section 15 POCSO Act", "viewing and streaming", "possession", "child sexual abuse material", "storage"],
+        "description": "Examines statutory interpretation of possession regarding online streaming under POCSO."
+    },
+    {
+        "query_id": "RQ009",
+        "question": "Can an authorized signatory who signs a cheque on behalf of a company be directed to deposit interim compensation under Section 148 of the Negotiable Instruments Act during appeal?",
+        "legal_domain": "Commercial",
+        "expected_answerability": "answerable",
+        "expected_document_ids": ["2024_10_1890_1901", "2024_10_2248_2264"],
+        "expected_key_principles": ["Section 148 NI Act", "authorized signatory", "interim compensation", "company cheque", "appellate deposit"],
+        "description": "Examines liability of authorized signatory for interim compensation under Section 148 NI Act."
+    },
+    {
+        "query_id": "RQ010",
+        "question": "Are provisions in prison manuals providing for division of labor or segregation of prisoners on the basis of caste unconstitutional under Articles 14, 15, and 17?",
+        "legal_domain": "Constitutional",
+        "expected_answerability": "answerable",
+        "expected_document_ids": ["2024_10_493_638"],
+        "expected_key_principles": ["prison manuals", "caste discrimination", "Article 14", "Article 15", "Article 17", "segregation"],
+        "description": "Examines constitutionality of caste-based labor division and segregation in prison manuals."
+    },
+    {
+        "query_id": "RQ011",
+        "question": "What are the statutory patent claim drafting requirements for biotechnology sequence listings under the Indian Patents Act, 1970?",
+        "legal_domain": "Intellectual Property",
+        "expected_answerability": "unanswerable_in_corpus",
+        "expected_document_ids": [],
+        "expected_key_principles": [],
+        "description": "Out-of-corpus query testing abstention on specialized biotechnology patent drafting rules."
+    },
+    {
+        "query_id": "RQ012",
+        "question": "How did the 13-judge bench in Kesavananda Bharati v. State of Kerala (1973) formulate the basic structure doctrine regarding Article 368?",
+        "legal_domain": "Constitutional",
+        "expected_answerability": "unanswerable_in_corpus",
+        "expected_document_ids": [],
+        "expected_key_principles": [],
+        "description": "Historical 1973 precedent out-of-corpus query testing abstention."
+    },
+    {
+        "query_id": "RQ013",
+        "question": "What is the maritime prize court procedure for foreign vessel seizure under Indian Admiralty Jurisdiction in international waters?",
+        "legal_domain": "Maritime",
+        "expected_answerability": "unanswerable_in_corpus",
+        "expected_document_ids": [],
+        "expected_key_principles": [],
+        "description": "Out-of-corpus query on specialized international maritime prize court procedures."
+    },
+    {
+        "query_id": "RQ014",
+        "question": "What are the regulatory reporting standards mandated by the RBI for offshore peer-to-peer cryptocurrency derivatives?",
+        "legal_domain": "Financial",
+        "expected_answerability": "unanswerable_in_corpus",
+        "expected_document_ids": [],
+        "expected_key_principles": [],
+        "description": "Out-of-corpus query testing abstention on offshore cryptocurrency derivatives regulations."
+    },
+    {
+        "query_id": "RQ015",
+        "question": "What were the nine distinct privacy opinions delivered by the bench in the 2017 Justice K.S. Puttaswamy fundamental right to privacy judgment?",
+        "legal_domain": "Constitutional",
+        "expected_answerability": "unanswerable_in_corpus",
+        "expected_document_ids": [],
+        "expected_key_principles": [],
+        "description": "2017 landmark nine-judge bench judgment out-of-corpus query testing abstention."
+    }
+]

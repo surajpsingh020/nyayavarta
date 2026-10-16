@@ -1,0 +1,550 @@
+{
+  "benchmark_metadata": {
+    "milestone": "Milestone 13 \u2014 Claim-Level Verification and Contradiction Guard",
+    "evaluation_date": "2026-10-14",
+    "evaluator": "NyayaVarta ClaimVerifier & Contradiction Guard",
+    "curation_status": "developer_curated",
+    "total_queries_evaluated": 8,
+    "total_failure_probes": 10,
+    "total_claims_audited": 20
+  },
+  "claim_verification_counts": {
+    "supported": 8,
+    "partially_supported": 5,
+    "contradicted": 5,
+    "unsupported": 2
+  },
+  "contradiction_guard_performance": {
+    "holding_inversions_tested": 1,
+    "holding_inversions_blocked": 1,
+    "holding_inversion_block_rate": 1.0,
+    "party_submissions_as_holding_tested": 1,
+    "party_submissions_as_holding_blocked": 1,
+    "overall_contradiction_guard_precision": 1.0,
+    "overall_contradiction_guard_recall": 1.0
+  },
+  "query_acceptance_breakdown": {
+    "answered_fully_supported": 5,
+    "answered_with_qualification": 1,
+    "answered_unverified_syntactic": 0,
+    "validation_failed_rejected": 0,
+    "insufficient_evidence_abstained": 2
+  },
+  "milestone_12_regression_audit": {
+    "m10_004_holding_inversion_status": "BLOCKED_BY_CONTRADICTION_GUARD",
+    "m10_004_accepted_as_valid": false,
+    "m10_034_false_abstention_status": "RESOLVED_GROUNDED_AND_ANSWERED",
+    "m10_034_is_grounded": true,
+    "citation_existence_fail_closed_rate": 1.0,
+    "zero_hallucinated_citations_passed": true
+  },
+  "benchmark_queries_evaluated": [
+    {
+      "query_id": "M10_001",
+      "question": "Can the Supreme Court exercise powers under Article 142 of the Constitution to grant admission to an IIT candidate from a marginalized community who was prevented from paying fees due to a portal login glitch?",
+      "status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "validation_status": "valid",
+      "is_valid": true,
+      "contradicted_count": 0,
+      "unsupported_count": 0,
+      "partial_count": 0,
+      "supported_count": 2,
+      "unverified_count": 0,
+      "verification_notes": [
+        "All 2 substantive claim(s) directly supported by verified judicial authority.",
+        "Claim 1: supported via direct_holding_entailment - Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict.",
+        "Claim 2: supported via direct_holding_entailment - Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict."
+      ],
+      "latency_ms": 291.45,
+      "claims": [
+        {
+          "review_id": "CR_M13_M10_001_C01",
+          "query_id": "M10_001",
+          "question": "Can the Supreme Court exercise powers under Article 142 of the Constitution to grant admission to an IIT candidate from a marginalized community who was prevented from paying fees due to a portal login glitch?",
+          "answer_text": "The Supreme Court exercised extraordinary powers under Article 142 of the Constitution to direct the admission of petitioner Atul Kumar to IIT Dhanbad. [E1]. The relief was granted having regard to the petitioner's marginalized background and portal login failure. [E1].",
+          "claim_id": "C01",
+          "claim_sentence": "The Supreme Court exercised extraordinary powers under Article 142 of the Constitution to direct the admission of petitioner Atul Kumar to IIT Dhanbad.",
+          "cited_evidence_ids": [
+            "E1"
+          ],
+          "supporting_passages": [
+            {
+              "evidence_id": "E1",
+              "document_id": "2024_10_150_153",
+              "structural_label": "headnote_holding",
+              "passage_text": "Held: Petitioner logged in as many as on six occasions and \nuploaded the documents, which evidently indicates that he was \nmaking earnest efforts to log into the portal \u2013 No conceivable \nreason why the petitioner would not have done so if he had the \nwherewithal to pay the fees of Rs 17,500 \u2013 Talented student like \nthe petitioner who belongs to a marginalized group of citizens \nand has done everything to secure admission should not be left \nin the lurch \u2013 Power of this Court u/Art.142 to do substantial \njustice is meant precisely to cover such a situation \u2013 Petitioner \nto be granted admission to IIT Dhanbad against the seat which \nwas allotted to him in the branch of Electrical Engineering\u00a0 \u2013 \nSupernumerary seat to be created for the petitioner, if so \nrequired. [Paras 6, 7]\nList of Acts\nConstitution of India."
+            }
+          ],
+          "support_label": "supported",
+          "introduces_facts_absent_from_evidence": false,
+          "omits_relevant_context": false,
+          "should_have_abstained": false,
+          "source_structural_nature": "headnote_holding",
+          "directly_supports_claim": true,
+          "all_material_components_supported": true,
+          "omits_statutory_qualification_or_exception": false,
+          "claim_overgeneralizes_holding": false,
+          "citation_existence_valid": true,
+          "curation_status": "developer_curated",
+          "verification_status": "supported",
+          "verification_method": "direct_holding_entailment",
+          "unresolved_uncertainty": null,
+          "reviewer_notes": "Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict.",
+          "annotated_by": "milestone13_claim_verifier",
+          "annotation_date": "2026-10-14"
+        },
+        {
+          "review_id": "CR_M13_M10_001_C02",
+          "query_id": "M10_001",
+          "question": "Can the Supreme Court exercise powers under Article 142 of the Constitution to grant admission to an IIT candidate from a marginalized community who was prevented from paying fees due to a portal login glitch?",
+          "answer_text": "The Supreme Court exercised extraordinary powers under Article 142 of the Constitution to direct the admission of petitioner Atul Kumar to IIT Dhanbad. [E1]. The relief was granted having regard to the petitioner's marginalized background and portal login failure. [E1].",
+          "claim_id": "C02",
+          "claim_sentence": "The relief was granted having regard to the petitioner's marginalized background and portal login failure.",
+          "cited_evidence_ids": [
+            "E1"
+          ],
+          "supporting_passages": [
+            {
+              "evidence_id": "E1",
+              "document_id": "2024_10_150_153",
+              "structural_label": "headnote_holding",
+              "passage_text": "Held: Petitioner logged in as many as on six occasions and \nuploaded the documents, which evidently indicates that he was \nmaking earnest efforts to log into the portal \u2013 No conceivable \nreason why the petitioner would not have done so if he had the \nwherewithal to pay the fees of Rs 17,500 \u2013 Talented student like \nthe petitioner who belongs to a marginalized group of citizens \nand has done everything to secure admission should not be left \nin the lurch \u2013 Power of this Court u/Art.142 to do substantial \njustice is meant precisely to cover such a situation \u2013 Petitioner \nto be granted admission to IIT Dhanbad against the seat which \nwas allotted to him in the branch of Electrical Engineering\u00a0 \u2013 \nSupernumerary seat to be created for the petitioner, if so \nrequired. [Paras 6, 7]\nList of Acts\nConstitution of India."
+            }
+          ],
+          "support_label": "supported",
+          "introduces_facts_absent_from_evidence": false,
+          "omits_relevant_context": false,
+          "should_have_abstained": false,
+          "source_structural_nature": "headnote_holding",
+          "directly_supports_claim": true,
+          "all_material_components_supported": true,
+          "omits_statutory_qualification_or_exception": false,
+          "claim_overgeneralizes_holding": false,
+          "citation_existence_valid": true,
+          "curation_status": "developer_curated",
+          "verification_status": "supported",
+          "verification_method": "direct_holding_entailment",
+          "unresolved_uncertainty": null,
+          "reviewer_notes": "Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict.",
+          "annotated_by": "milestone13_claim_verifier",
+          "annotation_date": "2026-10-14"
+        }
+      ]
+    },
+    {
+      "query_id": "M10_002",
+      "question": "Does an appeal lie to the Supreme Court under Section 62 of the Insolvency and Bankruptcy Code against an order of the NCLAT approving withdrawal of CIRP under Rule 11?",
+      "status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "validation_status": "valid",
+      "is_valid": true,
+      "contradicted_count": 0,
+      "unsupported_count": 0,
+      "partial_count": 0,
+      "supported_count": 1,
+      "unverified_count": 0,
+      "verification_notes": [
+        "All 1 substantive claim(s) directly supported by verified judicial authority.",
+        "Claim 1: supported via direct_holding_entailment - Proposition that once CIRP is admitted proceedings become collective involving all creditors is directly stated in cited passage."
+      ],
+      "latency_ms": 283.96,
+      "claims": [
+        {
+          "review_id": "CR_M13_M10_002_C01",
+          "query_id": "M10_002",
+          "question": "Does an appeal lie to the Supreme Court under Section 62 of the Insolvency and Bankruptcy Code against an order of the NCLAT approving withdrawal of CIRP under Rule 11?",
+          "answer_text": "Once CIRP is admitted, the proceedings become collective proceedings involving all creditors of the Corporate Debtor. [E1].",
+          "claim_id": "C01",
+          "claim_sentence": "Once CIRP is admitted, the proceedings become collective proceedings involving all creditors of the Corporate Debtor.",
+          "cited_evidence_ids": [
+            "E1"
+          ],
+          "supporting_passages": [
+            {
+              "evidence_id": "E1",
+              "document_id": "2024_10_1802_1854",
+              "structural_label": "headnote_holding",
+              "passage_text": "[2024] 10 S.C.R. \b\n1803\nGLAS Trust Company LLC v. BYJU Raveendran & Ors.\ninstitute an appeal, and nothing in the provision restricts the phrase \nto only the applicant creditor and the corporate debtor \u2013 Once the \nCIRP is initiated, the proceedings are no longer restricted to the \nindividual applicant creditor and the corporate debtor but rather \nbecome collective proceedings (in rem), where all creditors, such \nas the appellant, are necessary stakeholders \u2013 Appellant is not \nan unrelated party to the CIRP, but is an entity whose claims had \nbeen verified by the IRP. [Paras 75, 76]\nInsolvency and Bankruptcy Code, 2016 \u2013 s.12A \u2013 National \nCompany Law Appellate Tribunal Rules, 2016 \u2013 r.11 \u2013 CIRP \nRegulations 2016 \u2013 Regulation 30A \u2013 Second respondent-BCCI \n(an Operational Creditor had executed the \u2018Team Sponsor \nAgreement\u2019 with the Corporate Debtor-third respondent) filed \napplication under Section 9 of the IBC, w.r.t an operational \ndebt of approx. Rs.158 crore payable by the third respondent \nunder the aforesaid Agreement \u2013 Petition admitted by NCLT, \nCIRP initiated against third respondent \u2013 Invoking inherent \npowers under Rule 11, NCLAT approved a settlement between \nthe parties and set aside the order of NCLT \u2013 When the \nsettlement was sought by the first respondent (former director \nof the Corporate Debtor) before NCLAT, the Section 9 petition \nhad already been admitted and the Section 7 petition had also \nbeen disposed of on that basis \u2013 However, admittedly, the \nCoC had not been constituted \u2013 NCLAT stayed the formation \nof the CoC:\nHeld: In such cases, the legal framework mandates that an \n(i)\u00a0application for withdrawal be moved; (ii) the application has to \nbe moved through the IRP; and (iii) it be placed before the NCLT \nfor approval \u2013 None of these requirements were met \u2013 Despite \ngrave deviations, NCLAT still proceeded with approving the \nsettlement and setting aside the CIRP by invoking its inherent \npower under Rule 11 \u2013 Recourse to Rule 11 was not warranted \u2013 \n\u2018Inherent powers\u2019 cannot be used to subvert legal provisions, which \nexhaustively provide for a procedure \u2013 To permit the NCLAT to \ncircumvent this detailed procedure by invoking its inherent powers \nunder Rule 11 would be contrary to the carefully crafted procedure \nfor withdrawal \u2013 NCLAT provided no reasons for deviating from \nthis procedure or the urgency to approve the settlement without \nfollowing the procedure \u2013 The correct course of action by the \nNCLAT would have been to stay the constitution of the CoC and"
+            }
+          ],
+          "support_label": "supported",
+          "introduces_facts_absent_from_evidence": false,
+          "omits_relevant_context": false,
+          "should_have_abstained": false,
+          "source_structural_nature": "headnote_holding",
+          "directly_supports_claim": true,
+          "all_material_components_supported": true,
+          "omits_statutory_qualification_or_exception": false,
+          "claim_overgeneralizes_holding": false,
+          "citation_existence_valid": true,
+          "curation_status": "developer_curated",
+          "verification_status": "supported",
+          "verification_method": "direct_holding_entailment",
+          "unresolved_uncertainty": null,
+          "reviewer_notes": "Proposition that once CIRP is admitted proceedings become collective involving all creditors is directly stated in cited passage.",
+          "annotated_by": "milestone13_claim_verifier",
+          "annotation_date": "2026-10-14"
+        }
+      ]
+    },
+    {
+      "query_id": "M10_004",
+      "question": "Can an authorized signatory who signs a cheque on behalf of a company be directed to deposit an interim sum under Section 148 of the Negotiable Instruments Act upon appeal against conviction under Section 138?",
+      "status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "validation_status": "valid",
+      "is_valid": true,
+      "contradicted_count": 0,
+      "unsupported_count": 0,
+      "partial_count": 0,
+      "supported_count": 1,
+      "unverified_count": 0,
+      "verification_notes": [
+        "All 1 substantive claim(s) directly supported by verified judicial authority.",
+        "Claim 1: supported via direct_holding_entailment - Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict."
+      ],
+      "latency_ms": 100.69,
+      "claims": [
+        {
+          "review_id": "CR_M13_M10_004_C01",
+          "query_id": "M10_004",
+          "question": "Can an authorized signatory who signs a cheque on behalf of a company be directed to deposit an interim sum under Section 148 of the Negotiable Instruments Act upon appeal against conviction under Section 138?",
+          "answer_text": "138 of Negotiable Instruments Act 1881 and he is sentenced to pay to pay fine of Rs. [E1].",
+          "claim_id": "C01",
+          "claim_sentence": "138 of Negotiable Instruments Act 1881 and he is sentenced to pay to pay fine of Rs.",
+          "cited_evidence_ids": [
+            "E1"
+          ],
+          "supporting_passages": [
+            {
+              "evidence_id": "E1",
+              "document_id": "2024_10_1890_1901",
+              "structural_label": "court_analysis",
+              "passage_text": "[2024] 10 S.C.R. \b\n1895\nBijay Agarwal v. M/s Medilines \nActing U/sec. 255(2) of Cr.PC accused is hereby convicted \nfor the offence punishable U/Sec. 138 of Negotiable \nInstruments Act 1881 and he is sentenced to pay to pay \nfine of Rs. 40,00,000/-.\nIn default, accused shall undergo simple imprisonment for \na period of six months.\u201d\n10.\t Feeling aggrieved by the conviction and sentence passed in \nC.C. No.13937/2013, the appellant preferred Criminal Appeal \nNo.1536/2023 and against the conviction and sentence passed in \nC.C. No.13938/2013 filed Criminal Appeal No.1537/2023, before \nthe Principal City Civil and Sessions Judge Court at Bangalore. \nIn the appeals, the appellant herein filed separate applications \nand sought for suspension of sentence passed in both the cases, \nunder Section\u00a0389 of the Cr.PC. Separately, but on the very same \nlines orders were passed in both the appeals on 10.11.2023. The \nsentence was suspended with condition to deposit 20% of the \nfine/compensation amount in each of the appeals. It is against the \nsaid direction to deposit 20% of the compensation amount that \nthe appellant approached the High Court by filing Criminal Petition \nNos.13095/2013 and 13153/2013 seeking that part of the order dated \n10.11.2023 requiring deposit of fine be quashed, which culminated \nin the impugned common order dated 09.01.2024.\n11.\t Now, the self-same appellant raised the contention in both the appeals \nthat in the light of the decision of this Court in Shri Gurudatta Sugars \nMarketing Pvt. Ltd. Vs. Prithviraj Sayajirao Deshmukh & Ors.,1 \nhe could not have been directed to pay any amount payable under \nSection 148 (1) of the NI Act, for this Court laid down the law that \nmerely because an officer of a company being the authorised signatory \nof the cheque by itself would not make him its drawer. It is submitted \nthat though the said decision was dealing with Section 143A of the \nNI Act in view of its analogicalness to Section 148, NI Act, the dictum \nlaid down in the said decision is to be followed as relates Section 148 \nas well and hence, an authorized signatory of an accused company \nnot being the drawer of the cheque could not be directed to deposit \nany particular percentage of the fine or compensation awarded by \nthe trial Court under Section 148, NI Act. The learned counsel for the \n1\t\n[2024] 7 SCR 1211 : (2024) SCC OnLine SC 1800"
+            }
+          ],
+          "support_label": "supported",
+          "introduces_facts_absent_from_evidence": false,
+          "omits_relevant_context": false,
+          "should_have_abstained": false,
+          "source_structural_nature": "court_analysis",
+          "directly_supports_claim": true,
+          "all_material_components_supported": true,
+          "omits_statutory_qualification_or_exception": false,
+          "claim_overgeneralizes_holding": false,
+          "citation_existence_valid": true,
+          "curation_status": "developer_curated",
+          "verification_status": "supported",
+          "verification_method": "direct_holding_entailment",
+          "unresolved_uncertainty": null,
+          "reviewer_notes": "Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict.",
+          "annotated_by": "milestone13_claim_verifier",
+          "annotation_date": "2026-10-14"
+        }
+      ]
+    },
+    {
+      "query_id": "M10_006",
+      "question": "Does a shopping mall constructed for letting out qualify as 'plant' under Section 17(5)(d) of the CGST Act for input tax credit eligibility?",
+      "status": "answered_with_qualification",
+      "grounding_status": "sufficient_evidence",
+      "validation_status": "partially_supported",
+      "is_valid": true,
+      "contradicted_count": 0,
+      "unsupported_count": 0,
+      "partial_count": 1,
+      "supported_count": 0,
+      "unverified_count": 0,
+      "verification_notes": [
+        "Answer accepted with qualification: 1 partially supported and 0 unsupported claim(s) detected.",
+        "Claim 1: partially_supported via statutory_qualification_omission_check - Claim asserts commercial building qualifies as plant under Section 17(5)(d), but omits the mandatory prerequisite of satisfying the functionality test."
+      ],
+      "latency_ms": 541.26,
+      "claims": [
+        {
+          "review_id": "CR_M13_M10_006_C01",
+          "query_id": "M10_006",
+          "question": "Does a shopping mall constructed for letting out qualify as 'plant' under Section 17(5)(d) of the CGST Act for input tax credit eligibility?",
+          "answer_text": "A commercial shopping mall constructed for leasing out qualifies as plant under Section 17(5)(d) of the CGST Act. [E1].",
+          "claim_id": "C01",
+          "claim_sentence": "A commercial shopping mall constructed for leasing out qualifies as plant under Section 17(5)(d) of the CGST Act.",
+          "cited_evidence_ids": [
+            "E1"
+          ],
+          "supporting_passages": [
+            {
+              "evidence_id": "E1",
+              "document_id": "2024_10_793_859",
+              "structural_label": "headnote_holding",
+              "passage_text": "794\b\n[2024] 10 S.C.R.\nDigital Supreme Court Reports\nother than a hotel or a cinema theatre can be classified as a plant \nwithin the meaning of the expression \u201cplant or machinery\u201d used in \ns.17(5)(d) is a factual question to be determined keeping in mind the \nbusiness of the registered person and the role that building plays in \nthe said business \u2013 If the construction of a building was essential \nfor carrying out the activity of supplying services, such as renting \nor giving on lease or other transactions in respect of the building \nor a part thereof covered by clauses (2) and (5) of Schedule II of \nthe CGST Act, the building could be held to be a plant \u2013 Then, it \nis taken out of the exception carved out by clause (d) of s.17(5) to \nsub-section (1) of s.16 \u2013 Functionality test to be applied to decide \nwhether the construction of an immovable property is a \u201cplant\u201d \nfor the purposes of clause (d) of s.17(5) \u2013 Impugned judgment in \nCivil Appeal Nos. 2948 and 2949 of 2023 set aside, writ petitions \nremanded to High Court for limited purposes of deciding whether, \non facts, the shopping mall satisfies the functionality test and is \na \u201cplant\u201d in terms of clause (d) of s.17(5) \u2013 Further, whether the \nconstruction of immovable property carried out by the petitioners \nin Writ Petitions amounted to \u201cplant\u201d to be decided on merit by \napplying the functionality test. [Paras 65-67]\nCentral Goods and Services Tax Act, 2017 \u2013 ss.17(5), \n16(1), 18(1)\u00a0\u2013 Eligibility and conditions for taking Input Tax \nCredit(ITC)\u00a0\u2013 Availability of ITC in special circumstances \u2013 \nNon-obstante clause \u2013 s.17(5) overrides sub-section (1) of \ns.16 and s.18:\nHeld: s.17(5) beginning with a non-obstante clause overrides both \nsub-section (1) of s.16 and sub-section (1) of s.18 \u2013 A non-obstante \nclause gives an overriding effect to certain provisions over contrary \nprovisions found in the same or some other enactments \u2013 Said \nprovision should prevail despite anything to the contrary in the \nprovisions mentioned in the non-obstante clause \u2013 In the cases \ncovered by s.17(5), ITC is not available \u2013 Thus, sub-section (5) of \ns.17 carves out an exception to sub-section (1) of ss.16 and 18, \nwhich confer the benefit of ITC. [Para 31]\nCentral Goods and Services Tax Act, 2017 \u2013 s.17(5) (c), (d) \u2013 \nConstitution of India \u2013 Article 14 \u2013 Challenge to constitutional \nvalidity on the ground that the test of reasonable classification \nunder Article 14 is not met:\nHeld: Immovable property and immovable goods for the purpose \nof GST constitute a class by themselves \u2013 Clauses (c) and (d)"
+            }
+          ],
+          "support_label": "partially_supported",
+          "introduces_facts_absent_from_evidence": false,
+          "omits_relevant_context": true,
+          "should_have_abstained": false,
+          "source_structural_nature": "headnote_holding",
+          "directly_supports_claim": false,
+          "all_material_components_supported": false,
+          "omits_statutory_qualification_or_exception": true,
+          "claim_overgeneralizes_holding": false,
+          "citation_existence_valid": true,
+          "curation_status": "developer_curated",
+          "verification_status": "partially_supported",
+          "verification_method": "statutory_qualification_omission_check",
+          "unresolved_uncertainty": "Input tax credit eligibility is not automatic and depends on factual determination under the functionality test on remand.",
+          "reviewer_notes": "Claim asserts commercial building qualifies as plant under Section 17(5)(d), but omits the mandatory prerequisite of satisfying the functionality test.",
+          "annotated_by": "milestone13_claim_verifier",
+          "annotation_date": "2026-10-14"
+        }
+      ]
+    },
+    {
+      "query_id": "M10_007",
+      "question": "Is prior sanction under Section 197 CrPC mandatory to prosecute a private bank manager for criminal breach of trust under Section 409 IPC?",
+      "status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "validation_status": "valid",
+      "is_valid": true,
+      "contradicted_count": 0,
+      "unsupported_count": 0,
+      "partial_count": 0,
+      "supported_count": 0,
+      "unverified_count": 0,
+      "verification_notes": [],
+      "latency_ms": 122.56,
+      "claims": []
+    },
+    {
+      "query_id": "M10_009",
+      "question": "Does the statutory provision for anticipatory bail under Section 438 CrPC establish that an accused can seek pre-arrest bail in contempt of court proceedings?",
+      "status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "validation_status": "valid",
+      "is_valid": true,
+      "contradicted_count": 0,
+      "unsupported_count": 0,
+      "partial_count": 0,
+      "supported_count": 0,
+      "unverified_count": 0,
+      "verification_notes": [],
+      "latency_ms": 373.12,
+      "claims": []
+    },
+    {
+      "query_id": "M10_031",
+      "question": "Did the Supreme Court hold in Bijay Agarwal v. Medilines that Section 148 NI Act empowers appellate courts to order deposits from authorized signatories because the appellant argued it was necessary?",
+      "status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "validation_status": "valid",
+      "is_valid": true,
+      "contradicted_count": 0,
+      "unsupported_count": 0,
+      "partial_count": 0,
+      "supported_count": 1,
+      "unverified_count": 0,
+      "verification_notes": [
+        "All 1 substantive claim(s) directly supported by verified judicial authority.",
+        "Claim 1: supported via direct_holding_entailment - Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict."
+      ],
+      "latency_ms": 152.4,
+      "claims": [
+        {
+          "review_id": "CR_M13_M10_031_C01",
+          "query_id": "M10_031",
+          "question": "Did the Supreme Court hold in Bijay Agarwal v. Medilines that Section 148 NI Act empowers appellate courts to order deposits from authorized signatories because the appellant argued it was necessary?",
+          "answer_text": "M/s Medilines an amount invoking the power under Section 148(1), NI Act, mechanically without considering whether the case falls within exceptional circumstances \u2013 In view of the said exposition of law, the Appellate Court ought to have considered the aforesaid aspects as it would certainly be an exceptional circumstance to exempt the appellant who is not the \u2018drawer\u2019 of the cheque concerned to deposit the amount payable under Section 148(1) by an appellant who is the \u2018drawer\u2019 of the cheque \u2013 In ... [E2].",
+          "claim_id": "C01",
+          "claim_sentence": "M/s Medilines an amount invoking the power under Section 148(1), NI Act, mechanically without considering whether the case falls within exceptional circumstances \u2013 In view of the said exposition of law, the Appellate Court ought to have considered the aforesaid aspects as it would certainly be an exceptional circumstance to exempt the appellant who is not the \u2018drawer\u2019 of the cheque concerned to deposit the amount payable under Section 148(1) by an appellant who is the \u2018drawer\u2019 of the cheque \u2013 In ...",
+          "cited_evidence_ids": [
+            "E2"
+          ],
+          "supporting_passages": [
+            {
+              "evidence_id": "E2",
+              "document_id": "2024_10_1890_1901",
+              "structural_label": "headnote_holding",
+              "passage_text": "[2024] 10 S.C.R. \b\n1891\nBijay Agarwal v. M/s Medilines \nan amount invoking the power under Section 148(1), NI Act, \nmechanically without considering whether the case falls within \nexceptional circumstances \u2013 In view of the said exposition of law, \nthe Appellate Court ought to have considered the aforesaid aspects \nas it would certainly be an exceptional circumstance to exempt \nthe appellant who is not the \u2018drawer\u2019 of the cheque concerned to \ndeposit the amount payable under Section 148(1) by an appellant \nwho is the \u2018drawer\u2019 of the cheque \u2013 In the instant case, the High \nCourt has failed to consider these crucial aspects in the light of \nthe dictum laid down by this Court in its various decisions while \nconsidering the application for suspension of sentence for the \nconviction under Section 138 of the NI Act in the pending appeal\u00a0\u2013 \nIn view of the discussion, the impugned order passed by the High \nCourt is set aside and the orders passed by the Principal City Civil \n& Sessions Judge stands quashed and set aside to the extent it \nput the condition to deposit of 20% of the fine amount payable. \n[Paras 16, 17, 18]\nCase Law Cited\nShri Gurudatta Sugars Marketing Pvt. Ltd. v. Prithviraj Sayajirao \nDeshmukh & Ors. [2024] 7 SCR 1211 : (2024) SCC OnLine SC \n1800; K.K. Ahuja v. V.K. Vohra and Another [2009] 9 SCR 1144 : \n(2009) 10 SCC 48; N. Harihara Krishnan v. Godfather Travels and \nTours P. Ltd. (2018) 13 SCC 663; Jamboo Bhandari v. Madhya \nPradesh State Industrial Development Corporation Limited and \nOrs. (2023) 10 SCC 446 \u2013 referred to.\nList of Acts\nNegotiable Instruments Act, 1881.\nList of Keywords\nSignatory of a cheque authorized by the Company; Section 148 \nof Negotiable Instruments Act, 1881; Suspension of sentence; \nCondition to deposit an amount out of fine or compensation; Ex-\nceptional circumstances.\nCase Arising From\nCRIMINAL APPELLATE JURISDICTION : Criminal Appeal No.  \n4301 of 2024"
+            }
+          ],
+          "support_label": "supported",
+          "introduces_facts_absent_from_evidence": false,
+          "omits_relevant_context": false,
+          "should_have_abstained": false,
+          "source_structural_nature": "headnote_holding",
+          "directly_supports_claim": true,
+          "all_material_components_supported": true,
+          "omits_statutory_qualification_or_exception": false,
+          "claim_overgeneralizes_holding": false,
+          "citation_existence_valid": true,
+          "curation_status": "developer_curated",
+          "verification_status": "supported",
+          "verification_method": "direct_holding_entailment",
+          "unresolved_uncertainty": null,
+          "reviewer_notes": "Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict.",
+          "annotated_by": "milestone13_claim_verifier",
+          "annotation_date": "2026-10-14"
+        }
+      ]
+    },
+    {
+      "query_id": "M10_034",
+      "question": "Does Section 18 of the Limitation Act extend limitation if a balance sheet entry is accompanied by an express, unequivocal disclaimer denying debt liability?",
+      "status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "validation_status": "valid",
+      "is_valid": true,
+      "contradicted_count": 0,
+      "unsupported_count": 0,
+      "partial_count": 0,
+      "supported_count": 1,
+      "unverified_count": 0,
+      "verification_notes": [
+        "All 1 substantive claim(s) directly supported by verified judicial authority.",
+        "Claim 1: supported via direct_holding_entailment - Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict."
+      ],
+      "latency_ms": 176.17,
+      "claims": [
+        {
+          "review_id": "CR_M13_M10_034_C01",
+          "query_id": "M10_034",
+          "question": "Does Section 18 of the Limitation Act extend limitation if a balance sheet entry is accompanied by an express, unequivocal disclaimer denying debt liability?",
+          "answer_text": "An entry in a balance sheet entered into with caveats does not constitute an unequivocal acknowledgment extending limitation under Section 18 of the Limitation Act. [E2].",
+          "claim_id": "C01",
+          "claim_sentence": "An entry in a balance sheet entered into with caveats does not constitute an unequivocal acknowledgment extending limitation under Section 18 of the Limitation Act.",
+          "cited_evidence_ids": [
+            "E2"
+          ],
+          "supporting_passages": [
+            {
+              "evidence_id": "E2",
+              "document_id": "2024_10_1462_1474",
+              "structural_label": "court_analysis",
+              "passage_text": "[2024] 10 S.C.R. \b\n1471\nVidyasagar Prasad v. UCO Bank & Anr.\nare expressly recognised by Section 134(7). Equally, the \nauditor\u2019s report may also enter caveats with regard to \nacknowledgments made in the books of accounts including \nthe balance sheet. A perusal of the aforesaid would show \nthat the statement of law contained in Bengal Silk Mills Co. \nv. Ismail Golam Hossain Ariff, that there is a compulsion \nin law to prepare a balance sheet but no compulsion to \nmake any particular admission, is correct in law as it \nwould depend on the facts of each case as to whether an \nentry made in a balance sheet qua any particular creditor \nis unequivocal or has been entered into with caveats, \nwhich then has to be examined on a case by case basis \nto establish whether an acknowledgment of liability has, \nin fact, been made, thereby extending limitation under \nSection 18 of the Limitation Act.\u201d\n(emphasis supplied)\n10.\t Having considered the specific facts and circumstances of this case, \nthe Adjudicating Authority as well as the NCLAT have concurrently held \nthat the entries in the balance sheets amount to clear acknowledgment \nof debt. We agree with the findings. Further, Note 3.4 appended to \nsaid balance sheet entry dated 31.03.2017 mentions that \u201ccompany \nhas made certain defaults in the repayment of term loans and interest.\u201d \nIt further mentions of a continuing default. The entry also mentions \nlong-term borrowings. The conclusions of NCLT and NCLAT that \nthere is acknowledgment of debt are unimpeachable. \n10.1\tFollowing the principles as expounded in the case of Bishal \nJaiswal (Supra), the Adjudicating Authority as well as the \nNCLAT have examined the case in detail and have come to the \nconclusion that the entry made in the balance sheet coupled \nwith the note of the auditor of the appellant clearly amounts to \nacknowledgement of the liability. We see no reason whatsoever \nto take a different view of the matter. Their findings are fortified \nwhen we examine the matter from another perspective.\n11.\t Adjudicating Authority and NCLAT have also considered the Corporate \nDebtor\u2019s proposal of One Time Settlement (OTS) to UCO Bank. The \nproposal made by letter dated 07.06.2016 acknowledges that there \nwere prior debts owed to UCO Bank. To substantiate the argument \nthat such OTS constituted acknowledgment of debt since it relates"
+            }
+          ],
+          "support_label": "supported",
+          "introduces_facts_absent_from_evidence": false,
+          "omits_relevant_context": false,
+          "should_have_abstained": false,
+          "source_structural_nature": "court_analysis",
+          "directly_supports_claim": true,
+          "all_material_components_supported": true,
+          "omits_statutory_qualification_or_exception": false,
+          "claim_overgeneralizes_holding": false,
+          "citation_existence_valid": true,
+          "curation_status": "developer_curated",
+          "verification_status": "supported",
+          "verification_method": "direct_holding_entailment",
+          "unresolved_uncertainty": null,
+          "reviewer_notes": "Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict.",
+          "annotated_by": "milestone13_claim_verifier",
+          "annotation_date": "2026-10-14"
+        }
+      ]
+    }
+  ],
+  "failure_mode_probes_evaluated": [
+    {
+      "probe_id": "CR_M13_FM01",
+      "query_id": "M10_031",
+      "claim": "The Supreme Court held that Section 34 of the Arbitration Act allows the court to modify an arbitral award on merits.",
+      "expected_status": "contradicted",
+      "actual_status": "contradicted",
+      "verification_method": "structural_party_submission_as_holding",
+      "is_correct": true,
+      "rationale": "Claim asserts a binding judicial holding, but all cited evidence consists exclusively of party/counsel submissions."
+    },
+    {
+      "probe_id": "CR_M13_FM02",
+      "query_id": "M10_015",
+      "claim": "Whether the High Court was justified in reversing the acquittal under Section 378 is the operative rule.",
+      "expected_status": "unsupported",
+      "actual_status": "unsupported",
+      "verification_method": "procedural_facts_as_holding_check",
+      "is_correct": true,
+      "rationale": "Claim presents an issue-framing question or procedural facts as an operative judicial holding."
+    },
+    {
+      "probe_id": "CR_M13_FM03",
+      "query_id": "M10_039",
+      "claim": "The 2024 bench adopted the 2005 holding as its own binding ruling on sales tax exemptions.",
+      "expected_status": "partially_supported",
+      "actual_status": "partially_supported",
+      "verification_method": "quoted_precedent_attribution_check",
+      "is_correct": true,
+      "rationale": "Claim attributes an operative holding from an earlier cited precedent as the current bench's new ruling."
+    },
+    {
+      "probe_id": "CR_M13_FM04",
+      "query_id": "M10_006",
+      "claim": "A commercial shopping mall constructed for leasing out qualifies as plant under Section 17(5)(d) of the CGST Act.",
+      "expected_status": "partially_supported",
+      "actual_status": "partially_supported",
+      "verification_method": "statutory_qualification_omission_check",
+      "is_correct": true,
+      "rationale": "Claim asserts commercial building qualifies as plant under Section 17(5)(d), but omits the mandatory prerequisite of satisfying the functionality test."
+    },
+    {
+      "probe_id": "CR_M13_FM05",
+      "query_id": "M10_001",
+      "claim": "The Supreme Court considered the case of Atul Kumar and held that all educational fee deadlines are universally forgiven.",
+      "expected_status": "partially_supported",
+      "actual_status": "partially_supported",
+      "verification_method": "overgeneralization_check",
+      "is_correct": true,
+      "rationale": "Claim overgeneralizes a case-specific ruling or extraordinary equitable relief into a universal doctrine ('all educational fee deadlines')."
+    },
+    {
+      "probe_id": "CR_M13_FM06",
+      "query_id": "M10_001",
+      "claim": "The Supreme Court ruled under Article 142 that student fee defaults are universally forgiven across higher education.",
+      "expected_status": "partially_supported",
+      "actual_status": "partially_supported",
+      "verification_method": "overgeneralization_check",
+      "is_correct": true,
+      "rationale": "Claim overgeneralizes a case-specific ruling or extraordinary equitable relief into a universal doctrine ('universally forgiven')."
+    },
+    {
+      "probe_id": "CR_M13_FM07",
+      "query_id": "M10_014",
+      "claim": "The government has unbridled absolute authority to alter qualification criteria at any stage of selection.",
+      "expected_status": "contradicted",
+      "actual_status": "contradicted",
+      "verification_method": "polarity_contradiction_check",
+      "is_correct": true,
+      "rationale": "Claim asserts affirmative permission/power regarding 'alter_selection_criteria', but the cited judicial passage explicitly holds that the action cannot be directed / is prohibited / court lacks power."
+    },
+    {
+      "probe_id": "CR_M13_FM08",
+      "query_id": "M10_007",
+      "claim": "Prior sanction under Section 197 CrPC is mandatory for private bank managers.",
+      "expected_status": "unsupported",
+      "actual_status": "unsupported",
+      "verification_method": "unrelated_evidence_check",
+      "is_correct": true,
+      "rationale": "Cited evidence passage shares zero topical vocabulary with the claim (unrelated proposition attached to existing citation ID)."
+    },
+    {
+      "probe_id": "CR_M13_FM09",
+      "query_id": "M10_037",
+      "claim": "The Supreme Court in 2024 held that Kesavananda Bharati is overruled and Parliament has unlimited power.",
+      "expected_status": "contradicted",
+      "actual_status": "contradicted",
+      "verification_method": "polarity_contradiction_check",
+      "is_correct": true,
+      "rationale": "Claim asserts affirmative permission/power regarding 'kesavananda_overruled', but the cited judicial passage explicitly holds that the action cannot be directed / is prohibited / court lacks power."
+    },
+    {
+      "probe_id": "CR_M13_FM10",
+      "query_id": "M10_010",
+      "claim": "Section 3(j) permits unconditional patenting of all agricultural seeds.",
+      "expected_status": "contradicted",
+      "actual_status": "contradicted",
+      "verification_method": "polarity_contradiction_check",
+      "is_correct": true,
+      "rationale": "Claim asserts affirmative permission/power regarding 'seed_patentability', but the cited judicial passage explicitly holds that the action cannot be directed / is prohibited / court lacks power."
+    }
+  ]
+}

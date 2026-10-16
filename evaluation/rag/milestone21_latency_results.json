@@ -1,0 +1,74 @@
+{
+  "hardware_environment": {
+    "cpu_count_logical": 12,
+    "cpu_count_physical": 10,
+    "cpu_frequency_mhz": 1700.0,
+    "ram_total_gb": 15.72,
+    "ram_available_gb": 3.75
+  },
+  "models": {
+    "mock": {
+      "spec": {
+        "model_id": "mock",
+        "name": "mock-grounded-cpu-v1",
+        "params": "0M",
+        "license": "Apache-2.0",
+        "format": "python_deterministic"
+      },
+      "status": "available",
+      "cold_start_latency_ms": 0.04,
+      "warm_latency_ms": 0.02,
+      "prompt_eval_tokens": 45,
+      "prompt_eval_ms": 0.0,
+      "eval_tokens": 15,
+      "eval_duration_ms": 0.02,
+      "prompt_tokens_per_sec": 9999.0,
+      "tokens_per_sec": 9999.0,
+      "timeout_count": 0,
+      "success_rate": 1.0,
+      "sample_output": "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question."
+    },
+    "qwen2.5:0.5b": {
+      "spec": {
+        "model_id": "qwen2.5:0.5b",
+        "name": "qwen2.5:0.5b",
+        "params": "0.5B",
+        "license": "Apache-2.0",
+        "format": "int4_gguf"
+      },
+      "status": "available",
+      "cold_start_latency_ms": 4364.79,
+      "warm_latency_ms": 4494.14,
+      "prompt_eval_tokens": 102,
+      "prompt_eval_ms": 31.3,
+      "eval_tokens": 80,
+      "eval_duration_ms": 1906.38,
+      "prompt_tokens_per_sec": 3258.69,
+      "tokens_per_sec": 41.96,
+      "timeout_count": 0,
+      "success_rate": 1.0,
+      "sample_output": "Yes, the passage you provided indicates that vulgar language can indeed be considered as obscenity. The key point here is that \"language that is merel"
+    },
+    "phi3.5:latest": {
+      "spec": {
+        "model_id": "phi3.5:latest",
+        "name": "phi3.5:latest",
+        "params": "3.8B",
+        "license": "MIT",
+        "format": "int4_gguf"
+      },
+      "status": "available",
+      "cold_start_latency_ms": 26335.15,
+      "warm_latency_ms": 16136.73,
+      "prompt_eval_tokens": 103,
+      "prompt_eval_ms": 161.84,
+      "eval_tokens": 80,
+      "eval_duration_ms": 13840.55,
+      "prompt_tokens_per_sec": 636.44,
+      "tokens_per_sec": 5.78,
+      "timeout_count": 0,
+      "success_rate": 1.0,
+      "sample_output": "No, the evidence from State v. Apoorva Arora (E1) suggests that vulgar language alone does not necessarily equate to obscenity. The legal holding stat"
+    }
+  }
+}

@@ -1,0 +1,1777 @@
+{
+    "benchmark_title": "NyayaVarta Milestone 4B.1 Graph Retrieval Optimization Benchmark",
+    "benchmark_version": "v2",
+    "benchmark_type": "exploratory",
+    "code_version": "1.1.0",
+    "graph_version": "v2",
+    "corpus_version": "aws_sc_782",
+    "timestamp": "2026-10-12T16:03:48Z",
+    "provenance_disclosure": {
+        "queries_count": 35,
+        "source_file": "evaluation/queries/legal_queries.json",
+        "gold_file": "evaluation/gold/legal_gold.json",
+        "status": "Internally authored evaluation set (Milestone 3.1); exploratory evaluation."
+    },
+    "optimizations_applied": [
+        "in_memory_index_preloading",
+        "idf_statutory_provision_filtering",
+        "ubiquitous_umbrella_provision_suppression",
+        "statutory_vs_constitutional_weight_calibration",
+        "provenance_tracking_on_candidates",
+        "disabled_by_default_retrieval_guardrail"
+    ],
+    "metric_definitions": {
+        "hit_rate_at_5": "Fraction of queries where Top-5 contains at least one gold relevant document (distinct from full recall).",
+        "hit_rate_at_10": "Fraction of queries where Top-10 contains at least one gold relevant document.",
+        "mrr": "Mean Reciprocal Rank of the first relevant document in top-k results.",
+        "latency": "Elapsed wall-clock time in milliseconds from query receipt to ranked result emission."
+    },
+    "comparison_summary": {
+        "improved_queries": 0,
+        "degraded_queries": 1,
+        "unchanged_queries": 34,
+        "baseline_mrr": 0.9,
+        "graph_mrr": 0.8976,
+        "baseline_median_latency_ms": 67.96,
+        "graph_median_latency_ms": 68.83,
+        "latency_speedup_factor": 164.7
+    },
+    "rank_changes_query_by_query": [
+        {
+            "query_id": "LQ001",
+            "baseline_rank": 6,
+            "graph_rank": 6,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 78.85,
+            "latency_graph_ms": 77.71
+        },
+        {
+            "query_id": "LQ002",
+            "baseline_rank": 2,
+            "graph_rank": 2,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 58.17,
+            "latency_graph_ms": 52.5
+        },
+        {
+            "query_id": "LQ003",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 50.54,
+            "latency_graph_ms": 37.15
+        },
+        {
+            "query_id": "LQ004",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 67.2,
+            "latency_graph_ms": 58.03
+        },
+        {
+            "query_id": "LQ005",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 71.34,
+            "latency_graph_ms": 74.45
+        },
+        {
+            "query_id": "LQ006",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 29.87,
+            "latency_graph_ms": 31.5
+        },
+        {
+            "query_id": "LQ007",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 45.84,
+            "latency_graph_ms": 45.46
+        },
+        {
+            "query_id": "LQ008",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 69.39,
+            "latency_graph_ms": 71.92
+        },
+        {
+            "query_id": "LQ009",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 81.69,
+            "latency_graph_ms": 142.48
+        },
+        {
+            "query_id": "LQ010",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 54.97,
+            "latency_graph_ms": 61.66
+        },
+        {
+            "query_id": "LQ011",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 53.88,
+            "latency_graph_ms": 51.22
+        },
+        {
+            "query_id": "LQ012",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 67.76,
+            "latency_graph_ms": 56.04
+        },
+        {
+            "query_id": "LQ013",
+            "baseline_rank": 2,
+            "graph_rank": 2,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 98.57,
+            "latency_graph_ms": 85.09
+        },
+        {
+            "query_id": "LQ014",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 94.82,
+            "latency_graph_ms": 78.21
+        },
+        {
+            "query_id": "LQ015",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 31.15,
+            "latency_graph_ms": 27.45
+        },
+        {
+            "query_id": "LQ016",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 56.67,
+            "latency_graph_ms": 62.65
+        },
+        {
+            "query_id": "LQ017",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 67.96,
+            "latency_graph_ms": 64.51
+        },
+        {
+            "query_id": "LQ018",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 65.4,
+            "latency_graph_ms": 68.83
+        },
+        {
+            "query_id": "LQ019",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 75.58,
+            "latency_graph_ms": 75.6
+        },
+        {
+            "query_id": "LQ020",
+            "baseline_rank": 2,
+            "graph_rank": 2,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 81.76,
+            "latency_graph_ms": 69.93
+        },
+        {
+            "query_id": "LQ021",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 58.27,
+            "latency_graph_ms": 64.54
+        },
+        {
+            "query_id": "LQ022",
+            "baseline_rank": 2,
+            "graph_rank": 2,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 57.12,
+            "latency_graph_ms": 57.76
+        },
+        {
+            "query_id": "LQ023",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 45.55,
+            "latency_graph_ms": 58.69
+        },
+        {
+            "query_id": "LQ024",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 91.48,
+            "latency_graph_ms": 88.33
+        },
+        {
+            "query_id": "LQ025",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 96.9,
+            "latency_graph_ms": 99.89
+        },
+        {
+            "query_id": "LQ026",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 63.89,
+            "latency_graph_ms": 72.71
+        },
+        {
+            "query_id": "LQ027",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 90.77,
+            "latency_graph_ms": 95.46
+        },
+        {
+            "query_id": "LQ028",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 81.8,
+            "latency_graph_ms": 84.36
+        },
+        {
+            "query_id": "LQ029",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 63.79,
+            "latency_graph_ms": 48.28
+        },
+        {
+            "query_id": "LQ030",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 92.0,
+            "latency_graph_ms": 93.11
+        },
+        {
+            "query_id": "LQ031",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 36.45,
+            "latency_graph_ms": 42.21
+        },
+        {
+            "query_id": "LQ032",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 72.15,
+            "latency_graph_ms": 69.75
+        },
+        {
+            "query_id": "LQ033",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 81.53,
+            "latency_graph_ms": 71.45
+        },
+        {
+            "query_id": "LQ034",
+            "baseline_rank": 3,
+            "graph_rank": 4,
+            "rank_delta": -1,
+            "latency_hybrid_ms": 92.97,
+            "latency_graph_ms": 87.53
+        },
+        {
+            "query_id": "LQ035",
+            "baseline_rank": 1,
+            "graph_rank": 1,
+            "rank_delta": 0,
+            "latency_hybrid_ms": 68.35,
+            "latency_graph_ms": 65.78
+        }
+    ],
+    "baseline_hybrid": {
+        "method_name": "hybrid_baseline",
+        "queries_evaluated": 35,
+        "metrics": {
+            "hit_rate_at_5": 0.9714,
+            "hit_rate_at_10": 1.0,
+            "mrr": 0.9,
+            "latency_median_ms": 67.96,
+            "latency_p95_ms": 96.9,
+            "latency_mean_ms": 68.41
+        },
+        "query_results": [
+            {
+                "query_id": "LQ001",
+                "query_text": "What are the legal standards and grounds for granting bail to an accused facing ...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_393_410",
+                    "2024_3_778_811"
+                ],
+                "top5_retrieved": [
+                    "2024_7_2363_2426",
+                    "2024_2_134_151",
+                    "2024_7_992_1000",
+                    "2024_8_633_649",
+                    "2024_8_1061_1085"
+                ],
+                "first_relevant_rank": 6,
+                "hit_at_5": false,
+                "hit_at_10": true,
+                "reciprocal_rank": 0.1667,
+                "latency_ms": 78.85
+            },
+            {
+                "query_id": "LQ002",
+                "query_text": "Can an appellate court reverse a judgment of acquittal into conviction based sol...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_108_125",
+                    "2024_10_1757_1768"
+                ],
+                "top5_retrieved": [
+                    "2024_2_1178_1195",
+                    "2024_10_1757_1768",
+                    "2024_4_48_62",
+                    "2024_2_288_309",
+                    "2024_10_108_125"
+                ],
+                "first_relevant_rank": 2,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 0.5,
+                "latency_ms": 58.17
+            },
+            {
+                "query_id": "LQ003",
+                "query_text": "Can a pendente lite purchaser or third party stranger dispossessed of immovable ...",
+                "legal_domain": "Civil",
+                "gold_doc_ids": [
+                    "2024_10_901_910",
+                    "2024_10_1359_1370"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1359_1370",
+                    "2024_7_668_675",
+                    "2024_11_2375_2410",
+                    "2024_10_901_910",
+                    "2024_7_474_531"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 50.54
+            },
+            {
+                "query_id": "LQ004",
+                "query_text": "Can the government cancel an ongoing public recruitment process and alter select...",
+                "legal_domain": "Administrative",
+                "gold_doc_ids": [
+                    "2024_10_1344_1358",
+                    "2024_10_98_107"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1344_1358",
+                    "2024_12_28_67",
+                    "2024_2_1196_1203",
+                    "2024_8_45_98",
+                    "2024_10_18_36"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 67.2
+            },
+            {
+                "query_id": "LQ005",
+                "query_text": "Does a secured creditor bank have the right to cancel a confirmed e-auction sale...",
+                "legal_domain": "Commercial",
+                "gold_doc_ids": [
+                    "2024_10_1371_1380"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1371_1380",
+                    "2024_4_633_639",
+                    "2024_7_474_531",
+                    "2024_12_1618_1742",
+                    "2024_7_2427_2433"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 71.34
+            },
+            {
+                "query_id": "LQ006",
+                "query_text": "Can a municipal corporation demand royalty, tax, or fees on commercial advertise...",
+                "legal_domain": "Constitutional",
+                "gold_doc_ids": [
+                    "2024_10_1381_1403"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1381_1403",
+                    "2024_7_1549_1846",
+                    "2024_8_189_206",
+                    "2024_2_847_934",
+                    "2024_7_1489_1548"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 29.87
+            },
+            {
+                "query_id": "LQ007",
+                "query_text": "Can a statutory regulatory authority be impleaded as a respondent or contest an ...",
+                "legal_domain": "Administrative",
+                "gold_doc_ids": [
+                    "2024_10_1404_1447"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1404_1447",
+                    "2024_3_1023_1043",
+                    "2024_1_909_972",
+                    "2024_5_1159_1210",
+                    "2024_9_971_980"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 45.84
+            },
+            {
+                "query_id": "LQ008",
+                "query_text": "What valid conditions may the State Government impose when exercising executive ...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_1448_1461"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1448_1461",
+                    "2024_1_743_908",
+                    "2024_3_913_946",
+                    "2024_6_429_451",
+                    "2024_2_111_122"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 69.39
+            },
+            {
+                "query_id": "LQ009",
+                "query_text": "Does an acknowledgement of debt recorded in the audited balance sheet of a corpo...",
+                "legal_domain": "Commercial",
+                "gold_doc_ids": [
+                    "2024_10_1462_1474"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1462_1474",
+                    "2024_5_215_240",
+                    "2024_7_2143_2175",
+                    "2024_10_1802_1854",
+                    "2024_2_258_287"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 81.69
+            },
+            {
+                "query_id": "LQ010",
+                "query_text": "What standard of professional skill and care is required to establish medical ne...",
+                "legal_domain": "Civil",
+                "gold_doc_ids": [
+                    "2024_10_1475_1482"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1475_1482",
+                    "2024_12_1875_1883",
+                    "2024_8_1047_1060",
+                    "2024_2_1065_1071",
+                    "2024_6_484_529"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 54.97
+            },
+            {
+                "query_id": "LQ011",
+                "query_text": "What essential ingredients of intentional instigation are required to sustain a ...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_54_61",
+                    "2024_10_1483_1502"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1483_1502",
+                    "2024_3_329_355",
+                    "2024_2_830_846",
+                    "2024_2_1223_1240",
+                    "2024_3_157_173"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 53.88
+            },
+            {
+                "query_id": "LQ012",
+                "query_text": "Can an appellate court grant an unconditional stay on execution of an arbitral a...",
+                "legal_domain": "Commercial",
+                "gold_doc_ids": [
+                    "2024_10_1503_1512"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1503_1512",
+                    "2024_3_971_993",
+                    "2024_7_840_909",
+                    "2024_9_473_489",
+                    "2024_7_136_162"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 67.76
+            },
+            {
+                "query_id": "LQ013",
+                "query_text": "Can the Supreme Court exercise its extraordinary jurisdiction under Article 142 ...",
+                "legal_domain": "Constitutional",
+                "gold_doc_ids": [
+                    "2024_10_150_153"
+                ],
+                "top5_retrieved": [
+                    "2024_2_946_988",
+                    "2024_10_150_153",
+                    "2024_7_933_941",
+                    "2024_9_1_15",
+                    "2024_12_1355_1405"
+                ],
+                "first_relevant_rank": 2,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 0.5,
+                "latency_ms": 98.57
+            },
+            {
+                "query_id": "LQ014",
+                "query_text": "What guidelines and statutory enforcement mechanisms govern the prevention of ch...",
+                "legal_domain": "Family",
+                "gold_doc_ids": [
+                    "2024_10_1513_1632"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1513_1632",
+                    "2024_9_818_829",
+                    "2024_8_575_614",
+                    "2024_12_559_573",
+                    "2024_7_1236_1313"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 94.82
+            },
+            {
+                "query_id": "LQ015",
+                "query_text": "Does viewing or streaming child sexual abuse material online without downloading...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_154_314"
+                ],
+                "top5_retrieved": [
+                    "2024_10_154_314",
+                    "2024_8_575_614",
+                    "2024_3_1228_1248",
+                    "2024_5_470_491",
+                    "2024_11_641_666"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 31.15
+            },
+            {
+                "query_id": "LQ016",
+                "query_text": "Can the Income Tax Department issue reassessment notices under Section 148 beyon...",
+                "legal_domain": "Tax",
+                "gold_doc_ids": [
+                    "2024_10_1633_1708"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1633_1708",
+                    "2024_1_642_676",
+                    "2024_6_337_345",
+                    "2024_8_788_795",
+                    "2024_5_906_926"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 56.67
+            },
+            {
+                "query_id": "LQ017",
+                "query_text": "What is the appropriate legal method for determining fair market value and compe...",
+                "legal_domain": "Property",
+                "gold_doc_ids": [
+                    "2024_10_2278_2302",
+                    "2024_10_1709_1725"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1709_1725",
+                    "2024_7_443_465",
+                    "2024_7_1001_1030",
+                    "2024_6_227_233",
+                    "2024_7_2248_2294"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 67.96
+            },
+            {
+                "query_id": "LQ018",
+                "query_text": "Can a trial court remand a criminal matter to allow the prosecution to examine f...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_1726_1735"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1726_1735",
+                    "2024_8_1687_1702",
+                    "2024_8_929_934",
+                    "2024_6_666_697",
+                    "2024_1_319_326"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 65.4
+            },
+            {
+                "query_id": "LQ019",
+                "query_text": "Can an aggrieved financial creditor with massive outstanding claims challenge th...",
+                "legal_domain": "Commercial",
+                "gold_doc_ids": [
+                    "2024_10_1802_1854"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1802_1854",
+                    "2024_11_2039_2172",
+                    "2024_7_2143_2175",
+                    "2024_3_1044_1050",
+                    "2024_1_114_139"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 75.58
+            },
+            {
+                "query_id": "LQ020",
+                "query_text": "What evidentiary weight is accorded to an oral dying declaration made by the dec...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_37_44",
+                    "2024_10_1876_1889"
+                ],
+                "top5_retrieved": [
+                    "2024_6_740_760",
+                    "2024_10_1876_1889",
+                    "2024_7_218_245",
+                    "2024_1_87_113",
+                    "2024_3_36_45"
+                ],
+                "first_relevant_rank": 2,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 0.5,
+                "latency_ms": 81.76
+            },
+            {
+                "query_id": "LQ021",
+                "query_text": "Can an authorized signatory who signs a cheque on behalf of a company be directe...",
+                "legal_domain": "Commercial",
+                "gold_doc_ids": [
+                    "2024_10_2248_2264",
+                    "2024_10_1890_1901"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1890_1901",
+                    "2024_7_1211_1224",
+                    "2024_12_1946_1996",
+                    "2024_4_255_263",
+                    "2024_10_2248_2264"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 58.27
+            },
+            {
+                "query_id": "LQ022",
+                "query_text": "Under what circumstances should the High Court quash criminal prosecution under ...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_650_672",
+                    "2024_10_417_424"
+                ],
+                "top5_retrieved": [
+                    "2024_1_1179_1182",
+                    "2024_10_417_424",
+                    "2024_10_650_672",
+                    "2024_2_311_325",
+                    "2024_12_1436_1444"
+                ],
+                "first_relevant_rank": 2,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 0.5,
+                "latency_ms": 57.12
+            },
+            {
+                "query_id": "LQ023",
+                "query_text": "Is a state enactment that singles out a single private university for repeal or ...",
+                "legal_domain": "Constitutional",
+                "gold_doc_ids": [
+                    "2024_10_445_492"
+                ],
+                "top5_retrieved": [
+                    "2024_10_445_492",
+                    "2024_11_1647_2038",
+                    "2024_11_365_427",
+                    "2024_11_1_324",
+                    "2024_10_961_1312"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 45.55
+            },
+            {
+                "query_id": "LQ024",
+                "query_text": "Can a Magistrate order the refund or alteration of interim maintenance already p...",
+                "legal_domain": "Family",
+                "gold_doc_ids": [
+                    "2024_10_45_53"
+                ],
+                "top5_retrieved": [
+                    "2024_10_45_53",
+                    "2024_11_1312_1317",
+                    "2024_12_543_558",
+                    "2024_7_942_956",
+                    "2024_7_1236_1313"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 91.48
+            },
+            {
+                "query_id": "LQ025",
+                "query_text": "Are provisions in prison manuals providing for division of labor or segregation ...",
+                "legal_domain": "Constitutional",
+                "gold_doc_ids": [
+                    "2024_10_493_638"
+                ],
+                "top5_retrieved": [
+                    "2024_10_493_638",
+                    "2024_5_1038_1055",
+                    "2024_1_743_908",
+                    "2024_10_1769_1801",
+                    "2024_8_1321_1672"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 96.9
+            },
+            {
+                "query_id": "LQ026",
+                "query_text": "Can the High Court quash an FIR and chargesheet under Section 482 CrPC where mat...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_62_78",
+                    "2024_10_639_649"
+                ],
+                "top5_retrieved": [
+                    "2024_10_62_78",
+                    "2024_6_129_163",
+                    "2024_12_1436_1444",
+                    "2024_3_385_392",
+                    "2024_2_252_257"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 63.89
+            },
+            {
+                "query_id": "LQ027",
+                "query_text": "Is Section 6A of the Citizenship Act 1955 providing a special framework for citi...",
+                "legal_domain": "Constitutional",
+                "gold_doc_ids": [
+                    "2024_10_961_1312",
+                    "2024_10_736_752"
+                ],
+                "top5_retrieved": [
+                    "2024_10_961_1312",
+                    "2024_7_2329_2362",
+                    "2024_10_736_752",
+                    "2024_1_473_487",
+                    "2024_8_820_829"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 90.77
+            },
+            {
+                "query_id": "LQ028",
+                "query_text": "Can a commercial developer claim Input Tax Credit under Section 17(5)(d) of the ...",
+                "legal_domain": "Tax",
+                "gold_doc_ids": [
+                    "2024_10_793_859"
+                ],
+                "top5_retrieved": [
+                    "2024_10_793_859",
+                    "2024_11_1525_1601",
+                    "2024_2_1001_1038",
+                    "2024_8_34_44",
+                    "2024_7_287_315"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 81.8
+            },
+            {
+                "query_id": "LQ029",
+                "query_text": "Is it mandatory for a criminal trial court to defer deciding an application to s...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_911_919"
+                ],
+                "top5_retrieved": [
+                    "2024_10_911_919",
+                    "2024_6_864_893",
+                    "2024_6_10_19",
+                    "2024_10_315_383",
+                    "2024_7_178_195"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 63.79
+            },
+            {
+                "query_id": "LQ030",
+                "query_text": "In a motor accident claim, when there is a discrepancy between the date of birth...",
+                "legal_domain": "Civil",
+                "gold_doc_ids": [
+                    "2024_10_786_792",
+                    "2024_10_939_951"
+                ],
+                "top5_retrieved": [
+                    "2024_10_939_951",
+                    "2024_12_652_664",
+                    "2024_1_1_10",
+                    "2024_4_63_71",
+                    "2024_10_786_792"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 92.0
+            },
+            {
+                "query_id": "LQ031",
+                "query_text": "Can a donor unilaterally execute a revocation deed to cancel a validly accepted ...",
+                "legal_domain": "Property",
+                "gold_doc_ids": [
+                    "2024_10_952_960"
+                ],
+                "top5_retrieved": [
+                    "2024_10_952_960",
+                    "2024_12_693_707",
+                    "2024_11_2329_2347",
+                    "2024_7_2295_2328",
+                    "2024_1_374_389"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 36.45
+            },
+            {
+                "query_id": "LQ032",
+                "query_text": "Can High Court judges appointed from the District Judiciary be denied General Pr...",
+                "legal_domain": "Constitutional",
+                "gold_doc_ids": [
+                    "2024_11_1042_1063"
+                ],
+                "top5_retrieved": [
+                    "2024_11_1042_1063",
+                    "2024_3_848_864",
+                    "2024_1_211_240",
+                    "2024_5_1074_1147",
+                    "2024_1_327_373"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 72.15
+            },
+            {
+                "query_id": "LQ033",
+                "query_text": "What criteria distinguish a supervisor from a workman under Section 2(s) of the ...",
+                "legal_domain": "Labor",
+                "gold_doc_ids": [
+                    "2024_10_2303_2313"
+                ],
+                "top5_retrieved": [
+                    "2024_10_2303_2313",
+                    "2024_4_100_120",
+                    "2024_4_576_590",
+                    "2024_3_959_970",
+                    "2024_5_596_611"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 81.53
+            },
+            {
+                "query_id": "LQ034",
+                "query_text": "Is time presumptively of the essence of the contract in an agreement for sale of...",
+                "legal_domain": "Civil",
+                "gold_doc_ids": [
+                    "2024_11_1099_1129",
+                    "2024_10_901_910"
+                ],
+                "top5_retrieved": [
+                    "2024_1_374_389",
+                    "2024_5_612_628",
+                    "2024_11_1099_1129",
+                    "2024_11_2375_2410",
+                    "2024_11_876_885"
+                ],
+                "first_relevant_rank": 3,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 0.3333,
+                "latency_ms": 92.97
+            },
+            {
+                "query_id": "LQ035",
+                "query_text": "Can an accused raise a plea claiming juvenility under the Juvenile Justice Act f...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_411_416",
+                    "2024_5_501_509"
+                ],
+                "top5_retrieved": [
+                    "2024_5_501_509",
+                    "2024_10_411_416",
+                    "2024_3_1228_1248",
+                    "2024_5_761_812",
+                    "2024_10_769_785"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 68.35
+            }
+        ]
+    },
+    "hybrid_plus_graph": {
+        "method_name": "hybrid_plus_graph_expansion",
+        "queries_evaluated": 35,
+        "metrics": {
+            "hit_rate_at_5": 0.9714,
+            "hit_rate_at_10": 1.0,
+            "mrr": 0.8976,
+            "latency_median_ms": 68.83,
+            "latency_p95_ms": 99.89,
+            "latency_mean_ms": 68.35
+        },
+        "query_results": [
+            {
+                "query_id": "LQ001",
+                "query_text": "What are the legal standards and grounds for granting bail to an accused facing ...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_393_410",
+                    "2024_3_778_811"
+                ],
+                "top5_retrieved": [
+                    "2024_7_2363_2426",
+                    "2024_2_134_151",
+                    "2024_8_1061_1085",
+                    "2024_7_992_1000",
+                    "2024_8_633_649"
+                ],
+                "first_relevant_rank": 6,
+                "hit_at_5": false,
+                "hit_at_10": true,
+                "reciprocal_rank": 0.1667,
+                "latency_ms": 77.71
+            },
+            {
+                "query_id": "LQ002",
+                "query_text": "Can an appellate court reverse a judgment of acquittal into conviction based sol...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_108_125",
+                    "2024_10_1757_1768"
+                ],
+                "top5_retrieved": [
+                    "2024_2_1178_1195",
+                    "2024_10_1757_1768",
+                    "2024_4_48_62",
+                    "2024_2_288_309",
+                    "2024_6_164_213"
+                ],
+                "first_relevant_rank": 2,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 0.5,
+                "latency_ms": 52.5
+            },
+            {
+                "query_id": "LQ003",
+                "query_text": "Can a pendente lite purchaser or third party stranger dispossessed of immovable ...",
+                "legal_domain": "Civil",
+                "gold_doc_ids": [
+                    "2024_10_901_910",
+                    "2024_10_1359_1370"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1359_1370",
+                    "2024_7_668_675",
+                    "2024_11_2375_2410",
+                    "2024_10_901_910",
+                    "2024_7_474_531"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 37.15
+            },
+            {
+                "query_id": "LQ004",
+                "query_text": "Can the government cancel an ongoing public recruitment process and alter select...",
+                "legal_domain": "Administrative",
+                "gold_doc_ids": [
+                    "2024_10_1344_1358",
+                    "2024_10_98_107"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1344_1358",
+                    "2024_12_28_67",
+                    "2024_2_1196_1203",
+                    "2024_8_45_98",
+                    "2024_2_217_241"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 58.03
+            },
+            {
+                "query_id": "LQ005",
+                "query_text": "Does a secured creditor bank have the right to cancel a confirmed e-auction sale...",
+                "legal_domain": "Commercial",
+                "gold_doc_ids": [
+                    "2024_10_1371_1380"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1371_1380",
+                    "2024_4_633_639",
+                    "2024_12_1618_1742",
+                    "2024_7_474_531",
+                    "2024_2_12_90"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 74.45
+            },
+            {
+                "query_id": "LQ006",
+                "query_text": "Can a municipal corporation demand royalty, tax, or fees on commercial advertise...",
+                "legal_domain": "Constitutional",
+                "gold_doc_ids": [
+                    "2024_10_1381_1403"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1381_1403",
+                    "2024_7_1549_1846",
+                    "2024_8_189_206",
+                    "2024_2_847_934",
+                    "2024_7_1489_1548"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 31.5
+            },
+            {
+                "query_id": "LQ007",
+                "query_text": "Can a statutory regulatory authority be impleaded as a respondent or contest an ...",
+                "legal_domain": "Administrative",
+                "gold_doc_ids": [
+                    "2024_10_1404_1447"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1404_1447",
+                    "2024_3_1023_1043",
+                    "2024_1_909_972",
+                    "2024_5_1159_1210",
+                    "2024_9_971_980"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 45.46
+            },
+            {
+                "query_id": "LQ008",
+                "query_text": "What valid conditions may the State Government impose when exercising executive ...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_1448_1461"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1448_1461",
+                    "2024_1_743_908",
+                    "2024_3_913_946",
+                    "2024_6_429_451",
+                    "2024_5_629_729"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 71.92
+            },
+            {
+                "query_id": "LQ009",
+                "query_text": "Does an acknowledgement of debt recorded in the audited balance sheet of a corpo...",
+                "legal_domain": "Commercial",
+                "gold_doc_ids": [
+                    "2024_10_1462_1474"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1462_1474",
+                    "2024_5_215_240",
+                    "2024_7_2143_2175",
+                    "2024_10_1802_1854",
+                    "2024_2_258_287"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 142.48
+            },
+            {
+                "query_id": "LQ010",
+                "query_text": "What standard of professional skill and care is required to establish medical ne...",
+                "legal_domain": "Civil",
+                "gold_doc_ids": [
+                    "2024_10_1475_1482"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1475_1482",
+                    "2024_12_1875_1883",
+                    "2024_8_1047_1060",
+                    "2024_2_1065_1071",
+                    "2024_4_757_775"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 61.66
+            },
+            {
+                "query_id": "LQ011",
+                "query_text": "What essential ingredients of intentional instigation are required to sustain a ...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_54_61",
+                    "2024_10_1483_1502"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1483_1502",
+                    "2024_3_329_355",
+                    "2024_2_830_846",
+                    "2024_2_1223_1240",
+                    "2024_12_1160_1185"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 51.22
+            },
+            {
+                "query_id": "LQ012",
+                "query_text": "Can an appellate court grant an unconditional stay on execution of an arbitral a...",
+                "legal_domain": "Commercial",
+                "gold_doc_ids": [
+                    "2024_10_1503_1512"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1503_1512",
+                    "2024_3_971_993",
+                    "2024_7_840_909",
+                    "2024_9_473_489",
+                    "2024_7_136_162"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 56.04
+            },
+            {
+                "query_id": "LQ013",
+                "query_text": "Can the Supreme Court exercise its extraordinary jurisdiction under Article 142 ...",
+                "legal_domain": "Constitutional",
+                "gold_doc_ids": [
+                    "2024_10_150_153"
+                ],
+                "top5_retrieved": [
+                    "2024_2_946_988",
+                    "2024_10_150_153",
+                    "2024_7_933_941",
+                    "2024_9_1_15",
+                    "2024_12_1355_1405"
+                ],
+                "first_relevant_rank": 2,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 0.5,
+                "latency_ms": 85.09
+            },
+            {
+                "query_id": "LQ014",
+                "query_text": "What guidelines and statutory enforcement mechanisms govern the prevention of ch...",
+                "legal_domain": "Family",
+                "gold_doc_ids": [
+                    "2024_10_1513_1632"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1513_1632",
+                    "2024_9_818_829",
+                    "2024_8_575_614",
+                    "2024_12_559_573",
+                    "2024_7_1236_1313"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 78.21
+            },
+            {
+                "query_id": "LQ015",
+                "query_text": "Does viewing or streaming child sexual abuse material online without downloading...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_154_314"
+                ],
+                "top5_retrieved": [
+                    "2024_10_154_314",
+                    "2024_8_575_614",
+                    "2024_3_1147_1180",
+                    "2024_3_1228_1248",
+                    "2024_5_470_491"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 27.45
+            },
+            {
+                "query_id": "LQ016",
+                "query_text": "Can the Income Tax Department issue reassessment notices under Section 148 beyon...",
+                "legal_domain": "Tax",
+                "gold_doc_ids": [
+                    "2024_10_1633_1708"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1633_1708",
+                    "2024_1_642_676",
+                    "2024_6_337_345",
+                    "2024_8_788_795",
+                    "2024_5_906_926"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 62.65
+            },
+            {
+                "query_id": "LQ017",
+                "query_text": "What is the appropriate legal method for determining fair market value and compe...",
+                "legal_domain": "Property",
+                "gold_doc_ids": [
+                    "2024_10_2278_2302",
+                    "2024_10_1709_1725"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1709_1725",
+                    "2024_7_443_465",
+                    "2024_7_1001_1030",
+                    "2024_6_227_233",
+                    "2024_6_714_722"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 64.51
+            },
+            {
+                "query_id": "LQ018",
+                "query_text": "Can a trial court remand a criminal matter to allow the prosecution to examine f...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_1726_1735"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1726_1735",
+                    "2024_8_1687_1702",
+                    "2024_8_929_934",
+                    "2024_6_666_697",
+                    "2024_1_319_326"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 68.83
+            },
+            {
+                "query_id": "LQ019",
+                "query_text": "Can an aggrieved financial creditor with massive outstanding claims challenge th...",
+                "legal_domain": "Commercial",
+                "gold_doc_ids": [
+                    "2024_10_1802_1854"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1802_1854",
+                    "2024_11_2039_2172",
+                    "2024_7_2143_2175",
+                    "2024_3_1044_1050",
+                    "2024_2_258_287"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 75.6
+            },
+            {
+                "query_id": "LQ020",
+                "query_text": "What evidentiary weight is accorded to an oral dying declaration made by the dec...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_37_44",
+                    "2024_10_1876_1889"
+                ],
+                "top5_retrieved": [
+                    "2024_6_740_760",
+                    "2024_10_1876_1889",
+                    "2024_7_218_245",
+                    "2024_1_87_113",
+                    "2024_6_164_213"
+                ],
+                "first_relevant_rank": 2,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 0.5,
+                "latency_ms": 69.93
+            },
+            {
+                "query_id": "LQ021",
+                "query_text": "Can an authorized signatory who signs a cheque on behalf of a company be directe...",
+                "legal_domain": "Commercial",
+                "gold_doc_ids": [
+                    "2024_10_2248_2264",
+                    "2024_10_1890_1901"
+                ],
+                "top5_retrieved": [
+                    "2024_10_1890_1901",
+                    "2024_7_1211_1224",
+                    "2024_12_1946_1996",
+                    "2024_4_255_263",
+                    "2024_10_2248_2264"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 64.54
+            },
+            {
+                "query_id": "LQ022",
+                "query_text": "Under what circumstances should the High Court quash criminal prosecution under ...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_650_672",
+                    "2024_10_417_424"
+                ],
+                "top5_retrieved": [
+                    "2024_1_1179_1182",
+                    "2024_10_417_424",
+                    "2024_10_650_672",
+                    "2024_2_311_325",
+                    "2024_12_1436_1444"
+                ],
+                "first_relevant_rank": 2,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 0.5,
+                "latency_ms": 57.76
+            },
+            {
+                "query_id": "LQ023",
+                "query_text": "Is a state enactment that singles out a single private university for repeal or ...",
+                "legal_domain": "Constitutional",
+                "gold_doc_ids": [
+                    "2024_10_445_492"
+                ],
+                "top5_retrieved": [
+                    "2024_10_445_492",
+                    "2024_11_1647_2038",
+                    "2024_11_365_427",
+                    "2024_10_961_1312",
+                    "2024_11_1_324"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 58.69
+            },
+            {
+                "query_id": "LQ024",
+                "query_text": "Can a Magistrate order the refund or alteration of interim maintenance already p...",
+                "legal_domain": "Family",
+                "gold_doc_ids": [
+                    "2024_10_45_53"
+                ],
+                "top5_retrieved": [
+                    "2024_10_45_53",
+                    "2024_11_1312_1317",
+                    "2024_7_942_956",
+                    "2024_12_543_558",
+                    "2024_7_1236_1313"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 88.33
+            },
+            {
+                "query_id": "LQ025",
+                "query_text": "Are provisions in prison manuals providing for division of labor or segregation ...",
+                "legal_domain": "Constitutional",
+                "gold_doc_ids": [
+                    "2024_10_493_638"
+                ],
+                "top5_retrieved": [
+                    "2024_10_493_638",
+                    "2024_5_1038_1055",
+                    "2024_1_743_908",
+                    "2024_8_1321_1672",
+                    "2024_10_1769_1801"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 99.89
+            },
+            {
+                "query_id": "LQ026",
+                "query_text": "Can the High Court quash an FIR and chargesheet under Section 482 CrPC where mat...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_62_78",
+                    "2024_10_639_649"
+                ],
+                "top5_retrieved": [
+                    "2024_10_62_78",
+                    "2024_6_129_163",
+                    "2024_2_252_257",
+                    "2024_12_1436_1444",
+                    "2024_3_385_392"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 72.71
+            },
+            {
+                "query_id": "LQ027",
+                "query_text": "Is Section 6A of the Citizenship Act 1955 providing a special framework for citi...",
+                "legal_domain": "Constitutional",
+                "gold_doc_ids": [
+                    "2024_10_961_1312",
+                    "2024_10_736_752"
+                ],
+                "top5_retrieved": [
+                    "2024_10_961_1312",
+                    "2024_7_2329_2362",
+                    "2024_10_736_752",
+                    "2024_1_473_487",
+                    "2024_8_820_829"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 95.46
+            },
+            {
+                "query_id": "LQ028",
+                "query_text": "Can a commercial developer claim Input Tax Credit under Section 17(5)(d) of the ...",
+                "legal_domain": "Tax",
+                "gold_doc_ids": [
+                    "2024_10_793_859"
+                ],
+                "top5_retrieved": [
+                    "2024_10_793_859",
+                    "2024_11_1525_1601",
+                    "2024_2_1001_1038",
+                    "2024_8_34_44",
+                    "2024_7_287_315"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 84.36
+            },
+            {
+                "query_id": "LQ029",
+                "query_text": "Is it mandatory for a criminal trial court to defer deciding an application to s...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_911_919"
+                ],
+                "top5_retrieved": [
+                    "2024_10_911_919",
+                    "2024_6_864_893",
+                    "2024_6_10_19",
+                    "2024_10_315_383",
+                    "2024_7_178_195"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 48.28
+            },
+            {
+                "query_id": "LQ030",
+                "query_text": "In a motor accident claim, when there is a discrepancy between the date of birth...",
+                "legal_domain": "Civil",
+                "gold_doc_ids": [
+                    "2024_10_786_792",
+                    "2024_10_939_951"
+                ],
+                "top5_retrieved": [
+                    "2024_10_939_951",
+                    "2024_12_652_664",
+                    "2024_10_786_792",
+                    "2024_1_1_10",
+                    "2024_4_63_71"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 93.11
+            },
+            {
+                "query_id": "LQ031",
+                "query_text": "Can a donor unilaterally execute a revocation deed to cancel a validly accepted ...",
+                "legal_domain": "Property",
+                "gold_doc_ids": [
+                    "2024_10_952_960"
+                ],
+                "top5_retrieved": [
+                    "2024_10_952_960",
+                    "2024_12_693_707",
+                    "2024_11_2329_2347",
+                    "2024_7_2295_2328",
+                    "2024_1_374_389"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 42.21
+            },
+            {
+                "query_id": "LQ032",
+                "query_text": "Can High Court judges appointed from the District Judiciary be denied General Pr...",
+                "legal_domain": "Constitutional",
+                "gold_doc_ids": [
+                    "2024_11_1042_1063"
+                ],
+                "top5_retrieved": [
+                    "2024_11_1042_1063",
+                    "2024_3_848_864",
+                    "2024_1_211_240",
+                    "2024_1_327_373",
+                    "2024_5_1074_1147"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 69.75
+            },
+            {
+                "query_id": "LQ033",
+                "query_text": "What criteria distinguish a supervisor from a workman under Section 2(s) of the ...",
+                "legal_domain": "Labor",
+                "gold_doc_ids": [
+                    "2024_10_2303_2313"
+                ],
+                "top5_retrieved": [
+                    "2024_10_2303_2313",
+                    "2024_4_100_120",
+                    "2024_4_576_590",
+                    "2024_3_959_970",
+                    "2024_5_596_611"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 71.45
+            },
+            {
+                "query_id": "LQ034",
+                "query_text": "Is time presumptively of the essence of the contract in an agreement for sale of...",
+                "legal_domain": "Civil",
+                "gold_doc_ids": [
+                    "2024_11_1099_1129",
+                    "2024_10_901_910"
+                ],
+                "top5_retrieved": [
+                    "2024_1_374_389",
+                    "2024_5_612_628",
+                    "2024_11_2375_2410",
+                    "2024_11_1099_1129",
+                    "2024_11_667_699"
+                ],
+                "first_relevant_rank": 4,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 0.25,
+                "latency_ms": 87.53
+            },
+            {
+                "query_id": "LQ035",
+                "query_text": "Can an accused raise a plea claiming juvenility under the Juvenile Justice Act f...",
+                "legal_domain": "Criminal",
+                "gold_doc_ids": [
+                    "2024_10_411_416",
+                    "2024_5_501_509"
+                ],
+                "top5_retrieved": [
+                    "2024_5_501_509",
+                    "2024_10_411_416",
+                    "2024_3_1228_1248",
+                    "2024_5_761_812",
+                    "2024_10_769_785"
+                ],
+                "first_relevant_rank": 1,
+                "hit_at_5": true,
+                "hit_at_10": true,
+                "reciprocal_rank": 1.0,
+                "latency_ms": 65.78
+            }
+        ]
+    }
+}

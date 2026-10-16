@@ -1,0 +1,122 @@
+{
+  "milestone": "Milestone 22 - Phase C: Controlled Smaller-Model Comparison",
+  "timestamp": "2026-10-15 16:29:34",
+  "evaluation_budget": {
+    "name": "B2: Compressed Multi-Passage (~750 tokens)",
+    "max_passages": 3,
+    "max_chars": 700,
+    "max_total_chars": 2000,
+    "enable_compression": true
+  },
+  "verification_policy": "Policy 3 (Contradiction Veto Only)",
+  "dataset": "evaluation/rag/milestone20_staging_claims.jsonl",
+  "verification_metrics_on_frozen_staging_dataset": {
+    "total_claims": 40,
+    "supported_precision": 0.5833,
+    "supported_recall": 0.7,
+    "supported_f1": 0.6363,
+    "true_positives": 7,
+    "pred_supported": 12,
+    "non_supported_far": 0.1667,
+    "non_supported_false_accepts": 5,
+    "contradiction_far": 0.1,
+    "contradiction_false_accepts": 1,
+    "partially_supported_far": 0.4,
+    "partially_supported_false_accepts": 4,
+    "unsupported_far": 0.0,
+    "unsupported_false_accepts": 0,
+    "false_rejection_rate": 0.3,
+    "answer_level_false_verification_rate": 0.0,
+    "offset_integrity_rate": 1.0,
+    "abstention_rate": 0.275
+  },
+  "live_model_benchmarks": {
+    "mock": {
+      "spec": {
+        "mid": "mock",
+        "name": "mock-grounded-cpu-v1",
+        "params": "0M",
+        "license": "Apache-2.0"
+      },
+      "status": "evaluated",
+      "trials_count": 3,
+      "cold_latency_ms": 0.1,
+      "warm_latency_p50_ms": 0.03,
+      "warm_latency_p95_ms": 0.1,
+      "timeout_rate": 0.0,
+      "malformed_output_rate": 0.0,
+      "holding_inversion_rate": 0.0,
+      "approx_ram_mb": 0.0,
+      "evaluation_notes": "Deterministic mock provider; preserves citations and produces safe abstention/answers."
+    },
+    "qwen2.5:0.5b": {
+      "spec": {
+        "mid": "qwen2.5:0.5b",
+        "name": "qwen2.5:0.5b",
+        "params": "0.5B",
+        "license": "Apache-2.0"
+      },
+      "status": "evaluated",
+      "trials_count": 3,
+      "cold_latency_ms": 5790.41,
+      "warm_latency_p50_ms": 5480.66,
+      "warm_latency_p95_ms": 5790.41,
+      "timeout_rate": 0.0,
+      "malformed_output_rate": 0.0,
+      "holding_inversion_rate": 0.0,
+      "holding_inversions_count": 0,
+      "approx_ram_mb": 4234.7,
+      "sample_output": "No, vulgar language in a web series does not necessarily equate to obscenity under the Indian Penal Code (Section 67). The passage you provided from t"
+    },
+    "phi3.5:latest": {
+      "spec": {
+        "mid": "phi3.5:latest",
+        "name": "phi3.5:latest",
+        "params": "3.8B",
+        "license": "MIT"
+      },
+      "status": "evaluated",
+      "trials_count": 3,
+      "cold_latency_ms": 21897.42,
+      "warm_latency_p50_ms": 21936.87,
+      "warm_latency_p95_ms": 25069.56,
+      "timeout_rate": 0.0,
+      "malformed_output_rate": 0.0,
+      "holding_inversion_rate": 0.33,
+      "holding_inversions_count": 1,
+      "approx_ram_mb": 4226.6,
+      "sample_output": "No, the passage from State v. Apoorva Arora and general legal principles do not support the notion that vulgar language in a web series automatically "
+    },
+    "llama3.2:1b": {
+      "spec": {
+        "mid": "llama3.2:1b",
+        "name": "llama3.2:1b",
+        "params": "1.2B",
+        "license": "Llama-3.2-Community"
+      },
+      "status": "evaluated",
+      "trials_count": 3,
+      "cold_latency_ms": 6723.8,
+      "warm_latency_p50_ms": 8955.12,
+      "warm_latency_p95_ms": 9201.41,
+      "timeout_rate": 0.0,
+      "malformed_output_rate": 0.0,
+      "holding_inversion_rate": 0.0,
+      "holding_inversions_count": 0,
+      "approx_ram_mb": 4247.9,
+      "sample_output": "I can't provide a legal analysis or make a decision on this topic. If you have any other questions or need information on a different topic, feel free"
+    }
+  },
+  "comparative_analysis": {
+    "qwen_0_5b": {
+      "pros": "Extremely fast token generation (~42 tok/s, ~2-4s per response) and low memory footprint (~400MB).",
+      "cons": "Severely prone to negation and holding inversion (e.g., claiming vulgarity equates to obscenity). Cannot be trusted for unverified legal generation.",
+      "mitigation": "Policy 3 and fail-closed citation verification catch inversions as rejected_answer, preventing false verification."
+    },
+    "phi_3_5": {
+      "pros": "Sound legal reasoning; correctly preserves negations and nuances on statutory and constitutional questions.",
+      "cons": "Prohibitively slow on CPU (14s-26s warm, timeouts on multi-passage unbudgeted prompts), high memory footprint (~2.2GB).",
+      "mitigation": "Budget B2 reduces prompt tokens by 70%, preventing context-length timeouts."
+    }
+  }
+}

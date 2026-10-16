@@ -1,0 +1,212 @@
+[
+  {
+    "query_id": "LQ001",
+    "query_text": "What are the legal standards and grounds for granting bail to an accused facing prosecution under Section 45 of the Prevention of Money Laundering Act (PMLA)?",
+    "legal_domain": "Criminal",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ002",
+    "query_text": "Can an appellate court reverse a judgment of acquittal into conviction based solely on circumstantial evidence?",
+    "legal_domain": "Criminal",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ003",
+    "query_text": "Can a pendente lite purchaser or third party stranger dispossessed of immovable property file an application under Order XXI Rule 99 CPC for restoration of possession?",
+    "legal_domain": "Civil",
+    "query_type": "procedural"
+  },
+  {
+    "query_id": "LQ004",
+    "query_text": "Can the government cancel an ongoing public recruitment process and alter selection rules after the final select list has already been prepared?",
+    "legal_domain": "Administrative",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ005",
+    "query_text": "Does a secured creditor bank have the right to cancel a confirmed e-auction sale if the auction purchaser requests an extension of time to deposit the balance purchase amount under Rule 9(4) of the Security Interest Rules?",
+    "legal_domain": "Commercial",
+    "query_type": "procedural"
+  },
+  {
+    "query_id": "LQ006",
+    "query_text": "Can a municipal corporation demand royalty, tax, or fees on commercial advertisement hoardings without express statutory authority under Article 265 of the Constitution?",
+    "legal_domain": "Constitutional",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ007",
+    "query_text": "Can a statutory regulatory authority be impleaded as a respondent or contest an appeal against its own regulatory tariff order before an appellate court?",
+    "legal_domain": "Administrative",
+    "query_type": "procedural"
+  },
+  {
+    "query_id": "LQ008",
+    "query_text": "What valid conditions may the State Government impose when exercising executive power to grant remission of sentence to a life convict under Section 432 of CrPC?",
+    "legal_domain": "Criminal",
+    "query_type": "procedural"
+  },
+  {
+    "query_id": "LQ009",
+    "query_text": "Does an acknowledgement of debt recorded in the audited balance sheet of a corporate debtor extend the limitation period under Section 18 of the Limitation Act for initiating insolvency proceedings under IBC?",
+    "legal_domain": "Commercial",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ010",
+    "query_text": "What standard of professional skill and care is required to establish medical negligence against a surgeon under the Consumer Protection Act?",
+    "legal_domain": "Civil",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ011",
+    "query_text": "What essential ingredients of intentional instigation are required to sustain a charge of abetment of suicide under Section 306 IPC, and can proceedings be quashed without a trial?",
+    "legal_domain": "Criminal",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ012",
+    "query_text": "Can an appellate court grant an unconditional stay on execution of an arbitral award or treat a statutory corporation differently from private commercial entities regarding bank guarantees under Section 36 of the Arbitration Act?",
+    "legal_domain": "Commercial",
+    "query_type": "procedural"
+  },
+  {
+    "query_id": "LQ013",
+    "query_text": "Can the Supreme Court exercise its extraordinary jurisdiction under Article 142 of the Constitution to protect an IIT seat for a marginalized student who missed the online seat allocation fee payment deadline by minutes?",
+    "legal_domain": "Constitutional",
+    "query_type": "factual"
+  },
+  {
+    "query_id": "LQ014",
+    "query_text": "What guidelines and statutory enforcement mechanisms govern the prevention of child marriages and accountability of Child Marriage Prohibition Officers in India?",
+    "legal_domain": "Family",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ015",
+    "query_text": "Does viewing or streaming child sexual abuse material online without downloading or physically storing it on a device constitute possession under Section 15 of the POCSO Act?",
+    "legal_domain": "Criminal",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ016",
+    "query_text": "Can the Income Tax Department issue reassessment notices under Section 148 beyond statutory time limits relying on the Taxation and Other Laws Relaxation Act (TOLA) after April 1, 2021?",
+    "legal_domain": "Tax",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ017",
+    "query_text": "What is the appropriate legal method for determining fair market value and compensation for acquired land under the Land Acquisition Act 1894?",
+    "legal_domain": "Property",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ018",
+    "query_text": "Can a trial court remand a criminal matter to allow the prosecution to examine formal witnesses after the defense has admitted the genuineness of documents under Section 294 CrPC?",
+    "legal_domain": "Criminal",
+    "query_type": "procedural"
+  },
+  {
+    "query_id": "LQ019",
+    "query_text": "Can an aggrieved financial creditor with massive outstanding claims challenge the withdrawal of corporate insolvency resolution proceedings (CIRP) settled privately between the promoter and an operational creditor?",
+    "legal_domain": "Commercial",
+    "query_type": "procedural"
+  },
+  {
+    "query_id": "LQ020",
+    "query_text": "What evidentiary weight is accorded to an oral dying declaration made by the deceased to close relatives, and can it form the sole basis of conviction?",
+    "legal_domain": "Criminal",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ021",
+    "query_text": "Can an authorized signatory who signs a cheque on behalf of a company be directed to deposit interim compensation under Section 148 of the Negotiable Instruments Act during appeal?",
+    "legal_domain": "Commercial",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ022",
+    "query_text": "Under what circumstances should the High Court quash criminal prosecution under Section 482 CrPC when the underlying commercial dispute between a borrower and a bank has been resolved via an OTS compromise?",
+    "legal_domain": "Criminal",
+    "query_type": "procedural"
+  },
+  {
+    "query_id": "LQ023",
+    "query_text": "Is a state enactment that singles out a single private university for repeal or differential treatment constitutionally valid under Article 14 of the Constitution?",
+    "legal_domain": "Constitutional",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ024",
+    "query_text": "Can a Magistrate order the refund or alteration of interim maintenance already paid to a wife under Section 25(2) of the Protection of Women from Domestic Violence Act?",
+    "legal_domain": "Family",
+    "query_type": "procedural"
+  },
+  {
+    "query_id": "LQ025",
+    "query_text": "Are provisions in prison manuals providing for division of labor or segregation of prisoners on the basis of caste unconstitutional under Articles 14, 15, and 17?",
+    "legal_domain": "Constitutional",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ026",
+    "query_text": "Can the High Court quash an FIR and chargesheet under Section 482 CrPC where matrimonial cruelty allegations under Section 498A IPC against in-laws are vague, general, and lack specific overt acts?",
+    "legal_domain": "Criminal",
+    "query_type": "procedural"
+  },
+  {
+    "query_id": "LQ027",
+    "query_text": "Is Section 6A of the Citizenship Act 1955 providing a special framework for citizenship of migrants in Assam constitutionally valid under Articles 14, 21, and 29?",
+    "legal_domain": "Constitutional",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ028",
+    "query_text": "Can a commercial developer claim Input Tax Credit under Section 17(5)(d) of the CGST Act for goods and services used in constructing a mall meant for letting out on lease?",
+    "legal_domain": "Tax",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ029",
+    "query_text": "Is it mandatory for a criminal trial court to defer deciding an application to summon an additional accused under Section 319 CrPC until the witness has undergone cross-examination?",
+    "legal_domain": "Criminal",
+    "query_type": "procedural"
+  },
+  {
+    "query_id": "LQ030",
+    "query_text": "In a motor accident claim, when there is a discrepancy between the date of birth in a school leaving certificate and an Aadhaar card, which document takes precedence for age determination?",
+    "legal_domain": "Civil",
+    "query_type": "factual"
+  },
+  {
+    "query_id": "LQ031",
+    "query_text": "Can a donor unilaterally execute a revocation deed to cancel a validly accepted and registered gift deed under Section 126 of the Transfer of Property Act without reservation of such right?",
+    "legal_domain": "Property",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ032",
+    "query_text": "Can High Court judges appointed from the District Judiciary be denied General Provident Fund benefits or subjected to disparate service conditions compared to judges appointed from the Bar?",
+    "legal_domain": "Constitutional",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ033",
+    "query_text": "What criteria distinguish a supervisor from a workman under Section 2(s) of the Industrial Disputes Act 1947 in cases of wrongful termination?",
+    "legal_domain": "Labor",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ034",
+    "query_text": "Is time presumptively of the essence of the contract in an agreement for sale of immovable property in a suit for specific performance under the Specific Relief Act?",
+    "legal_domain": "Civil",
+    "query_type": "legal_principle"
+  },
+  {
+    "query_id": "LQ035",
+    "query_text": "Can an accused raise a plea claiming juvenility under the Juvenile Justice Act for the first time after conviction and sentence have been confirmed and attained finality?",
+    "legal_domain": "Criminal",
+    "query_type": "procedural"
+  }
+]

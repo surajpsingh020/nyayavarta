@@ -1,0 +1,35 @@
+{
+    "embedding": {
+        "model_name": "sentence-transformers/all-MiniLM-L6-v2",
+        "dimension": 384,
+        "normalize": true,
+        "similarity_metric": "cosine",
+        "backend": "fastembed-onnx",
+        "batch_size": 32,
+        "max_seq_length": 512
+    },
+    "bm25": {
+        "tokenizer": "porter unicode61",
+        "default_top_k": 10,
+        "query_mode": "AND",
+        "db_path": "data/indexes/bm25.db"
+    },
+    "hybrid": {
+        "rrf_k": 60,
+        "bm25_fetch_multiplier": 3,
+        "dense_fetch_multiplier": 3
+    },
+    "reranker": {
+        "enabled": false,
+        "model_name": "jinaai/jina-reranker-v1-turbo-en",
+        "backend": "fastembed-onnx",
+        "max_candidates": 30,
+        "max_passage_length": 2048
+    },
+    "selection_rule": {
+        "primary_metric": "recall_10",
+        "tiebreaker_metric": "query_latency_ms",
+        "tiebreaker_direction": "lower_is_better"
+    },
+    "version": "3.1.0"
+}

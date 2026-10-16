@@ -1,0 +1,227 @@
+[
+    {
+        "query_id": "Q001",
+        "relevant_document_ids": [
+            "2024_3_1273_1280"
+        ],
+        "relevance_grades": {
+            "2024_3_1273_1280": 1
+        }
+    },
+    {
+        "query_id": "Q002",
+        "relevant_document_ids": [
+            "2024_11_1602_1627"
+        ],
+        "relevance_grades": {
+            "2024_11_1602_1627": 1
+        }
+    },
+    {
+        "query_id": "Q003",
+        "relevant_document_ids": [
+            "2024_12_2043_2074"
+        ],
+        "relevance_grades": {
+            "2024_12_2043_2074": 1
+        }
+    },
+    {
+        "query_id": "Q004",
+        "relevant_document_ids": [
+            "2024_5_537_544"
+        ],
+        "relevance_grades": {
+            "2024_5_537_544": 1
+        }
+    },
+    {
+        "query_id": "Q005",
+        "relevant_document_ids": [
+            "2024_12_617_626"
+        ],
+        "relevance_grades": {
+            "2024_12_617_626": 1
+        }
+    },
+    {
+        "query_id": "Q006",
+        "relevant_document_ids": [
+            "2024_11_1130_1141"
+        ],
+        "relevance_grades": {
+            "2024_11_1130_1141": 1
+        }
+    },
+    {
+        "query_id": "Q007",
+        "relevant_document_ids": [
+            "2024_8_847_853"
+        ],
+        "relevance_grades": {
+            "2024_8_847_853": 1
+        }
+    },
+    {
+        "query_id": "Q008",
+        "relevant_document_ids": [
+            "2024_1_1_10"
+        ],
+        "relevance_grades": {
+            "2024_1_1_10": 1
+        }
+    },
+    {
+        "query_id": "Q009",
+        "relevant_document_ids": [
+            "2024_3_363_376"
+        ],
+        "relevance_grades": {
+            "2024_3_363_376": 1
+        }
+    },
+    {
+        "query_id": "Q010",
+        "relevant_document_ids": [
+            "2024_1_743_908"
+        ],
+        "relevance_grades": {
+            "2024_1_743_908": 1
+        }
+    },
+    {
+        "query_id": "Q011",
+        "relevant_document_ids": [
+            "2024_7_532_610"
+        ],
+        "relevance_grades": {
+            "2024_7_532_610": 1
+        }
+    },
+    {
+        "query_id": "Q012",
+        "relevant_document_ids": [
+            "2024_12_1911_1945"
+        ],
+        "relevance_grades": {
+            "2024_12_1911_1945": 1
+        }
+    },
+    {
+        "query_id": "Q013",
+        "relevant_document_ids": [
+            "2024_5_859_878"
+        ],
+        "relevance_grades": {
+            "2024_5_859_878": 1
+        }
+    },
+    {
+        "query_id": "Q014",
+        "relevant_document_ids": [
+            "2024_8_717_726"
+        ],
+        "relevance_grades": {
+            "2024_8_717_726": 1
+        }
+    },
+    {
+        "query_id": "Q015",
+        "relevant_document_ids": [
+            "2024_3_661_672"
+        ],
+        "relevance_grades": {
+            "2024_3_661_672": 1
+        }
+    },
+    {
+        "query_id": "Q016",
+        "relevant_document_ids": [
+            "2024_3_309_316"
+        ],
+        "relevance_grades": {
+            "2024_3_309_316": 1
+        }
+    },
+    {
+        "query_id": "Q017",
+        "relevant_document_ids": [
+            "2024_8_1_7"
+        ],
+        "relevance_grades": {
+            "2024_8_1_7": 1
+        }
+    },
+    {
+        "query_id": "Q018",
+        "relevant_document_ids": [
+            "2024_3_407_416"
+        ],
+        "relevance_grades": {
+            "2024_3_407_416": 1
+        }
+    },
+    {
+        "query_id": "Q019",
+        "relevant_document_ids": [
+            "2024_8_830_846"
+        ],
+        "relevance_grades": {
+            "2024_8_830_846": 1
+        }
+    },
+    {
+        "query_id": "Q020",
+        "relevant_document_ids": [
+            "2024_12_2113_2122"
+        ],
+        "relevance_grades": {
+            "2024_12_2113_2122": 1
+        }
+    },
+    {
+        "query_id": "Q021",
+        "relevant_document_ids": [
+            "2024_6_298_314"
+        ],
+        "relevance_grades": {
+            "2024_6_298_314": 1
+        }
+    },
+    {
+        "query_id": "Q022",
+        "relevant_document_ids": [
+            "2024_7_2427_2433"
+        ],
+        "relevance_grades": {
+            "2024_7_2427_2433": 1
+        }
+    },
+    {
+        "query_id": "Q023",
+        "relevant_document_ids": [
+            "2024_8_782_787"
+        ],
+        "relevance_grades": {
+            "2024_8_782_787": 1
+        }
+    },
+    {
+        "query_id": "Q024",
+        "relevant_document_ids": [
+            "2024_1_241_247"
+        ],
+        "relevance_grades": {
+            "2024_1_241_247": 1
+        }
+    },
+    {
+        "query_id": "Q025",
+        "relevant_document_ids": [
+            "2024_4_518_522"
+        ],
+        "relevance_grades": {
+            "2024_4_518_522": 1
+        }
+    }
+]

@@ -1,0 +1,627 @@
+[
+  {
+    "test_id": "UNSEEN001_DIRECT_POSITIVE",
+    "category": "direct_positive_support",
+    "fixture_type": "corpus_grounded",
+    "query": "Can the Supreme Court exercise powers under Article 142 of the Constitution to grant admission to an IIT candidate from a marginalized community who was prevented from paying fees due to a portal login glitch?",
+    "expected_status": "sufficient_evidence",
+    "expected_is_grounded": true,
+    "rationale": "Direct positive holding in Atul Kumar v. Chairman JOSAA that power under Article 142 to do substantial justice covers a talented student from a marginalized group left in the lurch by online portal login glitches.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_150_153",
+        "case_title": "ATUL KUMAR versus THE CHAIRMAN (JOINT SEAT ALLOCATION AUTHORITY) AND OTHERS",
+        "citation": "2024INSC749",
+        "passage_text": "Held: Petitioner logged in as many as on six occasions and \nuploaded the documents, which evidently indicates that he was \nmaking earnest efforts to log into the portal – No conceivable \nreason why the petitioner would not have done so if he had the \nwherewithal to pay the fees of Rs 17,500 – Talented student like \nthe petitioner who belongs to a marginalized group of citizens \nand has done everything to secure admission should not be left \nin the lurch – Power of this Court u/Art.142 to do substantial \njustice is meant precisely to cover such a situation – Petitioner \nto be granted admission to IIT Dhanbad against the seat which \nwas allotted to him in the branch of Electrical Engineering  – \nSupernumerary seat to be created for the petitioner, if so \nrequired. [Paras 6, 7]",
+        "start_char": 888,
+        "end_char": 1673
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN002_DIRECT_POSITIVE",
+    "category": "direct_positive_support",
+    "fixture_type": "corpus_grounded",
+    "query": "Can any person aggrieved by an order of the NCLAT maintain an appeal before the Supreme Court under Section 62 of the Insolvency and Bankruptcy Code?",
+    "expected_status": "sufficient_evidence",
+    "expected_is_grounded": true,
+    "rationale": "Direct positive holding in Glas Trust v. Byju Raveendran that Section 62 IBC uses 'any person aggrieved' indicating no rigid locus requirement, so any stakeholder creditor can maintain an appeal.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_1802_1854",
+        "case_title": "GLAS TRUST COMPANY LLC  versus BYJU RAVEENDRAN & ORS.",
+        "citation": "2024INSC811",
+        "passage_text": "Held: Yes – Under Section 62 governing statutory appeals to \nthe Supreme Court from the orders of the NCLAT, “any person” \naggrieved by the order of the NCLAT may file an appeal before \nthe Supreme Court – Section 61 which provides for appeals to \nNCLAT from orders of the NCLT uses similar language – The \nuse of the phrase “any person aggrieved” indicates that there is \nno rigid locus requirement to institute an appeal challenging an \norder of the NCLT, before the NCLAT or an order of the NCLAT, \nbefore this Court – Any person who is aggrieved by the order may \n* Author\n\n[2024] 10 S.C.R. \b\n1803\nGLAS Trust Company LLC v. BYJU Raveendran & Ors.\ninstitute an appeal, and nothing in the provision restricts the phrase \nto only the applicant creditor and the corporate debtor – Once the \nCIRP is initiated, the proceedings are no longer restricted to the \nindividual applicant creditor and the corporate debtor but rather \nbecome collective proceedings (in rem), where all creditors, such \nas the appellant, are necessary stakeholders",
+        "start_char": 1159,
+        "end_char": 2196
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN003_DIRECT_POSITIVE",
+    "category": "direct_positive_support",
+    "fixture_type": "corpus_grounded",
+    "query": "Does an FIR under Section 420 IPC require dishonest inducement with mens rea since inception to survive quashing under Section 482 CrPC?",
+    "expected_status": "sufficient_evidence",
+    "expected_is_grounded": true,
+    "rationale": "Direct positive holding in HDFC Bank v. State of Bihar that Section 420 IPC requires inducement since inception, fraudulent inducement, and mens rea; in their absence FIR is liable to be quashed.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_1902_1917",
+        "case_title": "HDFC BANK LTD. versus THE STATE OF BIHAR & ORS.",
+        "citation": "2024INSC807",
+        "passage_text": "Held: The FIR must disclose the following ingredients to make out \nan offence u/s.420 : (i) That the Accused has induced anyone since \ninception; (ii) That the inducement was fraudulent or dishonest; \n(iii) That mens rea existed at the time of such inducement. The \nAccused/Bank is a jurisdiction person, and as such, the question of \nmens rea does not arise. However, on reading of the F.I.R., there \nis nothing to show that the Accused/Bank or its staff members had \ndishonestly induced someone to deceived to deliver any property \nto any person, and that the mens rea existed at the time of such \ninducement – Thus, the ingredients to attract the offence u/s.420 \nI.P.C. would not be available. [Paras 20 and 21]",
+        "start_char": 486,
+        "end_char": 1201
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN004_NEGATION_JOINT_FAMILY_MUSLIM",
+    "category": "negation",
+    "fixture_type": "corpus_grounded",
+    "query": "Does the Hindu legal concept of joint family coparcenary property apply to Mohammedans governed by Muslim law?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Direct negative holding in Nisar Ahmad v. Sami Ullah that the concept of joint family property prevalent amongst Hindus is not known amongst Muslims and cannot be imported.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_1855_1875",
+        "case_title": "NISAR AHMAD & ORS. versus SAMI ULLAH (DEAD) THROUGH LRS. & ANR.",
+        "citation": "2024INSC820",
+        "passage_text": "Held: No error or perversity in the view taken by the High Court – \nThe concept of joint family property which is prevalent amongst the \nHindus is not known amongst the Muslims",
+        "start_char": 1160,
+        "end_char": 1336
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN005_NEGATION_MEDICAL_JUDGMENT_ERROR",
+    "category": "negation",
+    "fixture_type": "corpus_grounded",
+    "query": "Does an error of judgment or difference of medical opinion between doctors ipso facto establish criminal or civil negligence?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Direct negative holding in Neeraj Sud v. Jaswinder Singh that an error of judgment or accident is not sufficient proof of negligence so long as the doctor followed acceptable medical practice.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_1475_1482",
+        "case_title": "NEERAJ SUD AND ANR.  versus JASWINDER SINGH (MINOR) AND ANR.",
+        "citation": "2024INSC825",
+        "passage_text": "However, a simple lack of care, an error of judgment \nor an accident is not sufficient proof of negligence on part of the \nmedical professional so long as the doctor follows the acceptable \npractice of the medical profession in discharge of his duties – He \ncannot be held liable for negligence merely because a better \nalternative treatment or course of treatment was available or that \nmore skilled doctors were there who could have administered \nbetter treatment. [Para 14]",
+        "start_char": 3044,
+        "end_char": 3520
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN006_NEGATION_CHEQUE_SIGNATORY_ALONE",
+    "category": "negation",
+    "fixture_type": "corpus_grounded",
+    "query": "Can a prosecution under Section 138 and Section 141 of the Negotiable Instruments Act proceed against an authorised signatory alone without arraigning the company as an accused?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Direct negative holding in Bijoy Kumar Moni v. Paresh Manna that prosecution cannot proceed against an authorised signatory unless the company who is the drawer is arraigned as an accused.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_12_1946_1996",
+        "case_title": "BIJOY KUMAR MONI versus PARESH MANNA & ANR.",
+        "citation": "2024INSC1024",
+        "passage_text": "In \ncase of a cheque issued on behalf of a company by its authorised \nsignatory, prosecution cannot proceed against the such authorised \nsignatory or other post-holders of the company as described under \n*Author\n\n[2024] 12 S.C.R. \b\n1947\nBijoy Kumar Moni v. Paresh Manna & Anr.\nSection 141 of the NI Act, unless the company who is the drawer \nof the cheque is arraigned as an accused in the complaint case \nfiled before the magistrate – Further, vicarious liability can only \nbe affixed against the directors, authorised signatories, etc. of the \ncompany after the company is held liable for the commission of \noffence under Section 138. [Paras 49, 50]",
+        "start_char": 1771,
+        "end_char": 2422
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN007_EXCEPTION_NDPS_SUMMARY_TRIAL",
+    "category": "exception",
+    "fixture_type": "corpus_grounded",
+    "query": "Does Section 36A(5) of the NDPS Act empower a Special Judge to conduct summary trial for offences punishable with imprisonment exceeding three years?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Bharti Arora v. State of Haryana holds that Section 36A(5) NDPS Act permits summary trials only for offences punishable with imprisonment of not more than three years, and such proceedings can only be conducted by a Magistrate.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_12_1044_1071",
+        "case_title": "BHARTI ARORA versus THE STATE OF HARYANA",
+        "citation": "",
+        "passage_text": "s.36-A (5) of the NDPS Act which begins with the non-obstante \nclause provides that notwithstanding anything contained in the \nCr.P.C., the offences punishable under this Act with imprisonment \nfor a term of not more than three years may be tried summarily – \nSo, the statutory scheme, according to the provisions of s.36-A(5) \nof the NDPS Act, prescribes that, for convicting a person u/s. \n58 of the NDPS Act, he/she must be tried summarily – Further, \ns.260 of the Cr.P.C. provides that the power to try summarily is \nwith any Judicial Magistrate, any Metropolitan Magistrate or any \nMagistrate of the first class specially empowered in this behalf by \nthe High Court – It is thus clear that the Special Judge could not \nhave conducted the proceedings against the present appellant for \nthe offence punishable u/s.58 of the NDPS Act inasmuch as such \nproceedings could have been conducted only by a Magistrate",
+        "start_char": 1829,
+        "end_char": 2741
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN008_EXCEPTION_PMLA_SECTION_197_CRPC",
+    "category": "exception",
+    "fixture_type": "corpus_grounded",
+    "query": "Does Section 65 of the PMLA exempt the prosecution from obtaining prior sanction under Section 197 of the CrPC when prosecuting a public servant?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Bibhu Prasad Acharya holds that Section 65 PMLA makes CrPC applicable and is not inconsistent with Section 197(1) CrPC; prior sanction is mandatory and not exempted.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_11_510_522",
+        "case_title": "DIRECTORATE OF ENFORCEMENT versus BIBHU PRASAD ACHARYA, ETC.",
+        "citation": "2024INSC843",
+        "passage_text": "As far as the applicability of s.197 of CrPC to the \nPMLA is concerned, there are two relevant provisions in the form \nof s.65 and 71 of the PMLA – S.65 makes the provisions of the \nCrPC applicable to all proceedings under the PMLA, provided \nthe same are not inconsistent with the provisions contained in \nthe PMLA – The words ‘All other proceedings’ in s.65 include a \ncomplaint u/s.44 (1)(b) of the PMLA – There is no provision therein \nwhich is inconsistent with the provisions of s.197(1) of CrPC – \nTherefore, the provisions of s.197(1) of CrPC are applicable to a \ncomplaint u/s.44(1)(b) of the PMLA",
+        "start_char": 2364,
+        "end_char": 2970
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN009_EXCEPTION_VAGUE_CRIMINAL_COMPLAINT",
+    "category": "exception",
+    "fixture_type": "corpus_grounded",
+    "query": "Can criminal proceedings under Section 498A IPC be sustained on general and vague allegations intended only to exert pressure in a civil property dispute?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Kailashben Patel v. State of Maharashtra holds that criminal proceedings instituted with mala fide intention on general, vague, and omnibus allegations to further civil property disputes cannot be sustained.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_62_78",
+        "case_title": "KAILASHBEN MAHENDRABHAI PATEL & ORS. versus STATE OF MAHARASHTRA & ANR.",
+        "citation": "2024INSC737",
+        "passage_text": "Held: Impugned judgment set aside – Criminal proceedings \nwere filed with mala fide intention only to harass the appellants – \nThough all the allegations related to demand of dowry, the \ncomplainant chose not to involve her husband in the criminal \nproceedings – Complainant and her husband distributed amongst \nthemselves, the institution of civil and criminal proceedings \nagainst the appellants with the husband instituting the civil suit and \nthe complainant filing criminal proceedings – The provocation for \nthe Complaint/FIR was essentially the property dispute between \nfather and son and it intended only to further their interest of \nthe civil dispute",
+        "start_char": 1068,
+        "end_char": 1729
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN010_REJECTED_SUBMISSION_MUSLIM_COPARCENARY",
+    "category": "rejected_submissions",
+    "fixture_type": "corpus_grounded",
+    "query": "Did the Supreme Court hold that the appellant's revision rights under land consolidation laws override personal Mohammedan succession principles?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Passage records only party counsel arguments ('learned counsel for the appellants has contended') and lacks any judicial finding or ratio decidendi.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_1855_1875",
+        "case_title": "NISAR AHMAD & ORS. versus SAMI ULLAH (DEAD) THROUGH LRS. & ANR.",
+        "citation": "2024INSC820",
+        "passage_text": "learned counsel for the appellants has contended that the High \nCourt was not justified in upholding the order passed by the Deputy \nDirector in revision thereby adversely affecting the rights of the parties, \nlearned counsel for the respondents on the other hand supports the \nimpugned order. He submits that the order of the High Court is a well-\nreasoned and balanced order and therefore should no",
+        "start_char": 8703,
+        "end_char": 9103
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN011_REJECTED_SUBMISSION_ASG_OVERRIDE",
+    "category": "rejected_submissions",
+    "fixture_type": "corpus_grounded",
+    "query": "Does Section 71 of the PMLA override the CrPC to dispense with sanction under Section 197 CrPC as held by the Supreme Court?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Passage represents the learned ASG's rejected submission ('He submitted that in view of Section 71 of the PMLA...'). The Court held the exact opposite.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_11_510_522",
+        "case_title": "DIRECTORATE OF ENFORCEMENT versus BIBHU PRASAD ACHARYA, ETC.",
+        "citation": "2024INSC843",
+        "passage_text": "V. Raju, learned Additional Solicitor General for India, appeared \nfor the appellant-Enforcement Directorate. He submitted that in \nview of Section 71 of the PMLA, the provisions thereof have an \noverriding effect over the provisions of the other statutes, including \nthe CrPC. He submitted that considering the object of the PMLA, the \nrequirement of obtaining a sanction under Section 197(1) of CrPC \nwill be inconsistent with the provisions of the PMLA.",
+        "start_char": 6830,
+        "end_char": 7286
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN012_REJECTED_SUBMISSION_BALANCE_SHEET_DEMARCATION",
+    "category": "rejected_submissions",
+    "fixture_type": "corpus_grounded",
+    "query": "Does the absence of specific naming of a financial creditor in balance sheet entries prevent extension of limitation under Section 18 of the Limitation Act?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Passage contains the appellant's rejected argument ('It was contended by the Appellant that...') which the Court dismissed.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_1462_1474",
+        "case_title": "VIDYASAGAR PRASAD versus UCO BANK & ANR.",
+        "citation": "2024INSC810",
+        "passage_text": "It was contended by the Appellant that there is no \nunequivocal, unambiguous and specific acknowledgement of debt \nowed to Respondent – Financial Creditor in the balance sheet \nentries of Corporate Debtor for the years 2017 and 2019 – The \nCIRP was admitted by the NCLT on the ground that there is \nacknowledgement of debt in the balance sheet entries as well \nas Auditors Report for the year ending 31.01.2017 – The order \nof admission of CIRP affirmed by the NCLAT – The Appellant \ncontended that the name of Financial Creditor in question is not \nspecifically mentioned in the relied upon entry in the balance \nsheet – It was contended that in the absence of clear demarcation \nas to what the Corporate Debtor owes to the Financial Creditor \nin question, the balance sheet entries cannot be relied on for the \npurpose of extending the period of limitation in terms of Section \n18 of the Limitation Act",
+        "start_char": 636,
+        "end_char": 1540
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN013_DISTINGUISHED_PRECEDENT_RAI_SAHEB",
+    "category": "distinguished_precedents",
+    "fixture_type": "corpus_grounded",
+    "query": "Does the ruling in Rai Saheb v. State of Haryana establish that non-examination of independent public witnesses is never fatal when interested family witnesses depose?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Court distinguished the general rule from Rai Saheb, holding that where interested witnesses have unnatural presence and public witnesses were readily available, rule of prudence requires independent corroboration.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_108_125",
+        "case_title": "VIJAY SINGH @ VIJAY KR. SHARMA versus THE STATE OF BIHAR",
+        "citation": "2024INSC735",
+        "passage_text": "Ordinarily, there is no rule of law to discard the testimonies \nof the witnesses merely because they were known to the victim \nor belonged to her family. For, an offence may be committed in \ncircumstances that only the family members are present at the place \nof occurrence in natural course. However, the present case does \nnot fall in such category. In the facts of the present case, the natural \npresence of the eye witnesses at the place of occurrence is under \nserious doubt, as discussed above, and for unexplained reasons, the \nnaturally present public persons were not examined as witnesses in \nthe matter. The non-examination of natural witnesses such as Doman \nTenti, Daso Mistry, Soordas, Kumud Ranjan Singh and many other \nneighbours who admittedly came out of their houses to witness the \noffence, coupled with the fact that the projected eye witnesses failed \nto explain their presence at the place of occurrence, renders the \nentire version of the prosecution as improbable and unreliable. The \neye witnesses, being family members, were apparently approached \nby PW18 who in-formed them about the incident and later, their \nversions were fabricated to make the case credible. Notably, when \nthe version put forth by the interested witnesses comes under a \nshadow of doubt, the rule of prudence demands that the independent \npublic witnesses must be examined and corroborating material must \nbe gathered.",
+        "start_char": 28799,
+        "end_char": 30217
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN014_DISTINGUISHED_PRECEDENT_BISHAL_JAISWAL",
+    "category": "distinguished_precedents",
+    "fixture_type": "corpus_grounded",
+    "query": "Did the Supreme Court in Bishal Jaiswal hold that balance sheet entries are inadmissible to extend limitation under Section 18 of the Limitation Act?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Passage records that Bishal Jaiswal was cited to dismiss the appellant's challenge, holding the opposite: balance sheets DO constitute valid Section 18 acknowledgments.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_1462_1474",
+        "case_title": "VIDYASAGAR PRASAD versus UCO BANK & ANR.",
+        "citation": "2024INSC810",
+        "passage_text": "By relying on Asset Reconstruction \nCompany (India) Ltd. v. Bishal Jaiswal [2021] 3 SCR 524, the Civil \nAppeal filed by the Appellant was dismissed",
+        "start_char": 1543,
+        "end_char": 1690
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN015_BARE_STATUTORY_MENTION_IPC_449_450",
+    "category": "statutory_interpretation_vs_bare_mention",
+    "fixture_type": "corpus_grounded",
+    "query": "What are the essential elements required to establish the legal standard for lurking house-trespass by night under Section 449 and Section 450 IPC?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Sections 449 and 450 IPC are merely listed in the procedural history of trial charges without any judicial analysis or interpretation of their legal standard.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_108_125",
+        "case_title": "VIJAY SINGH @ VIJAY KR. SHARMA versus THE STATE OF BIHAR",
+        "citation": "2024INSC735",
+        "passage_text": "The Trial Court charged all seven accused persons for the commission \nof offences punishable under Sections 323, 302, 364, 449, 450, \n380/34 and 120-B of the Indian Penal Code, 1860.2 Later, accused \nnos. 6 and 7 were distinctly charged for the commission of offences \npunishable under Sections 342, 506 read with Section 34 of IPC. \nAfter trial, the Trial Court, vide order dated 05.06.1992, convicted \nthe accused persons listed as accused nos. 1, 2, 3, 4 and 5 for the \ncommission of offences under Section 302/34 and 364/34 of IPC. \nThey were acquitted of all other charges, and accused nos. 6 and \n7 were acquitted of all the charges.",
+        "start_char": 6889,
+        "end_char": 7528
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN016_BARE_STATUTORY_MENTION_SECTION_406_IPC",
+    "category": "statutory_interpretation_vs_bare_mention",
+    "fixture_type": "corpus_grounded",
+    "query": "What is the corporate alter ego test and standard of proof for criminal breach of trust under Section 406 IPC?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Section 406 IPC appears only in a headnote category reference without substantive ratio decidendi on the corporate alter ego doctrine.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_1902_1917",
+        "case_title": "HDFC BANK LTD. versus THE STATE OF BIHAR & ORS.",
+        "citation": "2024INSC807",
+        "passage_text": "Criminal law – Section 482 CrPC – Quashing of FIR – Prima \nfacie inquiry as to whether the ingredients of the offence in \nthe FIR are made out or not.\nCriminal law – Essential ingredients for offence under Section \n406, 409 and 462 of IPC:\nHeld: The following ingredients will have to",
+        "start_char": 1202,
+        "end_char": 1486
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN017_BARE_STATUTORY_MENTION_SECTION_504_IPC",
+    "category": "statutory_interpretation_vs_bare_mention",
+    "fixture_type": "corpus_grounded",
+    "query": "What are the statutory ingredients and doctrine of intentional insult to provoke breach of peace under Section 504 IPC?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Passage formulates the judicial test solely for suicide abetment under Section 306/107 IPC and completely lacks any analysis of Section 504 IPC.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_1483_1502",
+        "case_title": "NIPUN ANEJA AND OTHERS versus STATE OF UTTAR PRADESH",
+        "citation": "2024INSC767",
+        "passage_text": "Held: The test that the Court should adopt in this type of cases is \nto make an endeavour to ascertain on the basis of the materials on \nrecord whether there is anything to indicate even prima facie that \nthe accused intended the consequences of the act, i.e., suicide – \nOver a period of time, the trend of the courts is that such intention \ncan be read into or gathered only after a full-fledged trial – In the \ncase on hand, the entire approach of the High Court could be said \nto be incorrect – The High Court should have examined the matter \nkeeping in mind the following: (a) On the date of the meeting, i.e., \n03.11.2006, did the appellants create a situation of unbearable \nharassment or torture, leading the deceased to see suicide as the \nonly escape",
+        "start_char": 974,
+        "end_char": 1734
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN018_MULTIPART_ARTICLE_142_PUNITIVE_DAMAGES",
+    "category": "multi_part_questions",
+    "fixture_type": "corpus_grounded",
+    "query": "Can the Supreme Court exercise powers under Article 142 of the Constitution to grant admission and also award punitive exemplary damages against testing authorities?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Evidence grounds admission under Article 142, but completely lacks grounding for conjunctive punitive damages element.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_150_153",
+        "case_title": "ATUL KUMAR versus THE CHAIRMAN (JOINT SEAT ALLOCATION AUTHORITY) AND OTHERS",
+        "citation": "2024INSC749",
+        "passage_text": "Held: Petitioner logged in as many as on six occasions and \nuploaded the documents, which evidently indicates that he was \nmaking earnest efforts to log into the portal – No conceivable \nreason why the petitioner would not have done so if he had the \nwherewithal to pay the fees of Rs 17,500 – Talented student like \nthe petitioner who belongs to a marginalized group of citizens \nand has done everything to secure admission should not be left \nin the lurch – Power of this Court u/Art.142 to do substantial \njustice is meant precisely to cover such a situation – Petitioner \nto be granted admission to IIT Dhanbad against the seat which \nwas allotted to him in the branch of Electrical Engineering  – \nSupernumerary seat to be created for the petitioner, if so \nrequired. [Paras 6, 7]",
+        "start_char": 888,
+        "end_char": 1673
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN019_MULTIPART_IBC_SOVEREIGN_IMMUNITY",
+    "category": "multi_part_questions",
+    "fixture_type": "corpus_grounded",
+    "query": "Can any person aggrieved maintain an appeal under Section 62 IBC and simultaneously claim foreign sovereign immunity for Delaware entities?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Evidence grounds Section 62 IBC statutory standing, but completely lacks grounding for foreign sovereign immunity.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_1802_1854",
+        "case_title": "GLAS TRUST COMPANY LLC  versus BYJU RAVEENDRAN & ORS.",
+        "citation": "2024INSC811",
+        "passage_text": "Held: Yes – Under Section 62 governing statutory appeals to \nthe Supreme Court from the orders of the NCLAT, “any person” \naggrieved by the order of the NCLAT may file an appeal before \nthe Supreme Court – Section 61 which provides for appeals to \nNCLAT from orders of the NCLT uses similar language – The \nuse of the phrase “any person aggrieved” indicates that there is \nno rigid locus requirement to institute an appeal challenging an \norder of the NCLT, before the NCLAT or an order of the NCLAT, \nbefore this Court – Any person who is aggrieved by the order may \n* Author\n\n[2024] 10 S.C.R. \b\n1803\nGLAS Trust Company LLC v. BYJU Raveendran & Ors.\ninstitute an appeal, and nothing in the provision restricts the phrase \nto only the applicant creditor and the corporate debtor – Once the \nCIRP is initiated, the proceedings are no longer restricted to the \nindividual applicant creditor and the corporate debtor but rather \nbecome collective proceedings (in rem), where all creditors, such \nas the appellant, are necessary stakeholders",
+        "start_char": 1159,
+        "end_char": 2196
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN020_MULTIPART_PMLA_SANCTION_EXTRADITION",
+    "category": "multi_part_questions",
+    "fixture_type": "corpus_grounded",
+    "query": "Does Section 197 CrPC apply to PMLA complaints and also mandate preliminary inquiry under Singapore extradition treaties?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Evidence grounds Section 197 CrPC applicability to PMLA, but lacks grounding for extradition treaty formalities.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_11_510_522",
+        "case_title": "DIRECTORATE OF ENFORCEMENT versus BIBHU PRASAD ACHARYA, ETC.",
+        "citation": "2024INSC843",
+        "passage_text": "As far as the applicability of s.197 of CrPC to the \nPMLA is concerned, there are two relevant provisions in the form \nof s.65 and 71 of the PMLA – S.65 makes the provisions of the \nCrPC applicable to all proceedings under the PMLA, provided \nthe same are not inconsistent with the provisions contained in \nthe PMLA – The words ‘All other proceedings’ in s.65 include a \ncomplaint u/s.44 (1)(b) of the PMLA – There is no provision therein \nwhich is inconsistent with the provisions of s.197(1) of CrPC – \nTherefore, the provisions of s.197(1) of CrPC are applicable to a \ncomplaint u/s.44(1)(b) of the PMLA",
+        "start_char": 2364,
+        "end_char": 2970
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN021_CONTRADICTORY_SARFAESI_RULE_9_4",
+    "category": "contradictory_evidence",
+    "fixture_type": "corpus_grounded",
+    "query": "Is the time period for deposit under Rule 9(4) of the Security Interest Rules strictly non-extendable under any circumstances?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Evidence contains unresolved contradictory assertions: E1 asserts strictly non-extendable mandatory bar, while E2 holds it is not absolute/sacrosanct and is extendable with consent.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_1371_1380",
+        "case_title": "IDBI Bank Ltd. v. Ramswaroop Daliya and Ors.",
+        "passage_text": "Rule 9(4) of the Security Interest Rules prescribes a strictly non-extendable mandatory bar; the fifteen-day period cannot be extended under any circumstances.",
+        "start_char": 200,
+        "end_char": 360
+      },
+      {
+        "evidence_id": "E2",
+        "document_id": "2024_10_1371_1380",
+        "case_title": "IDBI BANK LTD. versus RAMSWAROOP DALIYA AND ORS.",
+        "citation": "2024INSC780",
+        "passage_text": "Held: The period to deposit the balance sale consideration under \nr.9(4) is not absolute/sacrosanct and is extendable with the consent \nin writing of the parties – r.9(4) will only come into play when there \nis default on part of the party i.e. the auction purchaser to deposit \nthe amount",
+        "start_char": 639,
+        "end_char": 928
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN022_CONTRADICTORY_PMLA_SECTION_197_CRPC",
+    "category": "contradictory_evidence",
+    "fixture_type": "corpus_grounded",
+    "query": "Does Section 197 of the CrPC apply to criminal complaints under Section 44 of the PMLA?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Evidence contains contradictory propositions regarding whether Section 197 CrPC applies or is completely barred under PMLA.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_11_510_522",
+        "case_title": "DIRECTORATE OF ENFORCEMENT versus BIBHU PRASAD ACHARYA, ETC.",
+        "citation": "2024INSC843",
+        "passage_text": "As far as the applicability of s.197 of CrPC to the \nPMLA is concerned, there are two relevant provisions in the form \nof s.65 and 71 of the PMLA – S.65 makes the provisions of the \nCrPC applicable to all proceedings under the PMLA, provided \nthe same are not inconsistent with the provisions contained in \nthe PMLA – The words ‘All other proceedings’ in s.65 include a \ncomplaint u/s.44 (1)(b) of the PMLA – There is no provision therein \nwhich is inconsistent with the provisions of s.197(1) of CrPC – \nTherefore, the provisions of s.197(1) of CrPC are applicable to a \ncomplaint u/s.44(1)(b) of the PMLA",
+        "start_char": 2364,
+        "end_char": 2970
+      },
+      {
+        "evidence_id": "E2",
+        "document_id": "2024_11_510_522",
+        "case_title": "Directorate of Enforcement v. Bibhu Prasad Acharya",
+        "passage_text": "Section 71 of the PMLA contains a strictly non-extendable mandatory bar excluding Section 197 of CrPC; the requirement of obtaining sanction cannot be extended under any circumstances to PMLA offences.",
+        "start_char": 7000,
+        "end_char": 7215
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN023_DATE_SENSITIVITY_PATENTS_ACT_1970",
+    "category": "date_procedural_sensitivity",
+    "fixture_type": "corpus_grounded",
+    "query": "Does Section 3(j) of the Patents Act, 1970 grant patent immunity to genetically modified mustard seed varieties in 2024 Supreme Court judgments?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Historical statute year (1970) and patent provisions are absent from retrieved 2024 criminal/POCSO evidence.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_154_314",
+        "case_title": "JUST RIGHTS FOR CHILDREN ALLIANCE & ANR. versus S. HARISH & ORS.",
+        "citation": "2024INSC716",
+        "passage_text": "Held: Yes – Any activity of viewing, distributing or displaying etc., of \nany child pornographic material by a person over the internet without \nany actual or physical possession or storage of such material in \nany device or in any form or manner would amount to ‘possession’ \nin terms of Section 15 of the POCSO, provided the said person \nexercised an invariable degree of control over such material, by \nvirtue of the doctrine of constructive possession (possession beyond \nphysical control, having the power and intention to control the \ncontraband)",
+        "start_char": 1470,
+        "end_char": 2022
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN024_DATE_SENSITIVITY_KESAVANANDA_1973",
+    "category": "date_procedural_sensitivity",
+    "fixture_type": "corpus_grounded",
+    "query": "Did the 1973 Kesavananda Bharati decision strike down the 42nd Constitutional Amendment as unconstitutional?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Historical precedent year (1973) specified in query is absent from retrieved 2024 judgments.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_150_153",
+        "case_title": "ATUL KUMAR versus THE CHAIRMAN (JOINT SEAT ALLOCATION AUTHORITY) AND OTHERS",
+        "citation": "2024INSC749",
+        "passage_text": "Held: Petitioner logged in as many as on six occasions and \nuploaded the documents, which evidently indicates that he was \nmaking earnest efforts to log into the portal – No conceivable \nreason why the petitioner would not have done so if he had the \nwherewithal to pay the fees of Rs 17,500 – Talented student like \nthe petitioner who belongs to a marginalized group of citizens \nand has done everything to secure admission should not be left \nin the lurch – Power of this Court u/Art.142 to do substantial \njustice is meant precisely to cover such a situation – Petitioner \nto be granted admission to IIT Dhanbad against the seat which \nwas allotted to him in the branch of Electrical Engineering  – \nSupernumerary seat to be created for the petitioner, if so \nrequired. [Paras 6, 7]",
+        "start_char": 888,
+        "end_char": 1673
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN025_TOPICALLY_RELEVANT_SECTION_82_PROCLAMATION",
+    "category": "topically_relevant_insufficient_grounding",
+    "fixture_type": "corpus_grounded",
+    "query": "Can an accused against whom a proclamation under Section 82 CrPC has been issued maintain an application for anticipatory bail under Section 438 CrPC?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Evidence discusses Section 438 pre-arrest bail in multiple cases, but completely lacks any mention or grounding regarding Section 82 CrPC proclaimed offenders.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_9_257_312",
+        "case_title": "Dhanraj Aswani v. Amar S. Mulchandani",
+        "passage_text": "Under Section 438, the pre-condition for a person to apply for pre-arrest bail is a reason to believe that he may be arrested on an accusation of having committed a non-bailable offence. Custody in one case does not take away apprehension of arrest in a different case.",
+        "start_char": 450,
+        "end_char": 715
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN026_TOPICALLY_RELEVANT_SECTION_138_COMPOUNDING",
+    "category": "topically_relevant_insufficient_grounding",
+    "fixture_type": "corpus_grounded",
+    "query": "Can a cheque bounce complaint under Section 138 of the Negotiable Instruments Act be compounded without the consent of the complainant upon deposit of costs?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Evidence discusses Section 138/141 company drawer liability, but does not address unilateral or non-consensual compounding under Section 138.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_12_1946_1996",
+        "case_title": "BIJOY KUMAR MONI versus PARESH MANNA & ANR.",
+        "citation": "2024INSC1024",
+        "passage_text": "In \ncase of a cheque issued on behalf of a company by its authorised \nsignatory, prosecution cannot proceed against the such authorised \nsignatory or other post-holders of the company as described under \n*Author\n\n[2024] 12 S.C.R. \b\n1947\nBijoy Kumar Moni v. Paresh Manna & Anr.\nSection 141 of the NI Act, unless the company who is the drawer \nof the cheque is arraigned as an accused in the complaint case \nfiled before the magistrate – Further, vicarious liability can only \nbe affixed against the directors, authorised signatories, etc. of the \ncompany after the company is held liable for the commission of \noffence under Section 138. [Paras 49, 50]",
+        "start_char": 1771,
+        "end_char": 2422
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN027_TOPICALLY_RELEVANT_IBC_MORATORIUM_SECTION_138",
+    "category": "topically_relevant_insufficient_grounding",
+    "fixture_type": "corpus_grounded",
+    "query": "Does the statutory moratorium under Section 14 of the Insolvency and Bankruptcy Code automatically bar criminal prosecution under Section 138 of the Negotiable Instruments Act against directors?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Evidence from Glas Trust discusses Section 62 IBC appellate standing, but does not address Section 14 moratorium applicability to Section 138 NI Act prosecutions.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_1802_1854",
+        "case_title": "GLAS TRUST COMPANY LLC  versus BYJU RAVEENDRAN & ORS.",
+        "citation": "2024INSC811",
+        "passage_text": "Held: Yes – Under Section 62 governing statutory appeals to \nthe Supreme Court from the orders of the NCLAT, “any person” \naggrieved by the order of the NCLAT may file an appeal before \nthe Supreme Court – Section 61 which provides for appeals to \nNCLAT from orders of the NCLT uses similar language – The \nuse of the phrase “any person aggrieved” indicates that there is \nno rigid locus requirement to institute an appeal challenging an \norder of the NCLT, before the NCLAT or an order of the NCLAT, \nbefore this Court – Any person who is aggrieved by the order may \n* Author\n\n[2024] 10 S.C.R. \b\n1803\nGLAS Trust Company LLC v. BYJU Raveendran & Ors.\ninstitute an appeal, and nothing in the provision restricts the phrase \nto only the applicant creditor and the corporate debtor – Once the \nCIRP is initiated, the proceedings are no longer restricted to the \nindividual applicant creditor and the corporate debtor but rather \nbecome collective proceedings (in rem), where all creditors, such \nas the appellant, are necessary stakeholders",
+        "start_char": 1159,
+        "end_char": 2196
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN028_OUT_OF_CORPUS_DPDP_ACT",
+    "category": "out_of_corpus_unanswerable",
+    "fixture_type": "out_of_corpus",
+    "query": "What are the eligibility criteria and tenure prescribed under Section 18 of the Digital Personal Data Protection Act, 2023 for members of the Data Protection Board of India?",
+    "expected_status": "no_relevant_evidence",
+    "expected_is_grounded": false,
+    "rationale": "Digital Personal Data Protection Act, 2023 is entirely outside the 2024 Supreme Court judgments corpus. No qualifying evidence passages exist.",
+    "passages": []
+  },
+  {
+    "test_id": "UNSEEN029_OUT_OF_CORPUS_ELECTION_COMMISSION_ACT",
+    "category": "out_of_corpus_unanswerable",
+    "fixture_type": "out_of_corpus",
+    "query": "Does the Chief Election Commissioner and other Election Commissioners (Appointment, Conditions of Service and Term of Office) Act, 2023 violate the independence of the Election Commission?",
+    "expected_status": "no_relevant_evidence",
+    "expected_is_grounded": false,
+    "rationale": "The 2023 Election Commissioners statute is not interpreted in the available 2024 corpus. No qualifying evidence passages exist.",
+    "passages": []
+  },
+  {
+    "test_id": "UNSEEN030_OUT_OF_CORPUS_BNS_HIT_AND_RUN",
+    "category": "out_of_corpus_unanswerable",
+    "fixture_type": "out_of_corpus",
+    "query": "What are the reporting requirements and penalties prescribed under Section 106(2) of the Bharatiya Nyaya Sanhita, 2023 for failure of a driver to report an accident?",
+    "expected_status": "no_relevant_evidence",
+    "expected_is_grounded": false,
+    "rationale": "Bharatiya Nyaya Sanhita 2023 is not interpreted in the 2024 Supreme Court judgment corpus. No qualifying evidence passages exist.",
+    "passages": []
+  },
+  {
+    "test_id": "UNSEEN031_NEEDS_HUMAN_REVIEW_ATUL_KUMAR_EQUITY",
+    "category": "needs_human_review",
+    "fixture_type": "corpus_grounded",
+    "query": "Does the judgment in Atul Kumar v. Chairman JOSAA establish a binding principle that any candidate who fails to pay tuition fees before the prescribed deadline due to financial poverty is legally entitled to admission under Article 142?",
+    "expected_status": "needs_human_review",
+    "expected_is_grounded": null,
+    "rationale": "Borderline equitable/doctrinal case: The Court exercised Article 142 powers on unique facts involving 6 earnest portal login attempts and marginalized status; whether this establishes a binding rule of general application or discretionary relief confined to its facts is a nuanced legal distinction requiring human review.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_150_153",
+        "case_title": "ATUL KUMAR versus THE CHAIRMAN (JOINT SEAT ALLOCATION AUTHORITY) AND OTHERS",
+        "citation": "2024INSC749",
+        "passage_text": "Held: Petitioner logged in as many as on six occasions and \nuploaded the documents, which evidently indicates that he was \nmaking earnest efforts to log into the portal – No conceivable \nreason why the petitioner would not have done so if he had the \nwherewithal to pay the fees of Rs 17,500 – Talented student like \nthe petitioner who belongs to a marginalized group of citizens \nand has done everything to secure admission should not be left \nin the lurch – Power of this Court u/Art.142 to do substantial \njustice is meant precisely to cover such a situation – Petitioner \nto be granted admission to IIT Dhanbad against the seat which \nwas allotted to him in the branch of Electrical Engineering  – \nSupernumerary seat to be created for the petitioner, if so \nrequired. [Paras 6, 7]",
+        "start_char": 888,
+        "end_char": 1673
+      }
+    ]
+  },
+  {
+    "test_id": "UNSEEN032_NEEDS_HUMAN_REVIEW_SECTION_106_BURDEN",
+    "category": "needs_human_review",
+    "fixture_type": "corpus_grounded",
+    "query": "Under Section 106 of the Evidence Act, does the failure of an accused to explain what happened after being last seen alive with the deceased independently suffice to convict him of murder in the absence of other circumstantial evidence?",
+    "expected_status": "needs_human_review",
+    "expected_is_grounded": null,
+    "rationale": "Complex burden of proof doctrine: Section 106 provides an additional link once foundational facts are established, but does not independently establish guilt; whether evidence strictly 'answers' this nuanced question is legally contestable and flagged for human review.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_12_1072_1092",
+        "case_title": "SAMBHUBHAI RAISANGBHAI PADHIYAR versus STATE OF GUJARAT",
+        "citation": "",
+        "passage_text": "Held: Time lag between the accused being last seen with the \ndeceased and the sighting of the dead body lying was extremely \nshort and accused was to offer a plausible explanation as to how \nhe parted company with the deceased and the explanation offered \nmust be satisfactory, which he failed to do so, that itself provides \nan additional link in the chain of circumstances",
+        "start_char": 924,
+        "end_char": 1298
+      }
+    ]
+  }
+]

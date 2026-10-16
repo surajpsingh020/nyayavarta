@@ -1,0 +1,624 @@
+{
+  "metadata": {
+    "milestone": "Milestone 24",
+    "audit_type": "Frozen Staging Evaluation Re-Evaluation",
+    "staging_dataset": "evaluation/rag/milestone20_staging_claims.jsonl",
+    "provenance": "developer_curated_frozen_pre_evaluation",
+    "total_cases": 40,
+    "independently_reviewed": false,
+    "external_review_status": "PENDING_EXTERNAL_REVIEW",
+    "graph_traversal_enabled": false
+  },
+  "policy_1_deterministic": {
+    "policy_name": "Policy 1 (Deterministic Baseline)",
+    "total_records": 40,
+    "confusion_matrix": {
+      "supported": {
+        "supported": 8,
+        "partially_supported": 0,
+        "unsupported": 0,
+        "contradicted": 0,
+        "not_evaluated": 2
+      },
+      "partially_supported": {
+        "supported": 0,
+        "partially_supported": 4,
+        "unsupported": 2,
+        "contradicted": 0,
+        "not_evaluated": 4
+      },
+      "unsupported": {
+        "supported": 0,
+        "partially_supported": 0,
+        "unsupported": 8,
+        "contradicted": 0,
+        "not_evaluated": 2
+      },
+      "contradicted": {
+        "supported": 4,
+        "partially_supported": 1,
+        "unsupported": 1,
+        "contradicted": 0,
+        "not_evaluated": 4
+      },
+      "not_evaluated": {
+        "supported": 0,
+        "partially_supported": 0,
+        "unsupported": 0,
+        "contradicted": 0,
+        "not_evaluated": 0
+      }
+    },
+    "metrics": {
+      "supported_precision": {
+        "value": 0.6667,
+        "numerator": 8,
+        "denominator": 12,
+        "unit": "claim"
+      },
+      "supported_recall": {
+        "value": 0.8,
+        "numerator": 8,
+        "denominator": 10,
+        "unit": "claim"
+      },
+      "supported_f1": {
+        "value": 0.7273,
+        "numerator": "2 * P * R",
+        "denominator": "P + R",
+        "unit": "claim"
+      },
+      "non_supported_far": {
+        "value": 0.1333,
+        "numerator": 4,
+        "denominator": 30,
+        "unit": "claim"
+      },
+      "contradiction_far": {
+        "value": 0.4,
+        "numerator": 4,
+        "denominator": 10,
+        "unit": "claim"
+      },
+      "partially_supported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim"
+      },
+      "unsupported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim"
+      }
+    }
+  },
+  "policy_3_hardened": {
+    "policy_name": "Policy 3 (Contradiction Veto Hardened)",
+    "total_records": 40,
+    "confusion_matrix": {
+      "supported": {
+        "supported": 7,
+        "partially_supported": 0,
+        "unsupported": 0,
+        "contradicted": 1,
+        "not_evaluated": 2
+      },
+      "partially_supported": {
+        "supported": 0,
+        "partially_supported": 4,
+        "unsupported": 2,
+        "contradicted": 0,
+        "not_evaluated": 4
+      },
+      "unsupported": {
+        "supported": 0,
+        "partially_supported": 0,
+        "unsupported": 8,
+        "contradicted": 0,
+        "not_evaluated": 2
+      },
+      "contradicted": {
+        "supported": 0,
+        "partially_supported": 1,
+        "unsupported": 1,
+        "contradicted": 4,
+        "not_evaluated": 4
+      },
+      "not_evaluated": {
+        "supported": 0,
+        "partially_supported": 0,
+        "unsupported": 0,
+        "contradicted": 0,
+        "not_evaluated": 0
+      }
+    },
+    "metrics": {
+      "supported_precision": {
+        "value": 1.0,
+        "numerator": 7,
+        "denominator": 7,
+        "unit": "claim"
+      },
+      "supported_recall": {
+        "value": 0.7,
+        "numerator": 7,
+        "denominator": 10,
+        "unit": "claim"
+      },
+      "supported_f1": {
+        "value": 0.8235,
+        "numerator": "2 * P * R",
+        "denominator": "P + R",
+        "unit": "claim"
+      },
+      "non_supported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 30,
+        "unit": "claim"
+      },
+      "contradiction_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim"
+      },
+      "partially_supported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim"
+      },
+      "unsupported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim"
+      }
+    }
+  },
+  "case_audits": [
+    {
+      "case_id": "M20_STAGE_001",
+      "gold_label": "supported",
+      "p1_pred": "supported",
+      "p1_method": "direct_holding_entailment",
+      "p3_pred": "supported",
+      "p3_method": "direct_holding_entailment",
+      "contradiction_score": 0.0085,
+      "entailment_score": 0.0022,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_002",
+      "gold_label": "supported",
+      "p1_pred": "not_evaluated",
+      "p1_method": "unverified_fallback",
+      "p3_pred": "not_evaluated",
+      "p3_method": "unverified_fallback",
+      "contradiction_score": 0.0107,
+      "entailment_score": 0.0028,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_003",
+      "gold_label": "supported",
+      "p1_pred": "not_evaluated",
+      "p1_method": "unverified_fallback",
+      "p3_pred": "not_evaluated",
+      "p3_method": "unverified_fallback",
+      "contradiction_score": 0.1355,
+      "entailment_score": 0.1228,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_004",
+      "gold_label": "supported",
+      "p1_pred": "supported",
+      "p1_method": "direct_holding_entailment",
+      "p3_pred": "supported",
+      "p3_method": "direct_holding_entailment",
+      "contradiction_score": 0.0021,
+      "entailment_score": 0.9179,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_005",
+      "gold_label": "supported",
+      "p1_pred": "supported",
+      "p1_method": "direct_holding_entailment",
+      "p3_pred": "supported",
+      "p3_method": "direct_holding_entailment",
+      "contradiction_score": 0.001,
+      "entailment_score": 0.0018,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_006",
+      "gold_label": "supported",
+      "p1_pred": "supported",
+      "p1_method": "direct_holding_entailment",
+      "p3_pred": "supported",
+      "p3_method": "direct_holding_entailment",
+      "contradiction_score": 0.0045,
+      "entailment_score": 0.445,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_007",
+      "gold_label": "supported",
+      "p1_pred": "supported",
+      "p1_method": "direct_holding_entailment",
+      "p3_pred": "supported",
+      "p3_method": "direct_holding_entailment",
+      "contradiction_score": 0.0037,
+      "entailment_score": 0.4213,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_008",
+      "gold_label": "supported",
+      "p1_pred": "supported",
+      "p1_method": "direct_holding_entailment",
+      "p3_pred": "supported",
+      "p3_method": "direct_holding_entailment",
+      "contradiction_score": 0.0059,
+      "entailment_score": 0.0009,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_009",
+      "gold_label": "supported",
+      "p1_pred": "supported",
+      "p1_method": "direct_holding_entailment",
+      "p3_pred": "supported",
+      "p3_method": "direct_holding_entailment",
+      "contradiction_score": 0.0025,
+      "entailment_score": 0.0002,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_010",
+      "gold_label": "supported",
+      "p1_pred": "supported",
+      "p1_method": "direct_holding_entailment",
+      "p3_pred": "contradicted",
+      "p3_method": "policy_3_nli_contradiction_veto",
+      "contradiction_score": 0.9836,
+      "entailment_score": 0.0019,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_011",
+      "gold_label": "partially_supported",
+      "p1_pred": "not_evaluated",
+      "p1_method": "unverified_fallback",
+      "p3_pred": "not_evaluated",
+      "p3_method": "unverified_fallback",
+      "contradiction_score": 0.5711,
+      "entailment_score": 0.0016,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_012",
+      "gold_label": "partially_supported",
+      "p1_pred": "partially_supported",
+      "p1_method": "statutory_qualification_omission_check",
+      "p3_pred": "partially_supported",
+      "p3_method": "statutory_qualification_omission_check",
+      "contradiction_score": 0.6931,
+      "entailment_score": 0.2303,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_013",
+      "gold_label": "partially_supported",
+      "p1_pred": "not_evaluated",
+      "p1_method": "unverified_fallback",
+      "p3_pred": "not_evaluated",
+      "p3_method": "unverified_fallback",
+      "contradiction_score": 0.001,
+      "entailment_score": 0.0023,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_014",
+      "gold_label": "partially_supported",
+      "p1_pred": "not_evaluated",
+      "p1_method": "unverified_fallback",
+      "p3_pred": "not_evaluated",
+      "p3_method": "unverified_fallback",
+      "contradiction_score": 0.0023,
+      "entailment_score": 0.0009,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_015",
+      "gold_label": "partially_supported",
+      "p1_pred": "partially_supported",
+      "p1_method": "statutory_qualification_omission_check",
+      "p3_pred": "partially_supported",
+      "p3_method": "statutory_qualification_omission_check",
+      "contradiction_score": 0.001,
+      "entailment_score": 0.0035,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_016",
+      "gold_label": "partially_supported",
+      "p1_pred": "partially_supported",
+      "p1_method": "statutory_qualification_omission_check",
+      "p3_pred": "partially_supported",
+      "p3_method": "statutory_qualification_omission_check",
+      "contradiction_score": 0.0002,
+      "entailment_score": 0.0129,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_017",
+      "gold_label": "partially_supported",
+      "p1_pred": "not_evaluated",
+      "p1_method": "unverified_fallback",
+      "p3_pred": "not_evaluated",
+      "p3_method": "unverified_fallback",
+      "contradiction_score": 0.0242,
+      "entailment_score": 0.0037,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_018",
+      "gold_label": "partially_supported",
+      "p1_pred": "unsupported",
+      "p1_method": "unrelated_evidence_check",
+      "p3_pred": "unsupported",
+      "p3_method": "unrelated_evidence_check",
+      "contradiction_score": 0.0026,
+      "entailment_score": 0.0006,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_019",
+      "gold_label": "partially_supported",
+      "p1_pred": "partially_supported",
+      "p1_method": "statutory_qualification_omission_check",
+      "p3_pred": "partially_supported",
+      "p3_method": "statutory_qualification_omission_check",
+      "contradiction_score": 0.0264,
+      "entailment_score": 0.0878,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_020",
+      "gold_label": "partially_supported",
+      "p1_pred": "unsupported",
+      "p1_method": "unrelated_evidence_check",
+      "p3_pred": "unsupported",
+      "p3_method": "unrelated_evidence_check",
+      "contradiction_score": 0.1635,
+      "entailment_score": 0.0023,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_021",
+      "gold_label": "unsupported",
+      "p1_pred": "unsupported",
+      "p1_method": "unrelated_evidence_check",
+      "p3_pred": "unsupported",
+      "p3_method": "unrelated_evidence_check",
+      "contradiction_score": 0.069,
+      "entailment_score": 0.0015,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_022",
+      "gold_label": "unsupported",
+      "p1_pred": "unsupported",
+      "p1_method": "unrelated_evidence_check",
+      "p3_pred": "unsupported",
+      "p3_method": "unrelated_evidence_check",
+      "contradiction_score": 0.9313,
+      "entailment_score": 0.0001,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_023",
+      "gold_label": "unsupported",
+      "p1_pred": "unsupported",
+      "p1_method": "unrelated_evidence_check",
+      "p3_pred": "unsupported",
+      "p3_method": "unrelated_evidence_check",
+      "contradiction_score": 0.9998,
+      "entailment_score": 0.0,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_024",
+      "gold_label": "unsupported",
+      "p1_pred": "unsupported",
+      "p1_method": "unrelated_evidence_check",
+      "p3_pred": "unsupported",
+      "p3_method": "unrelated_evidence_check",
+      "contradiction_score": 0.9926,
+      "entailment_score": 0.0006,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_025",
+      "gold_label": "unsupported",
+      "p1_pred": "unsupported",
+      "p1_method": "unrelated_evidence_check",
+      "p3_pred": "unsupported",
+      "p3_method": "unrelated_evidence_check",
+      "contradiction_score": 0.2044,
+      "entailment_score": 0.0041,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_026",
+      "gold_label": "unsupported",
+      "p1_pred": "not_evaluated",
+      "p1_method": "unverified_fallback",
+      "p3_pred": "not_evaluated",
+      "p3_method": "unverified_fallback",
+      "contradiction_score": 0.9998,
+      "entailment_score": 0.0,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_027",
+      "gold_label": "unsupported",
+      "p1_pred": "unsupported",
+      "p1_method": "unrelated_evidence_check",
+      "p3_pred": "unsupported",
+      "p3_method": "unrelated_evidence_check",
+      "contradiction_score": 0.7308,
+      "entailment_score": 0.0046,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_028",
+      "gold_label": "unsupported",
+      "p1_pred": "unsupported",
+      "p1_method": "unrelated_evidence_check",
+      "p3_pred": "unsupported",
+      "p3_method": "unrelated_evidence_check",
+      "contradiction_score": 0.2882,
+      "entailment_score": 0.1801,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_029",
+      "gold_label": "unsupported",
+      "p1_pred": "unsupported",
+      "p1_method": "unrelated_evidence_check",
+      "p3_pred": "unsupported",
+      "p3_method": "unrelated_evidence_check",
+      "contradiction_score": 0.9973,
+      "entailment_score": 0.0,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_030",
+      "gold_label": "unsupported",
+      "p1_pred": "not_evaluated",
+      "p1_method": "unverified_fallback",
+      "p3_pred": "not_evaluated",
+      "p3_method": "unverified_fallback",
+      "contradiction_score": 0.003,
+      "entailment_score": 0.0001,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_031",
+      "gold_label": "contradicted",
+      "p1_pred": "not_evaluated",
+      "p1_method": "unverified_fallback",
+      "p3_pred": "not_evaluated",
+      "p3_method": "unverified_fallback",
+      "contradiction_score": 0.9991,
+      "entailment_score": 0.0,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_032",
+      "gold_label": "contradicted",
+      "p1_pred": "not_evaluated",
+      "p1_method": "unverified_fallback",
+      "p3_pred": "not_evaluated",
+      "p3_method": "unverified_fallback",
+      "contradiction_score": 0.9813,
+      "entailment_score": 0.0002,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_033",
+      "gold_label": "contradicted",
+      "p1_pred": "supported",
+      "p1_method": "direct_holding_entailment",
+      "p3_pred": "contradicted",
+      "p3_method": "policy_3_nli_contradiction_veto",
+      "contradiction_score": 0.9981,
+      "entailment_score": 0.0,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_034",
+      "gold_label": "contradicted",
+      "p1_pred": "not_evaluated",
+      "p1_method": "unverified_fallback",
+      "p3_pred": "not_evaluated",
+      "p3_method": "unverified_fallback",
+      "contradiction_score": 0.9988,
+      "entailment_score": 0.0,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_035",
+      "gold_label": "contradicted",
+      "p1_pred": "supported",
+      "p1_method": "direct_holding_entailment",
+      "p3_pred": "contradicted",
+      "p3_method": "policy_3_nli_contradiction_veto",
+      "contradiction_score": 0.9992,
+      "entailment_score": 0.0001,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_036",
+      "gold_label": "contradicted",
+      "p1_pred": "partially_supported",
+      "p1_method": "statutory_qualification_omission_check",
+      "p3_pred": "partially_supported",
+      "p3_method": "statutory_qualification_omission_check",
+      "contradiction_score": 0.0758,
+      "entailment_score": 0.0044,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_037",
+      "gold_label": "contradicted",
+      "p1_pred": "supported",
+      "p1_method": "direct_holding_entailment",
+      "p3_pred": "contradicted",
+      "p3_method": "policy_3_nli_contradiction_veto",
+      "contradiction_score": 0.9924,
+      "entailment_score": 0.0,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_038",
+      "gold_label": "contradicted",
+      "p1_pred": "not_evaluated",
+      "p1_method": "unverified_fallback",
+      "p3_pred": "not_evaluated",
+      "p3_method": "unverified_fallback",
+      "contradiction_score": 0.613,
+      "entailment_score": 0.0027,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_039",
+      "gold_label": "contradicted",
+      "p1_pred": "unsupported",
+      "p1_method": "unrelated_evidence_check",
+      "p3_pred": "unsupported",
+      "p3_method": "unrelated_evidence_check",
+      "contradiction_score": 0.9995,
+      "entailment_score": 0.0,
+      "safe_non_supported": true
+    },
+    {
+      "case_id": "M20_STAGE_040",
+      "gold_label": "contradicted",
+      "p1_pred": "supported",
+      "p1_method": "direct_holding_entailment",
+      "p3_pred": "contradicted",
+      "p3_method": "policy_3_nli_contradiction_veto",
+      "contradiction_score": 0.9969,
+      "entailment_score": 0.0002,
+      "safe_non_supported": true
+    }
+  ]
+}

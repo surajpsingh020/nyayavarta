@@ -1,0 +1,108 @@
+{
+    "total_documents": 782,
+    "unique_document_ids": 782,
+    "text_statistics": {
+        "empty_documents": 0,
+        "empty_document_ids": [],
+        "short_documents_under_1000_chars": 0,
+        "min_length_chars": 2059,
+        "max_length_chars": 917968,
+        "mean_length_chars": 53276.4,
+        "median_length_chars": 31908.5
+    },
+    "metadata_completeness": {
+        "case_title": {
+            "present_count": 782,
+            "percentage": 100.0
+        },
+        "citation": {
+            "present_count": 745,
+            "percentage": 95.27
+        },
+        "decision_date": {
+            "present_count": 782,
+            "percentage": 100.0
+        },
+        "judges": {
+            "present_count": 778,
+            "percentage": 99.49
+        },
+        "case_number": {
+            "present_count": 782,
+            "percentage": 100.0
+        },
+        "disposition": {
+            "present_count": 698,
+            "percentage": 89.26
+        },
+        "source_url": {
+            "present_count": 782,
+            "percentage": 100.0
+        },
+        "provenance": {
+            "present_count": 782,
+            "percentage": 100.0
+        },
+        "license": {
+            "present_count": 782,
+            "percentage": 100.0
+        }
+    },
+    "citation_pattern_scan": {
+        "scc": {
+            "total_occurrences": 819,
+            "documents_containing": 235,
+            "doc_coverage_pct": 30.05
+        },
+        "air": {
+            "total_occurrences": 1002,
+            "documents_containing": 225,
+            "doc_coverage_pct": 28.77
+        },
+        "scr": {
+            "total_occurrences": 8360,
+            "documents_containing": 782,
+            "doc_coverage_pct": 100.0
+        },
+        "insc": {
+            "total_occurrences": 1622,
+            "documents_containing": 782,
+            "doc_coverage_pct": 100.0
+        },
+        "v_versus": {
+            "total_occurrences": 26248,
+            "documents_containing": 780,
+            "doc_coverage_pct": 99.74
+        },
+        "section": {
+            "total_occurrences": 27131,
+            "documents_containing": 649,
+            "doc_coverage_pct": 82.99
+        },
+        "article": {
+            "total_occurrences": 9215,
+            "documents_containing": 403,
+            "doc_coverage_pct": 51.53
+        },
+        "act": {
+            "total_occurrences": 7302,
+            "documents_containing": 663,
+            "doc_coverage_pct": 84.78
+        },
+        "order_rule": {
+            "total_occurrences": 515,
+            "documents_containing": 82,
+            "doc_coverage_pct": 10.49
+        },
+        "schedule": {
+            "total_occurrences": 812,
+            "documents_containing": 65,
+            "doc_coverage_pct": 8.31
+        }
+    },
+    "detected_artifacts": {
+        "headnotes_marker_present": 781,
+        "coram_author_asterisk_present": 245,
+        "non_standard_encoding_present": 751
+    }
+}

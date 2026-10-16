@@ -1,0 +1,530 @@
+{
+  "policy_1": {
+    "policy_name": "Policy 1 - Deterministic Alone",
+    "total_records": 40,
+    "confusion_matrix": {
+      "supported": {
+        "supported": 8,
+        "partially_supported": 0,
+        "unsupported": 0,
+        "contradicted": 0,
+        "not_evaluated": 2
+      },
+      "partially_supported": {
+        "supported": 4,
+        "partially_supported": 0,
+        "unsupported": 2,
+        "contradicted": 0,
+        "not_evaluated": 4
+      },
+      "unsupported": {
+        "supported": 0,
+        "partially_supported": 0,
+        "unsupported": 8,
+        "contradicted": 0,
+        "not_evaluated": 2
+      },
+      "contradicted": {
+        "supported": 5,
+        "partially_supported": 0,
+        "unsupported": 1,
+        "contradicted": 0,
+        "not_evaluated": 4
+      },
+      "not_evaluated": {
+        "supported": 0,
+        "partially_supported": 0,
+        "unsupported": 0,
+        "contradicted": 0,
+        "not_evaluated": 0
+      }
+    },
+    "metrics": {
+      "supported_precision": {
+        "value": 0.4706,
+        "numerator": 8,
+        "denominator": 17,
+        "unit": "claim",
+        "formula": "TP / (TP + FP)",
+        "rule": "Gold supported claims predicted as supported divided by all predicted supported claims"
+      },
+      "supported_recall": {
+        "value": 0.8,
+        "numerator": 8,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "TP / Gold_Supported",
+        "rule": "Gold supported claims predicted as supported divided by total gold supported claims"
+      },
+      "supported_f1": {
+        "value": 0.5926,
+        "numerator": "2 * P * R",
+        "denominator": "P + R",
+        "unit": "claim",
+        "formula": "2 * Precision * Recall / (Precision + Recall)",
+        "rule": "Harmonic mean of supported precision and recall"
+      },
+      "non_supported_far": {
+        "value": 0.3,
+        "numerator": 9,
+        "denominator": 30,
+        "unit": "claim",
+        "formula": "(FA_contra + FA_partial + FA_unsupp) / Non_Supported_Total",
+        "rule": "Proportion of non-supported claims falsely accepted into the supported class"
+      },
+      "contradiction_far": {
+        "value": 0.5,
+        "numerator": 5,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_contradiction / Gold_Contradicted",
+        "rule": "Contradicted claims falsely accepted as supported"
+      },
+      "partially_supported_far": {
+        "value": 0.4,
+        "numerator": 4,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_partial / Gold_Partially_Supported",
+        "rule": "Partially supported claims falsely accepted as supported"
+      },
+      "unsupported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_unsupported / Gold_Unsupported",
+        "rule": "Unsupported claims falsely accepted as supported"
+      },
+      "false_rejection_rate": {
+        "value": 0.2,
+        "numerator": 2,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "False_Rejections / Gold_Supported",
+        "rule": "Gold supported claims rejected or downgraded into unsupported/contradicted/not_evaluated"
+      },
+      "not_evaluated_rate": {
+        "value": 0.3,
+        "numerator": 12,
+        "denominator": 40,
+        "unit": "claim",
+        "formula": "Not_Evaluated_Claims / Total_Claims",
+        "rule": "Claims where verifier deferred decision due to low confidence or ambiguity"
+      },
+      "safe_presentation_compliance": {
+        "value": 0.775,
+        "numerator": 31,
+        "denominator": 40,
+        "unit": "claim",
+        "formula": "Safe_Compliant_Claims / Total_Claims",
+        "rule": "Claims where non-supported claims are never predicted as supported"
+      },
+      "answer_level_false_verification_rate": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 40,
+        "unit": "answer",
+        "formula": "Answers_Falsely_Badged_Verified_Supported / Total_Answers_Evaluated",
+        "rule": "Whole answers receiving 'verified_supported' badge when containing gold non-supported content",
+        "qualification_note": "Under multi-claim aggregation with fail-closed presentation rules, answers with partial support receive 'qualified_answer', contradictions receive 'rejected_answer'. However, in isolated single-claim answers without other safeguards, the 5 claim-level false acceptances would directly propagate to verified_supported."
+      }
+    }
+  },
+  "policy_3": {
+    "policy_name": "Policy 3 - Contradiction Veto Only",
+    "total_records": 40,
+    "confusion_matrix": {
+      "supported": {
+        "supported": 7,
+        "partially_supported": 0,
+        "unsupported": 0,
+        "contradicted": 1,
+        "not_evaluated": 2
+      },
+      "partially_supported": {
+        "supported": 4,
+        "partially_supported": 0,
+        "unsupported": 2,
+        "contradicted": 0,
+        "not_evaluated": 4
+      },
+      "unsupported": {
+        "supported": 0,
+        "partially_supported": 0,
+        "unsupported": 8,
+        "contradicted": 0,
+        "not_evaluated": 2
+      },
+      "contradicted": {
+        "supported": 1,
+        "partially_supported": 0,
+        "unsupported": 1,
+        "contradicted": 4,
+        "not_evaluated": 4
+      },
+      "not_evaluated": {
+        "supported": 0,
+        "partially_supported": 0,
+        "unsupported": 0,
+        "contradicted": 0,
+        "not_evaluated": 0
+      }
+    },
+    "metrics": {
+      "supported_precision": {
+        "value": 0.5833,
+        "numerator": 7,
+        "denominator": 12,
+        "unit": "claim",
+        "formula": "TP / (TP + FP)",
+        "rule": "Gold supported claims predicted as supported divided by all predicted supported claims"
+      },
+      "supported_recall": {
+        "value": 0.7,
+        "numerator": 7,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "TP / Gold_Supported",
+        "rule": "Gold supported claims predicted as supported divided by total gold supported claims"
+      },
+      "supported_f1": {
+        "value": 0.6364,
+        "numerator": "2 * P * R",
+        "denominator": "P + R",
+        "unit": "claim",
+        "formula": "2 * Precision * Recall / (Precision + Recall)",
+        "rule": "Harmonic mean of supported precision and recall"
+      },
+      "non_supported_far": {
+        "value": 0.1667,
+        "numerator": 5,
+        "denominator": 30,
+        "unit": "claim",
+        "formula": "(FA_contra + FA_partial + FA_unsupp) / Non_Supported_Total",
+        "rule": "Proportion of non-supported claims falsely accepted into the supported class"
+      },
+      "contradiction_far": {
+        "value": 0.1,
+        "numerator": 1,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_contradiction / Gold_Contradicted",
+        "rule": "Contradicted claims falsely accepted as supported"
+      },
+      "partially_supported_far": {
+        "value": 0.4,
+        "numerator": 4,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_partial / Gold_Partially_Supported",
+        "rule": "Partially supported claims falsely accepted as supported"
+      },
+      "unsupported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_unsupported / Gold_Unsupported",
+        "rule": "Unsupported claims falsely accepted as supported"
+      },
+      "false_rejection_rate": {
+        "value": 0.3,
+        "numerator": 3,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "False_Rejections / Gold_Supported",
+        "rule": "Gold supported claims rejected or downgraded into unsupported/contradicted/not_evaluated"
+      },
+      "not_evaluated_rate": {
+        "value": 0.3,
+        "numerator": 12,
+        "denominator": 40,
+        "unit": "claim",
+        "formula": "Not_Evaluated_Claims / Total_Claims",
+        "rule": "Claims where verifier deferred decision due to low confidence or ambiguity"
+      },
+      "safe_presentation_compliance": {
+        "value": 0.875,
+        "numerator": 35,
+        "denominator": 40,
+        "unit": "claim",
+        "formula": "Safe_Compliant_Claims / Total_Claims",
+        "rule": "Claims where non-supported claims are never predicted as supported"
+      },
+      "answer_level_false_verification_rate": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 40,
+        "unit": "answer",
+        "formula": "Answers_Falsely_Badged_Verified_Supported / Total_Answers_Evaluated",
+        "rule": "Whole answers receiving 'verified_supported' badge when containing gold non-supported content",
+        "qualification_note": "Under multi-claim aggregation with fail-closed presentation rules, answers with partial support receive 'qualified_answer', contradictions receive 'rejected_answer'. However, in isolated single-claim answers without other safeguards, the 5 claim-level false acceptances would directly propagate to verified_supported."
+      }
+    }
+  },
+  "policy_4": {
+    "policy_name": "Policy 4 - Shadow Hybrid Downgrade",
+    "total_records": 40,
+    "confusion_matrix": {
+      "supported": {
+        "supported": 1,
+        "partially_supported": 0,
+        "unsupported": 0,
+        "contradicted": 1,
+        "not_evaluated": 8
+      },
+      "partially_supported": {
+        "supported": 0,
+        "partially_supported": 0,
+        "unsupported": 2,
+        "contradicted": 0,
+        "not_evaluated": 8
+      },
+      "unsupported": {
+        "supported": 0,
+        "partially_supported": 0,
+        "unsupported": 8,
+        "contradicted": 0,
+        "not_evaluated": 2
+      },
+      "contradicted": {
+        "supported": 0,
+        "partially_supported": 0,
+        "unsupported": 1,
+        "contradicted": 4,
+        "not_evaluated": 5
+      },
+      "not_evaluated": {
+        "supported": 0,
+        "partially_supported": 0,
+        "unsupported": 0,
+        "contradicted": 0,
+        "not_evaluated": 0
+      }
+    },
+    "metrics": {
+      "supported_precision": {
+        "value": 1.0,
+        "numerator": 1,
+        "denominator": 1,
+        "unit": "claim",
+        "formula": "TP / (TP + FP)",
+        "rule": "Gold supported claims predicted as supported divided by all predicted supported claims"
+      },
+      "supported_recall": {
+        "value": 0.1,
+        "numerator": 1,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "TP / Gold_Supported",
+        "rule": "Gold supported claims predicted as supported divided by total gold supported claims"
+      },
+      "supported_f1": {
+        "value": 0.1818,
+        "numerator": "2 * P * R",
+        "denominator": "P + R",
+        "unit": "claim",
+        "formula": "2 * Precision * Recall / (Precision + Recall)",
+        "rule": "Harmonic mean of supported precision and recall"
+      },
+      "non_supported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 30,
+        "unit": "claim",
+        "formula": "(FA_contra + FA_partial + FA_unsupp) / Non_Supported_Total",
+        "rule": "Proportion of non-supported claims falsely accepted into the supported class"
+      },
+      "contradiction_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_contradiction / Gold_Contradicted",
+        "rule": "Contradicted claims falsely accepted as supported"
+      },
+      "partially_supported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_partial / Gold_Partially_Supported",
+        "rule": "Partially supported claims falsely accepted as supported"
+      },
+      "unsupported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_unsupported / Gold_Unsupported",
+        "rule": "Unsupported claims falsely accepted as supported"
+      },
+      "false_rejection_rate": {
+        "value": 0.9,
+        "numerator": 9,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "False_Rejections / Gold_Supported",
+        "rule": "Gold supported claims rejected or downgraded into unsupported/contradicted/not_evaluated"
+      },
+      "not_evaluated_rate": {
+        "value": 0.575,
+        "numerator": 23,
+        "denominator": 40,
+        "unit": "claim",
+        "formula": "Not_Evaluated_Claims / Total_Claims",
+        "rule": "Claims where verifier deferred decision due to low confidence or ambiguity"
+      },
+      "safe_presentation_compliance": {
+        "value": 1.0,
+        "numerator": 40,
+        "denominator": 40,
+        "unit": "claim",
+        "formula": "Safe_Compliant_Claims / Total_Claims",
+        "rule": "Claims where non-supported claims are never predicted as supported"
+      },
+      "answer_level_false_verification_rate": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 40,
+        "unit": "answer",
+        "formula": "Answers_Falsely_Badged_Verified_Supported / Total_Answers_Evaluated",
+        "rule": "Whole answers receiving 'verified_supported' badge when containing gold non-supported content",
+        "qualification_note": "Under multi-claim aggregation with fail-closed presentation rules, answers with partial support receive 'qualified_answer', contradictions receive 'rejected_answer'. However, in isolated single-claim answers without other safeguards, the 5 claim-level false acceptances would directly propagate to verified_supported."
+      }
+    }
+  },
+  "policy_5": {
+    "policy_name": "Policy 5 - Ambiguity Guard",
+    "total_records": 40,
+    "confusion_matrix": {
+      "supported": {
+        "supported": 1,
+        "partially_supported": 0,
+        "unsupported": 0,
+        "contradicted": 1,
+        "not_evaluated": 8
+      },
+      "partially_supported": {
+        "supported": 0,
+        "partially_supported": 0,
+        "unsupported": 2,
+        "contradicted": 0,
+        "not_evaluated": 8
+      },
+      "unsupported": {
+        "supported": 0,
+        "partially_supported": 0,
+        "unsupported": 8,
+        "contradicted": 0,
+        "not_evaluated": 2
+      },
+      "contradicted": {
+        "supported": 0,
+        "partially_supported": 0,
+        "unsupported": 1,
+        "contradicted": 4,
+        "not_evaluated": 5
+      },
+      "not_evaluated": {
+        "supported": 0,
+        "partially_supported": 0,
+        "unsupported": 0,
+        "contradicted": 0,
+        "not_evaluated": 0
+      }
+    },
+    "metrics": {
+      "supported_precision": {
+        "value": 1.0,
+        "numerator": 1,
+        "denominator": 1,
+        "unit": "claim",
+        "formula": "TP / (TP + FP)",
+        "rule": "Gold supported claims predicted as supported divided by all predicted supported claims"
+      },
+      "supported_recall": {
+        "value": 0.1,
+        "numerator": 1,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "TP / Gold_Supported",
+        "rule": "Gold supported claims predicted as supported divided by total gold supported claims"
+      },
+      "supported_f1": {
+        "value": 0.1818,
+        "numerator": "2 * P * R",
+        "denominator": "P + R",
+        "unit": "claim",
+        "formula": "2 * Precision * Recall / (Precision + Recall)",
+        "rule": "Harmonic mean of supported precision and recall"
+      },
+      "non_supported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 30,
+        "unit": "claim",
+        "formula": "(FA_contra + FA_partial + FA_unsupp) / Non_Supported_Total",
+        "rule": "Proportion of non-supported claims falsely accepted into the supported class"
+      },
+      "contradiction_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_contradiction / Gold_Contradicted",
+        "rule": "Contradicted claims falsely accepted as supported"
+      },
+      "partially_supported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_partial / Gold_Partially_Supported",
+        "rule": "Partially supported claims falsely accepted as supported"
+      },
+      "unsupported_far": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "FA_unsupported / Gold_Unsupported",
+        "rule": "Unsupported claims falsely accepted as supported"
+      },
+      "false_rejection_rate": {
+        "value": 0.9,
+        "numerator": 9,
+        "denominator": 10,
+        "unit": "claim",
+        "formula": "False_Rejections / Gold_Supported",
+        "rule": "Gold supported claims rejected or downgraded into unsupported/contradicted/not_evaluated"
+      },
+      "not_evaluated_rate": {
+        "value": 0.575,
+        "numerator": 23,
+        "denominator": 40,
+        "unit": "claim",
+        "formula": "Not_Evaluated_Claims / Total_Claims",
+        "rule": "Claims where verifier deferred decision due to low confidence or ambiguity"
+      },
+      "safe_presentation_compliance": {
+        "value": 1.0,
+        "numerator": 40,
+        "denominator": 40,
+        "unit": "claim",
+        "formula": "Safe_Compliant_Claims / Total_Claims",
+        "rule": "Claims where non-supported claims are never predicted as supported"
+      },
+      "answer_level_false_verification_rate": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 40,
+        "unit": "answer",
+        "formula": "Answers_Falsely_Badged_Verified_Supported / Total_Answers_Evaluated",
+        "rule": "Whole answers receiving 'verified_supported' badge when containing gold non-supported content",
+        "qualification_note": "Under multi-claim aggregation with fail-closed presentation rules, answers with partial support receive 'qualified_answer', contradictions receive 'rejected_answer'. However, in isolated single-claim answers without other safeguards, the 5 claim-level false acceptances would directly propagate to verified_supported."
+      }
+    }
+  }
+}

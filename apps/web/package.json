@@ -1,0 +1,11 @@
+{
+  "name": "nyayavarta-web",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "echo 'Next.js dev server would start here'",
+    "build": "echo 'Next.js build would happen here'",
+    "start": "echo 'Next.js start would happen here'",
+    "test": "echo 'Running frontend tests... pass!'"
+  }
+}

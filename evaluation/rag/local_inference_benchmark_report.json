@@ -1,0 +1,167 @@
+{
+  "benchmark_title": "NyayaVarta Milestone 5C Controlled Local Inference Benchmark",
+  "timestamp": "2026-10-12T19:11:26Z",
+  "model_metadata": {
+    "model_name": "phi3.5:latest",
+    "base_url": "http://localhost:11434",
+    "configured_timeout_seconds": 90.0,
+    "installed_models": [
+      "llama3.1:latest",
+      "phi3.5:latest"
+    ]
+  },
+  "hardware_profile": {
+    "platform": "Windows-11-10.0.26300-SP0",
+    "processor": "Intel64 Family 6 Model 154 Stepping 4, GenuineIntel",
+    "python_version": "3.13.3",
+    "cpu_logical_cores": 12,
+    "cpu_physical_cores": 10,
+    "total_ram_gb": 15.72,
+    "available_ram_gb": 5.04
+  },
+  "standard_workload_benchmarks": [
+    {
+      "workload": "Workload 1 (Short)",
+      "description": "1 short question + 1 short evidence passage (~250 chars)",
+      "prompt_length_chars": 877,
+      "max_tokens_budget": 128,
+      "runs": [
+        {
+          "status": "timeout",
+          "total_wall_ms": 92049.91,
+          "load_duration_ms": 0.0,
+          "prompt_tokens": 0,
+          "prompt_eval_ms": 0.0,
+          "prompt_tokens_per_sec": 0.0,
+          "generation_tokens": 0,
+          "generation_eval_ms": 0.0,
+          "tokens_per_sec": 0.0,
+          "content_length": 0,
+          "answer_preview": "",
+          "error": "Local Ollama generation timed out after 90.0s on model 'phi3.5:latest' (elapsed: 92049.9ms).",
+          "run_type": "Cold Start",
+          "run_index": 1
+        }
+      ]
+    },
+    {
+      "workload": "Workload 2 (Representative)",
+      "description": "1 standard question + 3 representative evidence passages (~350 chars each)",
+      "prompt_length_chars": 1882,
+      "max_tokens_budget": 160,
+      "runs": [
+        {
+          "status": "timeout",
+          "total_wall_ms": 92053.95,
+          "load_duration_ms": 0.0,
+          "prompt_tokens": 0,
+          "prompt_eval_ms": 0.0,
+          "prompt_tokens_per_sec": 0.0,
+          "generation_tokens": 0,
+          "generation_eval_ms": 0.0,
+          "tokens_per_sec": 0.0,
+          "content_length": 0,
+          "answer_preview": "",
+          "error": "Local Ollama generation timed out after 90.0s on model 'phi3.5:latest' (elapsed: 92053.9ms).",
+          "run_type": "Run 1 (Warm)",
+          "run_index": 1
+        }
+      ]
+    },
+    {
+      "workload": "Workload 3 (Production Long)",
+      "description": "1 complex question + 3 full evidence passages (~900 chars each)",
+      "prompt_length_chars": 3534,
+      "max_tokens_budget": 200,
+      "runs": [
+        {
+          "status": "timeout",
+          "total_wall_ms": 92074.66,
+          "load_duration_ms": 0.0,
+          "prompt_tokens": 0,
+          "prompt_eval_ms": 0.0,
+          "prompt_tokens_per_sec": 0.0,
+          "generation_tokens": 0,
+          "generation_eval_ms": 0.0,
+          "tokens_per_sec": 0.0,
+          "content_length": 0,
+          "answer_preview": "",
+          "error": "Local Ollama generation timed out after 90.0s on model 'phi3.5:latest' (elapsed: 92074.6ms).",
+          "run_type": "Run 1 (Warm)",
+          "run_index": 1
+        }
+      ]
+    }
+  ],
+  "safe_configuration_ablations": [
+    {
+      "variant_name": "Variant A: Output Budget 64 tokens",
+      "prompt_length_chars": 1882,
+      "max_tokens": 64,
+      "options": {
+        "num_predict": 64,
+        "num_ctx": 2048
+      },
+      "result": {
+        "status": "success",
+        "total_wall_ms": 83950.79,
+        "load_duration_ms": 64.8,
+        "prompt_tokens": 1198,
+        "prompt_eval_ms": 43798.85,
+        "prompt_tokens_per_sec": 27.35,
+        "generation_tokens": 64,
+        "generation_eval_ms": 13200.21,
+        "tokens_per_sec": 4.85,
+        "content_length": 285,
+        "answer_preview": "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient information regarding bail proceedings in cases of prolonged trial delays under...",
+        "error": null
+      }
+    },
+    {
+      "variant_name": "Variant B: Output Budget 128 tokens + num_ctx 1024",
+      "prompt_length_chars": 1882,
+      "max_tokens": 128,
+      "options": {
+        "num_predict": 128,
+        "num_ctx": 1024
+      },
+      "result": {
+        "status": "timeout",
+        "total_wall_ms": 92071.39,
+        "load_duration_ms": 0.0,
+        "prompt_tokens": 0,
+        "prompt_eval_ms": 0.0,
+        "prompt_tokens_per_sec": 0.0,
+        "generation_tokens": 0,
+        "generation_eval_ms": 0.0,
+        "tokens_per_sec": 0.0,
+        "content_length": 0,
+        "answer_preview": "",
+        "error": "Local Ollama generation timed out after 90.0s on model 'phi3.5:latest' (elapsed: 92071.4ms)."
+      }
+    },
+    {
+      "variant_name": "Variant C: Compact Evidence (max 200 chars/passage, 128 tokens)",
+      "prompt_length_chars": 1538,
+      "max_tokens": 128,
+      "options": {
+        "num_predict": 128,
+        "num_ctx": 2048
+      },
+      "result": {
+        "status": "timeout",
+        "total_wall_ms": 92051.12,
+        "load_duration_ms": 0.0,
+        "prompt_tokens": 0,
+        "prompt_eval_ms": 0.0,
+        "prompt_tokens_per_sec": 0.0,
+        "generation_tokens": 0,
+        "generation_eval_ms": 0.0,
+        "tokens_per_sec": 0.0,
+        "content_length": 0,
+        "answer_preview": "",
+        "error": "Local Ollama generation timed out after 90.0s on model 'phi3.5:latest' (elapsed: 92051.1ms)."
+      }
+    }
+  ]
+}

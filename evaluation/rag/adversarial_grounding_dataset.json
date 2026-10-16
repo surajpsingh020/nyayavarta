@@ -1,0 +1,390 @@
+[
+  {
+    "test_id": "ADV001_DIRECT_POSITIVE",
+    "category": "direct_positive_support",
+    "fixture_type": "corpus_grounded",
+    "query": "Can a third-party stranger who is dispossessed of immovable property in execution of a decree maintain an application under Order XXI Rule 99 of the CPC?",
+    "expected_status": "sufficient_evidence",
+    "expected_is_grounded": true,
+    "rationale": "Direct positive judicial holding from Renjith K.G. v. Sheeba holding that any person or stranger to the decree dispossessed of immovable property can maintain an application under Order XXI Rule 99 CPC.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_1359_1370",
+        "case_title": "Renjith K.G. & Others v. Sheeba",
+        "passage_text": "Held: Yes – Under Or.XXI, r.99, where any person other than the judgment debtor is dispossessed of immovable property by the holder of a decree for the possession of such property, or where such property has been sold in execution of a decree, by the purchaser thereof, he may make an application complaining of such dispossession – A third party to the decree has a right to approach the Court even after dispossession of the immovable property, which he was occupying – “any person” not a party to the suit or a stranger to the suit can seek re-delivery after being dispossessed.",
+        "start_char": 450,
+        "end_char": 1050
+      }
+    ]
+  },
+  {
+    "test_id": "ADV002_NEGATION_DIRECT_DENIAL",
+    "category": "negation",
+    "fixture_type": "corpus_grounded",
+    "query": "Does an authorized signatory of a company constitute the drawer of the cheque under Section 148 of the Negotiable Instruments Act for interim appellate compensation?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Direct negative holding in Bijay Agarwal v. Medilines explicitly denying that an authorized signatory is the drawer of the cheque under Section 148 NI Act. The evidence contradicts/denies the requested proposition.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_1890_1901",
+        "case_title": "Bijay Agarwal v. M/s Medilines",
+        "passage_text": "Held: In the case of the position qua Section 143A, NI Act, merely because an officer of a company concerned is the authorised signatory of the cheque concerned by itself will not make such an officer ‘drawer of the cheque’ under Section 148, NI Act, so as to empower the Appellate Court, in an appeal against conviction for an offence under Section 138, NI Act, to direct to deposit compensation of any sum under Section 148(1), of the NI Act – It is settled that an Appellate Court in an appeal against conviction under Section 138, NI Act, could not place a condition to deposit compensation against an authorized signatory.",
+        "start_char": 1100,
+        "end_char": 1720
+      }
+    ]
+  },
+  {
+    "test_id": "ADV003_EXCEPTION_LIMITATION",
+    "category": "exception",
+    "fixture_type": "corpus_grounded",
+    "query": "Does Rule 9(4) of the Security Interest Rules permit an auction purchaser to unilaterally demand an extension of the deposit period as a matter of right?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "IDBI Bank v. Ramswaroop Daliya holds that the 15-day period is extendable only upon mutual written consent of parties; an auction purchaser cannot unilaterally demand an extension as a matter of right.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_1371_1380",
+        "case_title": "IDBI Bank Ltd. v. Ramswaroop Daliya and Ors.",
+        "passage_text": "Held: The period to deposit the balance sale consideration under r.9(4) is not absolute/sacrosanct and is extendable with the consent in writing of the parties – r.9(4) will only come into play when there is default on part of the party – However, an auction purchaser has no unilateral right or entitlement to demand extension in the absence of agreement. Unilateral demand without written consent does not confer an extension.",
+        "start_char": 550,
+        "end_char": 980
+      }
+    ]
+  },
+  {
+    "test_id": "ADV004_PARTY_SUBMISSION",
+    "category": "party_submission",
+    "fixture_type": "corpus_grounded",
+    "query": "Does an entry in a corporate debtor's balance sheet fail to extend limitation under Section 18 of the Limitation Act if the creditor's name is not specifically specified?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "The passage contains only the appellant debtor's unaccepted submission from Vidyasagar Prasad v. UCO Bank. Counsel submissions reflect advocacy, not law declared by the Court.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_1462_1474",
+        "case_title": "Vidyasagar Prasad v. UCO Bank & Anr.",
+        "passage_text": "The Appellant contended that there is no unequivocal, unambiguous and specific acknowledgement of debt owed to Respondent – Financial Creditor in the balance sheet entries of Corporate Debtor – The Appellant contended that the name of Financial Creditor in question is not specifically mentioned in the relied upon entry in the balance sheet – It was contended that in the absence of clear demarcation as to what the Corporate Debtor owes to the Financial Creditor in question, the balance sheet entries cannot be relied on for the purpose of extending limitation under Section 18 of the Limitation Act.",
+        "start_char": 820,
+        "end_char": 1435
+      }
+    ]
+  },
+  {
+    "test_id": "ADV005_REJECTED_ARGUMENT",
+    "category": "rejected_argument",
+    "fixture_type": "corpus_grounded",
+    "query": "Does an admission of document genuineness under Section 294 CrPC deprive an accused of a fair trial and invalidate the proceedings?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "In Shyam Narayan Ram v. State of UP, the Court explicitly rejects the defense argument that admitting document genuineness under Section 294 CrPC deprived the accused of a fair trial.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_1726_1735",
+        "case_title": "Shyam Narayan Ram v. State of UP",
+        "passage_text": "Held: We reject the submission of the respondent that the accused did not get a fair trial because their counsel admitted genuineness of police papers under Section 294 CrPC. It is not for any error or oversight of defence counsel that they had admitted genuineness. Where genuineness is admitted, such document may be read in evidence without formal proof.",
+        "start_char": 680,
+        "end_char": 1050
+      }
+    ]
+  },
+  {
+    "test_id": "ADV006_QUOTED_PRECEDENT",
+    "category": "quoted_precedent",
+    "fixture_type": "corpus_grounded",
+    "query": "Did the Supreme Court follow Munna Pandey v. State of Bihar to hold that dispensing with formal proof under Section 294 CrPC vitiates a trial?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "In Shyam Narayan Ram v. State of UP, the Court quoted Munna Pandey only to distinguish it as having no application to Section 294 CrPC.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_1726_1735",
+        "case_title": "Shyam Narayan Ram v. State of UP",
+        "passage_text": "The respondent relied upon Munna Pandey vs. State of Bihar (2023) SCC OnLine SC 1103. While allowing the appeal, Hon’ble Supreme Court differentiated Munna Pandey, as the issue in the said case was fair trial and not application of Section 294 CrPC. Thus, the principles of Munna Pandey have no application to Section 294 CrPC admissions.",
+        "start_char": 1300,
+        "end_char": 1640
+      }
+    ]
+  },
+  {
+    "test_id": "ADV007_LOWER_COURT_FINDING",
+    "category": "lower_court_finding",
+    "fixture_type": "corpus_grounded",
+    "query": "Does Section 294 CrPC require the prosecution to examine formal witnesses when document genuineness is admitted?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "The passage describes the High Court's reversed reasoning rather than the Supreme Court's actual holding.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_1726_1735",
+        "case_title": "Shyam Narayan Ram v. State of UP",
+        "passage_text": "The High Court while allowing the appeal filed by accused persons and remanding the matter back to Trial Court recorded that accused did not get a fair trial as their counsel had admitted the genuineness of documents and dispensed with formal proof. The High Court observed that prosecution was bound to examine formal witnesses notwithstanding Section 294 CrPC.",
+        "start_char": 320,
+        "end_char": 690
+      }
+    ]
+  },
+  {
+    "test_id": "ADV008_SPLIT_PROPOSITIONS",
+    "category": "split_propositions",
+    "fixture_type": "synthetic_unit_test",
+    "query": "Does an executing court possess jurisdiction to grant anticipatory bail to a stranger resisting eviction under Order XXI Rule 99 CPC?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Synthetic unit test: Subject (Order XXI Rule 99 execution stranger) and predicate (grant of anticipatory bail) appear in the same passage but govern disjoint legal proceedings.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "SYNTH_SPLIT_01",
+        "case_title": "Synthetic Execution and Bail Narrative",
+        "passage_text": "Held: Under Order XXI Rule 99 CPC, any stranger dispossessed of property in execution of a decree can maintain an application for adjudication of right, title and interest. In an unrelated criminal appeal, the sessions judge exercised powers to grant anticipatory bail to the appellant facing arrest in a cheating complaint.",
+        "start_char": 0,
+        "end_char": 328
+      }
+    ]
+  },
+  {
+    "test_id": "ADV009_SUPERFICIAL_COOCCURRENCE",
+    "category": "superficial_cooccurrence",
+    "fixture_type": "corpus_grounded",
+    "query": "Does the statutory provision for anticipatory bail under Section 438 CrPC establish that an accused can seek pre-arrest bail in contempt of court proceedings?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Tusharbhai Rajnikantbhai Shah mentions both anticipatory bail and contempt notices, but they appear in incidental proximity without establishing that anticipatory bail applies to contempt.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_8_235_286",
+        "case_title": "Tusharbhai Rajnikantbhai Shah v. Kamal Dayani & Ors.",
+        "passage_text": "An order of anticipatory bail does not in any manner limit or restrict the rights or duties of the police to investigate into charges against the person who seeks pre-arrest bail under Section 438 CrPC. In the separate contempt petition filed before this Court, learned counsel submitted that contemnors had tendered apology and prayed that contempt notices may be discharged.",
+        "start_char": 51400,
+        "end_char": 51780
+      }
+    ]
+  },
+  {
+    "test_id": "ADV010_PARTIAL_SUPPORT",
+    "category": "partial_support",
+    "fixture_type": "corpus_grounded",
+    "query": "Did the Supreme Court exercise Article 142 jurisdiction to grant admission to IIT Dhanbad and simultaneously abolish all entrance test registration deadlines nationwide?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Atul Kumar supports the Article 142 IIT Dhanbad admission direction, but does not support abolishing entrance test registration deadlines nationwide. Partial support must not pass the gate.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_150_153",
+        "case_title": "Atul Kumar v. Chairman JoSAA",
+        "passage_text": "Held: Power of this Court u/Art.142 to do substantial justice is meant precisely to cover such a situation – Petitioner to be granted admission to IIT Dhanbad against the seat which was allotted to him in Electrical Engineering. This relief is granted under extraordinary jurisdiction having regard to the exceptional facts of the petitioner.",
+        "start_char": 1050,
+        "end_char": 1400
+      }
+    ]
+  },
+  {
+    "test_id": "ADV011_CONTRADICTORY_PASSAGES",
+    "category": "contradictory_passages",
+    "fixture_type": "synthetic_unit_test",
+    "query": "Is the 15-day period under Rule 9(4) of the Security Interest Rules strictly non-extendable under any circumstances?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Synthetic unit test: Dual contradictory passages where Passage 1 asserts strict non-extendability and Passage 2 asserts extendability with written consent. Unresolved contradiction requires abstention.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "SYNTH_CONTRA_01",
+        "case_title": "Earlier Precedent Quoted",
+        "passage_text": "The High Court noted earlier judgments holding that the 15-day period under Rule 9(4) of the Security Interest Rules is strictly non-extendable under any circumstances and forfeiture is automatic upon expiry.",
+        "start_char": 0,
+        "end_char": 215
+      },
+      {
+        "evidence_id": "E2",
+        "document_id": "2024_10_1371_1380",
+        "case_title": "IDBI Bank Ltd. v. Ramswaroop Daliya",
+        "passage_text": "Held: The period to deposit the balance sale consideration under r.9(4) is not absolute/sacrosanct and is extendable with the consent in writing of the parties.",
+        "start_char": 550,
+        "end_char": 715
+      }
+    ]
+  },
+  {
+    "test_id": "ADV012_STATUTORY_BARE_MENTION",
+    "category": "statutory_mention",
+    "fixture_type": "corpus_grounded",
+    "query": "What standard of corporate alter ego liability applies to independent directors under Section 420 IPC for cheating?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Passage merely mentions Section 420 IPC in procedural history without providing any legal interpretation or standard of corporate alter ego liability.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_12_1946_1996",
+        "case_title": "Bijoy Kumar Moni v. Paresh Manna",
+        "passage_text": "The complainant lodged an FIR against the accused persons under Sections 406 and 420 IPC at the police station. Following investigation, the learned magistrate took cognizance and issued process.",
+        "start_char": 1950,
+        "end_char": 2150
+      }
+    ]
+  },
+  {
+    "test_id": "ADV013_TEMPORAL_QUALIFICATION",
+    "category": "temporal_qualification",
+    "fixture_type": "corpus_grounded",
+    "query": "Can an accused seek anticipatory bail under Section 438 CrPC after being remanded to judicial custody during trial?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Dhanraj Aswani holds that Section 438 is for pre-arrest apprehension; once in judicial custody in that case, the procedural stage precludes Section 438.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_9_257_312",
+        "case_title": "Dhanraj Aswani v. Amar S. Mulchandani",
+        "passage_text": "Held: Section 438 CrPC is designed to protect personal liberty at the pre-arrest stage when a person has reason to believe he may be arrested. Once an accused is taken into judicial custody in that very case, an application under Section 438 CrPC does not lie, and the remedy of the accused is to apply for regular bail under Section 439 CrPC.",
+        "start_char": 800,
+        "end_char": 1150
+      }
+    ]
+  },
+  {
+    "test_id": "ADV014_UNKNOWN_PASSAGE_ROLE",
+    "category": "unknown_passage_role",
+    "fixture_type": "synthetic_unit_test",
+    "query": "Does an entry in an audited balance sheet operate as an acknowledgement of debt under Section 18 of the Limitation Act?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Synthetic unit test: The passage is an evidentiary exhibit summary lacking any judicial holding, analysis, or statutory interpretation marker. An unknown passage role cannot satisfy grounding.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "SYNTH_UNKNOWN_01",
+        "case_title": "Documentary Exhibit Summary",
+        "passage_text": "Exhibit D-4 is an audited balance sheet of the corporate debtor for the financial year ending 31 March 2021 showing outstanding loans. The document bears the signature of the chartered accountant.",
+        "start_char": 0,
+        "end_char": 198
+      }
+    ]
+  },
+  {
+    "test_id": "ADV015_GENERIC_VOCABULARY_ILLUSION",
+    "category": "irrelevant_evidence",
+    "fixture_type": "corpus_grounded",
+    "query": "What maritime prize court procedure governs foreign vessel seizure under Indian Admiralty Jurisdiction in international waters?",
+    "expected_status": "topically_relevant_but_insufficient_grounding",
+    "expected_is_grounded": false,
+    "rationale": "Corpus excerpt from Sukanya Shantha sharing generic legal vocabulary (jurisdiction, court, procedure, order) but completely devoid of maritime admiralty law concepts.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_493_638",
+        "case_title": "Sukanya Shantha v. Union of India",
+        "passage_text": "Held: In exercise of its constitutional jurisdiction, this Court has supervisory authority over all proceedings. It is the duty of the court to ensure that statutory procedures conform to constitutional mandates and the rule of law.",
+        "start_char": 7000,
+        "end_char": 7250
+      }
+    ]
+  },
+  {
+    "test_id": "ADV016_DIRECT_POSITIVE_PMLA",
+    "category": "direct_positive_support",
+    "fixture_type": "corpus_grounded",
+    "query": "What legal grounds govern granting bail to an accused under Section 45 PMLA when there is prolonged incarceration without trial?",
+    "expected_status": "sufficient_evidence",
+    "expected_is_grounded": true,
+    "rationale": "Direct positive judicial holding from Manish Sisodia v. ED holding that prolonged incarceration without trial overrides Section 45 PMLA twin conditions under Article 21.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_8_1061_1085",
+        "case_title": "Manish Sisodia v. Directorate of Enforcement",
+        "passage_text": "Held: Yes – Right to bail in cases of delay coupled with incarceration for a long period, depending on the nature of the allegations, should be read into Section 439 Cr.P.C. and Section 45 of the PMLA – It is the basic right of the person charged of an offence and not convicted that he be ensured and given a speedy trial – When trial is delayed without fault of accused, Article 21 rights override statutory restrictions.",
+        "start_char": 1100,
+        "end_char": 1520
+      }
+    ]
+  },
+  {
+    "test_id": "ADV017_DIRECT_POSITIVE_PRISONS",
+    "category": "direct_positive_support",
+    "fixture_type": "corpus_grounded",
+    "query": "Are provisions in State Prison Manuals that allocate prison labor based on caste unconstitutional under Article 17 of the Constitution?",
+    "expected_status": "sufficient_evidence",
+    "expected_is_grounded": true,
+    "rationale": "Direct positive judicial holding from Sukanya Shantha holding caste-based prison labor division violative of Article 17.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_493_638",
+        "case_title": "Sukanya Shantha v. Union of India & Ors.",
+        "passage_text": "Held: Prison manuals allot tasks of a barber to individuals from a certain caste, while sweeping work is allowed to Mehtar/Hari/Chandal or similar castes – This is a caste-based delegation of work – They resemble a form of untouchability – Thus, impugned provisions violative of Art.17 – Constitution of India – Art.17.",
+        "start_char": 7100,
+        "end_char": 7450
+      }
+    ]
+  },
+  {
+    "test_id": "ADV018_DIRECT_POSITIVE_POCSO",
+    "category": "direct_positive_support",
+    "fixture_type": "corpus_grounded",
+    "query": "Does viewing or streaming child sexual abuse material online without downloading constitute possession under Section 15 of the POCSO Act?",
+    "expected_status": "sufficient_evidence",
+    "expected_is_grounded": true,
+    "rationale": "Direct positive judicial holding from Just Rights for Children Alliance holding online streaming constitutes constructive possession under Section 15 POCSO.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_154_314",
+        "case_title": "Just Rights for Children Alliance v. S. Harish",
+        "passage_text": "Held: In terms of the Doctrine of Constructive Possession, any form of intangible or constructive possession of any child pornographic material will also amount to “possession” under Section 15 of the POCSO – There is no requirement of a physical or tangible “storage” or “possession” of such material in Section 15 – Viewing or displaying online tantamount to possession under Section 15 of the POCSO.",
+        "start_char": 7500,
+        "end_char": 7910
+      }
+    ]
+  },
+  {
+    "test_id": "ADV019_DIRECT_POSITIVE_IIT",
+    "category": "direct_positive_support",
+    "fixture_type": "corpus_grounded",
+    "query": "Did the Supreme Court exercise Article 142 jurisdiction to grant admission to an IIT Dhanbad student who missed the online fee deadline by minutes due to technical failure?",
+    "expected_status": "sufficient_evidence",
+    "expected_is_grounded": true,
+    "rationale": "Direct positive judicial holding from Atul Kumar v. Chairman JoSAA directing admission under Article 142.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_10_150_153",
+        "case_title": "Atul Kumar v. Chairman JoSAA",
+        "passage_text": "Headnotes: Constitution of India – Art. 142 – Exercise of power under – Indian Institute of Technology IIT-Admission – Student lost admission since he was late in paying online admission fee by a few minutes due to technical portal failure – Challenge to: Held: Talented student like the petitioner who belongs to a marginalized group of citizens and has done everything to secure admission should not be left in the lurch – Power of this Court u/Art.142 to do substantial justice is meant precisely to cover such a situation – Petitioner to be granted admission to IIT Dhanbad against the seat which was allotted to him in the branch of Electrical Engineering.",
+        "start_char": 0,
+        "end_char": 648
+      }
+    ]
+  },
+  {
+    "test_id": "ADV020_DIRECT_POSITIVE_CIRCUMSTANTIAL",
+    "category": "direct_positive_support",
+    "fixture_type": "corpus_grounded",
+    "query": "What legal standards govern an appellate court when considering the reversal of an acquittal based solely on circumstantial evidence?",
+    "expected_status": "sufficient_evidence",
+    "expected_is_grounded": true,
+    "rationale": "Direct positive judicial holding from Thakore Umedsing Nathusing reiterating the five golden rules of circumstantial evidence and presumption of innocence.",
+    "passages": [
+      {
+        "evidence_id": "E1",
+        "document_id": "2024_2_1178_1195",
+        "case_title": "Thakore Umedsing Nathusing v. State of Gujarat",
+        "passage_text": "Held: The principles that govern the scope of interference by the High Court in exercise of appellate jurisdiction while dealing with an appeal against acquittal under Section 378(1)(b) CrPC were reiterated: (a) The acquittal of the accused further strengthens the presumption of innocence; (b) The appellate Court is required to consider whether the view taken by the Trial Court is a possible view – The five golden rules of circumstantial evidence must exclude every hypothesis of innocence.",
+        "start_char": 17800,
+        "end_char": 18320
+      }
+    ]
+  }
+]

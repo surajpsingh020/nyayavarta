@@ -1,0 +1,1058 @@
+{
+  "benchmark_metadata": {
+    "benchmark_name": "NyayaVarta Milestone 6.1 Bounded Live Evaluation (OLLAMA)",
+    "benchmark_timestamp": "2026-10-13T15:53:46.765807+00:00",
+    "provider_type": "ollama",
+    "model_name": "phi3.5:latest",
+    "total_queries_tested": 10,
+    "answerable_queries_count": 6,
+    "unsupported_queries_count": 4,
+    "gate_fast_exits_count": 4,
+    "llm_invocations_count": 6,
+    "successful_generations": 2,
+    "validation_failed_generations": 0,
+    "correct_abstentions": 4,
+    "false_abstentions": 4,
+    "unsupported_answers": 0,
+    "timeouts": 0,
+    "errors": 0,
+    "total_benchmark_duration_seconds": 924.45,
+    "generation_parameters": {
+      "max_passages": 1,
+      "max_chars_per_passage": 1000,
+      "num_predict": 140,
+      "temperature": 0.0,
+      "timeout": 240.0
+    }
+  },
+  "performance_metrics": {
+    "grounding_gate_accuracy": 1.0,
+    "citation_syntax_validity_rate": 1.0,
+    "overall_citation_validity_rate": 1.0,
+    "latency_breakdown": {
+      "gate_only_fast_exit_seconds": {
+        "min": 0.064,
+        "median": 0.088,
+        "p95": 0.162,
+        "max": 0.162,
+        "count": 4
+      },
+      "llm_generation_seconds": {
+        "min": 120.017,
+        "median": 141.536,
+        "p95": 227.025,
+        "max": 227.025,
+        "count": 6
+      },
+      "total_pipeline_seconds": {
+        "min": 0.064,
+        "median": 128.725,
+        "p95": 227.025,
+        "max": 227.025,
+        "count": 10
+      }
+    }
+  },
+  "claim_review_summary": {
+    "total_claims": 21,
+    "reviewed_claims": 8,
+    "pending_review_claims": 13,
+    "label_breakdown": {
+      "supported": 8,
+      "partially_supported": 0,
+      "unsupported": 0,
+      "contradicted": 0,
+      "not_reviewed": 13
+    },
+    "extrinsic_facts_introduced": 0,
+    "relevant_context_omitted": 0,
+    "unwarranted_answering_claims": 0
+  },
+  "query_evaluations": [
+    {
+      "query_id": "M6_001",
+      "category": "single_judgment_holding",
+      "legal_domain": "Constitutional Law",
+      "query": "Can the Supreme Court exercise powers under Article 142 of the Constitution to grant admission to an IIT candidate from a marginalized community who was prevented from paying fees due to a portal login glitch?",
+      "expected_answerable": true,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "gate_only_fast_exit": false,
+      "grounding_matches_gold": true,
+      "grounding_decision": {
+        "status": "sufficient_evidence",
+        "is_grounded": true,
+        "confidence_score": 0.85,
+        "provisions_required": [
+          "Article 142"
+        ],
+        "provisions_found": [
+          "Article 142"
+        ],
+        "missing_provisions": [],
+        "facets_detected": [],
+        "missing_facets": [],
+        "content_classifications": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_150_153",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held:"
+            ]
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_150_153",
+            "content_type": "unknown",
+            "confidence": 0.0,
+            "indicators": []
+          },
+          {
+            "evidence_id": "E3",
+            "document_id": "2024_7_1489_1548",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held:"
+            ]
+          },
+          {
+            "evidence_id": "E4",
+            "document_id": "2024_7_1489_1548",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held:"
+            ]
+          }
+        ],
+        "has_holding_or_authoritative_support": true,
+        "rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+        "gate_latency_ms": 16.344,
+        "diagnostics": {
+          "vocab_ratio": 0.6666666666666666
+        }
+      },
+      "timing_ms": {
+        "retrieval_ms": 106.09,
+        "evidence_assembly_ms": 38.74,
+        "grounding_gate_ms": 17.45,
+        "prompt_construction_ms": 0.03,
+        "generation_ms": 226837.88,
+        "validation_ms": 9.23,
+        "total_ms": 227016.7
+      },
+      "total_latency_seconds": 227.025,
+      "num_evidence_passages": 1,
+      "citations_summary": {
+        "is_valid": false,
+        "validation_status": "invalid",
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "semantic_support_status": "not_evaluated",
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "This response cannot be generalized universally because the Supreme Court’s exercise of powers under Article 142 in cases involving technical issues with online systems is not addressed within this specific case or passage"
+        ],
+        "validation_notes": [
+          "Identified 1 substantive sentence(s) lacking evidence citations.",
+          "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+        ]
+      },
+      "llm_usage": {
+        "prompt_eval_count": 1335,
+        "prompt_eval_ms": 109438.39,
+        "eval_count": 508,
+        "eval_duration_ms": 109797.34,
+        "load_duration_ms": 4577.91,
+        "total_duration_ms": 224741.57,
+        "tokens_per_second": 4.63,
+        "prompt_tokens_per_second": 12.2
+      },
+      "answer_text": "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient information regarding whether the Supreme Court exercised powers under Article 142 of the Constitution to grant admission due to a portal login glitch for an IIT candidate from a marginalized community. [E1]\n\nInsufficient evidence is present in the provided passage ([E1]) as it does not discuss any instance where such extraordinary relief was granted under Article 142, nor does it mention procedural aspects related to portal login issues or how they were addressed by the court within this specific case. The material facts and legal reasoning presented focus on a student's late fee payment rather than technical difficulties with online systems that could warrant constitutional intervention as per Art. 142 of India’s Constitution, which empowers courts to do complete justice in any matter before them where there is no adequate remedy available through ordinary legal channels [E1].\n\nThe court's actual holding ([E1]) concerns the student losing his admission due to being late with fee payment and not a technical glitch. The relevant headnotes indicate that Article 142 was invoked in this case, but without further context or specific reasoning related to technological issues within these passages [E1].\n\nThe legal principles ([E1]) derived from the passage are limited to procedural compliance with fee payment and do not extend into discussions of technical failures that might impact marginalized communities. The application section is also absent, as there's no further detail on how these headnotes apply specifically in this case [E1].\n\nSupporting judgments ([E1]) cannot be provided due to the lack of relevant information within the passage itself regarding technical issues or their resolution by constitutional means under Article 142. The limitations and uncertainties are that without additional context, it is impossible from this evidence alone to determine if there was a portal login glitch affecting marginalized communities' ability to pay fees for IIT admission [E1].\n\nThis response cannot be generalized universally because the Supreme Court’s exercise of powers under Article 142 in cases involving technical issues with online systems is not addressed within this specific case or passage. The evidence provided does not establish a precedent nor provide legal reasoning that would allow for such an extrapolation [E1].",
+      "claims_count": 1,
+      "timeout": false,
+      "error": null
+    },
+    {
+      "query_id": "M6_002",
+      "category": "statutory_interpretation",
+      "legal_domain": "Insolvency Law",
+      "query": "Does an appeal lie to the Supreme Court under Section 62 of the Insolvency and Bankruptcy Code against an order of the NCLAT approving withdrawal of CIRP under Rule 11?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "gate_only_fast_exit": false,
+      "grounding_matches_gold": true,
+      "grounding_decision": {
+        "status": "sufficient_evidence",
+        "is_grounded": true,
+        "confidence_score": 0.85,
+        "provisions_required": [
+          "Section 62",
+          "Rule 11"
+        ],
+        "provisions_found": [
+          "Section 62",
+          "Rule 11"
+        ],
+        "missing_provisions": [],
+        "facets_detected": [],
+        "missing_facets": [],
+        "content_classifications": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_1802_1854",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held:"
+            ]
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_1802_1854",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held:"
+            ]
+          },
+          {
+            "evidence_id": "E3",
+            "document_id": "2024_1_114_139",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held:"
+            ]
+          },
+          {
+            "evidence_id": "E4",
+            "document_id": "2024_1_114_139",
+            "content_type": "unknown",
+            "confidence": 0.0,
+            "indicators": []
+          }
+        ],
+        "has_holding_or_authoritative_support": true,
+        "rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+        "gate_latency_ms": 24.741,
+        "diagnostics": {
+          "vocab_ratio": 1.0
+        }
+      },
+      "timing_ms": {
+        "retrieval_ms": 469.35,
+        "evidence_assembly_ms": 154.46,
+        "grounding_gate_ms": 25.05,
+        "prompt_construction_ms": 0.04,
+        "generation_ms": 140863.2,
+        "validation_ms": 4.41,
+        "total_ms": 141535.94
+      },
+      "total_latency_seconds": 141.536,
+      "num_evidence_passages": 1,
+      "citations_summary": {
+        "is_valid": true,
+        "validation_status": "valid",
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": true,
+        "semantic_support_status": "not_evaluated",
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [],
+        "validation_notes": [
+          "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+        ]
+      },
+      "llm_usage": {
+        "prompt_eval_count": 1350,
+        "prompt_eval_ms": 61250.45,
+        "eval_count": 407,
+        "eval_duration_ms": 76481.43,
+        "load_duration_ms": 80.61,
+        "total_duration_ms": 138809.26,
+        "tokens_per_second": 5.32,
+        "prompt_tokens_per_second": 22.04
+      },
+      "answer_text": "1. SHORT ANSWER: An appeal can lie under Section 62 against NCLAT's order if one is aggrieved by it [E1].\n2. RELEVANT LEGAL PRINCIPLES: According to the Insolvency and Bankruptcy Code, any person who has been affected or may be adversely impacted by an insolvency resolution process (IRP) order can appeal against such a decision [E1].\n3. APPLICATION TO FACTS: The case of GLAS Trust Company LLC versus BYJU Raveendran & Ors deals with the question whether non-party appellants have locus standi to challenge NCLAT's order, which concerns withdrawal from CIRP under Rule 11 [E1].\n4. SUPPORTING JUDGMENTS: The Supreme Court in this case considered if an appeal is permissible against the approval of a corporate debtor’ extrication process by NCLAT and whether such discretion was exercised adequately, taking into account Rule 11 [E1].\n5. LIMITATIONS & UNCERTAINTIES: The evidence does not explicitly discuss Section 62 or the specifics of an appeal under this section; it focuses on locus standi and discretionary powers rather than appellate procedure against NCLAT orders, leaving a gap in directly establishing whether such appeals are permissible [E1].\n\nINSUFFICIENT EVIDENCE: The supplied judicial passages do not provide sufficient evidence to conclusively answer the question about Section 62 of the Insolvency and Bankruptcy Code allowing an appeal against NCLAT's order. They discuss locus standi but lack specific reference or discussion on appeals under this section [E1].",
+      "claims_count": 7,
+      "timeout": false,
+      "error": null
+    },
+    {
+      "query_id": "M6_004",
+      "category": "statutory_interpretation",
+      "legal_domain": "Insolvency & Limitation Law",
+      "query": "Is a specific and clear entry in the balance sheet of a Corporate Debtor required to constitute an acknowledgment of debt under Section 18 of the Limitation Act for IBC proceedings?",
+      "expected_answerable": true,
+      "actual_status": "answered",
+      "grounding_status": "sufficient_evidence",
+      "gate_only_fast_exit": false,
+      "grounding_matches_gold": true,
+      "grounding_decision": {
+        "status": "sufficient_evidence",
+        "is_grounded": true,
+        "confidence_score": 0.85,
+        "provisions_required": [
+          "Section 18"
+        ],
+        "provisions_found": [
+          "Section 18"
+        ],
+        "missing_provisions": [],
+        "facets_detected": [],
+        "missing_facets": [],
+        "content_classifications": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_1462_1474",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held:"
+            ]
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_1462_1474",
+            "content_type": "unknown",
+            "confidence": 0.0,
+            "indicators": []
+          },
+          {
+            "evidence_id": "E3",
+            "document_id": "2024_5_215_240",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held :",
+              "this court held"
+            ]
+          },
+          {
+            "evidence_id": "E4",
+            "document_id": "2024_5_215_240",
+            "content_type": "unknown",
+            "confidence": 0.0,
+            "indicators": []
+          }
+        ],
+        "has_holding_or_authoritative_support": true,
+        "rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+        "gate_latency_ms": 22.683,
+        "diagnostics": {
+          "vocab_ratio": 1.0
+        }
+      },
+      "timing_ms": {
+        "retrieval_ms": 224.42,
+        "evidence_assembly_ms": 62.45,
+        "grounding_gate_ms": 24.23,
+        "prompt_construction_ms": 0.05,
+        "generation_ms": 176055.12,
+        "validation_ms": 2.6,
+        "total_ms": 176377.94
+      },
+      "total_latency_seconds": 176.378,
+      "num_evidence_passages": 1,
+      "citations_summary": {
+        "is_valid": true,
+        "validation_status": "valid",
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": true,
+        "semantic_support_status": "not_evaluated",
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [],
+        "validation_notes": [
+          "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+        ]
+      },
+      "llm_usage": {
+        "prompt_eval_count": 1332,
+        "prompt_eval_ms": 71199.52,
+        "eval_count": 424,
+        "eval_duration_ms": 102043.29,
+        "load_duration_ms": 95.2,
+        "total_duration_ms": 174009.48,
+        "tokens_per_second": 4.16,
+        "prompt_tokens_per_second": 18.71
+      },
+      "answer_text": "1. SHORT ANSWER: The Supreme Court held that there is no unequivocal requirement for a specific and clear acknowledgement of debt in balance sheet entries under Section 18 of the Limitation Act within IBC proceedings [E1].\n2. RELEVANT LEGAL PRINCIPLES: According to Pamidighantam Sri Narasimha & Sandeep Mehta, JJ., there is no clear legal requirement stated in Sections 18 of the Limitation Act or Section 238A of IBC for a specific and unambiguous acknowledgement of debt within balance sheet entries [E1].\n3. APPLICATION TO FACTS: The court considered whether such an explicit entry was necessary while computing limitation under Section 18, in the context of Corporate Insolvency Resolution Process (CIRP) proceedings involving UCO Bank and Anr., as parties to a civil appeal [E1].\n4. SUPPORTING JUDGMENTS: The Supreme Court's holding is found within Case No. 2024_10_1462, with the judgment citation being (Civil Appeal No. 1031 of 2022) [E1].\n5. LIMITATIONS & UNCERTAINTIES: The evidence does not explicitly state whether an acknowledgement outside balance sheet entries can suffice for limitation purposes under Section 18, nor is there a detailed discussion on the interpretation or application of Sections 18 and/or 238A in this context [E1].\n\nINSUFFICIENT EVIDENCE: The provided evidence does not establish whether an acknowledgement outside balance sheet entries can suffice for limitation purposes under Section 18, nor is there a detailed discussion on the interpretation or application of Sections 18 and/or 238A in this context.",
+      "claims_count": 6,
+      "timeout": false,
+      "error": null
+    },
+    {
+      "query_id": "M6_005",
+      "category": "statutory_interpretation",
+      "legal_domain": "Commercial Criminal Law",
+      "query": "Can an authorized signatory who signs a cheque on behalf of a company be directed to deposit an interim sum under Section 148 of the Negotiable Instruments Act upon appeal against conviction under Section 138?",
+      "expected_answerable": true,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "gate_only_fast_exit": false,
+      "grounding_matches_gold": true,
+      "grounding_decision": {
+        "status": "sufficient_evidence",
+        "is_grounded": true,
+        "confidence_score": 0.85,
+        "provisions_required": [
+          "Section 148",
+          "Section 138"
+        ],
+        "provisions_found": [
+          "Section 148",
+          "Section 138"
+        ],
+        "missing_provisions": [],
+        "facets_detected": [],
+        "missing_facets": [],
+        "content_classifications": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_1890_1901",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held:"
+            ]
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_1890_1901",
+            "content_type": "unknown",
+            "confidence": 0.0,
+            "indicators": []
+          },
+          {
+            "evidence_id": "E3",
+            "document_id": "2024_7_1211_1224",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held:"
+            ]
+          },
+          {
+            "evidence_id": "E4",
+            "document_id": "2024_7_1211_1224",
+            "content_type": "court_holding",
+            "confidence": 0.65,
+            "indicators": [
+              "headnotes_or_issue_formulation"
+            ]
+          }
+        ],
+        "has_holding_or_authoritative_support": true,
+        "rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+        "gate_latency_ms": 16.81,
+        "diagnostics": {
+          "vocab_ratio": 1.0
+        }
+      },
+      "timing_ms": {
+        "retrieval_ms": 177.82,
+        "evidence_assembly_ms": 46.5,
+        "grounding_gate_ms": 16.99,
+        "prompt_construction_ms": 0.03,
+        "generation_ms": 119766.83,
+        "validation_ms": 1.96,
+        "total_ms": 120017.14
+      },
+      "total_latency_seconds": 120.017,
+      "num_evidence_passages": 1,
+      "citations_summary": {
+        "is_valid": true,
+        "validation_status": "valid",
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": true,
+        "semantic_support_status": "not_evaluated",
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [],
+        "validation_notes": [
+          "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+        ]
+      },
+      "llm_usage": {
+        "prompt_eval_count": 1333,
+        "prompt_eval_ms": 50953.62,
+        "eval_count": 436,
+        "eval_duration_ms": 66013.55,
+        "load_duration_ms": 83.66,
+        "total_duration_ms": 117720.58,
+        "tokens_per_second": 6.6,
+        "prompt_tokens_per_second": 26.16
+      },
+      "answer_text": "1. SHORT ANSWER: The Supreme Court did not directly address whether a company signatory can be directed under Section 148 of the Negotiable Instrus Act to deposit interim sums upon appeal against conviction for non-payment as per Section 138 in this case [E1].\n2. RELEVANT LEGAL PRINCIPLES: The legal question revolves around Sections 148 and 138 of the Negotiable Instruments Act, which deal with payment stoppage by drawer upon dishonor (Section 148) and conviction for non-payment or cheating under a negotiable instrument respectively (Section 138). [E1]\n3. APPLICATION TO FACTS: The facts presented involve an appeal against the appellant's sentence, wherein his role as signatory of company checks is relevant to understanding potential obligations upon dishonor under Section 148; however, there was no specific application or direction given by the court in this context [E1].\n4. SUPPORTING JUDGMENTS: The provided evidence does not contain a direct holding from Judges C.T. Ravikumar and Sanjay Karol regarding directions for depositing sums under Section 148 upon appeal against conviction as per Section 138 [E1].\n5. LIMITATIONS & UNCERTAINTIES: The evidence does not establish the court's position on whether an authorized signatory can be directed to make interim payments, and thus cannot provide a definitive answer or precedent for this specific legal question within these proceedings [E1].\nINSUFFICIENT EVIDENCE: The retrieved judicial passages do not contain sufficient information regarding the court's holding on whether an authorized signatory can be directed to deposit interim sums under Section 148 upon appeal against conviction as per Section 138. [E1]",
+      "claims_count": 1,
+      "timeout": false,
+      "error": null
+    },
+    {
+      "query_id": "M6_007",
+      "category": "single_judgment_holding",
+      "legal_domain": "Constitutional Law",
+      "query": "Are prison rules that assign manual labour and segregated duties according to the caste of inmates constitutional under Articles 14 and 15 of the Constitution?",
+      "expected_answerable": true,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "gate_only_fast_exit": false,
+      "grounding_matches_gold": true,
+      "grounding_decision": {
+        "status": "sufficient_evidence",
+        "is_grounded": true,
+        "confidence_score": 0.85,
+        "provisions_required": [],
+        "provisions_found": [],
+        "missing_provisions": [],
+        "facets_detected": [],
+        "missing_facets": [],
+        "content_classifications": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_493_638",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held:"
+            ]
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_493_638",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held:"
+            ]
+          },
+          {
+            "evidence_id": "E3",
+            "document_id": "2024_5_1038_1055",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held:"
+            ]
+          },
+          {
+            "evidence_id": "E4",
+            "document_id": "2024_5_1038_1055",
+            "content_type": "unknown",
+            "confidence": 0.0,
+            "indicators": []
+          }
+        ],
+        "has_holding_or_authoritative_support": true,
+        "rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+        "gate_latency_ms": 7.971,
+        "diagnostics": {
+          "vocab_ratio": 0.7777777777777778
+        }
+      },
+      "timing_ms": {
+        "retrieval_ms": 172.44,
+        "evidence_assembly_ms": 122.22,
+        "grounding_gate_ms": 8.12,
+        "prompt_construction_ms": 0.02,
+        "generation_ms": 130055.83,
+        "validation_ms": 1.12,
+        "total_ms": 130372.46
+      },
+      "total_latency_seconds": 130.373,
+      "num_evidence_passages": 1,
+      "citations_summary": {
+        "is_valid": false,
+        "validation_status": "invalid",
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": false,
+        "semantic_support_status": "not_evaluated",
+        "cited_ids": [
+          "E1"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [],
+        "unsupported_sentences": [
+          "Case Reference: [2024_10_493_638 | Citation: 2024INSC753 | Date: 03-10-2024] - This passage does not explicitly discuss Articles 14 and 15 or their application to prison rules",
+          "Court's Holding on Discrimination (Para references): [Paras 161-231, Para reference: Not specified in the provided text excerpt - The passage mentions that discrimination inside prisons must be addressed but does not specifically address Articles 14 and 15 or their application to prison rules",
+          "Application of Constitutional Principles (Not Specified): There is no direct citation from this judgment applying the principles under Article 14 regarding equality before law, nor about non-discrimination as per Article 15 in relation to assigning duties based on caste within prison rules",
+          "Judicial Reasoning VS",
+          "Party Submissions: The court has not made a determination on the constitutionality of such prison rules under Articles 14 and 15, nor have party submissions been provided in this excerpt to establish their arguments regarding these articles [2024INSC753]",
+          "Contextual Qualifications: Without explicit discussion or analysis from the judgment itself on Article-specific grounds (Articles 14 and 15), it is not possible to ascertain how they would apply in this context",
+          "The court's focus appears more broadly directed towards discrimination within prisons rather than specific constitutional scrutinies of"
+        ],
+        "validation_notes": [
+          "Identified 7 substantive sentence(s) lacking evidence citations.",
+          "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+        ]
+      },
+      "llm_usage": {
+        "prompt_eval_count": 1257,
+        "prompt_eval_ms": 49187.63,
+        "eval_count": 512,
+        "eval_duration_ms": 78433.73,
+        "load_duration_ms": 78.5,
+        "total_duration_ms": 128005.4,
+        "tokens_per_second": 6.53,
+        "prompt_tokens_per_second": 25.56
+      },
+      "answer_text": "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient information on whether prison rules assigning manual labour and segregated duties according to caste are constitutional under Articles 14 (to the extent that it prohibits any discrimination) and 15 of the Constitution.\n\n[E1] Case Reference: [2024_10_493_638 | Citation: 2024INSC753 | Date: 03-10-2024] - This passage does not explicitly discuss Articles 14 and 15 or their application to prison rules.\n\n[E1] Court's Holding on Discrimination (Para references): [Paras 161-231, Para reference: Not specified in the provided text excerpt - The passage mentions that discrimination inside prisons must be addressed but does not specifically address Articles 14 and 15 or their application to prison rules.\n\n[E1] Application of Constitutional Principles (Not Specified): There is no direct citation from this judgment applying the principles under Article 14 regarding equality before law, nor about non-discrimination as per Article 15 in relation to assigning duties based on caste within prison rules.\n\n[E1] Limitations & Uncertainties: The evidence provided does not establish whether or how Articles 14 and 15 of the Constitution are relevant to, nor do they address, specifics about manual labour assignments according to inmate's castes as per their judgment [2024INSC753].\n\n[E1] Judicial Reasoning VS. Party Submissions: The court has not made a determination on the constitutionality of such prison rules under Articles 14 and 15, nor have party submissions been provided in this excerpt to establish their arguments regarding these articles [2024INSC753].\n\n[E1] Contextual Qualifications: Without explicit discussion or analysis from the judgment itself on Article-specific grounds (Articles 14 and 15), it is not possible to ascertain how they would apply in this context. The court's focus appears more broadly directed towards discrimination within prisons rather than specific constitutional scrutinies of",
+      "claims_count": 1,
+      "timeout": false,
+      "error": null
+    },
+    {
+      "query_id": "M6_009",
+      "category": "statutory_interpretation",
+      "legal_domain": "Taxation Law",
+      "query": "Does Section 17(5)(d) of the CGST Act apply the functionality test to determine whether a building constructed for leasing qualifies as a plant for input tax credit?",
+      "expected_answerable": true,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "gate_only_fast_exit": false,
+      "grounding_matches_gold": true,
+      "grounding_decision": {
+        "status": "sufficient_evidence",
+        "is_grounded": true,
+        "confidence_score": 0.85,
+        "provisions_required": [
+          "Section 17"
+        ],
+        "provisions_found": [
+          "Section 17"
+        ],
+        "missing_provisions": [],
+        "facets_detected": [],
+        "missing_facets": [],
+        "content_classifications": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_793_859",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held:",
+              "it is held that"
+            ]
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_793_859",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held:"
+            ]
+          },
+          {
+            "evidence_id": "E3",
+            "document_id": "2024_11_1525_1601",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held:"
+            ]
+          },
+          {
+            "evidence_id": "E4",
+            "document_id": "2024_11_1525_1601",
+            "content_type": "unknown",
+            "confidence": 0.0,
+            "indicators": []
+          }
+        ],
+        "has_holding_or_authoritative_support": true,
+        "rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+        "gate_latency_ms": 7.535,
+        "diagnostics": {
+          "vocab_ratio": 0.75
+        }
+      },
+      "timing_ms": {
+        "retrieval_ms": 52.5,
+        "evidence_assembly_ms": 52.69,
+        "grounding_gate_ms": 7.65,
+        "prompt_construction_ms": 0.02,
+        "generation_ms": 128606.38,
+        "validation_ms": 1.2,
+        "total_ms": 128724.85
+      },
+      "total_latency_seconds": 128.725,
+      "num_evidence_passages": 1,
+      "citations_summary": {
+        "is_valid": false,
+        "validation_status": "invalid",
+        "citation_syntax_valid": true,
+        "citation_existence_valid": false,
+        "attribution_complete": false,
+        "semantic_support_status": "not_evaluated",
+        "cited_ids": [
+          "E1",
+          "E2",
+          "E3"
+        ],
+        "valid_ids": [
+          "E1"
+        ],
+        "invalid_ids": [
+          "E2",
+          "E3"
+        ],
+        "unsupported_sentences": [
+          "- The court's inquiry in this case is not explicitly focused on establishing criteria for input tax credit eligibility as it relates to buildings constructed under lease agreements"
+        ],
+        "validation_notes": [
+          "Detected 2 unknown/hallucinated citation ID(s): ['E2', 'E3']",
+          "Identified 1 substantive sentence(s) lacking evidence citations.",
+          "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+        ]
+      },
+      "llm_usage": {
+        "prompt_eval_count": 1363,
+        "prompt_eval_ms": 51525.71,
+        "eval_count": 512,
+        "eval_duration_ms": 74660.7,
+        "load_duration_ms": 62.05,
+        "total_duration_ms": 126532.21,
+        "tokens_per_second": 6.86,
+        "prompt_tokens_per_second": 26.45
+      },
+      "answer_text": "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question regarding whether Section 17(5)(d) of the CGST Act applies a functionality test for buildings constructed for leasing purposes in relation to input tax credit eligibility. [E1]\n\nInsufficient Evidence Explanation:\nThe provided judicial passage does not discuss or establish specific criteria such as a \"functionality test\" within Section 17(5)(d) of the CGST Act, nor is there any mention related to buildings constructed for leasing purposes and their qualification under input tax credit. The court's discussion in [E1] revolves around whether certain definitions apply across different sections (clause d vs clause c), constitutional validity challenges regarding eligibility conditions of ITC, apportionment issues with blocked credits, and the construction classification as an \"immovable property.\"\n\nNo direct legal reasoning or holding from [E1] can be applied to determine if a functionality test is used for buildings constructed under lease agreements. The court's inquiry in this case does not appear focused on establishing criteria like those mentioned, and therefore the evidence provided cannot substantiate an answer regarding Section 17(5)(d)'s application of such tests:\n[E2] - No specific mention or discussion about a functionality test within [E1].\n- The court's inquiry in this case is not explicitly focused on establishing criteria for input tax credit eligibility as it relates to buildings constructed under lease agreements. Thus, the evidence does not address whether Section 17(5)(d) applies a functionality test: [E3]\n- The court's actual holding or reasoning regarding construction classification and ITC conditions is absent from this passage; therefore, no direct application of legal principles to facts can be made about applying such tests for buildings constructed under lease agreements. This limitation prevents drawing any conclusions on the matter based soledictly upon [E1]:\n[Limitations & Uncertainties] - The absence of explicit discussion or criteria related to a functionality test in Section 17(5)(d) within this judicial passage means that no conclusion can be drawn about its application without additional evidence: INSUFFICIENT EVIDENCE. [E4-[Limitations & Uncertainties]]",
+      "claims_count": 1,
+      "timeout": false,
+      "error": null
+    },
+    {
+      "query_id": "M6_017",
+      "category": "abstention_unanswerable",
+      "legal_domain": "Data Protection & Regulatory Law",
+      "query": "What are the eligibility criteria and tenure prescribed under Section 18 of the Digital Personal Data Protection Act, 2023 for members of the Data Protection Board of India?",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "gate_only_fast_exit": true,
+      "grounding_matches_gold": true,
+      "grounding_decision": {
+        "status": "topically_relevant_but_insufficient_grounding",
+        "is_grounded": false,
+        "confidence_score": 0.1,
+        "provisions_required": [
+          "Section 18"
+        ],
+        "provisions_found": [],
+        "missing_provisions": [
+          "Section 18"
+        ],
+        "facets_detected": [],
+        "missing_facets": [],
+        "content_classifications": [],
+        "has_holding_or_authoritative_support": false,
+        "rationale": "Query explicitly inquires about statutory provisions (Section 18), but they are not present in retrieved evidence.",
+        "gate_latency_ms": 9.462,
+        "diagnostics": {}
+      },
+      "timing_ms": {
+        "retrieval_ms": 42.27,
+        "evidence_assembly_ms": 23.11,
+        "grounding_gate_ms": 9.53,
+        "total_ms": 79.0
+      },
+      "total_latency_seconds": 0.079,
+      "num_evidence_passages": 4,
+      "citations_summary": {
+        "is_valid": true,
+        "validation_status": "valid",
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": true,
+        "semantic_support_status": "insufficient_grounding",
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": [],
+        "unsupported_sentences": [],
+        "validation_notes": [
+          "Proposition Grounding Gate: Query explicitly inquires about statutory provisions (Section 18), but they are not present in retrieved evidence."
+        ]
+      },
+      "llm_usage": {},
+      "answer_text": "INSUFFICIENT EVIDENCE: Query explicitly inquires about statutory provisions (Section 18), but they are not present in retrieved evidence.",
+      "claims_count": 1,
+      "timeout": false,
+      "error": null
+    },
+    {
+      "query_id": "M6_018",
+      "category": "abstention_unanswerable",
+      "legal_domain": "Personal Law & Property",
+      "query": "Does the Hindu legal concept of joint family coparcenary property apply to Mohammedans governed by Muslim law?",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "gate_only_fast_exit": true,
+      "grounding_matches_gold": true,
+      "grounding_decision": {
+        "status": "topically_relevant_but_insufficient_grounding",
+        "is_grounded": false,
+        "confidence_score": 0.3,
+        "provisions_required": [],
+        "provisions_found": [],
+        "missing_provisions": [],
+        "facets_detected": [],
+        "missing_facets": [],
+        "content_classifications": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_12_923_946",
+            "content_type": "unknown",
+            "confidence": 0.0,
+            "indicators": []
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_12_923_946",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held:"
+            ]
+          },
+          {
+            "evidence_id": "E3",
+            "document_id": "2024_6_298_314",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held:"
+            ]
+          },
+          {
+            "evidence_id": "E4",
+            "document_id": "2024_6_298_314",
+            "content_type": "unknown",
+            "confidence": 0.0,
+            "indicators": []
+          }
+        ],
+        "has_holding_or_authoritative_support": true,
+        "rationale": "Subject context ({'hindu', 'family', 'legal', 'joint', 'concept', 'coparcenary', 'property'}) and target predicate ({'governed', 'muslim', 'mohammedans'}) appear only in disjoint contexts and do not co-occur in any evidence sentence.",
+        "gate_latency_ms": 5.181,
+        "diagnostics": {
+          "co_occurred": false
+        }
+      },
+      "timing_ms": {
+        "retrieval_ms": 43.07,
+        "evidence_assembly_ms": 13.35,
+        "grounding_gate_ms": 5.29,
+        "total_ms": 63.52
+      },
+      "total_latency_seconds": 0.064,
+      "num_evidence_passages": 4,
+      "citations_summary": {
+        "is_valid": true,
+        "validation_status": "valid",
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": true,
+        "semantic_support_status": "insufficient_grounding",
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": [],
+        "unsupported_sentences": [],
+        "validation_notes": [
+          "Proposition Grounding Gate: Subject context ({'hindu', 'family', 'legal', 'joint', 'concept', 'coparcenary', 'property'}) and target predicate ({'governed', 'muslim', 'mohammedans'}) appear only in disjoint contexts and do not co-occur in any evidence sentence."
+        ]
+      },
+      "llm_usage": {},
+      "answer_text": "INSUFFICIENT EVIDENCE: Subject context ({'hindu', 'family', 'legal', 'joint', 'concept', 'coparcenary', 'property'}) and target predicate ({'governed', 'muslim', 'mohammedans'}) appear only in disjoint contexts and do not co-occur in any evidence sentence.",
+      "claims_count": 1,
+      "timeout": false,
+      "error": null
+    },
+    {
+      "query_id": "M6_019",
+      "category": "abstention_unanswerable",
+      "legal_domain": "Criminal & Contempt Law",
+      "query": "Does the statutory provision for anticipatory bail under Section 438 CrPC establish that an accused can seek pre-arrest bail in contempt of court proceedings?",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "gate_only_fast_exit": true,
+      "grounding_matches_gold": true,
+      "grounding_decision": {
+        "status": "topically_relevant_but_insufficient_grounding",
+        "is_grounded": false,
+        "confidence_score": 0.3,
+        "provisions_required": [
+          "Section 438"
+        ],
+        "provisions_found": [
+          "Section 438"
+        ],
+        "missing_provisions": [],
+        "facets_detected": [],
+        "missing_facets": [],
+        "content_classifications": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_9_257_312",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held:"
+            ]
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_9_257_312",
+            "content_type": "court_holding",
+            "confidence": 0.85,
+            "indicators": [
+              "held:"
+            ]
+          },
+          {
+            "evidence_id": "E3",
+            "document_id": "2024_8_235_286",
+            "content_type": "unknown",
+            "confidence": 0.0,
+            "indicators": []
+          },
+          {
+            "evidence_id": "E4",
+            "document_id": "2024_8_235_286",
+            "content_type": "unknown",
+            "confidence": 0.0,
+            "indicators": []
+          }
+        ],
+        "has_holding_or_authoritative_support": true,
+        "rationale": "Subject context ({'anticipatory', 'bail', 'statutory', 'crpc'}) and target predicate ({'contempt'}) appear only in disjoint contexts and do not co-occur in any evidence sentence.",
+        "gate_latency_ms": 5.691,
+        "diagnostics": {
+          "co_occurred": false
+        }
+      },
+      "timing_ms": {
+        "retrieval_ms": 49.01,
+        "evidence_assembly_ms": 30.79,
+        "grounding_gate_ms": 5.8,
+        "total_ms": 88.38
+      },
+      "total_latency_seconds": 0.088,
+      "num_evidence_passages": 4,
+      "citations_summary": {
+        "is_valid": true,
+        "validation_status": "valid",
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": true,
+        "semantic_support_status": "insufficient_grounding",
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": [],
+        "unsupported_sentences": [],
+        "validation_notes": [
+          "Proposition Grounding Gate: Subject context ({'anticipatory', 'bail', 'statutory', 'crpc'}) and target predicate ({'contempt'}) appear only in disjoint contexts and do not co-occur in any evidence sentence."
+        ]
+      },
+      "llm_usage": {},
+      "answer_text": "INSUFFICIENT EVIDENCE: Subject context ({'anticipatory', 'bail', 'statutory', 'crpc'}) and target predicate ({'contempt'}) appear only in disjoint contexts and do not co-occur in any evidence sentence.",
+      "claims_count": 1,
+      "timeout": false,
+      "error": null
+    },
+    {
+      "query_id": "M6_020",
+      "category": "abstention_unanswerable",
+      "legal_domain": "Patent & Environmental Law",
+      "query": "Does Section 3(j) of the Patents Act, 1970 permit patenting of genetically modified mustard seeds containing transgenic traits as held by the Supreme Court?",
+      "expected_answerable": false,
+      "actual_status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "gate_only_fast_exit": true,
+      "grounding_matches_gold": true,
+      "grounding_decision": {
+        "status": "topically_relevant_but_insufficient_grounding",
+        "is_grounded": false,
+        "confidence_score": 0.15,
+        "provisions_required": [
+          "Section 3"
+        ],
+        "provisions_found": [
+          "Section 3"
+        ],
+        "missing_provisions": [],
+        "facets_detected": [],
+        "missing_facets": [],
+        "content_classifications": [],
+        "has_holding_or_authoritative_support": false,
+        "rationale": "Historical precedent or statutory year (1970) specified in query is absent from retrieved 2024 judgments.",
+        "gate_latency_ms": 1.339,
+        "diagnostics": {}
+      },
+      "timing_ms": {
+        "retrieval_ms": 36.0,
+        "evidence_assembly_ms": 81.34,
+        "grounding_gate_ms": 1.39,
+        "total_ms": 162.13
+      },
+      "total_latency_seconds": 0.162,
+      "num_evidence_passages": 4,
+      "citations_summary": {
+        "is_valid": true,
+        "validation_status": "valid",
+        "citation_syntax_valid": true,
+        "citation_existence_valid": true,
+        "attribution_complete": true,
+        "semantic_support_status": "insufficient_grounding",
+        "cited_ids": [],
+        "valid_ids": [],
+        "invalid_ids": [],
+        "unsupported_sentences": [],
+        "validation_notes": [
+          "Proposition Grounding Gate: Historical precedent or statutory year (1970) specified in query is absent from retrieved 2024 judgments."
+        ]
+      },
+      "llm_usage": {},
+      "answer_text": "INSUFFICIENT EVIDENCE: Historical precedent or statutory year (1970) specified in query is absent from retrieved 2024 judgments.",
+      "claims_count": 1,
+      "timeout": false,
+      "error": null
+    }
+  ]
+}

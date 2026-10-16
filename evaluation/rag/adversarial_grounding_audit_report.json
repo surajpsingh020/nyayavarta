@@ -1,0 +1,957 @@
+{
+  "benchmark_title": "NyayaVarta Milestone 5E Adversarial Grounding Gate Audit",
+  "benchmark_version": "v1.0_adversarial_matrix",
+  "timestamp": "2026-10-13T11:36:15Z",
+  "summary_counts": {
+    "total_test_cases": 20,
+    "total_supported_cases": 6,
+    "total_unsupported_cases": 14,
+    "true_positives": 6,
+    "false_negatives": 0,
+    "true_negatives": 14,
+    "false_positives": 0
+  },
+  "performance_metrics": {
+    "overall_accuracy": 1.0,
+    "true_positive_rate": 1.0,
+    "false_abstention_rate": 0.0,
+    "true_negative_rate": 1.0,
+    "false_accept_rate": 0.0
+  },
+  "latency_metrics_ms": {
+    "median_latency_ms": 0.222,
+    "p95_latency_ms": 0.671,
+    "max_latency_ms": 0.673,
+    "target_under_10ms_met": true
+  },
+  "category_breakdown": {
+    "direct_positive_support": {
+      "total": 6,
+      "expected_grounded": 6,
+      "expected_ungrounded": 0,
+      "actual_grounded": 6,
+      "actual_ungrounded": 0,
+      "correct": 6,
+      "false_positive": 0,
+      "false_negative": 0
+    },
+    "negation": {
+      "total": 1,
+      "expected_grounded": 0,
+      "expected_ungrounded": 1,
+      "actual_grounded": 0,
+      "actual_ungrounded": 1,
+      "correct": 1,
+      "false_positive": 0,
+      "false_negative": 0
+    },
+    "exception": {
+      "total": 1,
+      "expected_grounded": 0,
+      "expected_ungrounded": 1,
+      "actual_grounded": 0,
+      "actual_ungrounded": 1,
+      "correct": 1,
+      "false_positive": 0,
+      "false_negative": 0
+    },
+    "party_submission": {
+      "total": 1,
+      "expected_grounded": 0,
+      "expected_ungrounded": 1,
+      "actual_grounded": 0,
+      "actual_ungrounded": 1,
+      "correct": 1,
+      "false_positive": 0,
+      "false_negative": 0
+    },
+    "rejected_argument": {
+      "total": 1,
+      "expected_grounded": 0,
+      "expected_ungrounded": 1,
+      "actual_grounded": 0,
+      "actual_ungrounded": 1,
+      "correct": 1,
+      "false_positive": 0,
+      "false_negative": 0
+    },
+    "quoted_precedent": {
+      "total": 1,
+      "expected_grounded": 0,
+      "expected_ungrounded": 1,
+      "actual_grounded": 0,
+      "actual_ungrounded": 1,
+      "correct": 1,
+      "false_positive": 0,
+      "false_negative": 0
+    },
+    "lower_court_finding": {
+      "total": 1,
+      "expected_grounded": 0,
+      "expected_ungrounded": 1,
+      "actual_grounded": 0,
+      "actual_ungrounded": 1,
+      "correct": 1,
+      "false_positive": 0,
+      "false_negative": 0
+    },
+    "split_propositions": {
+      "total": 1,
+      "expected_grounded": 0,
+      "expected_ungrounded": 1,
+      "actual_grounded": 0,
+      "actual_ungrounded": 1,
+      "correct": 1,
+      "false_positive": 0,
+      "false_negative": 0
+    },
+    "superficial_cooccurrence": {
+      "total": 1,
+      "expected_grounded": 0,
+      "expected_ungrounded": 1,
+      "actual_grounded": 0,
+      "actual_ungrounded": 1,
+      "correct": 1,
+      "false_positive": 0,
+      "false_negative": 0
+    },
+    "partial_support": {
+      "total": 1,
+      "expected_grounded": 0,
+      "expected_ungrounded": 1,
+      "actual_grounded": 0,
+      "actual_ungrounded": 1,
+      "correct": 1,
+      "false_positive": 0,
+      "false_negative": 0
+    },
+    "contradictory_passages": {
+      "total": 1,
+      "expected_grounded": 0,
+      "expected_ungrounded": 1,
+      "actual_grounded": 0,
+      "actual_ungrounded": 1,
+      "correct": 1,
+      "false_positive": 0,
+      "false_negative": 0
+    },
+    "statutory_mention": {
+      "total": 1,
+      "expected_grounded": 0,
+      "expected_ungrounded": 1,
+      "actual_grounded": 0,
+      "actual_ungrounded": 1,
+      "correct": 1,
+      "false_positive": 0,
+      "false_negative": 0
+    },
+    "temporal_qualification": {
+      "total": 1,
+      "expected_grounded": 0,
+      "expected_ungrounded": 1,
+      "actual_grounded": 0,
+      "actual_ungrounded": 1,
+      "correct": 1,
+      "false_positive": 0,
+      "false_negative": 0
+    },
+    "unknown_passage_role": {
+      "total": 1,
+      "expected_grounded": 0,
+      "expected_ungrounded": 1,
+      "actual_grounded": 0,
+      "actual_ungrounded": 1,
+      "correct": 1,
+      "false_positive": 0,
+      "false_negative": 0
+    },
+    "irrelevant_evidence": {
+      "total": 1,
+      "expected_grounded": 0,
+      "expected_ungrounded": 1,
+      "actual_grounded": 0,
+      "actual_ungrounded": 1,
+      "correct": 1,
+      "false_positive": 0,
+      "false_negative": 0
+    }
+  },
+  "audit_records": [
+    {
+      "test_id": "ADV001_DIRECT_POSITIVE",
+      "category": "direct_positive_support",
+      "fixture_type": "corpus_grounded",
+      "query": "Can a third-party stranger who is dispossessed of immovable property in execution of a decree maintain an application under Order XXI Rule 99 of the CPC?",
+      "expected_is_grounded": true,
+      "expected_status": "sufficient_evidence",
+      "actual_is_grounded": true,
+      "actual_status": "sufficient_evidence",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": true,
+      "decision_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "expected_rationale": "Direct positive judicial holding from Renjith K.G. v. Sheeba holding that any person or stranger to the decree dispossessed of immovable property can maintain an application under Order XXI Rule 99 CPC.",
+      "provisions_required": [
+        "Order XXI",
+        "Rule 99"
+      ],
+      "provisions_found": [
+        "Order XXI",
+        "Rule 99"
+      ],
+      "missing_provisions": [],
+      "content_classifications": [
+        {
+          "evidence_id": "E1",
+          "document_id": "2024_10_1359_1370",
+          "content_type": "court_holding",
+          "confidence": 0.85,
+          "indicators": [
+            "held:"
+          ]
+        }
+      ],
+      "has_holding_or_authoritative_support": true,
+      "diagnostics": {
+        "vocab_ratio": 0.8888888888888888
+      },
+      "gate_latency_ms": 0.639
+    },
+    {
+      "test_id": "ADV002_NEGATION_DIRECT_DENIAL",
+      "category": "negation",
+      "fixture_type": "corpus_grounded",
+      "query": "Does an authorized signatory of a company constitute the drawer of the cheque under Section 148 of the Negotiable Instruments Act for interim appellate compensation?",
+      "expected_is_grounded": false,
+      "expected_status": "topically_relevant_but_insufficient_grounding",
+      "actual_is_grounded": false,
+      "actual_status": "topically_relevant_but_insufficient_grounding",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": false,
+      "decision_rationale": "Retrieved evidence explicitly negates, limits, or denies the requested proposition (negative holding or exception detected).",
+      "expected_rationale": "Direct negative holding in Bijay Agarwal v. Medilines explicitly denying that an authorized signatory is the drawer of the cheque under Section 148 NI Act. The evidence contradicts/denies the requested proposition.",
+      "provisions_required": [
+        "Section 148"
+      ],
+      "provisions_found": [
+        "Section 148"
+      ],
+      "missing_provisions": [],
+      "content_classifications": [
+        {
+          "evidence_id": "E1",
+          "document_id": "2024_10_1890_1901",
+          "content_type": "court_holding",
+          "confidence": 0.85,
+          "indicators": [
+            "held:"
+          ]
+        }
+      ],
+      "has_holding_or_authoritative_support": true,
+      "diagnostics": {
+        "predicate_negated": true
+      },
+      "gate_latency_ms": 0.317
+    },
+    {
+      "test_id": "ADV003_EXCEPTION_LIMITATION",
+      "category": "exception",
+      "fixture_type": "corpus_grounded",
+      "query": "Does Rule 9(4) of the Security Interest Rules permit an auction purchaser to unilaterally demand an extension of the deposit period as a matter of right?",
+      "expected_is_grounded": false,
+      "expected_status": "topically_relevant_but_insufficient_grounding",
+      "actual_is_grounded": false,
+      "actual_status": "topically_relevant_but_insufficient_grounding",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": false,
+      "decision_rationale": "Retrieved evidence explicitly negates, limits, or denies the requested proposition (negative holding or exception detected).",
+      "expected_rationale": "IDBI Bank v. Ramswaroop Daliya holds that the 15-day period is extendable only upon mutual written consent of parties; an auction purchaser cannot unilaterally demand an extension as a matter of right.",
+      "provisions_required": [
+        "Rule 9"
+      ],
+      "provisions_found": [
+        "Rule 9"
+      ],
+      "missing_provisions": [],
+      "content_classifications": [
+        {
+          "evidence_id": "E1",
+          "document_id": "2024_10_1371_1380",
+          "content_type": "court_holding",
+          "confidence": 0.85,
+          "indicators": [
+            "held:"
+          ]
+        }
+      ],
+      "has_holding_or_authoritative_support": true,
+      "diagnostics": {
+        "predicate_negated": true
+      },
+      "gate_latency_ms": 0.39
+    },
+    {
+      "test_id": "ADV004_PARTY_SUBMISSION",
+      "category": "party_submission",
+      "fixture_type": "corpus_grounded",
+      "query": "Does an entry in a corporate debtor's balance sheet fail to extend limitation under Section 18 of the Limitation Act if the creditor's name is not specifically specified?",
+      "expected_is_grounded": false,
+      "expected_status": "topically_relevant_but_insufficient_grounding",
+      "actual_is_grounded": false,
+      "actual_status": "topically_relevant_but_insufficient_grounding",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": false,
+      "decision_rationale": "Retrieved passages contain only party/counsel submissions and do not contain judicial reasoning or holding.",
+      "expected_rationale": "The passage contains only the appellant debtor's unaccepted submission from Vidyasagar Prasad v. UCO Bank. Counsel submissions reflect advocacy, not law declared by the Court.",
+      "provisions_required": [
+        "Section 18"
+      ],
+      "provisions_found": [
+        "Section 18"
+      ],
+      "missing_provisions": [],
+      "content_classifications": [
+        {
+          "evidence_id": "E1",
+          "document_id": "2024_10_1462_1474",
+          "content_type": "party_submission",
+          "confidence": 0.8,
+          "indicators": [
+            "contended that",
+            "it was contended"
+          ]
+        }
+      ],
+      "has_holding_or_authoritative_support": false,
+      "diagnostics": {
+        "all_submissions": true
+      },
+      "gate_latency_ms": 0.22
+    },
+    {
+      "test_id": "ADV005_REJECTED_ARGUMENT",
+      "category": "rejected_argument",
+      "fixture_type": "corpus_grounded",
+      "query": "Does an admission of document genuineness under Section 294 CrPC deprive an accused of a fair trial and invalidate the proceedings?",
+      "expected_is_grounded": false,
+      "expected_status": "topically_relevant_but_insufficient_grounding",
+      "actual_is_grounded": false,
+      "actual_status": "topically_relevant_but_insufficient_grounding",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": false,
+      "decision_rationale": "Retrieved evidence explicitly negates, rejects, or holds the proposition inapplicable (negative holding/rejection detected), and therefore cannot support the affirmative proposition.",
+      "expected_rationale": "In Shyam Narayan Ram v. State of UP, the Court explicitly rejects the defense argument that admitting document genuineness under Section 294 CrPC deprived the accused of a fair trial.",
+      "provisions_required": [
+        "Section 294"
+      ],
+      "provisions_found": [
+        "Section 294"
+      ],
+      "missing_provisions": [],
+      "content_classifications": [
+        {
+          "evidence_id": "E1",
+          "document_id": "2024_10_1726_1735",
+          "content_type": "court_holding",
+          "confidence": 0.85,
+          "indicators": [
+            "held:"
+          ]
+        }
+      ],
+      "has_holding_or_authoritative_support": true,
+      "diagnostics": {
+        "negation_detected": true
+      },
+      "gate_latency_ms": 0.224
+    },
+    {
+      "test_id": "ADV006_QUOTED_PRECEDENT",
+      "category": "quoted_precedent",
+      "fixture_type": "corpus_grounded",
+      "query": "Did the Supreme Court follow Munna Pandey v. State of Bihar to hold that dispensing with formal proof under Section 294 CrPC vitiates a trial?",
+      "expected_is_grounded": false,
+      "expected_status": "topically_relevant_but_insufficient_grounding",
+      "actual_is_grounded": false,
+      "actual_status": "topically_relevant_but_insufficient_grounding",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": false,
+      "decision_rationale": "Retrieved passages cite older precedent only to distinguish or declare it inapplicable to the controversy.",
+      "expected_rationale": "In Shyam Narayan Ram v. State of UP, the Court quoted Munna Pandey only to distinguish it as having no application to Section 294 CrPC.",
+      "provisions_required": [
+        "Section 294"
+      ],
+      "provisions_found": [
+        "Section 294"
+      ],
+      "missing_provisions": [],
+      "content_classifications": [
+        {
+          "evidence_id": "E1",
+          "document_id": "2024_10_1726_1735",
+          "content_type": "quoted_precedent",
+          "confidence": 0.8,
+          "indicators": [
+            "quoted_precedent_distinguished"
+          ]
+        }
+      ],
+      "has_holding_or_authoritative_support": false,
+      "diagnostics": {
+        "all_quoted_distinguished": true
+      },
+      "gate_latency_ms": 0.061
+    },
+    {
+      "test_id": "ADV007_LOWER_COURT_FINDING",
+      "category": "lower_court_finding",
+      "fixture_type": "corpus_grounded",
+      "query": "Does Section 294 CrPC require the prosecution to examine formal witnesses when document genuineness is admitted?",
+      "expected_is_grounded": false,
+      "expected_status": "topically_relevant_but_insufficient_grounding",
+      "actual_is_grounded": false,
+      "actual_status": "topically_relevant_but_insufficient_grounding",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": false,
+      "decision_rationale": "Retrieved passages describe only lower-court reasoning or observations and lack deciding court holding or ratio decidendi.",
+      "expected_rationale": "The passage describes the High Court's reversed reasoning rather than the Supreme Court's actual holding.",
+      "provisions_required": [
+        "Section 294"
+      ],
+      "provisions_found": [
+        "Section 294"
+      ],
+      "missing_provisions": [],
+      "content_classifications": [
+        {
+          "evidence_id": "E1",
+          "document_id": "2024_10_1726_1735",
+          "content_type": "lower_court_reasoning",
+          "confidence": 0.8,
+          "indicators": [
+            "the high court observed"
+          ]
+        }
+      ],
+      "has_holding_or_authoritative_support": false,
+      "diagnostics": {
+        "all_lower_court": true
+      },
+      "gate_latency_ms": 0.047
+    },
+    {
+      "test_id": "ADV008_SPLIT_PROPOSITIONS",
+      "category": "split_propositions",
+      "fixture_type": "synthetic_unit_test",
+      "query": "Does an executing court possess jurisdiction to grant anticipatory bail to a stranger resisting eviction under Order XXI Rule 99 CPC?",
+      "expected_is_grounded": false,
+      "expected_status": "topically_relevant_but_insufficient_grounding",
+      "actual_is_grounded": false,
+      "actual_status": "topically_relevant_but_insufficient_grounding",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": false,
+      "decision_rationale": "Subject context ({'executing'}) and target predicate ({'eviction', 'anticipatory', 'stranger', 'grant', 'bail', 'resisting'}) appear only in disjoint contexts and do not co-occur in any evidence sentence.",
+      "expected_rationale": "Synthetic unit test: Subject (Order XXI Rule 99 execution stranger) and predicate (grant of anticipatory bail) appear in the same passage but govern disjoint legal proceedings.",
+      "provisions_required": [
+        "Order XXI",
+        "Rule 99"
+      ],
+      "provisions_found": [
+        "Order XXI",
+        "Rule 99"
+      ],
+      "missing_provisions": [],
+      "content_classifications": [
+        {
+          "evidence_id": "E1",
+          "document_id": "SYNTH_SPLIT_01",
+          "content_type": "court_holding",
+          "confidence": 0.85,
+          "indicators": [
+            "held:"
+          ]
+        }
+      ],
+      "has_holding_or_authoritative_support": true,
+      "diagnostics": {
+        "co_occurred": false
+      },
+      "gate_latency_ms": 0.148
+    },
+    {
+      "test_id": "ADV009_SUPERFICIAL_COOCCURRENCE",
+      "category": "superficial_cooccurrence",
+      "fixture_type": "corpus_grounded",
+      "query": "Does the statutory provision for anticipatory bail under Section 438 CrPC establish that an accused can seek pre-arrest bail in contempt of court proceedings?",
+      "expected_is_grounded": false,
+      "expected_status": "topically_relevant_but_insufficient_grounding",
+      "actual_is_grounded": false,
+      "actual_status": "topically_relevant_but_insufficient_grounding",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": false,
+      "decision_rationale": "Subject context ({'statutory', 'anticipatory', 'crpc', 'bail'}) and target predicate ({'contempt'}) appear only in disjoint contexts and do not co-occur in any evidence sentence.",
+      "expected_rationale": "Tusharbhai Rajnikantbhai Shah mentions both anticipatory bail and contempt notices, but they appear in incidental proximity without establishing that anticipatory bail applies to contempt.",
+      "provisions_required": [
+        "Section 438"
+      ],
+      "provisions_found": [
+        "Section 438"
+      ],
+      "missing_provisions": [],
+      "content_classifications": [
+        {
+          "evidence_id": "E1",
+          "document_id": "2024_8_235_286",
+          "content_type": "unknown",
+          "confidence": 0.0,
+          "indicators": []
+        }
+      ],
+      "has_holding_or_authoritative_support": false,
+      "diagnostics": {
+        "co_occurred": false
+      },
+      "gate_latency_ms": 0.26
+    },
+    {
+      "test_id": "ADV010_PARTIAL_SUPPORT",
+      "category": "partial_support",
+      "fixture_type": "corpus_grounded",
+      "query": "Did the Supreme Court exercise Article 142 jurisdiction to grant admission to IIT Dhanbad and simultaneously abolish all entrance test registration deadlines nationwide?",
+      "expected_is_grounded": false,
+      "expected_status": "topically_relevant_but_insufficient_grounding",
+      "actual_is_grounded": false,
+      "actual_status": "topically_relevant_but_insufficient_grounding",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": false,
+      "decision_rationale": "Query contains compound multi-part propositions, but evidence completely lacks grounding for conjunctive elements: ['entrance', 'abolish', 'registration', 'test', 'nationwide', 'deadlines'].",
+      "expected_rationale": "Atul Kumar supports the Article 142 IIT Dhanbad admission direction, but does not support abolishing entrance test registration deadlines nationwide. Partial support must not pass the gate.",
+      "provisions_required": [
+        "Article 142"
+      ],
+      "provisions_found": [
+        "Article 142"
+      ],
+      "missing_provisions": [],
+      "content_classifications": [
+        {
+          "evidence_id": "E1",
+          "document_id": "2024_10_150_153",
+          "content_type": "court_holding",
+          "confidence": 0.85,
+          "indicators": [
+            "held:"
+          ]
+        }
+      ],
+      "has_holding_or_authoritative_support": true,
+      "diagnostics": {
+        "compound_conjunct_missing": [
+          "entrance",
+          "abolish",
+          "registration",
+          "test",
+          "nationwide",
+          "deadlines"
+        ]
+      },
+      "gate_latency_ms": 0.206
+    },
+    {
+      "test_id": "ADV011_CONTRADICTORY_PASSAGES",
+      "category": "contradictory_passages",
+      "fixture_type": "synthetic_unit_test",
+      "query": "Is the 15-day period under Rule 9(4) of the Security Interest Rules strictly non-extendable under any circumstances?",
+      "expected_is_grounded": false,
+      "expected_status": "topically_relevant_but_insufficient_grounding",
+      "actual_is_grounded": false,
+      "actual_status": "topically_relevant_but_insufficient_grounding",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": false,
+      "decision_rationale": "Retrieved passages contain unresolved contradictory propositions regarding the requested legal rule.",
+      "expected_rationale": "Synthetic unit test: Dual contradictory passages where Passage 1 asserts strict non-extendability and Passage 2 asserts extendability with written consent. Unresolved contradiction requires abstention.",
+      "provisions_required": [
+        "Rule 9"
+      ],
+      "provisions_found": [
+        "Rule 9"
+      ],
+      "missing_provisions": [],
+      "content_classifications": [
+        {
+          "evidence_id": "E1",
+          "document_id": "SYNTH_CONTRA_01",
+          "content_type": "unknown",
+          "confidence": 0.0,
+          "indicators": []
+        },
+        {
+          "evidence_id": "E2",
+          "document_id": "2024_10_1371_1380",
+          "content_type": "court_holding",
+          "confidence": 0.85,
+          "indicators": [
+            "held:"
+          ]
+        }
+      ],
+      "has_holding_or_authoritative_support": true,
+      "diagnostics": {
+        "contradiction_detected": true
+      },
+      "gate_latency_ms": 0.084
+    },
+    {
+      "test_id": "ADV012_STATUTORY_BARE_MENTION",
+      "category": "statutory_mention",
+      "fixture_type": "corpus_grounded",
+      "query": "What standard of corporate alter ego liability applies to independent directors under Section 420 IPC for cheating?",
+      "expected_is_grounded": false,
+      "expected_status": "topically_relevant_but_insufficient_grounding",
+      "actual_is_grounded": false,
+      "actual_status": "topically_relevant_but_insufficient_grounding",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": false,
+      "decision_rationale": "Statutory provision (Section 420) appears only in passing procedural context (e.g. FIR/charges) without judicial interpretation of the inquired legal standard.",
+      "expected_rationale": "Passage merely mentions Section 420 IPC in procedural history without providing any legal interpretation or standard of corporate alter ego liability.",
+      "provisions_required": [
+        "Section 420"
+      ],
+      "provisions_found": [
+        "Section 420"
+      ],
+      "missing_provisions": [],
+      "content_classifications": [],
+      "has_holding_or_authoritative_support": false,
+      "diagnostics": {},
+      "gate_latency_ms": 0.343
+    },
+    {
+      "test_id": "ADV013_TEMPORAL_QUALIFICATION",
+      "category": "temporal_qualification",
+      "fixture_type": "corpus_grounded",
+      "query": "Can an accused seek anticipatory bail under Section 438 CrPC after being remanded to judicial custody during trial?",
+      "expected_is_grounded": false,
+      "expected_status": "topically_relevant_but_insufficient_grounding",
+      "actual_is_grounded": false,
+      "actual_status": "topically_relevant_but_insufficient_grounding",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": false,
+      "decision_rationale": "Retrieved evidence explicitly negates, limits, or denies the requested proposition (negative holding or exception detected).",
+      "expected_rationale": "Dhanraj Aswani holds that Section 438 is for pre-arrest apprehension; once in judicial custody in that case, the procedural stage precludes Section 438.",
+      "provisions_required": [
+        "Section 438"
+      ],
+      "provisions_found": [
+        "Section 438"
+      ],
+      "missing_provisions": [],
+      "content_classifications": [
+        {
+          "evidence_id": "E1",
+          "document_id": "2024_9_257_312",
+          "content_type": "court_holding",
+          "confidence": 0.85,
+          "indicators": [
+            "held:"
+          ]
+        }
+      ],
+      "has_holding_or_authoritative_support": true,
+      "diagnostics": {
+        "predicate_negated": true
+      },
+      "gate_latency_ms": 0.148
+    },
+    {
+      "test_id": "ADV014_UNKNOWN_PASSAGE_ROLE",
+      "category": "unknown_passage_role",
+      "fixture_type": "synthetic_unit_test",
+      "query": "Does an entry in an audited balance sheet operate as an acknowledgement of debt under Section 18 of the Limitation Act?",
+      "expected_is_grounded": false,
+      "expected_status": "topically_relevant_but_insufficient_grounding",
+      "actual_is_grounded": false,
+      "actual_status": "topically_relevant_but_insufficient_grounding",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": false,
+      "decision_rationale": "Query explicitly inquires about statutory provisions (Section 18), but none are present in retrieved evidence.",
+      "expected_rationale": "Synthetic unit test: The passage is an evidentiary exhibit summary lacking any judicial holding, analysis, or statutory interpretation marker. An unknown passage role cannot satisfy grounding.",
+      "provisions_required": [
+        "Section 18"
+      ],
+      "provisions_found": [],
+      "missing_provisions": [
+        "Section 18"
+      ],
+      "content_classifications": [],
+      "has_holding_or_authoritative_support": false,
+      "diagnostics": {},
+      "gate_latency_ms": 0.673
+    },
+    {
+      "test_id": "ADV015_GENERIC_VOCABULARY_ILLUSION",
+      "category": "irrelevant_evidence",
+      "fixture_type": "corpus_grounded",
+      "query": "What maritime prize court procedure governs foreign vessel seizure under Indian Admiralty Jurisdiction in international waters?",
+      "expected_is_grounded": false,
+      "expected_status": "topically_relevant_but_insufficient_grounding",
+      "actual_is_grounded": false,
+      "actual_status": "topically_relevant_but_insufficient_grounding",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": false,
+      "decision_rationale": "Overall topical evidence coverage (0.00) is below minimum grounding threshold. Missing concepts: ['vessel', 'maritime', 'foreign', 'seizure', 'prize'].",
+      "expected_rationale": "Corpus excerpt from Sukanya Shantha sharing generic legal vocabulary (jurisdiction, court, procedure, order) but completely devoid of maritime admiralty law concepts.",
+      "provisions_required": [],
+      "provisions_found": [],
+      "missing_provisions": [],
+      "content_classifications": [
+        {
+          "evidence_id": "E1",
+          "document_id": "2024_10_493_638",
+          "content_type": "court_holding",
+          "confidence": 0.85,
+          "indicators": [
+            "held:"
+          ]
+        }
+      ],
+      "has_holding_or_authoritative_support": true,
+      "diagnostics": {
+        "vocab_ratio": 0.0,
+        "missing_terms": [
+          "vessel",
+          "maritime",
+          "foreign",
+          "seizure",
+          "prize",
+          "international",
+          "governs",
+          "waters",
+          "admiralty"
+        ]
+      },
+      "gate_latency_ms": 0.103
+    },
+    {
+      "test_id": "ADV016_DIRECT_POSITIVE_PMLA",
+      "category": "direct_positive_support",
+      "fixture_type": "corpus_grounded",
+      "query": "What legal grounds govern granting bail to an accused under Section 45 PMLA when there is prolonged incarceration without trial?",
+      "expected_is_grounded": true,
+      "expected_status": "sufficient_evidence",
+      "actual_is_grounded": true,
+      "actual_status": "sufficient_evidence",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": true,
+      "decision_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "expected_rationale": "Direct positive judicial holding from Manish Sisodia v. ED holding that prolonged incarceration without trial overrides Section 45 PMLA twin conditions under Article 21.",
+      "provisions_required": [
+        "Section 45"
+      ],
+      "provisions_found": [
+        "Section 45"
+      ],
+      "missing_provisions": [],
+      "content_classifications": [
+        {
+          "evidence_id": "E1",
+          "document_id": "2024_8_1061_1085",
+          "content_type": "court_holding",
+          "confidence": 0.85,
+          "indicators": [
+            "held:"
+          ]
+        }
+      ],
+      "has_holding_or_authoritative_support": true,
+      "diagnostics": {
+        "vocab_ratio": 0.5555555555555556
+      },
+      "gate_latency_ms": 0.22
+    },
+    {
+      "test_id": "ADV017_DIRECT_POSITIVE_PRISONS",
+      "category": "direct_positive_support",
+      "fixture_type": "corpus_grounded",
+      "query": "Are provisions in State Prison Manuals that allocate prison labor based on caste unconstitutional under Article 17 of the Constitution?",
+      "expected_is_grounded": true,
+      "expected_status": "sufficient_evidence",
+      "actual_is_grounded": true,
+      "actual_status": "sufficient_evidence",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": true,
+      "decision_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "expected_rationale": "Direct positive judicial holding from Sukanya Shantha holding caste-based prison labor division violative of Article 17.",
+      "provisions_required": [
+        "Article 17"
+      ],
+      "provisions_found": [
+        "Article 17"
+      ],
+      "missing_provisions": [],
+      "content_classifications": [
+        {
+          "evidence_id": "E1",
+          "document_id": "2024_10_493_638",
+          "content_type": "court_holding",
+          "confidence": 0.85,
+          "indicators": [
+            "held:"
+          ]
+        }
+      ],
+      "has_holding_or_authoritative_support": true,
+      "diagnostics": {
+        "vocab_ratio": 1.0
+      },
+      "gate_latency_ms": 0.247
+    },
+    {
+      "test_id": "ADV018_DIRECT_POSITIVE_POCSO",
+      "category": "direct_positive_support",
+      "fixture_type": "corpus_grounded",
+      "query": "Does viewing or streaming child sexual abuse material online without downloading constitute possession under Section 15 of the POCSO Act?",
+      "expected_is_grounded": true,
+      "expected_status": "sufficient_evidence",
+      "actual_is_grounded": true,
+      "actual_status": "sufficient_evidence",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": true,
+      "decision_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "expected_rationale": "Direct positive judicial holding from Just Rights for Children Alliance holding online streaming constitutes constructive possession under Section 15 POCSO.",
+      "provisions_required": [
+        "Section 15"
+      ],
+      "provisions_found": [
+        "Section 15"
+      ],
+      "missing_provisions": [],
+      "content_classifications": [
+        {
+          "evidence_id": "E1",
+          "document_id": "2024_10_154_314",
+          "content_type": "court_holding",
+          "confidence": 0.85,
+          "indicators": [
+            "held:"
+          ]
+        }
+      ],
+      "has_holding_or_authoritative_support": true,
+      "diagnostics": {
+        "vocab_ratio": 0.5
+      },
+      "gate_latency_ms": 0.303
+    },
+    {
+      "test_id": "ADV019_DIRECT_POSITIVE_IIT",
+      "category": "direct_positive_support",
+      "fixture_type": "corpus_grounded",
+      "query": "Did the Supreme Court exercise Article 142 jurisdiction to grant admission to an IIT Dhanbad student who missed the online fee deadline by minutes due to technical failure?",
+      "expected_is_grounded": true,
+      "expected_status": "sufficient_evidence",
+      "actual_is_grounded": true,
+      "actual_status": "sufficient_evidence",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": true,
+      "decision_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "expected_rationale": "Direct positive judicial holding from Atul Kumar v. Chairman JoSAA directing admission under Article 142.",
+      "provisions_required": [
+        "Article 142"
+      ],
+      "provisions_found": [
+        "Article 142"
+      ],
+      "missing_provisions": [],
+      "content_classifications": [
+        {
+          "evidence_id": "E1",
+          "document_id": "2024_10_150_153",
+          "content_type": "court_holding",
+          "confidence": 0.85,
+          "indicators": [
+            "held:"
+          ]
+        }
+      ],
+      "has_holding_or_authoritative_support": true,
+      "diagnostics": {
+        "vocab_ratio": 0.8
+      },
+      "gate_latency_ms": 0.434
+    },
+    {
+      "test_id": "ADV020_DIRECT_POSITIVE_CIRCUMSTANTIAL",
+      "category": "direct_positive_support",
+      "fixture_type": "corpus_grounded",
+      "query": "What legal standards govern an appellate court when considering the reversal of an acquittal based solely on circumstantial evidence?",
+      "expected_is_grounded": true,
+      "expected_status": "sufficient_evidence",
+      "actual_is_grounded": true,
+      "actual_status": "sufficient_evidence",
+      "decision_match": true,
+      "is_false_positive": false,
+      "is_false_negative": false,
+      "generation_permitted": true,
+      "decision_rationale": "Retrieved evidence covers all required statutory provisions and conceptual propositions with authoritative grounding.",
+      "expected_rationale": "Direct positive judicial holding from Thakore Umedsing Nathusing reiterating the five golden rules of circumstantial evidence and presumption of innocence.",
+      "provisions_required": [],
+      "provisions_found": [],
+      "missing_provisions": [],
+      "content_classifications": [
+        {
+          "evidence_id": "E1",
+          "document_id": "2024_2_1178_1195",
+          "content_type": "court_holding",
+          "confidence": 0.85,
+          "indicators": [
+            "held:"
+          ]
+        }
+      ],
+      "has_holding_or_authoritative_support": true,
+      "diagnostics": {
+        "vocab_ratio": 0.6
+      },
+      "gate_latency_ms": 0.136
+    }
+  ]
+}

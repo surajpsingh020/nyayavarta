@@ -1,0 +1,76 @@
+{
+  "evaluation_name": "Milestone 11 Gold Citation Resolution Audit",
+  "dataset_path": "evaluation/citations/milestone11_citation_gold.json",
+  "total_mentions_evaluated": 110,
+  "metrics": {
+    "overall_status_accuracy": 1.0,
+    "cross_document_precision": 1.0,
+    "cross_document_recall": 1.0,
+    "cross_document_f1": 1.0,
+    "target_id_accuracy": 1.0,
+    "false_cross_document_rate": 0.0,
+    "self_citation_rejection_accuracy": 1.0,
+    "ambiguity_precision": 1.0,
+    "ambiguity_recall": 1.0
+  },
+  "breakdown_by_category": {
+    "exact_canonical_scr": {
+      "total": 15,
+      "correct_status": 15,
+      "correct_target": 15,
+      "false_cross": 0
+    },
+    "exact_canonical_insc": {
+      "total": 15,
+      "correct_status": 15,
+      "correct_target": 15,
+      "false_cross": 0
+    },
+    "self_citation": {
+      "total": 15,
+      "correct_status": 15,
+      "correct_target": 15,
+      "false_cross": 0
+    },
+    "historical_out_of_corpus": {
+      "total": 20,
+      "correct_status": 20,
+      "correct_target": 0,
+      "false_cross": 0
+    },
+    "similar_party_names_historical": {
+      "total": 15,
+      "correct_status": 15,
+      "correct_target": 0,
+      "false_cross": 0
+    },
+    "companion_appeals_ambiguous": {
+      "total": 10,
+      "correct_status": 10,
+      "correct_target": 0,
+      "false_cross": 0
+    },
+    "malformed_incomplete": {
+      "total": 10,
+      "correct_status": 10,
+      "correct_target": 0,
+      "false_cross": 0
+    },
+    "out_of_corpus_2024": {
+      "total": 10,
+      "correct_status": 10,
+      "correct_target": 0,
+      "false_cross": 0
+    }
+  },
+  "method_distribution": {
+    "exact_scr_citation": 24,
+    "exact_neutral_citation": 21,
+    "historical_reporter_pre_2024": 19,
+    "neutral_citation_not_in_corpus": 7,
+    "historical_case_pre_2024": 15,
+    "multiple_title_candidates": 10,
+    "unmatched_reporter": 10,
+    "scr_citation_not_in_corpus": 4
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "tests": [
+    {
+      "test_name": "1. Supported Case",
+      "http_status": 200,
+      "verification_badge": "verified_supported",
+      "result_status": "answered",
+      "passed": true,
+      "details": "Clean supported claim with valid citation receives verified_supported."
+    },
+    {
+      "test_name": "2. Partially Supported Case",
+      "http_status": 200,
+      "verification_badge": "qualified_answer",
+      "result_status": "answered_with_qualification",
+      "passed": true,
+      "details": "Omission of statutory condition forces qualified_answer."
+    },
+    {
+      "test_name": "3. Unsupported Case",
+      "http_status": 200,
+      "verification_badge": "rejected_answer",
+      "result_status": "validation_failed",
+      "passed": true,
+      "details": "Unsupported claim forces rejected_answer."
+    },
+    {
+      "test_name": "4. Contradicted Case",
+      "http_status": 200,
+      "verification_badge": "rejected_answer",
+      "result_status": "validation_failed",
+      "passed": true,
+      "details": "Contradicted claim forces rejected_answer."
+    },
+    {
+      "test_name": "5. Not-Evaluated Case",
+      "http_status": 200,
+      "verification_badge": "unverified_answer",
+      "result_status": "answered",
+      "passed": true,
+      "details": "Unevaluated claims strictly receive unverified_answer."
+    },
+    {
+      "test_name": "6. Malformed / Unknown Citation ID",
+      "http_status": 200,
+      "verification_badge": "rejected_answer",
+      "result_status": "validation_failed",
+      "passed": true,
+      "details": "Unknown / hallucinated citation ID forces rejected_answer."
+    },
+    {
+      "test_name": "7. Invalid Evidence Offset",
+      "http_status": 200,
+      "verification_badge": "rejected_answer",
+      "result_status": "validation_failed",
+      "passed": true,
+      "details": "Offset integrity failure forces rejected_answer."
+    },
+    {
+      "test_name": "8. Provider Timeout (HTTP 504)",
+      "http_status": 504,
+      "verification_badge": "N/A",
+      "result_status": "HTTP 504",
+      "passed": true,
+      "details": "TimeoutError properly maps to HTTP 504 fail-closed."
+    },
+    {
+      "test_name": "9. Provider Unavailable (HTTP 503)",
+      "http_status": 503,
+      "verification_badge": "N/A",
+      "result_status": "HTTP 503",
+      "passed": true,
+      "details": "RuntimeError properly maps to HTTP 503 fail-closed with error masking."
+    },
+    {
+      "test_name": "10. Client Spoofing Attempt",
+      "http_status": 200,
+      "verification_badge": "insufficient_evidence",
+      "result_status": "insufficient_evidence",
+      "passed": true,
+      "details": "Client cannot inject or overwrite verification_badge in response."
+    }
+  ],
+  "all_passed": true
+}

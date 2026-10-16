@@ -1,0 +1,22 @@
+{
+    "pipeline_version": "1.0.0",
+    "extraction_timestamp": "2026-10-12T00:24:05.617117",
+    "corpus_processed_docs": 782,
+    "runtime_seconds": 40.0,
+    "throughput_docs_per_sec": 19.55,
+    "counts": {
+        "total_case_citations_extracted": 54750,
+        "total_statutory_references_extracted": 66284,
+        "resolution_breakdown": {
+            "resolved": 8844,
+            "ambiguous": 472,
+            "unresolved": 45434
+        },
+        "self_citations_flagged": 8184
+    },
+    "output_files": {
+        "citations": "data/processed/extraction/v1\\case_citations.jsonl",
+        "statutory_references": "data/processed/extraction/v1\\statutory_references.jsonl",
+        "resolved_entities": "data/processed/extraction/v1\\resolved_entities.jsonl"
+    }
+}

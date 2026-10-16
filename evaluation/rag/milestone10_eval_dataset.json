@@ -1,0 +1,1046 @@
+[
+  {
+    "query_id": "M10_001",
+    "historical_query_id": "M6_001",
+    "question": "Can the Supreme Court exercise powers under Article 142 of the Constitution to grant admission to an IIT candidate from a marginalized community who was prevented from paying fees due to a portal login glitch?",
+    "category": "single_judgment_holding",
+    "legal_domain": "Constitutional Law",
+    "expected_behavior": "answer",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_150_153"
+    ],
+    "expected_ratio": "The Supreme Court exercised inherent powers under Article 142 to direct admission of a marginalized Scheduled Caste candidate who was unable to complete the online portal fee payment of Rs. 17,500 due to technical glitches, holding that a talented student from a disadvantaged background should not be left in the lurch.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Held by CJI Chandrachud Bench under Article 142 for complete justice; distinguished from general relaxation of admission deadlines for non-disadvantaged candidates.",
+    "limitations_and_qualifications": "Exercise of Article 142 extraordinary equitable jurisdiction, not a general precedent invalidating online admission deadlines universally.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_150_153",
+        "start_char": 888,
+        "end_char": 1488,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_002",
+    "historical_query_id": "M6_002",
+    "question": "Does an appeal lie to the Supreme Court under Section 62 of the Insolvency and Bankruptcy Code against an order of the NCLAT approving withdrawal of CIRP under Rule 11?",
+    "category": "statutory_interpretation",
+    "legal_domain": "Insolvency Law",
+    "expected_behavior": "answer",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_1802_1854"
+    ],
+    "expected_ratio": "Section 62 IBC permits any person aggrieved by an order of the NCLAT to file an appeal to the Supreme Court on a question of law arising out of such order; NCLAT cannot invoke Rule 11 inherent powers to circumvent the statutory settlement/withdrawal procedure under Section 12A IBC.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Supreme Court held that an affected financial creditor has locus standi to appeal under Section 62 and NCLAT erred in invoking inherent powers outside Section 12A; rejected Corporate Debtor submission that appellant lacked locus.",
+    "limitations_and_qualifications": "Appeals under Section 62 are confined strictly to questions of law arising out of the NCLAT order.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_1802_1854",
+        "start_char": 1159,
+        "end_char": 1759,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_003",
+    "historical_query_id": "M6_004",
+    "question": "Is a specific and clear entry in the balance sheet of a Corporate Debtor required to constitute an acknowledgment of debt under Section 18 of the Limitation Act for IBC proceedings?",
+    "category": "statutory_interpretation",
+    "legal_domain": "Insolvency & Limitation Law",
+    "expected_behavior": "answer",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_1462_1474"
+    ],
+    "expected_ratio": "An acknowledgment of debt in the balance sheet of a corporate debtor extends limitation under Section 18 of the Limitation Act read with Section 238A of the IBC, provided the entry is clear and unambiguous and read in context with notes on accounts and director reports.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Court affirmed that balance sheet entries constitute valid Section 18 acknowledgments when reflecting an existing liability; distinguished from contested entries accompanied by explicit denial of liability.",
+    "limitations_and_qualifications": "Balance sheet entry must be evaluated alongside qualification notes or disclaimers made by auditors or directors.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_1462_1474",
+        "start_char": 630,
+        "end_char": 1230,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_004",
+    "historical_query_id": "M6_005",
+    "question": "Can an authorized signatory who signs a cheque on behalf of a company be directed to deposit an interim sum under Section 148 of the Negotiable Instruments Act upon appeal against conviction under Section 138?",
+    "category": "statutory_interpretation_negation",
+    "legal_domain": "Negotiable Instruments Law",
+    "expected_behavior": "answer_with_qualification",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_1890_1901"
+    ],
+    "expected_ratio": "An authorized signatory of a company is not the 'drawer' of the cheque within the meaning of Section 148 of the NI Act; therefore, the appellate court has no power to direct an authorized signatory who is not the drawer company itself to deposit interim compensation under Section 148.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Direct negative statutory interpretation holding that 'authorized signatory' cannot be equated with 'drawer' under Section 148; rejected respondent submission that signing officer bears individual drawer liability.",
+    "limitations_and_qualifications": "Applies strictly to individual authorized signatories appealing convictions under Section 138 where the company is the drawer.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_1890_1901",
+        "start_char": 1258,
+        "end_char": 1858,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_005",
+    "historical_query_id": "M6_007",
+    "question": "Does prolonged incarceration without trial violate Article 21 and justify granting bail despite the twin conditions in Section 45(1) of the Prevention of Money Laundering Act?",
+    "category": "single_judgment_holding",
+    "legal_domain": "Criminal Law & PMLA",
+    "expected_behavior": "answer",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_393_410"
+    ],
+    "expected_ratio": "Prolonged incarceration of an accused without trial violates the fundamental right to speedy trial and personal liberty under Article 21; constitutional courts retain the power to grant bail to protect fundamental rights notwithstanding the statutory threshold under Section 45(1) PMLA.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Holding of the Supreme Court granting bail based on Article 21 constitutional supremacy over prolonged pre-trial detention; distinguished from cases where delay is caused by the accused.",
+    "limitations_and_qualifications": "Relief depends on establishing that delay is not attributable to dilatory tactics by the defense.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_393_410",
+        "start_char": 913,
+        "end_char": 1513,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_006",
+    "historical_query_id": "M6_009",
+    "question": "Does a shopping mall constructed for letting out qualify as 'plant' under Section 17(5)(d) of the CGST Act for input tax credit eligibility?",
+    "category": "complementary_issue_holding",
+    "legal_domain": "Taxation Law",
+    "expected_behavior": "answer",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_793_859"
+    ],
+    "expected_ratio": "A shopping mall or commercial building constructed for leasing out can qualify as 'plant' under the functionality test for Section 17(5)(d) CGST Act if the building is essential to conducting the business of leasing, which must be determined factually in each case by the authorities.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Supreme Court read down Section 17(5)(d) using the functionality test; rejected Revenue's contention that all immovable buildings are categorically excluded from ITC.",
+    "limitations_and_qualifications": "Whether a specific building qualifies as a plant is a question of fact depending on the functionality test applied by the tax authority.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_793_859",
+        "start_char": 1512,
+        "end_char": 2112,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_007",
+    "historical_query_id": "M6_017",
+    "question": "Is prior sanction under Section 197 CrPC mandatory to prosecute a private bank manager for criminal breach of trust under Section 409 IPC?",
+    "category": "abstention_unanswerable",
+    "legal_domain": "Criminal Law & Banking",
+    "expected_behavior": "abstain",
+    "sufficient_evidence_in_corpus": false,
+    "expected_document_ids": [],
+    "expected_ratio": null,
+    "expected_abstention_reason": "Out-of-corpus query. The 2024 Supreme Court corpus does not establish that private bank employees are public servants requiring Section 197 CrPC sanction. System must abstain.",
+    "holding_vs_submission_distinction": "N/A - ungrounded in corpus.",
+    "limitations_and_qualifications": "Corpus boundary limitation.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": []
+  },
+  {
+    "query_id": "M10_008",
+    "historical_query_id": "M6_018",
+    "question": "Does the Hindu legal concept of joint family coparcenary property apply to Mohammedans governed by Muslim law?",
+    "category": "abstention_unanswerable",
+    "legal_domain": "Personal Law & Property",
+    "expected_behavior": "abstain",
+    "sufficient_evidence_in_corpus": false,
+    "expected_document_ids": [],
+    "expected_ratio": null,
+    "expected_abstention_reason": "Contradictory / non-existent legal doctrine. Hindu coparcenary with right by birth does not apply to Muslim succession. No 2024 Supreme Court judgment establishes affirmative applicability. System must abstain.",
+    "holding_vs_submission_distinction": "N/A - proposition is contrary to established personal law principles and unsupported by corpus.",
+    "limitations_and_qualifications": "Conceptual mismatch between personal law regimes.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": []
+  },
+  {
+    "query_id": "M10_009",
+    "historical_query_id": "M6_019",
+    "question": "Does the statutory provision for anticipatory bail under Section 438 CrPC establish that an accused can seek pre-arrest bail in contempt of court proceedings?",
+    "category": "abstention_unanswerable",
+    "legal_domain": "Criminal & Contempt Law",
+    "expected_behavior": "abstain",
+    "sufficient_evidence_in_corpus": false,
+    "expected_document_ids": [],
+    "expected_ratio": null,
+    "expected_abstention_reason": "While decisions in the corpus discuss Section 438, no decision establishes that anticipatory bail lies in contempt proceedings. System must abstain.",
+    "holding_vs_submission_distinction": "Tusharbhai held police in contempt for arresting someone who had interim bail; it did NOT hold that contempt proceedings admit anticipatory bail.",
+    "limitations_and_qualifications": "Specific legal proposition is absent from corpus.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": []
+  },
+  {
+    "query_id": "M10_010",
+    "historical_query_id": "M6_020",
+    "question": "Does Section 3(j) of the Patents Act, 1970 permit patenting of genetically modified mustard seeds containing transgenic traits as held by the Supreme Court?",
+    "category": "abstention_unanswerable",
+    "legal_domain": "Patent & Environmental Law",
+    "expected_behavior": "abstain",
+    "sufficient_evidence_in_corpus": false,
+    "expected_document_ids": [],
+    "expected_ratio": null,
+    "expected_abstention_reason": "The 2024 GM mustard environmental clearance split verdict did not determine or uphold patentability of transgenic plant seeds under Section 3(j) of the Patents Act. System must abstain.",
+    "holding_vs_submission_distinction": "N/A - patent proposition ungrounded in corpus.",
+    "limitations_and_qualifications": "Corpus discusses environmental clearance, not Section 3(j) patent claims.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": []
+  },
+  {
+    "query_id": "M10_011",
+    "historical_query_id": "M6_003",
+    "question": "Under the Consumer Protection Act, can a medical practitioner be held liable for medical negligence under the Bolam test if an alternative recognized surgical technique was adopted without proving lack of reasonable competence?",
+    "category": "single_judgment_holding",
+    "legal_domain": "Consumer Protection & Torts",
+    "expected_behavior": "answer_with_qualification",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_1475_1482"
+    ],
+    "expected_ratio": "A doctor is not guilty of negligence merely because an alternative treatment or surgical technique was adopted, or because another medical professional would have acted differently, provided the doctor acted with reasonable medical competence in accordance with a practice accepted as proper by a responsible body of medical men (Bolam test).",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Supreme Court reversed NCDRC finding of negligence, holding that choice of a recognized surgical approach does not constitute negligence absent proof of failure of reasonable care; rejected complainant submission that failure to achieve desired result equates to negligence.",
+    "limitations_and_qualifications": "Applies where the practitioner possesses requisite medical qualifications and follows a recognized standard of care.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_1475_1482",
+        "start_char": 1053,
+        "end_char": 1653,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_012",
+    "historical_query_id": "M6_006",
+    "question": "Can a third-party stranger who is dispossessed of immovable property in execution of a decree maintain an application under Order XXI Rule 99 of the CPC?",
+    "category": "statutory_interpretation",
+    "legal_domain": "Civil Procedure",
+    "expected_behavior": "answer",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_1359_1370"
+    ],
+    "expected_ratio": "Under Order XXI Rule 99 CPC, any person other than the judgment-debtor who is dispossessed of immovable property by the decree-holder or execution purchaser can make an application complaining of such dispossession, including a third-party stranger.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Court affirmed stranger's statutory remedy under Or. XXI r. 99; rejected decree-holder submission that only parties to the suit can seek re-delivery.",
+    "limitations_and_qualifications": "Applicant must prove actual physical dispossession under the decree.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_1359_1370",
+        "start_char": 639,
+        "end_char": 1239,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_013",
+    "historical_query_id": "M6_008",
+    "question": "Does Rule 9(4) of the Security Interest (Enforcement) Rules permit an auction purchaser to unilaterally demand an extension of the deposit period as a matter of right?",
+    "category": "statutory_proviso_exception",
+    "legal_domain": "Banking & SARFAESI Law",
+    "expected_behavior": "answer_with_qualification",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_1371_1380"
+    ],
+    "expected_ratio": "The 15-day period to deposit balance purchase money under Rule 9(4) is extendable up to three months only upon mutual agreement in writing between the parties; an auction purchaser has no unilateral right or entitlement to demand an extension.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Court held extension requires mutual written agreement; rejected auction purchaser submission that Rule 9(4) vests an enforceable right to extension upon request.",
+    "limitations_and_qualifications": "Maximum extension is statutory three months and requires written consent of the secured creditor.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_1371_1380",
+        "start_char": 639,
+        "end_char": 1239,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_014",
+    "historical_query_id": "M6_010",
+    "question": "Can the government cancel an ongoing public recruitment process and alter selection rules after the final select list has already been prepared?",
+    "category": "complementary_legal_propositions",
+    "legal_domain": "Service & Administrative Law",
+    "expected_behavior": "answer",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_1344_1358"
+    ],
+    "expected_ratio": "The government cannot change the rules of the game after the game is played; while an empanelled candidate has no absolute right to appointment, the state cannot act arbitrarily to scrap a completed select list without cogent and valid reasons.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Supreme Court held state action must be non-arbitrary; rejected state submission that executive possesses unbridled discretion to cancel recruitment lists without justification.",
+    "limitations_and_qualifications": "State may cancel a list for legitimate reasons such as widespread fraud or systemic malpractice.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_1344_1358",
+        "start_char": 1952,
+        "end_char": 2552,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_015",
+    "historical_query_id": "M6_011",
+    "question": "Can an appellate court reverse a judgment of acquittal into conviction based solely on circumstantial evidence?",
+    "category": "single_judgment_holding",
+    "legal_domain": "Criminal Law",
+    "expected_behavior": "answer_with_qualification",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_108_125"
+    ],
+    "expected_ratio": "An appellate court cannot reverse an acquittal into conviction in circumstantial evidence cases unless all circumstances are conclusively established, forming an unbroken chain consistent only with guilt and inconsistent with any reasonable hypothesis of innocence; if two reasonable views are possible, acquittal cannot be overturned.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Supreme Court set aside High Court conviction, restoring trial court acquittal; rejected prosecution submission that suspicion and motive alone justify overturning acquittal.",
+    "limitations_and_qualifications": "Presumption of innocence is reinforced by trial court acquittal.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_108_125",
+        "start_char": 1106,
+        "end_char": 1706,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_016",
+    "historical_query_id": "M6_012",
+    "question": "Can a municipal corporation demand royalty, tax, or fees on commercial advertisement hoardings without express statutory authority under Article 265 of the Constitution?",
+    "category": "statutory_interpretation",
+    "legal_domain": "Constitutional & Municipal Law",
+    "expected_behavior": "answer",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_1381_1403"
+    ],
+    "expected_ratio": "Article 265 of the Constitution commands that no tax or compulsory exaction shall be levied or collected except by authority of law; a municipal corporation cannot levy fees or royalty on commercial hoardings on private land without explicit statutory authorization.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Court struck down municipal demand notices; rejected municipality's submission that general regulatory powers imply power to levy commercial royalty.",
+    "limitations_and_qualifications": "Applies where the parent municipal statute does not expressly authorize the specific levy.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_1381_1403",
+        "start_char": 2252,
+        "end_char": 2852,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_017",
+    "historical_query_id": "M6_013",
+    "question": "What valid conditions may the State Government impose when exercising executive power to grant remission of sentence to a life convict under Section 432 of CrPC?",
+    "category": "procedural_administrative",
+    "legal_domain": "Criminal Procedure & Constitutional Law",
+    "expected_behavior": "answer",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_1448_1461"
+    ],
+    "expected_ratio": "Conditions imposed while granting remission under Section 432 CrPC must be reasonable, proportionate, and bear a nexus to public peace and rehabilitation; arbitrary or oppressive conditions infringing fundamental rights cannot be sustained.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Court reviewed executive remission orders; distinguished permissible conditions from arbitrary restrictions on movement.",
+    "limitations_and_qualifications": "Executive retains discretionary power within constitutional and statutory boundaries.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_1448_1461",
+        "start_char": 1044,
+        "end_char": 1644,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_018",
+    "historical_query_id": "M6_014",
+    "question": "Does viewing or streaming child sexual abuse material online without downloading constitute an offence under Section 15 of the POCSO Act?",
+    "category": "statutory_interpretation",
+    "legal_domain": "Criminal Law & POCSO",
+    "expected_behavior": "answer",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_154_314"
+    ],
+    "expected_ratio": "Section 15 of the POCSO Act penalizes possession and distribution; mere viewing or streaming without downloading or storage in physical/electronic memory does not ipso facto constitute possession unless there is intentional retention or failure to report as mandated by statute.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Supreme Court interpreted Section 15 POCSO strictly regarding 'storage' and 'possession'; reversed High Court order that equated ephemeral browsing with intentional storage.",
+    "limitations_and_qualifications": "Failure to delete or report such material when in custody or control remains actionable under specific statutory subsections.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_154_314",
+        "start_char": 1470,
+        "end_char": 2070,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_019",
+    "historical_query_id": "M6_015",
+    "question": "Is Section 6A of the Citizenship Act, 1955 providing a special framework for citizenship in Assam constitutionally valid under Articles 14 and 21?",
+    "category": "constitutional_statutory",
+    "legal_domain": "Constitutional Law & Citizenship",
+    "expected_behavior": "answer",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_961_1312"
+    ],
+    "expected_ratio": "Section 6A of the Citizenship Act, 1955 is a valid legislative enactment based on intelligible differentia arising from the Assam Accord; it does not violate Articles 14, 21, or 29 of the Constitution.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Majority Constitution Bench upheld Section 6A; rejected petitioners' submission that creating a different citizenship cut-off date for Assam violates Article 14 equality.",
+    "limitations_and_qualifications": "Majority ruling (4:1) with a dissenting opinion holding Section 6A unconstitutional.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_961_1312",
+        "start_char": 1766,
+        "end_char": 2366,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_020",
+    "historical_query_id": "M6_016",
+    "question": "Are provisions in prison manuals providing for division of labor or segregation based on caste constitutionally valid under Article 15?",
+    "category": "single_judgment_holding",
+    "legal_domain": "Constitutional Law & Prisons",
+    "expected_behavior": "answer",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_493_638"
+    ],
+    "expected_ratio": "Provisions in state prison manuals assigning menial tasks like sweeping or scavenging to inmates belonging to lower castes and cooking to higher castes violate Articles 14, 15, 17, and 21 of the Constitution and are unconstitutional.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Supreme Court struck down discriminatory prison rules nationwide; directed states to revise manuals within three months.",
+    "limitations_and_qualifications": "Binding directive applicable to all state governments and prison administrations.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_493_638",
+        "start_char": 1230,
+        "end_char": 1830,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_021",
+    "historical_query_id": "LQ007",
+    "question": "Can a statutory regulatory tariff authority be impleaded as a contesting respondent in an appeal against its own tariff order?",
+    "category": "procedural_administrative",
+    "legal_domain": "Administrative & Regulatory Law",
+    "expected_behavior": "answer_with_qualification",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_1404_1447"
+    ],
+    "expected_ratio": "An adjudicatory regulatory tribunal or tariff commission should not be made a contesting party or actively defend its own quasi-judicial orders in an appellate forum, though it may be impleaded pro-forma to provide record assistance.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Court observed that quasi-judicial regulators should remain impartial umpires; criticized regulator for filing counter-affidavits defending its own tariff determination as a litigant.",
+    "limitations_and_qualifications": "Regulator may participate when statutory schema or authority's jurisdiction itself is challenged.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_1404_1447",
+        "start_char": 1137,
+        "end_char": 1737,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_022",
+    "historical_query_id": "LQ011",
+    "question": "What essential ingredients of intentional instigation are required to convict an accused for abetment of suicide under Section 306 IPC?",
+    "category": "single_judgment_holding",
+    "legal_domain": "Criminal Law",
+    "expected_behavior": "answer",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_1483_1502"
+    ],
+    "expected_ratio": "To sustain a conviction under Section 306 IPC for abetment of suicide, there must be clear mens rea and an active, direct act of instigation or intentional facilitation leading the deceased to commit suicide; ordinary workplace harassment or domestic dispute without incitement is insufficient.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Supreme Court quashed conviction, holding that mere demand of repayment or reprimand does not equate to instigation; rejected prosecution submission that proximity of reprimand alone establishes abetment.",
+    "limitations_and_qualifications": "Instigation requires proximate, positive conduct leaving no alternative to the deceased.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_1483_1502",
+        "start_char": 974,
+        "end_char": 1574,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_023",
+    "historical_query_id": "LQ012",
+    "question": "Can an appellate court grant an unconditional stay on the execution of an arbitral award under Section 36(3) of the Arbitration Act without satisfying the statutory proviso?",
+    "category": "statutory_proviso_exception",
+    "legal_domain": "Arbitration & Commercial Law",
+    "expected_behavior": "answer_with_qualification",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_1503_1512"
+    ],
+    "expected_ratio": "Under Section 36(3) of the Arbitration Act, an unconditional stay on an arbitral award is exceptional and permissible only if the court is satisfied that a prima facie case is made out that the arbitration agreement or award was induced by fraud or corruption as per the mandatory statutory proviso.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Court held unconditional stay is barred absent clear finding of fraud/corruption under proviso; set aside unconditional stay granted by High Court.",
+    "limitations_and_qualifications": "In normal cases, stay of money award must comply with CPC Order XLI Rule 5 principles regarding security deposit.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_1503_1512",
+        "start_char": 1227,
+        "end_char": 1827,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_024",
+    "historical_query_id": "LQ016",
+    "question": "Can the Income Tax Department issue reassessment notices under Section 148 of the Income Tax Act post-Finance Act 2021 without complying with Section 148A procedure?",
+    "category": "statutory_interpretation",
+    "legal_domain": "Taxation Law",
+    "expected_behavior": "answer",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_1633_1708"
+    ],
+    "expected_ratio": "Post the Finance Act 2021 amendment, compliance with the inquiry, notice, and approval procedure under Section 148A is mandatory before issuing a reassessment notice under Section 148; notices issued under the unamended regime without Section 148A compliance are invalid.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Supreme Court resolved reassessment disputes by enforcing Section 148A statutory procedural guarantees; balanced revenue interests with taxpayer protections under Ashish Agarwal framework.",
+    "limitations_and_qualifications": "Applies to reassessment notices issued on or after 1 April 2021.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_1633_1708",
+        "start_char": 1085,
+        "end_char": 1685,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_025",
+    "historical_query_id": "LQ018",
+    "question": "Can a criminal trial court remand a matter to allow the prosecution to lead additional evidence to fill up lacunae in its case?",
+    "category": "procedural_limiting_principle",
+    "legal_domain": "Criminal Procedure",
+    "expected_behavior": "answer",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_1726_1735"
+    ],
+    "expected_ratio": "A remand in a criminal trial cannot be ordered merely to enable the prosecution to fill up fatal omissions or lacunae in its evidence; remand powers must be exercised judicially and not to prejudice the defense.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Court set aside remand order; rejected prosecution's prayer to recall witnesses to introduce evidence omitted during initial trial.",
+    "limitations_and_qualifications": "Distinguished from recalling formal witnesses or clarifying ambiguous documents under Section 311 CrPC.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_1726_1735",
+        "start_char": 798,
+        "end_char": 1398,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_026",
+    "historical_query_id": "LQ020",
+    "question": "What evidentiary weight is accorded to an oral dying declaration made to interested relatives without corroboration?",
+    "category": "single_judgment_holding",
+    "legal_domain": "Evidence Law",
+    "expected_behavior": "answer_with_qualification",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_1876_1889"
+    ],
+    "expected_ratio": "While an oral dying declaration can form the sole basis of conviction if found truthful, reliable, and made in a fit state of mind, when it is uncorroborated and testified solely by interested or partisan witnesses, the court must exercise great caution and scrutinize the evidence with care.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Supreme Court acquitted accused where oral dying declaration was inconsistent and unsupported by medical evidence of deceased's consciousness.",
+    "limitations_and_qualifications": "Corroboration is a rule of prudence, not an absolute rule of law, but becomes necessary when witness veracity is suspect.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_1876_1889",
+        "start_char": 644,
+        "end_char": 1244,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_027",
+    "historical_query_id": "LQ023",
+    "question": "Is a state enactment that singles out a single private university for targeted dissolution constitutionally valid under Article 14?",
+    "category": "single_judgment_holding",
+    "legal_domain": "Constitutional Law",
+    "expected_behavior": "answer",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_445_492"
+    ],
+    "expected_ratio": "Legislation that singles out a specific private educational institution for hostile discrimination without a legitimate classification bearing a rational nexus to the statutory objective constitutes prohibited class legislation violating Article 14.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Court declared discriminatory targeting invalid; rejected state argument that individual institution warranted extraordinary legislative dissolution.",
+    "limitations_and_qualifications": "Single-person or single-institution legislation is valid only if extraordinary unique circumstances create an intelligible separate class.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_445_492",
+        "start_char": 832,
+        "end_char": 1432,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_028",
+    "historical_query_id": "LQ024",
+    "question": "Can a Magistrate order the refund or alteration of interim maintenance under Section 125 of CrPC upon proof of changed circumstances?",
+    "category": "procedural_administrative",
+    "legal_domain": "Family & Criminal Procedure",
+    "expected_behavior": "answer",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_45_53"
+    ],
+    "expected_ratio": "Under Section 127 CrPC, a Magistrate has jurisdiction to alter or cancel maintenance upon proof of change in circumstances, but maintenance already paid pursuant to a lawful interim order cannot ordinarily be ordered to be refunded.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Court distinguished modification of future maintenance from retrospective refund orders; rejected husband's plea for restitution of interim maintenance.",
+    "limitations_and_qualifications": "Fraud or suppression of material facts by claimant may warrant exceptional equitable adjustments.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_45_53",
+        "start_char": 705,
+        "end_char": 1305,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_029",
+    "historical_query_id": "LQ031",
+    "question": "Can a donor unilaterally execute a revocation deed to cancel a validly accepted and registered gift deed of immovable property?",
+    "category": "single_judgment_holding",
+    "legal_domain": "Property Law",
+    "expected_behavior": "answer",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_952_960"
+    ],
+    "expected_ratio": "Once a gift deed of immovable property is voluntarily executed, accepted by the donee, and registered under the Transfer of Property Act, the donor cannot unilaterally execute a cancellation or revocation deed; such unilateral revocation is void ab initio.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Court declared unilateral cancellation deed void; rejected donor's contention that failure of donee to maintain donor automatically invalidates registered gift absent conditional revocation clause.",
+    "limitations_and_qualifications": "Cancellation can only be granted by a competent civil court under Section 126 of the Transfer of Property Act or Senior Citizens Act proceedings.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_952_960",
+        "start_char": 1225,
+        "end_char": 1825,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_030",
+    "historical_query_id": "LQ033",
+    "question": "What criteria distinguish a supervisor from a workman under Section 2(s) of the Industrial Disputes Act, 1947?",
+    "category": "statutory_interpretation",
+    "legal_domain": "Labor Law",
+    "expected_behavior": "answer",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_2303_2313"
+    ],
+    "expected_ratio": "Whether an employee is a workman or supervisor under Section 2(s) of the Industrial Disputes Act depends on the primary, basic, and dominant nature of duties performed, not mere designation or incidental administrative tasks; power to sanction leave, assign work, and take disciplinary action denotes supervisory status.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Supreme Court applied the dominant nature of duties test; rejected employer contention that designation alone determines exclusion from workman status.",
+    "limitations_and_qualifications": "Salary threshold in Section 2(s)(iv) applies where supervisory nature of work is established.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_2303_2313",
+        "start_char": 750,
+        "end_char": 1350,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_031",
+    "historical_query_id": "ADV004_PARTY_SUBMISSION",
+    "question": "Did the Supreme Court hold in Bijay Agarwal v. Medilines that Section 148 NI Act empowers appellate courts to order deposits from authorized signatories because the appellant argued it was necessary?",
+    "category": "distinguishing_party_submissions",
+    "legal_domain": "Negotiable Instruments Law",
+    "expected_behavior": "answer_with_qualification",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_1890_1901"
+    ],
+    "expected_ratio": "The Supreme Court explicitly rejected the submission that Section 148 applies to authorized signatories, holding instead that an authorized signatory is not the 'drawer' and cannot be ordered to deposit compensation.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "The argument that authorized signatories should deposit interim funds was a rival party submission that the Court rejected. The ratio decidendi is the opposite.",
+    "limitations_and_qualifications": "Party submissions do not constitute judicial holdings.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_1890_1901",
+        "start_char": 1258,
+        "end_char": 1858,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_032",
+    "historical_query_id": "ADV_SUB_SANGEETA",
+    "question": "Did the Supreme Court in Sangeeta Devi accept the State's submission that completed select lists can be cancelled arbitrarily without assigning reasons?",
+    "category": "distinguishing_party_submissions",
+    "legal_domain": "Service Law",
+    "expected_behavior": "answer_with_qualification",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_1344_1358"
+    ],
+    "expected_ratio": "The Supreme Court rejected the State's argument, holding that while candidates do not have an indefeasible right to appointment, the State cannot act arbitrarily and must have cogent and rational reasons to cancel a completed recruitment list.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "The State's contention of unfettered executive discretion was rejected by the Court.",
+    "limitations_and_qualifications": "Administrative discretion is subject to Article 14 non-arbitrariness.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_1344_1358",
+        "start_char": 1952,
+        "end_char": 2552,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_033",
+    "historical_query_id": "ADV_SUB_SAFARI",
+    "question": "Did the Supreme Court in Safari Retreats hold that every commercial building automatically qualifies for 100% input tax credit without proving the functionality test?",
+    "category": "distinguishing_party_submissions",
+    "legal_domain": "Taxation Law",
+    "expected_behavior": "answer_with_qualification",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_793_859"
+    ],
+    "expected_ratio": "No. The Supreme Court rejected the broad proposition that all commercial buildings qualify for ITC, holding that the functionality test must be applied on a case-by-case basis to determine whether the building constitutes a 'plant'.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "The taxpayer's broad contention was qualified by the Court's mandate of the functionality test.",
+    "limitations_and_qualifications": "Functionality test is a mandatory prerequisite, not an automatic grant.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_793_859",
+        "start_char": 1512,
+        "end_char": 2112,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_034",
+    "historical_query_id": "ADV_PROV_LIMITATION",
+    "question": "Does Section 18 of the Limitation Act extend limitation if a balance sheet entry is accompanied by an express, unequivocal disclaimer denying debt liability?",
+    "category": "statutory_exception_proviso",
+    "legal_domain": "Limitation & Commercial Law",
+    "expected_behavior": "answer_with_qualification",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_1462_1474"
+    ],
+    "expected_ratio": "No. Section 18 of the Limitation Act requires an unequivocal admission of existing liability; where an entry in the balance sheet is accompanied by notes or qualifications expressly denying liability, it does not constitute a valid acknowledgment.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Court distinguished unqualified acknowledgments from entries subject to explicit disputes or auditor caveats.",
+    "limitations_and_qualifications": "Caveats in notes on accounts must be read as part of the balance sheet.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_1462_1474",
+        "start_char": 630,
+        "end_char": 1230,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_035",
+    "historical_query_id": "ADV_LIMIT_ACQUITTAL",
+    "question": "Does an appellate court have jurisdiction under Section 378 CrPC to overturn an acquittal if two reasonable views are possible on the trial evidence?",
+    "category": "statutory_exception_proviso",
+    "legal_domain": "Criminal Procedure",
+    "expected_behavior": "answer_with_qualification",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_108_125"
+    ],
+    "expected_ratio": "No. It is a settled limitation on appellate power under Section 378 CrPC that if two reasonable conclusions can be reached on the evidence, the appellate court cannot disturb the finding of acquittal merely because it prefers the other view.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Appellate court power is limited by the double presumption of innocence.",
+    "limitations_and_qualifications": "Interference is permissible only if the acquittal is perverse or suffers from patent illegality.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_108_125",
+        "start_char": 1106,
+        "end_char": 1706,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_036",
+    "historical_query_id": "ADV_PROV_SARFAESI",
+    "question": "Can an auction purchaser obtain an extension of the deposit period under Rule 9(4) of the Security Interest Rules without the written consent of the secured creditor?",
+    "category": "statutory_exception_proviso",
+    "legal_domain": "Banking Law",
+    "expected_behavior": "answer_with_qualification",
+    "sufficient_evidence_in_corpus": true,
+    "expected_document_ids": [
+      "2024_10_1371_1380"
+    ],
+    "expected_ratio": "No. The proviso to Rule 9(4) mandates that any extension of the 15-day period up to three months can only occur with the mutual consent in writing of the parties; absence of written consent invalidates an extension.",
+    "expected_abstention_reason": null,
+    "holding_vs_submission_distinction": "Proviso strictly requires written consent; oral extension or unilateral prayer is ineffective.",
+    "limitations_and_qualifications": "Statutory three-month limit is the outside ceiling.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": [
+      {
+        "document_id": "2024_10_1371_1380",
+        "start_char": 639,
+        "end_char": 1239,
+        "structural_label": "headnote_holding"
+      }
+    ]
+  },
+  {
+    "query_id": "M10_037",
+    "historical_query_id": "ADV_HIST_KESAVANANDA",
+    "question": "Did the Supreme Court in 2024 overrule the 13-judge bench decision in Kesavananda Bharati v. State of Kerala (1973) 4 SCC 225 regarding the basic structure doctrine?",
+    "category": "unverified_older_authority",
+    "legal_domain": "Constitutional Law",
+    "expected_behavior": "abstain",
+    "sufficient_evidence_in_corpus": false,
+    "expected_document_ids": [],
+    "expected_ratio": null,
+    "expected_abstention_reason": "Historical citation to 1973 landmark precedent. The 2024 corpus contains no judgment overruling or departing from Kesavananda Bharati. System must abstain.",
+    "holding_vs_submission_distinction": "N/A - ungrounded historical proposition.",
+    "limitations_and_qualifications": "Pre-2024 precedent cannot be determined as overruled from 2024 corpus without full historical record.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": []
+  },
+  {
+    "query_id": "M10_038",
+    "historical_query_id": "ADV_HIST_INDRA_SAWHNEY",
+    "question": "Did the Supreme Court in 2024 declare the 9-judge bench decision in Indra Sawhney v. Union of India (1992) Supp 3 SCC 217 unconstitutional?",
+    "category": "unverified_older_authority",
+    "legal_domain": "Constitutional Law & Reservation",
+    "expected_behavior": "abstain",
+    "sufficient_evidence_in_corpus": false,
+    "expected_document_ids": [],
+    "expected_ratio": null,
+    "expected_abstention_reason": "Historical citation to 1992 landmark decision on reservation. No 2024 Supreme Court judgment declares Indra Sawhney unconstitutional. System must abstain.",
+    "holding_vs_submission_distinction": "N/A - ungrounded historical proposition.",
+    "limitations_and_qualifications": "Corpus boundary limitation.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": []
+  },
+  {
+    "query_id": "M10_039",
+    "historical_query_id": "ADV_HIST_GUJARAT_AMBUJA",
+    "question": "Does the 2024 Supreme Court judgment in State of Gujarat v. Ambuja Cement overrule the 2005 decision in State of H.P. v. Gujarat Ambuja Cement Ltd (2005) 6 SCC 499?",
+    "category": "unverified_older_authority",
+    "legal_domain": "Taxation & Precedent Law",
+    "expected_behavior": "abstain",
+    "sufficient_evidence_in_corpus": false,
+    "expected_document_ids": [],
+    "expected_ratio": null,
+    "expected_abstention_reason": "False entity match trap: 2024_8_34_44 shares party names with the 2005 landmark ruling but does not overrule it. Extracted mentions alone cannot establish overruling. System must abstain.",
+    "holding_vs_submission_distinction": "N/A - cross-document match ambiguity.",
+    "limitations_and_qualifications": "Citation extraction does not prove precedent status.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": []
+  },
+  {
+    "query_id": "M10_040",
+    "historical_query_id": "M6_021",
+    "question": "What is the statutory limitation period prescribed under Section 16 of the Competition Act, 2002 for appointment of the Director General by the Central Government?",
+    "category": "abstention_unanswerable",
+    "legal_domain": "Competition & Regulatory Law",
+    "expected_behavior": "abstain",
+    "sufficient_evidence_in_corpus": false,
+    "expected_document_ids": [],
+    "expected_ratio": null,
+    "expected_abstention_reason": "Out-of-corpus statutory query. The 2024 Supreme Court corpus contains zero judgments interpreting Section 16 of the Competition Act, 2002 or specifying appointment limitations for the Director General. System must abstain.",
+    "holding_vs_submission_distinction": "N/A - unanswerable due to absent statutory corpus.",
+    "limitations_and_qualifications": "Corpus boundary limitation.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": []
+  },
+  {
+    "query_id": "M10_041",
+    "historical_query_id": "M6_022",
+    "question": "Did the Supreme Court disqualify a sitting Member of Parliament for filing an incomplete affidavit under Section 33A of the Representation of the People Act in the 2024 general election?",
+    "category": "abstention_unanswerable",
+    "legal_domain": "Election Law",
+    "expected_behavior": "abstain",
+    "sufficient_evidence_in_corpus": false,
+    "expected_document_ids": [],
+    "expected_ratio": null,
+    "expected_abstention_reason": "Factually unfounded and out-of-corpus proposition. The 2024 corpus contains no judgment ordering disqualification of a sitting MP for an incomplete Section 33A affidavit without an election petition. System must abstain.",
+    "holding_vs_submission_distinction": "N/A - unfounded factual assertion.",
+    "limitations_and_qualifications": "Corpus boundary limitation.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": []
+  },
+  {
+    "query_id": "M10_042",
+    "historical_query_id": "ADV_UNGROUNDED_GI",
+    "question": "What is the mandatory statutory time limit for registering a geographical indication under Section 20 of the Geographical Indications of Goods Act, 1999?",
+    "category": "abstention_unanswerable",
+    "legal_domain": "Intellectual Property Law",
+    "expected_behavior": "abstain",
+    "sufficient_evidence_in_corpus": false,
+    "expected_document_ids": [],
+    "expected_ratio": null,
+    "expected_abstention_reason": "Out-of-corpus statutory query. The 2024 Supreme Court corpus contains zero judgments interpreting Section 20 of the Geographical Indications of Goods Act, 1999. System must abstain.",
+    "holding_vs_submission_distinction": "N/A - absent statutory corpus.",
+    "limitations_and_qualifications": "Corpus boundary limitation.",
+    "curation_status": "developer_curated",
+    "disclaimer": "Experimental legal research benchmark. Not professional legal advice.",
+    "provenance": "developer_curated",
+    "expected_supporting_offsets": []
+  }
+]

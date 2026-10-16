@@ -1,0 +1,446 @@
+{
+    "benchmark_title": "NyayaVarta Milestone 5B Evidence-Grounded RAG Benchmark",
+    "benchmark_version": "v1.1",
+    "benchmark_type": "exploratory_internal",
+    "timestamp": "2026-10-12T18:28:08Z",
+    "provenance_disclosure": {
+        "total_queries": 15,
+        "answerable_queries": 10,
+        "unanswerable_queries": 5,
+        "source_corpus": "AWS Open Data 782 SC judgments (2024)",
+        "generator_mode": "MockLLMProvider (deterministic CPU testing)",
+        "benchmark_status": "Developer-authored evaluation benchmark (Milestones 5A/5B); exploratory evaluation not independently verified by legal practitioners."
+    },
+    "retrieval_metrics": {
+        "metric_definitions": {
+            "hit_rate_at_3": "% of answerable queries where at least one expected gold judgment appears in top 3 retrieved",
+            "hit_rate_at_5": "% of answerable queries where at least one expected gold judgment appears in top 5 retrieved",
+            "mrr": "Mean Reciprocal Rank over answerable queries: mean(1 / rank_first_relevant_doc)"
+        },
+        "hit_rate_at_3": 1.0,
+        "hit_rate_at_5": 1.0,
+        "mrr": 0.9
+    },
+    "generation_and_grounding_metrics": {
+        "metric_definitions": {
+            "abstention_accuracy": "Explicit count of correct abstentions on unanswerable queries divided by total unanswerable queries",
+            "citation_reference_validity": "% of cited [E#] tags that match supplied evidence passages",
+            "semantic_support_status": "Status of semantic legal verification (distinguished from reference validity)"
+        },
+        "abstention_count": "5/5",
+        "abstention_accuracy_on_unanswerable": 1.0,
+        "citation_validity_rate": 1.0,
+        "hallucinated_citation_rate": 0.0,
+        "evidence_offset_fidelity_rate": 1.0,
+        "semantic_support_status": "not_evaluated",
+        "total_citations_evaluated": 9,
+        "total_passages_verified": 75
+    },
+    "latency_metrics_ms": {
+        "retrieval_median_ms": 17.64,
+        "evidence_assembly_median_ms": 55.66,
+        "generation_median_ms": 1.01,
+        "total_median_ms": 78.19,
+        "total_p95_ms": 166.07
+    },
+    "per_example_failures_count": 0,
+    "failures": [],
+    "per_example_results": [
+        {
+            "query_id": "RQ001",
+            "question": "What are the legal standards and grounds for granting bail to an accused facing prosecution under Section 45 of the Prevention of Money Laundering Act (PMLA)?",
+            "domain": "Criminal",
+            "expected_answerability": "answerable",
+            "status": "answered",
+            "answer_preview": "45 of the Prevention of Money Laundering Act, 2002, that there are reasonable grounds for believing that the persons acc...",
+            "retrieved_candidates": [
+                "2024_3_778_811",
+                "2024_10_393_410",
+                "2024_8_1061_1085"
+            ],
+            "evidence_count": 5,
+            "citations_cited": [
+                "E1"
+            ],
+            "citations_valid": [
+                "E1"
+            ],
+            "citations_invalid": [],
+            "timing_ms": {
+                "retrieval_ms": 32.41,
+                "evidence_assembly_ms": 41.32,
+                "generation_ms": 1.4,
+                "validation_ms": 0.08,
+                "total_ms": 78.19
+            }
+        },
+        {
+            "query_id": "RQ002",
+            "question": "Can an appellate court reverse a judgment of acquittal into conviction based solely on circumstantial evidence?",
+            "domain": "Criminal",
+            "expected_answerability": "answerable",
+            "status": "answered",
+            "answer_preview": "In our considered opinion, the observation of the Trial Court that in absence of a direct occurrence witness, motive to ...",
+            "retrieved_candidates": [
+                "2024_2_1178_1195",
+                "2024_10_1757_1768",
+                "2024_4_48_62"
+            ],
+            "evidence_count": 5,
+            "citations_cited": [
+                "E4"
+            ],
+            "citations_valid": [
+                "E4"
+            ],
+            "citations_invalid": [],
+            "timing_ms": {
+                "retrieval_ms": 17.64,
+                "evidence_assembly_ms": 21.29,
+                "generation_ms": 0.91,
+                "validation_ms": 0.08,
+                "total_ms": 41.43
+            }
+        },
+        {
+            "query_id": "RQ003",
+            "question": "Can a pendente lite purchaser or third party stranger dispossessed of immovable property file an application under Order XXI Rule 99 CPC for restoration of possession?",
+            "domain": "Civil",
+            "expected_answerability": "answerable",
+            "status": "answered",
+            "answer_preview": "Mahadevan,* JJ.] Issue for Consideration Whether a pendente lite transferee, a stranger to the suit can file application...",
+            "retrieved_candidates": [
+                "2024_10_1359_1370",
+                "2024_7_668_675",
+                "2024_11_2375_2410"
+            ],
+            "evidence_count": 5,
+            "citations_cited": [
+                "E1"
+            ],
+            "citations_valid": [
+                "E1"
+            ],
+            "citations_invalid": [],
+            "timing_ms": {
+                "retrieval_ms": 24.07,
+                "evidence_assembly_ms": 31.99,
+                "generation_ms": 1.2,
+                "validation_ms": 0.07,
+                "total_ms": 59.86
+            }
+        },
+        {
+            "query_id": "RQ004",
+            "question": "Does a secured creditor bank have the right to cancel a confirmed e-auction sale if the auction purchaser requests an extension of time to deposit the balance purchase amount under Rule 9(4) of the Security Interest Rules?",
+            "domain": "Commercial",
+            "expected_answerability": "answerable",
+            "status": "answered",
+            "answer_preview": "Mahadevan, JJ.] Issue for Consideration Whether there was any default on part of the respondents-auction purchasers in d...",
+            "retrieved_candidates": [
+                "2024_10_1371_1380",
+                "2024_4_633_639",
+                "2024_7_474_531"
+            ],
+            "evidence_count": 5,
+            "citations_cited": [
+                "E1"
+            ],
+            "citations_valid": [
+                "E1"
+            ],
+            "citations_invalid": [],
+            "timing_ms": {
+                "retrieval_ms": 21.6,
+                "evidence_assembly_ms": 47.29,
+                "generation_ms": 1.45,
+                "validation_ms": 0.13,
+                "total_ms": 73.63
+            }
+        },
+        {
+            "query_id": "RQ005",
+            "question": "Can a municipal corporation demand royalty, tax, or fees on commercial advertisement hoardings without express statutory authority under Article 265 of the Constitution?",
+            "domain": "Constitutional",
+            "expected_answerability": "answerable",
+            "status": "answered",
+            "answer_preview": "1381 : 2024 INSC 784 The Patna Municipal Corporation & Ors. [E1] 11117 of 2024) 16 October 2024 [Vikram Nath and Ahsanud...",
+            "retrieved_candidates": [
+                "2024_10_1381_1403",
+                "2024_7_1549_1846",
+                "2024_8_189_206"
+            ],
+            "evidence_count": 5,
+            "citations_cited": [
+                "E1"
+            ],
+            "citations_valid": [
+                "E1"
+            ],
+            "citations_invalid": [],
+            "timing_ms": {
+                "retrieval_ms": 19.47,
+                "evidence_assembly_ms": 114.36,
+                "generation_ms": 1.0,
+                "validation_ms": 0.07,
+                "total_ms": 143.14
+            }
+        },
+        {
+            "query_id": "RQ006",
+            "question": "Does an acknowledgement of debt recorded in the audited balance sheet of a corporate debtor extend the limitation period under Section 18 of the Limitation Act for initiating insolvency proceedings under IBC?",
+            "domain": "Commercial",
+            "expected_answerability": "answerable",
+            "status": "answered",
+            "answer_preview": "4.1 The main objection to the initiation of CIRP proceedings on the ground of limitation was rejected by the Adjudicatin...",
+            "retrieved_candidates": [
+                "2024_10_1462_1474",
+                "2024_5_215_240",
+                "2024_7_2143_2175"
+            ],
+            "evidence_count": 5,
+            "citations_cited": [
+                "E2"
+            ],
+            "citations_valid": [
+                "E2"
+            ],
+            "citations_invalid": [],
+            "timing_ms": {
+                "retrieval_ms": 21.18,
+                "evidence_assembly_ms": 35.43,
+                "generation_ms": 1.13,
+                "validation_ms": 0.09,
+                "total_ms": 62.37
+            }
+        },
+        {
+            "query_id": "RQ007",
+            "question": "What standard of professional skill and care is required to establish medical negligence against a surgeon under the Consumer Protection Act?",
+            "domain": "Civil",
+            "expected_answerability": "answerable",
+            "status": "answered",
+            "answer_preview": "272 of 2012) 25 October 2024 [Pamidighantam Sri Narasimha and Pankaj Mithal,* JJ.] Issue for Consideration The NCDRC hel...",
+            "retrieved_candidates": [
+                "2024_12_1875_1883",
+                "2024_10_1475_1482",
+                "2024_2_1065_1071"
+            ],
+            "evidence_count": 5,
+            "citations_cited": [
+                "E3"
+            ],
+            "citations_valid": [
+                "E3"
+            ],
+            "citations_invalid": [],
+            "timing_ms": {
+                "retrieval_ms": 17.18,
+                "evidence_assembly_ms": 21.4,
+                "generation_ms": 1.01,
+                "validation_ms": 0.14,
+                "total_ms": 41.23
+            }
+        },
+        {
+            "query_id": "RQ008",
+            "question": "Does viewing or streaming child sexual abuse material online without downloading or physically storing it on a device constitute possession under Section 15 of the POCSO Act?",
+            "domain": "Criminal",
+            "expected_answerability": "answerable",
+            "status": "answered",
+            "answer_preview": "Criminal jurisprudence \u2013 Inchoate Crimes \u2013 Protection of Children from Sexual Offences Act, 2012 \u2013 s.15 \u2013 Child pornogra...",
+            "retrieved_candidates": [
+                "2024_10_154_314",
+                "2024_8_575_614",
+                "2024_11_641_666"
+            ],
+            "evidence_count": 5,
+            "citations_cited": [
+                "E1"
+            ],
+            "citations_valid": [
+                "E1"
+            ],
+            "citations_invalid": [],
+            "timing_ms": {
+                "retrieval_ms": 16.31,
+                "evidence_assembly_ms": 59.67,
+                "generation_ms": 1.02,
+                "validation_ms": 0.12,
+                "total_ms": 80.93
+            }
+        },
+        {
+            "query_id": "RQ009",
+            "question": "Can an authorized signatory who signs a cheque on behalf of a company be directed to deposit interim compensation under Section 148 of the Negotiable Instruments Act during appeal?",
+            "domain": "Commercial",
+            "expected_answerability": "answerable",
+            "status": "insufficient_evidence",
+            "answer_preview": "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question.",
+            "retrieved_candidates": [
+                "2024_10_1890_1901",
+                "2024_7_1211_1224",
+                "2024_12_1946_1996"
+            ],
+            "evidence_count": 5,
+            "citations_cited": [],
+            "citations_valid": [],
+            "citations_invalid": [],
+            "timing_ms": {
+                "retrieval_ms": 18.57,
+                "evidence_assembly_ms": 25.48,
+                "generation_ms": 0.85,
+                "validation_ms": 0.03,
+                "total_ms": 47.3
+            }
+        },
+        {
+            "query_id": "RQ010",
+            "question": "Are provisions in prison manuals providing for division of labor or segregation of prisoners on the basis of caste unconstitutional under Articles 14, 15, and 17?",
+            "domain": "Constitutional",
+            "expected_answerability": "answerable",
+            "status": "answered",
+            "answer_preview": "The petitioner, Sukanya Shantha, a journalist, wrote an article \u201cFrom Segregation to Labour, Manu\u2019s Caste Law Governs th...",
+            "retrieved_candidates": [
+                "2024_10_493_638",
+                "2024_5_1038_1055",
+                "2024_1_743_908"
+            ],
+            "evidence_count": 5,
+            "citations_cited": [
+                "E1"
+            ],
+            "citations_valid": [
+                "E1"
+            ],
+            "citations_invalid": [],
+            "timing_ms": {
+                "retrieval_ms": 21.43,
+                "evidence_assembly_ms": 83.97,
+                "generation_ms": 0.91,
+                "validation_ms": 0.07,
+                "total_ms": 111.05
+            }
+        },
+        {
+            "query_id": "RQ011",
+            "question": "What are the statutory patent claim drafting requirements for biotechnology sequence listings under the Indian Patents Act, 1970?",
+            "domain": "Intellectual Property",
+            "expected_answerability": "unanswerable_in_corpus",
+            "status": "insufficient_evidence",
+            "answer_preview": "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question.",
+            "retrieved_candidates": [
+                "2024_7_1847_2142",
+                "2024_6_714_722",
+                "2024_12_1210_1234"
+            ],
+            "evidence_count": 5,
+            "citations_cited": [],
+            "citations_valid": [],
+            "citations_invalid": [],
+            "timing_ms": {
+                "retrieval_ms": 16.42,
+                "evidence_assembly_ms": 72.4,
+                "generation_ms": 0.48,
+                "validation_ms": 0.02,
+                "total_ms": 96.55
+            }
+        },
+        {
+            "query_id": "RQ012",
+            "question": "How did the 13-judge bench in Kesavananda Bharati v. State of Kerala (1973) formulate the basic structure doctrine regarding Article 368?",
+            "domain": "Constitutional",
+            "expected_answerability": "unanswerable_in_corpus",
+            "status": "insufficient_evidence",
+            "answer_preview": "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question.",
+            "retrieved_candidates": [
+                "2024_11_1_324",
+                "2024_11_947_953",
+                "2024_10_1313_1343"
+            ],
+            "evidence_count": 5,
+            "citations_cited": [],
+            "citations_valid": [],
+            "citations_invalid": [],
+            "timing_ms": {
+                "retrieval_ms": 17.27,
+                "evidence_assembly_ms": 98.52,
+                "generation_ms": 1.3,
+                "validation_ms": 0.03,
+                "total_ms": 128.69
+            }
+        },
+        {
+            "query_id": "RQ013",
+            "question": "What is the maritime prize court procedure for foreign vessel seizure under Indian Admiralty Jurisdiction in international waters?",
+            "domain": "Maritime",
+            "expected_answerability": "unanswerable_in_corpus",
+            "status": "insufficient_evidence",
+            "answer_preview": "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question.",
+            "retrieved_candidates": [
+                "2024_4_606_615",
+                "2024_5_404_414",
+                "2024_3_971_993"
+            ],
+            "evidence_count": 5,
+            "citations_cited": [],
+            "citations_valid": [],
+            "citations_invalid": [],
+            "timing_ms": {
+                "retrieval_ms": 15.65,
+                "evidence_assembly_ms": 55.66,
+                "generation_ms": 1.21,
+                "validation_ms": 0.04,
+                "total_ms": 76.22
+            }
+        },
+        {
+            "query_id": "RQ014",
+            "question": "What are the regulatory reporting standards mandated by the RBI for offshore peer-to-peer cryptocurrency derivatives?",
+            "domain": "Financial",
+            "expected_answerability": "unanswerable_in_corpus",
+            "status": "insufficient_evidence",
+            "answer_preview": "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question.",
+            "retrieved_candidates": [
+                "2024_12_1482_1516",
+                "2024_1_171_210",
+                "2024_5_739_760"
+            ],
+            "evidence_count": 5,
+            "citations_cited": [],
+            "citations_valid": [],
+            "citations_invalid": [],
+            "timing_ms": {
+                "retrieval_ms": 13.49,
+                "evidence_assembly_ms": 59.34,
+                "generation_ms": 0.76,
+                "validation_ms": 0.04,
+                "total_ms": 78.36
+            }
+        },
+        {
+            "query_id": "RQ015",
+            "question": "What were the nine distinct privacy opinions delivered by the bench in the 2017 Justice K.S. Puttaswamy fundamental right to privacy judgment?",
+            "domain": "Constitutional",
+            "expected_answerability": "unanswerable_in_corpus",
+            "status": "insufficient_evidence",
+            "answer_preview": "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question.",
+            "retrieved_candidates": [
+                "2024_8_575_614",
+                "2024_3_994_1003",
+                "2024_2_420_616"
+            ],
+            "evidence_count": 5,
+            "citations_cited": [],
+            "citations_valid": [],
+            "citations_invalid": [],
+            "timing_ms": {
+                "retrieval_ms": 17.16,
+                "evidence_assembly_ms": 143.95,
+                "generation_ms": 0.73,
+                "validation_ms": 0.02,
+                "total_ms": 166.07
+            }
+        }
+    ]
+}

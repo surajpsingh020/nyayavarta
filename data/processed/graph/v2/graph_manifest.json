@@ -1,0 +1,31 @@
+{
+    "graph_version": "2.0.0",
+    "created_at": "2026-10-14T20:10:07.471589",
+    "nodes_count": 38015,
+    "edges_count": 55431,
+    "excluded_edges_count": 67905,
+    "node_type_breakdown": {
+        "Judgment": 782,
+        "ExternalReference": 27155,
+        "Act": 2997,
+        "Section": 6331,
+        "Article": 291,
+        "Rule": 420,
+        "Schedule": 39
+    },
+    "edge_type_breakdown": {
+        "CITES_EXTERNAL": 31772,
+        "CITES": 171,
+        "MENTIONS_PROVISION": 18382,
+        "PART_OF_ACT": 5106
+    },
+    "exclusion_reason_breakdown": {
+        "SELF_CITATION": 7608,
+        "UNRESOLVED_MENTION": 10064,
+        "HISTORICAL_PRE_2024": 36488,
+        "AMBIGUOUS_CANDIDATE": 224,
+        "BARE_SECTION_UNSPECIFIED_ACT": 11578,
+        "AMBIGUOUS_STATUTORY_CONTEXT": 1943
+    },
+    "output_directory": "data/processed/graph/v2"
+}

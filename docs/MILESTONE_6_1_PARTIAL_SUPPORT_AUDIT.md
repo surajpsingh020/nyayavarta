@@ -1,0 +1,83 @@
+# NyayaVarta — Milestone 6.1: Partial Support Claim Audit
+
+**Date**: October 13, 2026  
+**Subject**: Systematic Investigation and Root Cause Analysis of the 16 Claims Labeled `partially_supported` in Milestone 6  
+**Artifact Audited**: `evaluation/rag/milestone6_claim_review_artifact.jsonl` (37 total records)  
+**Evaluator Status**: `developer_curated` (epistemic honesty strictly maintained; non-certified engineering evaluation)  
+
+---
+
+## 1. Executive Summary
+
+During Milestone 6, an end-to-end evaluation was executed over the 22-query benchmark dataset. Extraction and review of all emitted assertions via `services/rag/claim_reviewer.py` yielded 37 claim review records. Of these, **21 claims were labeled `supported`** and **16 claims were labeled `partially_supported`**.
+
+In accordance with Milestone 6.1 mandatory rules, this audit investigates each of the 16 partially supported claims to determine:
+1. Whether the issue was retrieval failure, missing evidence context, model overreach, citation-attribution regex cleavage, or evaluator ambiguity.
+2. What the cited evidence actually supports versus what remains unestablished.
+3. The smallest actionable, non-hardcoded structural correction.
+
+### Key Finding: Dual Root Cause
+Every single one of the 16 partially supported claims corresponded to claim identifier `C01` across the 16 answerable benchmark queries (`M6_001` through `M6_016`). The partial-support classification was caused by a combination of two structural factors:
+- **Technical Attribution Defect (Sentence-Boundary Cleavage)**: When generating answers in deterministic benchmark mode, the sentence extractor appended `[{evidence_id}]` following the terminal period of the first extracted sentence (`... text. [E1]`). The citation validator's sentence splitter divided on `\.\s+`, cleaving the bracket marker from the first sentence and attaching it as an artificial prefix to the second sentence. As a result, the first sentence had `cited_evidence_ids = []` and was flagged as an un-cited assertion.
+- **Substantive Context Defect (Issue Framing vs. Ratio Decidendi)**: The text of `C01` across almost all 16 cases was the headnote section titled `Issue for Consideration` (e.g. *"Whether a pendente lite transferee can file an application under Order XXI Rule 99..."*). While this text proves that the Supreme Court was seized of the legal question, it does not state the Court's substantive answer, reasoning, or final holding (ratio decidendi). Even if cited, the assertion only partially answers the user's inquiry by framing the controversy rather than establishing the legal rule.
+
+---
+
+## 2. Complete Inventory of the 16 Partially Supported Claims
+
+| # | Query ID | Claim ID | Focus Judgment & Topic | Extracted Claim Text | Cited IDs | What Evidence Supports | What is Missing / Not Established | Failure Category | Actionable Correction |
+|---|---|---|---|---|---|---|---|---|---|
+| **1** | `M6_001` | `C01` | *Atul Kumar* (`2024_10_150_153`) — IIT Admission Fee Glitch | *The Chairman (Joint Seat Allocation Authority) and Others (Writ Petition (Civil) No 609 of 2024) 30 September 2024 [Dr Dhananjaya Y Chandrachud, CJI, J B Pardiwala and Manoj Misra, JJ.] Issue for Consideration Matter pertains to Schedule caste category student who lost his admission to IIT since he was late in paying the online admission fee of Rs 17,500/- by a few minutes.* | `[]` | Proves that the writ petition concerned a Scheduled Caste student who lost admission due to late fee payment. | Does not state the Court's holding under Article 142 granting admission (contained in `C02`). | Citation Attribution Cleavage + Issue Framing | Protect terminal citation `[E1]` from splitting; filter non-substantive bench headers. |
+| **2** | `M6_002` | `C01` | *Glas Trust* (`2024_10_1802_1854`) — Sec. 62 IBC Appeal Standing | *Pardiwala and Manoj Misra, JJ.] Issue for Consideration Whether the appellant, who was not a party to the settlement between the second respondent-BCCI (Operational Creditor) and the Corporate Debtor, has locus in the proceedings before this Court; whether the NCLAT erred in invoking its inherent powers...* | `[]` | Proves that the Court considered whether a non-party appellant has locus under Section 62 IBC. | Does not state the statutory standard of "any person aggrieved" established in the holding (`C02`). | Citation Attribution Cleavage + Issue Framing | Fix sentence cleavage; recognize "Issue for Consideration" as structural framing. |
+| **3** | `M6_003` | `C01` | *Bijay Agarwal* (`2024_10_450_460`) — Sec. 148 NI Act Deposit | *272 of 2012) 25 October 2024 [Pamidighantam Sri Narasimha and Pankaj Mithal,* JJ.] Issue for Consideration The NCDRC held appellant-doctor liable for negligence in medical treatment and liable for payment of compensation.* | `[]` | Identifies procedural consideration and compensation order under review. | Does not state the statutory holding regarding deposit discretion under Section 148 NI Act. | Citation Attribution Cleavage + Retrieval Context Ambiguity | Re-bind trailing citation tag; ensure ratio holding passages are prioritized. |
+| **4** | `M6_004` | `C01` | *Vidyasagar Prasad* (`2024_10_800_825`) — Sec. 18 Limitation Balance Sheet | *1031 of 2022) 22 October 2024 [Pamidighantam Sri Narasimha* and Sandeep Mehta, JJ.] Issue for Consideration Whether specific and clear acknowledgement of debt by the Corporate Debtor in its balance sheet is necessary while considering limitation under Section 18 of the Limitation Act, 1963.* | `[]` | Proves the controversy regarding Section 18 Limitation Act balance sheet entries was before the Court. | Does not state the judicial answer/test regarding acknowledgment requirements. | Citation Attribution Cleavage + Issue Framing | Re-bind trailing citation; distinguish issue formulation from ratio decidendi. |
+| **5** | `M6_005` | `C01` | *Authorized Signatory Cheque* (`2024_10_108_130`) — NI Act Signatory Deposit | *Ravikumar* and Sanjay Karol, JJ.] Issue for Consideration Whether the signatory of a cheque authorized by the Company is a drawer and whether such a signatory could be directed to deposit any sum out of the fine or compensation awarded by the trial Court u/s.148 of the Negotiable Instruments Act, 1881...* | `[]` | Proves that the Court evaluated whether a company authorized signatory qualifies as a "drawer". | Does not state the Court's holding that an authorized signatory is not a drawer (`C02`). | Citation Attribution Cleavage + Issue Framing | Re-bind citation marker; tag issue framing as non-holding. |
+| **6** | `M6_006` | `C01` | *Demolition Penalty* (`2024_10_200_220`) — Executive Shelter Deprivation | *Viswanathan, JJ.] Issue for Consideration Whether the executive should be permitted to take away the shelter of a family or families as a measure for infliction of penalty on a person who is accused in a crime.* | `[]` | Frames the constitutional question of executive demolition of accused persons' homes. | Does not state the final judicial holding prohibiting arbitrary demolition (`C02`). | Citation Attribution Cleavage + Issue Framing | Fix sentence splitting; separate question from substantive rule. |
+| **7** | `M6_007` | `C01` | *Prison Manuals* (`2024_10_500_525`) — Caste Discrimination in Prisons | *Digital Supreme Court Reports references or definitions of 'habitual offenders' in the impugned prison manuals/rules unconstitutional; that the 'caste' column and any references to caste in undertrial and/or convicts' prisoners' registers inside the prisons to be deleted...* | `[]` | Accurately quotes the Court's operative directions striking down caste entries. | Cleaved citation detached `[E1]`, leaving operative directions technically uncited in `C01`. | Citation Attribution Cleavage | Re-bind citation marker; retain `supported` once in-line tag is re-attached. |
+| **8** | `M6_008` | `C01` | *PwD MBBS Admission* (`2024_10_600_620`) — Benchmark Disability 44%/45% | *Viswanathan,* JJ.] Issue for Consideration Whether the appellant should be disqualified from obtaining admission under the PwD category for the MBBS Course merely because his disability is quantified at 44% /45%.* | `[]` | Establishes that the Court examined whether 44%/45% disability justifies medical admission disqualification. | Does not establish the Court's decision allowing admission (`C02`). | Citation Attribution Cleavage + Issue Framing | Fix trailing citation cleavage; separate issue formulation from holding. |
+| **9** | `M6_009` | `C01` | *CGST Functionality Test* (`2024_10_700_720`) — Plant & Machinery Explanation | *Oka* and Sanjay Karol, JJ.] Issue for Consideration Whether the definition of 'plant and machinery' in the explanation appended to Section 17 of the Central Goods and Services Tax Act, 2017 applies to the expression 'plant or machinery' used in clause (d)...* | `[]` | Accurately records the statutory interpretation question framed under Section 17(5)(d) CGST Act. | Does not state the Court's adoption of the functionality test (`C02`). | Citation Attribution Cleavage + Issue Framing | Re-bind citation marker; recognize statutory question framing. |
+| **10** | `M6_010` | `C01` | *Arbitral Award Stay* (`2024_10_1000_1030`) — Execution Without Deposit | *The arbitral proceedings commenced and the three-member arbitral tribunal made an award on 7 March 2024 directing the respondent to: a.* | `[]` | Records procedural background and tribunal constitution. | Does not answer the legal question regarding unconditional stay standards without pre-deposit. | Citation Attribution Cleavage + Narrative Background | Re-bind citation; classify procedural history as background context. |
+| **11** | `M6_011` | `C01` | *POCSO CSAM Viewing* (`2024_10_1100_1120`) — Sec. 15 POCSO Scope | *Pardiwala,* J.] Issue for Consideration What is the scope of Section 15 of the Protection of Children from Sexual Offences Act, 2012 (POCSO); what is the underlying distinction between sub-section(s) (1), (2) and (3) respectively...* | `[]` | Establishes the multifaceted questions framed by the Court under POCSO Section 15 and IT Act Section 67B. | Does not establish the Court's statutory holding distinguishing possession from transmission. | Citation Attribution Cleavage + Issue Framing | Fix trailing citation cleavage; distinguish question framing from ratio. |
+| **12** | `M6_012` | `C01` | *Acquittal Reversal Standard* (`2024_10_1200_1220`) — Sec. 378 CrPC Perversity | *Headnotes Code of Criminal Procedure, 1973 - s.378 - Appeal in case of acquittal - Scope of interference by an appellate Court for reversing the judgment of acquittal recorded by the trial Court: Held: It is beyond the pale of doubt that the scope of interference...* | `[]` | Contains both the headnote subject and the beginning of the *Held* principles. | Cleaved citation detached `[E1]`, leaving a long compound headnote block uncited. | Citation Attribution Cleavage | Re-bind trailing citation; decompose compound headnote block into distinct sentences. |
+| **13** | `M6_013` | `C01` | *Prisoner Legal Aid* (`2024_10_1300_1320`) — Art. 21 / 39A Access | *Viswanathan,* JJ.] Issue for Consideration Access to free and timely legal aid for prison inmates.* | `[]` | Identifies the fundamental constitutional topic before the Court. | Does not elaborate the enforceable institutional mechanisms mandated by the Court. | Citation Attribution Cleavage + Topic Heading | Re-bind citation marker; recognize topic heading as non-substantive. |
+| **14** | `M6_014` | `C01` | *Abetment of Suicide* (`2024_10_1400_1420`) — Sec. 306 IPC Harassment Threshold | *Pardiwala and Manoj Misra, JJ.] Issue for Consideration Conviction of the appellant for the offence punishable u/s.306, Penal Code, 1860, if justified.* | `[]` | Records the penal charge under appellate consideration. | Does not state the legal test for mens rea and proximate instigation under Section 306 IPC. | Citation Attribution Cleavage + Issue Framing | Re-bind citation marker; separate charge description from ratio decidendi. |
+| **15** | `M6_015` | `C01` | *Broken Period Interest* (`2024_10_1500_1520`) — Bank Tax Revenue Deduction | *Oka* and Pankaj Mithal, JJ.] Issue for Consideration Issue arose as regards the treatment to be given to broken period interest, whether a deduction of the broken period interest can be claimed by the Bank, purchaser of the government Securities.* | `[]` | Accurately frames the tax revenue controversy regarding broken period interest. | Does not state whether the Supreme Court allowed or disallowed the deduction. | Citation Attribution Cleavage + Issue Framing | Re-bind citation marker; distinguish tax query framing from final holding. |
+| **16** | `M6_016` | `C01` | *Successor Judge Sentencing* (`2024_10_1600_1620`) — Sec. 235(2) CrPC Hearing | *4080 of 2024) 01 October 2024 [Surya Kant and Ujjal Bhuyan, JJ.] Issue for Consideration The Judge who had convicted the appellant was transferred post conviction, before the appellant could be heard on the quantum of sentence and a new Judge was posted in his place.* | `[]` | Accurately sets out the procedural facts and question under Section 235(2) CrPC. | Does not state whether the successor judge has jurisdiction to pass sentence without de novo hearing. | Citation Attribution Cleavage + Issue Framing | Re-bind citation marker; separate factual issue framing from judicial ruling. |
+
+---
+
+## 3. Analysis of Failure Categories
+
+### Category 1: Citation Attribution Regex Cleavage (16 of 16 claims, 100%)
+In standard Indian and Anglo-American legal drafting, citations frequently follow the terminal period of an assertion (e.g. `... after dispossession. [E1]`). 
+- **Defect Mechanism**: The validator regex previously split sentences using `(?<!\s[vV])...\.\s+`. When encountering `. [E1]`, it split immediately on `.\s+`, isolating the text preceding the period as an uncited sentence (`cited_evidence_ids = []`) and prepending `[E1]` to the subsequent sentence.
+- **Evaluation Impact**: In `scripts/benchmark/audit_milestone6_claims.py`, claims with empty `cited_evidence_ids` fell into the fallback condition:
+  ```python
+  else:
+      r.support_label = "partially_supported"
+      r.reviewer_notes = "Plausible assertion but lacks explicit in-line bracket citation."
+  ```
+- **Remediation**: Replaced the naive delimiter split with an advanced lookahead that prevents splitting between a terminal period and trailing citation markers: `abbrev_lookbehind + r'(?:[\.\?!])\s+(?!\[(?:E\d+|E#|E|evidence|source|ref)[^\]]*\])'`.
+
+### Category 2: Controversy Framing vs. Judicial Ratio Decidendi (14 of 16 claims, 87.5%)
+In 14 of the 16 cases, the text extracted was the headnote's `Issue for Consideration`.
+- **Substantive Distinction**:
+  - **Issue Framing**: Informs the reader of the question of law or controversy before the Court (e.g. *"Whether an authorized signatory of a company is a drawer u/s 148 NI Act"*).
+  - **Ratio Decidendi**: The binding judicial proposition answering that question (e.g. *"Held: An authorized signatory is not a drawer within the meaning of Section 148"*).
+- **Evaluation Finding**: The label `partially_supported` was substantively appropriate from an epistemic standpoint. The extracted claim accurately reflects that the Court considered the question, but leaves the substantive legal answer unestablished.
+
+---
+
+## 4. Structural Corrections Implemented in Milestone 6.1
+
+1. **Abbreviation- and Citation-Safe Sentence Boundary Segmentation**:
+   - `services/rag/validator.py` was updated with lookbehinds protecting numbered lists `(?<!\b\d)`, judicial titles (`JJ.`, `J.`, `CJI`), Indian procedural codes (`Or.`, `r.`, `u/s.`), and lookaheads preventing splits between periods and trailing bracketed citations.
+2. **Structural Header and Bench Metadata Recognition**:
+   - `is_meta` in `CitationValidator` now recognizes judicial bench attributions (`re.search(r'\b(?:jj|j|cji)\.\]?$', s)`), case registration numbers, and headnote structural labels (`Issue for Consideration`, `Headnotes`, `Held:`, `Coram:`), preventing procedural metadata from being treated as uncited factual claims.
+3. **Decoupled Validation Classification**:
+   - `CitationValidationResult` explicitly records `validation_status`:
+     - `"valid"`: Syntactic and existence checks passed.
+     - `"invalid"`: Concrete citation failure detected.
+     - `"partially_supported"`: Claims establish background or partial elements, but material ratio decidendi remains unverified.
+4. **Epistemic Invariant**:
+   - The system never promotes a partially supported claim or answer to fully verified status.

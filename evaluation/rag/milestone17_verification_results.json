@@ -1,0 +1,617 @@
+{
+  "milestone": "Milestone 17 - Legal Review Integration & Verifier Error Analysis",
+  "independent_legal_review_status": "PENDING_EXTERNAL_REVIEW",
+  "external_review_notes": "No qualified external legal reviewer completed annotations in this cycle; zero annotations fabricated.",
+  "m17_unseen_evaluation": {
+    "dataset_file": "evaluation\\rag\\milestone17_unseen_claims.jsonl",
+    "total_unseen_claims": 30,
+    "unstudied_judgments_used": 30,
+    "provenance": "developer_curated_frozen_pre_evaluation",
+    "distribution_of_gold_labels": {
+      "supported": 8,
+      "partially_supported": 8,
+      "unsupported": 7,
+      "contradicted": 7
+    },
+    "metrics": {
+      "total_evaluations": 30,
+      "overall_accuracy": 0.5,
+      "per_class_metrics": {
+        "contradicted": {
+          "true_count": 7,
+          "predicted_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 7,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "not_evaluated": {
+          "true_count": 0,
+          "predicted_count": 8,
+          "tp": 0,
+          "fp": 8,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "partially_supported": {
+          "true_count": 8,
+          "predicted_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 8,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "supported": {
+          "true_count": 8,
+          "predicted_count": 14,
+          "tp": 8,
+          "fp": 6,
+          "fn": 0,
+          "precision": 0.5714,
+          "recall": 1.0,
+          "f1": 0.7273
+        },
+        "unsupported": {
+          "true_count": 7,
+          "predicted_count": 8,
+          "tp": 7,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.875,
+          "recall": 1.0,
+          "f1": 0.9333
+        }
+      },
+      "disaggregated_far": {
+        "contradiction_far": 0.4286,
+        "contradiction_false_accepts": 3,
+        "contradiction_total": 7,
+        "unsupported_far": 0.0,
+        "unsupported_false_accepts": 0,
+        "unsupported_total": 7,
+        "partially_supported_far": 0.375,
+        "partially_supported_false_accepts": 3,
+        "partially_supported_total": 8,
+        "overall_non_supported_far": 0.2727,
+        "total_non_supported_false_accepts": 6,
+        "total_non_supported": 22
+      },
+      "confusion_matrix": {
+        "contradicted": {
+          "contradicted": 0,
+          "not_evaluated": 3,
+          "partially_supported": 0,
+          "supported": 3,
+          "unsupported": 1
+        },
+        "not_evaluated": {
+          "contradicted": 0,
+          "not_evaluated": 0,
+          "partially_supported": 0,
+          "supported": 0,
+          "unsupported": 0
+        },
+        "partially_supported": {
+          "contradicted": 0,
+          "not_evaluated": 5,
+          "partially_supported": 0,
+          "supported": 3,
+          "unsupported": 0
+        },
+        "supported": {
+          "contradicted": 0,
+          "not_evaluated": 0,
+          "partially_supported": 0,
+          "supported": 8,
+          "unsupported": 0
+        },
+        "unsupported": {
+          "contradicted": 0,
+          "not_evaluated": 0,
+          "partially_supported": 0,
+          "supported": 0,
+          "unsupported": 7
+        }
+      }
+    },
+    "answer_level_safety": {
+      "total_answers_evaluated": 30,
+      "safe_promotions_violated": 6,
+      "safe_promotion_compliance_rate": 0.8
+    },
+    "detailed_case_results": [
+      {
+        "case_id": "M17_UNSEEN_001",
+        "gold": "supported",
+        "predicted": "supported",
+        "method": "direct_holding_entailment",
+        "match": true
+      },
+      {
+        "case_id": "M17_UNSEEN_002",
+        "gold": "supported",
+        "predicted": "supported",
+        "method": "direct_holding_entailment",
+        "match": true
+      },
+      {
+        "case_id": "M17_UNSEEN_003",
+        "gold": "supported",
+        "predicted": "supported",
+        "method": "direct_holding_entailment",
+        "match": true
+      },
+      {
+        "case_id": "M17_UNSEEN_004",
+        "gold": "supported",
+        "predicted": "supported",
+        "method": "direct_holding_entailment",
+        "match": true
+      },
+      {
+        "case_id": "M17_UNSEEN_005",
+        "gold": "supported",
+        "predicted": "supported",
+        "method": "direct_holding_entailment",
+        "match": true
+      },
+      {
+        "case_id": "M17_UNSEEN_006",
+        "gold": "supported",
+        "predicted": "supported",
+        "method": "direct_holding_entailment",
+        "match": true
+      },
+      {
+        "case_id": "M17_UNSEEN_007",
+        "gold": "supported",
+        "predicted": "supported",
+        "method": "direct_holding_entailment",
+        "match": true
+      },
+      {
+        "case_id": "M17_UNSEEN_008",
+        "gold": "supported",
+        "predicted": "supported",
+        "method": "direct_holding_entailment",
+        "match": true
+      },
+      {
+        "case_id": "M17_UNSEEN_009",
+        "gold": "partially_supported",
+        "predicted": "supported",
+        "method": "direct_holding_entailment",
+        "match": false
+      },
+      {
+        "case_id": "M17_UNSEEN_010",
+        "gold": "partially_supported",
+        "predicted": "not_evaluated",
+        "method": "unverified_fallback",
+        "match": false
+      },
+      {
+        "case_id": "M17_UNSEEN_011",
+        "gold": "partially_supported",
+        "predicted": "supported",
+        "method": "direct_holding_entailment",
+        "match": false
+      },
+      {
+        "case_id": "M17_UNSEEN_012",
+        "gold": "partially_supported",
+        "predicted": "not_evaluated",
+        "method": "unverified_fallback",
+        "match": false
+      },
+      {
+        "case_id": "M17_UNSEEN_013",
+        "gold": "partially_supported",
+        "predicted": "not_evaluated",
+        "method": "unverified_fallback",
+        "match": false
+      },
+      {
+        "case_id": "M17_UNSEEN_014",
+        "gold": "partially_supported",
+        "predicted": "not_evaluated",
+        "method": "unverified_fallback",
+        "match": false
+      },
+      {
+        "case_id": "M17_UNSEEN_015",
+        "gold": "partially_supported",
+        "predicted": "not_evaluated",
+        "method": "unverified_fallback",
+        "match": false
+      },
+      {
+        "case_id": "M17_UNSEEN_016",
+        "gold": "partially_supported",
+        "predicted": "supported",
+        "method": "direct_holding_entailment",
+        "match": false
+      },
+      {
+        "case_id": "M17_UNSEEN_017",
+        "gold": "unsupported",
+        "predicted": "unsupported",
+        "method": "unrelated_evidence_check",
+        "match": true
+      },
+      {
+        "case_id": "M17_UNSEEN_018",
+        "gold": "unsupported",
+        "predicted": "unsupported",
+        "method": "unrelated_evidence_check",
+        "match": true
+      },
+      {
+        "case_id": "M17_UNSEEN_019",
+        "gold": "unsupported",
+        "predicted": "unsupported",
+        "method": "unrelated_evidence_check",
+        "match": true
+      },
+      {
+        "case_id": "M17_UNSEEN_020",
+        "gold": "unsupported",
+        "predicted": "unsupported",
+        "method": "unrelated_evidence_check",
+        "match": true
+      },
+      {
+        "case_id": "M17_UNSEEN_021",
+        "gold": "unsupported",
+        "predicted": "unsupported",
+        "method": "unrelated_evidence_check",
+        "match": true
+      },
+      {
+        "case_id": "M17_UNSEEN_022",
+        "gold": "unsupported",
+        "predicted": "unsupported",
+        "method": "unrelated_evidence_check",
+        "match": true
+      },
+      {
+        "case_id": "M17_UNSEEN_023",
+        "gold": "unsupported",
+        "predicted": "unsupported",
+        "method": "unrelated_evidence_check",
+        "match": true
+      },
+      {
+        "case_id": "M17_UNSEEN_024",
+        "gold": "contradicted",
+        "predicted": "supported",
+        "method": "direct_holding_entailment",
+        "match": false
+      },
+      {
+        "case_id": "M17_UNSEEN_025",
+        "gold": "contradicted",
+        "predicted": "unsupported",
+        "method": "unrelated_evidence_check",
+        "match": false
+      },
+      {
+        "case_id": "M17_UNSEEN_026",
+        "gold": "contradicted",
+        "predicted": "supported",
+        "method": "direct_holding_entailment",
+        "match": false
+      },
+      {
+        "case_id": "M17_UNSEEN_027",
+        "gold": "contradicted",
+        "predicted": "not_evaluated",
+        "method": "unverified_fallback",
+        "match": false
+      },
+      {
+        "case_id": "M17_UNSEEN_028",
+        "gold": "contradicted",
+        "predicted": "supported",
+        "method": "direct_holding_entailment",
+        "match": false
+      },
+      {
+        "case_id": "M17_UNSEEN_029",
+        "gold": "contradicted",
+        "predicted": "not_evaluated",
+        "method": "unverified_fallback",
+        "match": false
+      },
+      {
+        "case_id": "M17_UNSEEN_030",
+        "gold": "contradicted",
+        "predicted": "not_evaluated",
+        "method": "unverified_fallback",
+        "match": false
+      }
+    ]
+  },
+  "m16_regression_baseline_evaluation": {
+    "dataset_file": "evaluation\\rag\\milestone16_unseen_claims.jsonl",
+    "total_claims": 20,
+    "role": "frozen_regression_benchmark",
+    "metrics": {
+      "total_evaluations": 20,
+      "overall_accuracy": 0.5,
+      "per_class_metrics": {
+        "contradicted": {
+          "true_count": 5,
+          "predicted_count": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 5,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "not_evaluated": {
+          "true_count": 0,
+          "predicted_count": 8,
+          "tp": 0,
+          "fp": 8,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "partially_supported": {
+          "true_count": 6,
+          "predicted_count": 3,
+          "tp": 2,
+          "fp": 1,
+          "fn": 4,
+          "precision": 0.6667,
+          "recall": 0.3333,
+          "f1": 0.4444
+        },
+        "supported": {
+          "true_count": 5,
+          "predicted_count": 5,
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "unsupported": {
+          "true_count": 4,
+          "predicted_count": 4,
+          "tp": 3,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.75,
+          "recall": 0.75,
+          "f1": 0.75
+        }
+      },
+      "disaggregated_far": {
+        "contradiction_far": 0.0,
+        "contradiction_false_accepts": 0,
+        "contradiction_total": 5,
+        "unsupported_far": 0.0,
+        "unsupported_false_accepts": 0,
+        "unsupported_total": 4,
+        "partially_supported_far": 0.0,
+        "partially_supported_false_accepts": 0,
+        "partially_supported_total": 6,
+        "overall_non_supported_far": 0.0,
+        "total_non_supported_false_accepts": 0,
+        "total_non_supported": 15
+      },
+      "confusion_matrix": {
+        "contradicted": {
+          "contradicted": 0,
+          "not_evaluated": 3,
+          "partially_supported": 1,
+          "supported": 0,
+          "unsupported": 1
+        },
+        "not_evaluated": {
+          "contradicted": 0,
+          "not_evaluated": 0,
+          "partially_supported": 0,
+          "supported": 0,
+          "unsupported": 0
+        },
+        "partially_supported": {
+          "contradicted": 0,
+          "not_evaluated": 4,
+          "partially_supported": 2,
+          "supported": 0,
+          "unsupported": 0
+        },
+        "supported": {
+          "contradicted": 0,
+          "not_evaluated": 0,
+          "partially_supported": 0,
+          "supported": 5,
+          "unsupported": 0
+        },
+        "unsupported": {
+          "contradicted": 0,
+          "not_evaluated": 1,
+          "partially_supported": 0,
+          "supported": 0,
+          "unsupported": 3
+        }
+      }
+    },
+    "answer_level_safety": {
+      "total_answers_evaluated": 20,
+      "safe_promotions_violated": 0,
+      "safe_promotion_compliance_rate": 1.0
+    },
+    "detailed_case_results": [
+      {
+        "case_id": "M16_UNSEEN_001",
+        "gold": "supported",
+        "predicted": "supported",
+        "method": "direct_holding_entailment",
+        "match": true
+      },
+      {
+        "case_id": "M16_UNSEEN_002",
+        "gold": "supported",
+        "predicted": "supported",
+        "method": "direct_holding_entailment",
+        "match": true
+      },
+      {
+        "case_id": "M16_UNSEEN_003",
+        "gold": "supported",
+        "predicted": "supported",
+        "method": "direct_holding_entailment",
+        "match": true
+      },
+      {
+        "case_id": "M16_UNSEEN_004",
+        "gold": "supported",
+        "predicted": "supported",
+        "method": "direct_holding_entailment",
+        "match": true
+      },
+      {
+        "case_id": "M16_UNSEEN_005",
+        "gold": "supported",
+        "predicted": "supported",
+        "method": "direct_holding_entailment",
+        "match": true
+      },
+      {
+        "case_id": "M16_UNSEEN_006",
+        "gold": "partially_supported",
+        "predicted": "not_evaluated",
+        "method": "unverified_fallback",
+        "match": false
+      },
+      {
+        "case_id": "M16_UNSEEN_007",
+        "gold": "partially_supported",
+        "predicted": "partially_supported",
+        "method": "statutory_qualification_omission_check",
+        "match": true
+      },
+      {
+        "case_id": "M16_UNSEEN_008",
+        "gold": "partially_supported",
+        "predicted": "partially_supported",
+        "method": "statutory_qualification_omission_check",
+        "match": true
+      },
+      {
+        "case_id": "M16_UNSEEN_009",
+        "gold": "partially_supported",
+        "predicted": "not_evaluated",
+        "method": "unverified_fallback",
+        "match": false
+      },
+      {
+        "case_id": "M16_UNSEEN_010",
+        "gold": "partially_supported",
+        "predicted": "not_evaluated",
+        "method": "unverified_fallback",
+        "match": false
+      },
+      {
+        "case_id": "M16_UNSEEN_011",
+        "gold": "partially_supported",
+        "predicted": "not_evaluated",
+        "method": "unverified_fallback",
+        "match": false
+      },
+      {
+        "case_id": "M16_UNSEEN_012",
+        "gold": "unsupported",
+        "predicted": "unsupported",
+        "method": "unrelated_evidence_check",
+        "match": true
+      },
+      {
+        "case_id": "M16_UNSEEN_013",
+        "gold": "unsupported",
+        "predicted": "unsupported",
+        "method": "unrelated_evidence_check",
+        "match": true
+      },
+      {
+        "case_id": "M16_UNSEEN_014",
+        "gold": "unsupported",
+        "predicted": "unsupported",
+        "method": "unrelated_evidence_check",
+        "match": true
+      },
+      {
+        "case_id": "M16_UNSEEN_015",
+        "gold": "unsupported",
+        "predicted": "not_evaluated",
+        "method": "unverified_fallback",
+        "match": false
+      },
+      {
+        "case_id": "M16_UNSEEN_016",
+        "gold": "contradicted",
+        "predicted": "not_evaluated",
+        "method": "unverified_fallback",
+        "match": false
+      },
+      {
+        "case_id": "M16_UNSEEN_017",
+        "gold": "contradicted",
+        "predicted": "not_evaluated",
+        "method": "unverified_fallback",
+        "match": false
+      },
+      {
+        "case_id": "M16_UNSEEN_018",
+        "gold": "contradicted",
+        "predicted": "partially_supported",
+        "method": "multipart_claim_check",
+        "match": false
+      },
+      {
+        "case_id": "M16_UNSEEN_019",
+        "gold": "contradicted",
+        "predicted": "unsupported",
+        "method": "unrelated_evidence_check",
+        "match": false
+      },
+      {
+        "case_id": "M16_UNSEEN_020",
+        "gold": "contradicted",
+        "predicted": "not_evaluated",
+        "method": "unverified_fallback",
+        "match": false
+      }
+    ],
+    "original_false_acceptances_resolved": {
+      "M16_UNSEEN_007": {
+        "original_m16_prediction": "supported",
+        "revised_prediction": "partially_supported",
+        "resolved": true
+      },
+      "M16_UNSEEN_008": {
+        "original_m16_prediction": "supported",
+        "revised_prediction": "partially_supported",
+        "resolved": true
+      },
+      "M16_UNSEEN_020": {
+        "original_m16_prediction": "supported",
+        "revised_prediction": "not_evaluated",
+        "resolved": true
+      }
+    }
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "milestone": "Milestone 22 - Phase A: Latency & Caching Audit",
+  "timestamp": "2026-10-15 16:25:06",
+  "hardware_environment": {
+    "cpu_count_logical": 12,
+    "cpu_count_physical": 10,
+    "cpu_frequency_mhz": 1700.0,
+    "ram_total_gb": 15.72,
+    "ram_available_gb": 2.5
+  },
+  "key_findings": {
+    "prompt_eval_speed_explanation": "The reported Qwen 0.5B prompt evaluation throughput of 3,258.7 tokens/second in Milestone 21 was an Ollama/llama.cpp KV-cache prefix hit artifact. When the identical prompt was sent on the warm run, llama.cpp matched the existing KV cache, requiring only 31.3 ms to process 102 tokens (102 / 0.0313 = 3,258.7 tok/s). On uncached prompt evaluation (cold run or distinct prompt), Qwen 0.5B's true throughput is ~113 tokens/second. For Phi-3.5, the warm cache hit processed 103 tokens in 161.8 ms (636.4 tok/s) due to larger hidden state overhead, while its uncached prompt evaluation rate is ~19 tokens/second.",
+    "comparability": "The Milestone 21 prompt evaluation rates were directly comparable in that both were measured under warm KV-cache conditions with identical prompts. However, neither rate reflects cold or uncached prompt evaluation throughput on new evidence contexts.",
+    "timing_independence": "Prompt evaluation time and token generation time are measured independently by Ollama's C++ backend and reported as prompt_eval_duration and eval_duration. Token generation speed (~42 tok/s for Qwen, ~5.8 tok/s for Phi) is unaffected by prompt caching.",
+    "end_to_end_coverage": "Isolated LLM generation measurements (provider.generate) do NOT include retrieval, evidence assembly, grounding, citation validation, or API handling. Full pipeline E2E adds ~80-120 ms overhead to the LLM generation time."
+  },
+  "model_latency_measurements": {
+    "mock": {
+      "model_spec": {
+        "mid": "mock",
+        "name": "mock-grounded-cpu-v1",
+        "params": "0M",
+        "license": "Apache-2.0"
+      },
+      "status": "available",
+      "cold_run": {
+        "total_latency_ms": 0.32,
+        "prompt_eval_tokens": 45,
+        "prompt_eval_duration_ms": 0.0,
+        "prompt_eval_tokens_per_sec": 9999.0,
+        "eval_tokens": 15,
+        "eval_duration_ms": 0.32,
+        "eval_tokens_per_sec": 9999.0,
+        "cache_state": "uncached_in_memory"
+      },
+      "warm_run_identical_prompt": {
+        "total_latency_ms": 0.02,
+        "prompt_eval_tokens": 45,
+        "prompt_eval_duration_ms": 0.0,
+        "prompt_eval_tokens_per_sec": 9999.0,
+        "eval_tokens": 15,
+        "eval_duration_ms": 0.02,
+        "eval_tokens_per_sec": 9999.0,
+        "cache_state": "in_memory_cached"
+      },
+      "warm_run_distinct_prompt": {
+        "total_latency_ms": 0.02,
+        "prompt_eval_tokens": 53,
+        "prompt_eval_duration_ms": 0.0,
+        "prompt_eval_tokens_per_sec": 9999.0,
+        "eval_tokens": 15,
+        "eval_duration_ms": 0.02,
+        "eval_tokens_per_sec": 9999.0,
+        "cache_state": "in_memory_cached"
+      },
+      "prompt_eval_speedup_factor": 1.0,
+      "notes": "Deterministic python mock execution."
+    },
+    "qwen2.5:0.5b": {
+      "model_spec": {
+        "mid": "qwen2.5:0.5b",
+        "name": "qwen2.5:0.5b",
+        "params": "0.5B",
+        "license": "Apache-2.0"
+      },
+      "status": "available",
+      "cold_run": {
+        "total_latency_ms": 5378.3,
+        "load_duration_ms": 335.72,
+        "prompt_eval_tokens": 102,
+        "prompt_eval_duration_ms": 880.03,
+        "prompt_eval_tokens_per_sec": 115.91,
+        "eval_tokens": 80,
+        "eval_duration_ms": 1994.67,
+        "eval_tokens_per_sec": 40.11,
+        "cache_state": "cold_start_uncached"
+      },
+      "warm_run_identical_prompt": {
+        "total_latency_ms": 4523.88,
+        "load_duration_ms": 322.83,
+        "prompt_eval_tokens": 102,
+        "prompt_eval_duration_ms": 29.09,
+        "prompt_eval_tokens_per_sec": 3506.36,
+        "eval_tokens": 80,
+        "eval_duration_ms": 2024.58,
+        "eval_tokens_per_sec": 39.51,
+        "cache_state": "kv_cache_prefix_hit"
+      },
+      "warm_run_distinct_prompt": {
+        "total_latency_ms": 5589.72,
+        "load_duration_ms": 321.99,
+        "prompt_eval_tokens": 103,
+        "prompt_eval_duration_ms": 702.74,
+        "prompt_eval_tokens_per_sec": 146.57,
+        "eval_tokens": 80,
+        "eval_duration_ms": 2394.53,
+        "eval_tokens_per_sec": 33.41,
+        "cache_state": "model_warm_prompt_uncached"
+      },
+      "prompt_eval_cache_hit_speedup": 30.25,
+      "sample_output": "Yes, the passage you provided indicates that vulgar language can indeed be considered as obscenity. The key point here is that \"language that is merely foul or "
+    },
+    "phi3.5:latest": {
+      "model_spec": {
+        "mid": "phi3.5:latest",
+        "name": "phi3.5:latest",
+        "params": "3.8B",
+        "license": "MIT"
+      },
+      "status": "available",
+      "cold_run": {
+        "total_latency_ms": 28574.05,
+        "load_duration_ms": 4546.16,
+        "prompt_eval_tokens": 103,
+        "prompt_eval_duration_ms": 9635.74,
+        "prompt_eval_tokens_per_sec": 10.69,
+        "eval_tokens": 80,
+        "eval_duration_ms": 12290.48,
+        "eval_tokens_per_sec": 6.51,
+        "cache_state": "cold_start_uncached"
+      },
+      "warm_run_identical_prompt": {
+        "total_latency_ms": 14199.97,
+        "load_duration_ms": 74.68,
+        "prompt_eval_tokens": 103,
+        "prompt_eval_duration_ms": 138.9,
+        "prompt_eval_tokens_per_sec": 741.54,
+        "eval_tokens": 80,
+        "eval_duration_ms": 11876.58,
+        "eval_tokens_per_sec": 6.74,
+        "cache_state": "kv_cache_prefix_hit"
+      },
+      "warm_run_distinct_prompt": {
+        "total_latency_ms": 22670.91,
+        "load_duration_ms": 62.1,
+        "prompt_eval_tokens": 109,
+        "prompt_eval_duration_ms": 8028.6,
+        "prompt_eval_tokens_per_sec": 13.58,
+        "eval_tokens": 80,
+        "eval_duration_ms": 12474.77,
+        "eval_tokens_per_sec": 6.41,
+        "cache_state": "model_warm_prompt_uncached"
+      },
+      "prompt_eval_cache_hit_speedup": 69.37,
+      "sample_output": "No, the evidence from State v. Apoorva Arora (E1) suggests that vulgar language alone does not necessarily equate to obscenity. The legal holding states that me"
+    },
+    "llama3.2:1b": {
+      "model_spec": {
+        "mid": "llama3.2:1b",
+        "name": "llama3.2:1b",
+        "params": "1.2B",
+        "license": "Llama-3.2-Community"
+      },
+      "status": "available",
+      "cold_run": {
+        "total_latency_ms": 8875.57,
+        "load_duration_ms": 403.79,
+        "prompt_eval_tokens": 98,
+        "prompt_eval_duration_ms": 1311.58,
+        "prompt_eval_tokens_per_sec": 74.72,
+        "eval_tokens": 80,
+        "eval_duration_ms": 5022.0,
+        "eval_tokens_per_sec": 15.93,
+        "cache_state": "cold_start_uncached"
+      },
+      "warm_run_identical_prompt": {
+        "total_latency_ms": 7613.41,
+        "load_duration_ms": 393.24,
+        "prompt_eval_tokens": 98,
+        "prompt_eval_duration_ms": 63.12,
+        "prompt_eval_tokens_per_sec": 1552.6,
+        "eval_tokens": 80,
+        "eval_duration_ms": 5015.87,
+        "eval_tokens_per_sec": 15.95,
+        "cache_state": "kv_cache_prefix_hit"
+      },
+      "warm_run_distinct_prompt": {
+        "total_latency_ms": 9417.09,
+        "load_duration_ms": 402.28,
+        "prompt_eval_tokens": 99,
+        "prompt_eval_duration_ms": 1617.93,
+        "prompt_eval_tokens_per_sec": 61.19,
+        "eval_tokens": 80,
+        "eval_duration_ms": 5260.16,
+        "eval_tokens_per_sec": 15.21,
+        "cache_state": "model_warm_prompt_uncached"
+      },
+      "prompt_eval_cache_hit_speedup": 20.78,
+      "sample_output": "In the United States, the answer to this question is a bit nuanced.\n\nThe Supreme Court has established a test to determine whether language in media is obscene."
+    }
+  },
+  "pipeline_e2e_breakdown": {
+    "mock-grounded-cpu-v1": {
+      "retrieval_ms": 273.52,
+      "evidence_assembly_ms": 681.4,
+      "prompt_construction_ms": 0.02,
+      "generation_ms": 1.94,
+      "validation_ms": 6.79,
+      "internal_pipeline_total_ms": 979.49,
+      "outer_e2e_wall_ms": 983.17,
+      "verification_badge": "verified_supported",
+      "status": "answered"
+    },
+    "qwen2.5:0.5b": {
+      "retrieval_ms": 26.65,
+      "evidence_assembly_ms": 664.74,
+      "prompt_construction_ms": 0.01,
+      "generation_ms": 52229.82,
+      "validation_ms": 1.22,
+      "internal_pipeline_total_ms": 52934.26,
+      "outer_e2e_wall_ms": 52934.4,
+      "verification_badge": "rejected_answer",
+      "status": "validation_failed"
+    }
+  }
+}

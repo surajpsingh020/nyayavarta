@@ -1,0 +1,83 @@
+{
+  "milestone": "Milestone 20 - Staging Safety Gate and Human-Reviewed Pilot Readiness",
+  "evaluation_date": "2026-10-15",
+  "staging_release_decision": "HOLD_NOT_READY_FOR_EXTERNAL_PILOT",
+  "authorized_scope": "INTERNAL_SUPERVISED_TESTING_ONLY",
+  "checklist_criteria": [
+    {
+      "criterion_id": "GATE_01_CONTRADICTED_PREVENTION",
+      "name": "Contradicted Answer Prevention Gate",
+      "description": "No known contradicted claim or holding inversion may receive the verified_supported badge.",
+      "status": "PASSED",
+      "evidence": "Pipeline badge aggregator strictly checks contradicted_claims_count == 0; Policy 3 reduced contradiction FAR to 10% (1/10) and Policy 4 to 0% (0/10); answers with contradicted claims receive rejected_answer badge.",
+      "blocking": false
+    },
+    {
+      "criterion_id": "GATE_02_NON_SUPPORTED_PROMOTION_PREVENTION",
+      "name": "Non-Supported Claim Promotion Prevention Gate",
+      "description": "No partially supported, unsupported, or not-evaluated claim may receive the verified_supported badge.",
+      "status": "PASSED",
+      "evidence": "RAGResult.verification_badge enforces 100% claim-level support requirement; partially supported claims yield qualified_answer and not_evaluated yields unverified_answer.",
+      "blocking": false
+    },
+    {
+      "criterion_id": "GATE_03_REPRODUCIBLE_FAILURE_DOCUMENTATION",
+      "name": "Reproducible Failure Documentation",
+      "description": "All benchmark failures, false acceptances, and disagreements must be documented in versioned frozen JSONL files.",
+      "status": "PASSED",
+      "evidence": "Frozen datasets evaluation/rag/milestone20_staging_claims.jsonl (40 claims) and evaluation/rag/milestone20_policy_comparison.json document exact cases and confusion matrices.",
+      "blocking": false
+    },
+    {
+      "criterion_id": "GATE_04_REGRESSION_TEST_SUITE",
+      "name": "Automated Regression Test Suite Pass Rate",
+      "description": "All existing unit and regression tests must pass without regressions.",
+      "status": "PASSED",
+      "evidence": "315/315 automated repository tests passing across all previous milestones.",
+      "blocking": false
+    },
+    {
+      "criterion_id": "GATE_05_CORPUS_BOUNDARIES_AND_DISCLAIMERS",
+      "name": "Corpus Boundaries and Non-Authoritative Legal Disclaimers",
+      "description": "The system must explicitly identify the corpus boundary (782 Supreme Court 2024 judgments) and provide non-authoritative disclaimers.",
+      "status": "PASSED",
+      "evidence": "API response models and UI contract in apps/web/README.md require explicit non-authoritative research disclaimers on every response.",
+      "blocking": false
+    },
+    {
+      "criterion_id": "GATE_06_INDEPENDENT_LEGAL_REVIEW",
+      "name": "Independent External Legal Review",
+      "description": "Blind review of representative evaluation claims by qualified independent legal professionals.",
+      "status": "BLOCKED",
+      "evidence": "External legal review could not be secured; evaluation/rag/milestone20_blinded_review_pack.jsonl (30 claims) prepared but review status remains explicitly PENDING_EXTERNAL_REVIEW. No simulated or developer-curated labels claimed as independent.",
+      "blocking": true
+    },
+    {
+      "criterion_id": "GATE_07_LIVE_CPU_GENERATION_LATENCY",
+      "name": "Live CPU Generation Latency and Timeout Gate",
+      "description": "Live local LLM generation on reference CPU hardware must complete reliably under interactive timeout thresholds (<60s).",
+      "status": "BLOCKED",
+      "evidence": "Live Ollama execution with phi3.5:latest on full multi-passage legal prompts timed out (>180.0s), demonstrating pure CPU execution of 3.8B parameter models is unviable without GPU acceleration or strict context budgeting.",
+      "blocking": true
+    },
+    {
+      "criterion_id": "GATE_08_VERIFIER_POLICY_TRADE_OFF_STABILITY",
+      "name": "Verifier Policy Trade-Off Stability on Staging Set",
+      "description": "The verifier policy must achieve acceptable precision (>70%) without catastrophic false rejection (>50% FRR) on held-out staging claims.",
+      "status": "BLOCKED",
+      "evidence": "On 40 staging claims, Policy 3 suffered 16.67% non-supported FAR (admitting 4 partial claims) with 58.33% precision, while Policy 4 achieved 100% precision but suffered a 90.0% false rejection rate (9/10 supported claims rejected). Neither policy is mature for autonomous staging.",
+      "blocking": true
+    }
+  ],
+  "blockers_summary": [
+    "Independent external legal review is pending.",
+    "Real CPU-only local generation for 3.8B LLM exceeds 180s timeout on multi-passage contexts.",
+    "Policy 4 semantic over-conservatism causes a 90% false rejection rate on valid legal claims, while Policy 3 allows 40% of partially supported claims to pass."
+  ],
+  "recommendations_for_next_milestone": [
+    "Retain system in strictly supervised internal development mode.",
+    "Complete formal external legal review with licensed advocates using the blinded review pack.",
+    "Introduce lightweight 1B SLMs (e.g., Llama 3.2 1B or Qwen 2.5 0.5B/1.5B) or GPU offloading for sub-10s live generation.",
+    "Calibrate NLI neutral thresholds to reduce Policy 4 false rejections without lowering contradiction veto guards."
+  ]
+}

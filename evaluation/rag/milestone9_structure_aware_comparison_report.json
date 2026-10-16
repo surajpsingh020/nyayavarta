@@ -1,0 +1,1560 @@
+{
+  "metadata": {
+    "milestone": "Milestone 9",
+    "benchmark": "10-Query Canonical Comparison",
+    "provider": "ollama",
+    "model_name": "phi3.5:latest",
+    "timestamp": "2026-10-14 18:16:12",
+    "target_query_ids": [
+      "M6_001",
+      "M6_002",
+      "M6_004",
+      "M6_005",
+      "M6_007",
+      "M6_009",
+      "M6_017",
+      "M6_018",
+      "M6_019",
+      "M6_020"
+    ]
+  },
+  "comparison_table": {
+    "config_1_m8_baseline": {
+      "config_name": "Config 1: Milestone 8 Baseline (Legacy Chunking, k=2, max 750 chars)",
+      "max_passages": 2,
+      "max_chars_per_passage": 750,
+      "enable_compression": false,
+      "enable_issue_holding_pairing": false,
+      "total_queries": 10,
+      "gate_fast_exits": 4,
+      "llm_invocations": 6,
+      "answers_accepted": 6,
+      "abstentions_count": 4,
+      "valid_structured_rate": 1.0,
+      "unknown_evidence_ids_count": 0,
+      "timeouts_count": 0,
+      "median_generation_latency_sec": 130.858,
+      "p95_generation_latency_sec": 163.901,
+      "median_e2e_latency_sec": 119.494,
+      "p95_e2e_latency_sec": 163.901,
+      "avg_prompt_tokens": 0.0,
+      "avg_eval_tokens": 0.0,
+      "avg_passage_chars": 4324.8,
+      "total_execution_time_sec": 806.01
+    },
+    "config_2_structure_aware_no_pairing": {
+      "config_name": "Config 2: Structure-Aware Chunking (No Pairing, k=2, max 750 chars)",
+      "max_passages": 2,
+      "max_chars_per_passage": 750,
+      "enable_compression": false,
+      "enable_issue_holding_pairing": false,
+      "total_queries": 10,
+      "gate_fast_exits": 4,
+      "llm_invocations": 6,
+      "answers_accepted": 6,
+      "abstentions_count": 4,
+      "valid_structured_rate": 1.0,
+      "unknown_evidence_ids_count": 0,
+      "timeouts_count": 0,
+      "median_generation_latency_sec": 123.385,
+      "p95_generation_latency_sec": 150.515,
+      "median_e2e_latency_sec": 120.103,
+      "p95_e2e_latency_sec": 150.515,
+      "avg_prompt_tokens": 0.0,
+      "avg_eval_tokens": 0.0,
+      "avg_passage_chars": 4462.8,
+      "total_execution_time_sec": 763.93
+    },
+    "config_3_structure_aware_paired_optimized": {
+      "config_name": "Config 3: Structure-Aware + Issue-Holding Pairing + Budget Optimization (k=2, max 550 chars, compression=True)",
+      "max_passages": 2,
+      "max_chars_per_passage": 550,
+      "enable_compression": true,
+      "enable_issue_holding_pairing": true,
+      "total_queries": 10,
+      "gate_fast_exits": 4,
+      "llm_invocations": 6,
+      "answers_accepted": 6,
+      "abstentions_count": 4,
+      "valid_structured_rate": 1.0,
+      "unknown_evidence_ids_count": 0,
+      "timeouts_count": 0,
+      "median_generation_latency_sec": 108.412,
+      "p95_generation_latency_sec": 110.891,
+      "median_e2e_latency_sec": 100.739,
+      "p95_e2e_latency_sec": 110.891,
+      "avg_prompt_tokens": 0.0,
+      "avg_eval_tokens": 0.0,
+      "avg_passage_chars": 3989.5,
+      "total_execution_time_sec": 634.95
+    }
+  },
+  "query_results": {
+    "config_1": [
+      {
+        "query_id": "M6_001",
+        "question": "Can the Supreme Court exercise powers under Article 142 of the Constitution to grant admission to an IIT candidate from a marginalized community who was prevented from paying fees due to a portal login glitch?",
+        "expected_answerable": true,
+        "status": "answered",
+        "grounding_status": "sufficient_evidence",
+        "is_fast_exit": false,
+        "answer_text": "The Supreme Court has jurisdiction under Article 142 of the Constitution to rectify any failure, neglect or inability on part of a public authority. [E1]. A marginalized community student faced an issue with paying IIT admission fees due to a portal login glitch. [E2]. The petitioner was allotted a seat at IIT Dhanbad and sought legal aid from the High Court of Madras, indicating an attempt for redressal through judicial means. [E2].",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_150_153",
+            "structural_label": null,
+            "char_length": 1709,
+            "text_snippet": "[2024] 10 S.C.R. 150 : 2024 INSC 749 Atul Kumar  v.  The Chairman (Joint Seat Allocation Authority) and Others (Writ Pet"
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_150_153",
+            "structural_label": null,
+            "char_length": 2598,
+            "text_snippet": "152\b [2024] 10 S.C.R. Digital Supreme Court Reports for JEE (Advanced) redirecting the candidate to the organizing IIT, "
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [
+            "E1",
+            "E2"
+          ],
+          "valid_source_ids": [
+            "E1",
+            "E2"
+          ],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 40.15,
+          "evidence_assembly_ms": 17.1,
+          "grounding_gate_ms": 7.31,
+          "prompt_construction_ms": 0.03,
+          "generation_ms": 163900.97,
+          "validation_ms": 0.23,
+          "total_ms": 163971.4
+        },
+        "total_latency_sec": 163.975,
+        "claims_count": 3
+      },
+      {
+        "query_id": "M6_002",
+        "question": "Does an appeal lie to the Supreme Court under Section 62 of the Insolvency and Bankruptcy Code against an order of the NCLAT approving withdrawal of CIRP under Rule 11?",
+        "expected_answerable": true,
+        "status": "answered",
+        "grounding_status": "sufficient_evidence",
+        "is_fast_exit": false,
+        "answer_text": "The Supreme Court can entertain an appeal against orders made by NCLAT under Section 62. [E1]. NCLAT has the inherent powers to approve withdrawal of CIRP, as per Rule 11 of its Rules in certain circumstances. [E2].",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_1802_1854",
+            "structural_label": null,
+            "char_length": 2526,
+            "text_snippet": "[2024] 10 S.C.R. \b 1803 GLAS Trust Company LLC v. BYJU Raveendran & Ors. institute an appeal, and nothing in the provisi"
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_1802_1854",
+            "structural_label": null,
+            "char_length": 1735,
+            "text_snippet": "[2024] 10 S.C.R. 1802 : 2024 INSC 811 GLAS Trust Company LLC   v.  BYJU Raveendran & Ors. (Civil Appeal No. 9986 of 2024"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [
+            "E1",
+            "E2"
+          ],
+          "valid_source_ids": [
+            "E1",
+            "E2"
+          ],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 112.79,
+          "evidence_assembly_ms": 28.9,
+          "grounding_gate_ms": 3.76,
+          "prompt_construction_ms": 0.02,
+          "generation_ms": 130858.11,
+          "validation_ms": 0.08,
+          "total_ms": 131008.11
+        },
+        "total_latency_sec": 131.008,
+        "claims_count": 2
+      },
+      {
+        "query_id": "M6_004",
+        "question": "Is a specific and clear entry in the balance sheet of a Corporate Debtor required to constitute an acknowledgment of debt under Section 18 of the Limitation Act for IBC proceedings?",
+        "expected_answerable": true,
+        "status": "answered",
+        "grounding_status": "sufficient_evidence",
+        "is_fast_exit": false,
+        "answer_text": "A specific and clear acknowledgement of debt by Corporate Debtor in its balance sheet may not be strictly necessary for limitation under Section 18, as per the case law. [E2].",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_1462_1474",
+            "structural_label": null,
+            "char_length": 1908,
+            "text_snippet": "[2024] 10 S.C.R. 1462 : 2024 INSC 810 Vidyasagar Prasad  v.   UCO Bank & Anr. (Civil Appeal No. 1031 of 2022) 22 October"
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_1462_1474",
+            "structural_label": null,
+            "char_length": 2362,
+            "text_snippet": "[2024] 10 S.C.R. \b 1471 Vidyasagar Prasad v. UCO Bank & Anr. are expressly recognised by Section 134(7). Equally, the  a"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [
+            "E2"
+          ],
+          "valid_source_ids": [
+            "E2"
+          ],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 73.29,
+          "evidence_assembly_ms": 20.36,
+          "grounding_gate_ms": 5.61,
+          "prompt_construction_ms": 0.02,
+          "generation_ms": 117373.93,
+          "validation_ms": 0.12,
+          "total_ms": 117476.56
+        },
+        "total_latency_sec": 117.477,
+        "claims_count": 1
+      },
+      {
+        "query_id": "M6_005",
+        "question": "Can an authorized signatory who signs a cheque on behalf of a company be directed to deposit an interim sum under Section 148 of the Negotiable Instruments Act upon appeal against conviction under Section 138?",
+        "expected_answerable": true,
+        "status": "answered",
+        "grounding_status": "sufficient_evidence",
+        "is_fast_exit": false,
+        "answer_text": "An authorized signatory can be directed to deposit an interim sum as per Section 148 upon appeal. [E1].",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_1890_1901",
+            "structural_label": null,
+            "char_length": 1857,
+            "text_snippet": "[2024] 10 S.C.R. 1890 : 2024 INSC 918 Bijay Agarwal  v.  M/s Medilines  (Criminal Appeal No(s). 4301 of 2024) 21 October"
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_1890_1901",
+            "structural_label": null,
+            "char_length": 1732,
+            "text_snippet": "1892\b [2024] 10 S.C.R. Digital Supreme Court Reports From the Judgment and Order dated 09.01.2024 of the High Court  of "
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [
+            "E1"
+          ],
+          "valid_source_ids": [
+            "E1"
+          ],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 71.08,
+          "evidence_assembly_ms": 31.93,
+          "grounding_gate_ms": 4.8,
+          "prompt_construction_ms": 0.04,
+          "generation_ms": 130670.83,
+          "validation_ms": 0.07,
+          "total_ms": 130783.66
+        },
+        "total_latency_sec": 130.784,
+        "claims_count": 1
+      },
+      {
+        "query_id": "M6_007",
+        "question": "Are prison rules that assign manual labour and segregated duties according to the caste of inmates constitutional under Articles 14 and 15 of the Constitution?",
+        "expected_answerable": true,
+        "status": "answered",
+        "grounding_status": "sufficient_evidence",
+        "is_fast_exit": false,
+        "answer_text": "Prison rules that discriminate among individual prisoners on caste basis violate Article 14. [E2]. Such classification should be based solely on the correctional needs of individuals, not their caste identity. [E2].",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_493_638",
+            "structural_label": null,
+            "char_length": 2589,
+            "text_snippet": "494\b [2024] 10 S.C.R. Digital Supreme Court Reports references or definitions of \u201chabitual offenders\u201d in the impugned  p"
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_493_638",
+            "structural_label": null,
+            "char_length": 2464,
+            "text_snippet": "[2024] 10 S.C.R. \b 495 Sukanya Shantha v. Union of India & Ors. remissions has to be maximisation of the reformatory pot"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [
+            "E2"
+          ],
+          "valid_source_ids": [
+            "E2"
+          ],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 135.15,
+          "evidence_assembly_ms": 43.13,
+          "grounding_gate_ms": 4.53,
+          "prompt_construction_ms": 0.02,
+          "generation_ms": 119493.84,
+          "validation_ms": 0.09,
+          "total_ms": 119684.0
+        },
+        "total_latency_sec": 119.684,
+        "claims_count": 2
+      },
+      {
+        "query_id": "M6_009",
+        "question": "Does Section 17(5)(d) of the CGST Act apply the functionality test to determine whether a building constructed for leasing qualifies as a plant for input tax credit?",
+        "expected_answerable": true,
+        "status": "answered",
+        "grounding_status": "sufficient_evidence",
+        "is_fast_exit": false,
+        "answer_text": "Section 17(5)(d) defines 'plant or machinery' for input tax credit purposes. [E2]. 'Plant', when construed in the context of Section 16 and clause (d) of section 17(5), includes buildings essential to service transactions like leasing, indicating a functionality test. [E2].",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_793_859",
+            "structural_label": null,
+            "char_length": 2573,
+            "text_snippet": "794\b [2024] 10 S.C.R. Digital Supreme Court Reports other than a hotel or a cinema theatre can be classified as a plant "
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_793_859",
+            "structural_label": null,
+            "char_length": 1912,
+            "text_snippet": "[2024] 10 S.C.R. 793 : 2024 INSC 756 Chief Commissioner of Central Goods and   Service Tax & Ors.  v.  M/s Safari Retrea"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [
+            "E2"
+          ],
+          "valid_source_ids": [
+            "E2"
+          ],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 40.04,
+          "evidence_assembly_ms": 50.45,
+          "grounding_gate_ms": 5.45,
+          "prompt_construction_ms": 0.02,
+          "generation_ms": 142605.43,
+          "validation_ms": 0.07,
+          "total_ms": 142710.27
+        },
+        "total_latency_sec": 142.71,
+        "claims_count": 2
+      },
+      {
+        "query_id": "M6_017",
+        "question": "What are the eligibility criteria and tenure prescribed under Section 18 of the Digital Personal Data Protection Act, 2023 for members of the Data Protection Board of India?",
+        "expected_answerable": false,
+        "status": "insufficient_evidence",
+        "grounding_status": "topically_relevant_but_insufficient_grounding",
+        "is_fast_exit": true,
+        "answer_text": "INSUFFICIENT EVIDENCE: Query explicitly inquires about statutory provisions (Section 18), but they are not present in retrieved evidence.",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_8_45_98",
+            "structural_label": null,
+            "char_length": 2672,
+            "text_snippet": "46\b [2024] 8 S.C.R. Digital Supreme Court Reports years \u2013 Hence, an analysis of the results does not lend support  to th"
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_8_45_98",
+            "structural_label": null,
+            "char_length": 1941,
+            "text_snippet": "[2024] 8 S.C.R. 45 : 2024 INSC 568 Vanshika Yadav  v.  Union of India & Ors. (Writ Petition (Civil) No. 335 of 2024) 02 "
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [],
+          "valid_source_ids": [],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Proposition Grounding Gate: Query explicitly inquires about statutory provisions (Section 18), but they are not present in retrieved evidence."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 31.42,
+          "evidence_assembly_ms": 23.25,
+          "grounding_gate_ms": 6.79,
+          "total_ms": 65.37
+        },
+        "total_latency_sec": 0.065,
+        "claims_count": 0
+      },
+      {
+        "query_id": "M6_018",
+        "question": "Does the Hindu legal concept of joint family coparcenary property apply to Mohammedans governed by Muslim law?",
+        "expected_answerable": false,
+        "status": "insufficient_evidence",
+        "grounding_status": "topically_relevant_but_insufficient_grounding",
+        "is_fast_exit": true,
+        "answer_text": "INSUFFICIENT EVIDENCE: Subject context ({'legal', 'joint', 'property', 'coparcenary', 'concept', 'family', 'hindu'}) and target predicate ({'muslim', 'mohammedans', 'governed'}) appear only in disjoint contexts and do not co-occur in any evidence sentence.",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_12_923_946",
+            "structural_label": null,
+            "char_length": 1940,
+            "text_snippet": "[2024] 12 S.C.R. \b 931 Mansoor Saheb (Dead) & Ors. v. Salima (D) By Lrs. & Ors. that on several fundamental points. The "
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_12_923_946",
+            "structural_label": null,
+            "char_length": 2204,
+            "text_snippet": "924\b [2024] 12 S.C.R. Supreme Court Reports without consideration\u00a0\u2013 The legal necessities of both these modes  of convey"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [],
+          "valid_source_ids": [],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Proposition Grounding Gate: Subject context ({'legal', 'joint', 'property', 'coparcenary', 'concept', 'family', 'hindu'}) and target predicate ({'muslim', 'mohammedans', 'governed'}) appear only in disjoint contexts and do not co-occur in any evidence sentence."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 43.12,
+          "evidence_assembly_ms": 25.44,
+          "grounding_gate_ms": 7.89,
+          "total_ms": 80.82
+        },
+        "total_latency_sec": 0.081,
+        "claims_count": 0
+      },
+      {
+        "query_id": "M6_019",
+        "question": "Does the statutory provision for anticipatory bail under Section 438 CrPC establish that an accused can seek pre-arrest bail in contempt of court proceedings?",
+        "expected_answerable": false,
+        "status": "insufficient_evidence",
+        "grounding_status": "topically_relevant_but_insufficient_grounding",
+        "is_fast_exit": true,
+        "answer_text": "INSUFFICIENT EVIDENCE: Subject context ({'crpc', 'bail', 'statutory', 'anticipatory'}) and target predicate ({'contempt'}) appear only in disjoint contexts and do not co-occur in any evidence sentence.",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_9_257_312",
+            "structural_label": null,
+            "char_length": 2675,
+            "text_snippet": "258\b [2024] 9 S.C.R. Digital Supreme Court Reports in custody in connection with a particular offence apprehends arrest "
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_9_257_312",
+            "structural_label": null,
+            "char_length": 2022,
+            "text_snippet": "[2024] 9 S.C.R. 257 : 2024 INSC 669 Dhanraj Aswani  v.  Amar S. Mulchandani & Anr. (Criminal Appeal No. 2501 of 2024) 09"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [],
+          "valid_source_ids": [],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Proposition Grounding Gate: Subject context ({'crpc', 'bail', 'statutory', 'anticipatory'}) and target predicate ({'contempt'}) appear only in disjoint contexts and do not co-occur in any evidence sentence."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 53.85,
+          "evidence_assembly_ms": 32.54,
+          "grounding_gate_ms": 8.67,
+          "total_ms": 100.38
+        },
+        "total_latency_sec": 0.1,
+        "claims_count": 0
+      },
+      {
+        "query_id": "M6_020",
+        "question": "Does Section 3(j) of the Patents Act, 1970 permit patenting of genetically modified mustard seeds containing transgenic traits as held by the Supreme Court?",
+        "expected_answerable": false,
+        "status": "insufficient_evidence",
+        "grounding_status": "topically_relevant_but_insufficient_grounding",
+        "is_fast_exit": true,
+        "answer_text": "INSUFFICIENT EVIDENCE: Historical precedent or statutory year (1970) specified in query is absent from retrieved 2024 judgments.",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_7_1847_2142",
+            "structural_label": null,
+            "char_length": 1885,
+            "text_snippet": "[2024] 7 S.C.R. 1847 : 2024 INSC 545 Gene Campaign & Anr.  v.  Union of India & Ors. (Writ Petition (Civil) No. 115 of 2"
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_7_1847_2142",
+            "structural_label": null,
+            "char_length": 1944,
+            "text_snippet": "[2024] 7 S.C.R. \b 2057 Gene Campaign & Anr. v. Union of India & Ors. (2) \u201cgenetically engineered or modified food\u201d means"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [],
+          "valid_source_ids": [],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Proposition Grounding Gate: Historical precedent or statutory year (1970) specified in query is absent from retrieved 2024 judgments."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 32.87,
+          "evidence_assembly_ms": 78.35,
+          "grounding_gate_ms": 1.89,
+          "total_ms": 124.2
+        },
+        "total_latency_sec": 0.124,
+        "claims_count": 0
+      }
+    ],
+    "config_2": [
+      {
+        "query_id": "M6_001",
+        "question": "Can the Supreme Court exercise powers under Article 142 of the Constitution to grant admission to an IIT candidate from a marginalized community who was prevented from paying fees due to a portal login glitch?",
+        "expected_answerable": true,
+        "status": "answered",
+        "grounding_status": "sufficient_evidence",
+        "is_fast_exit": false,
+        "answer_text": "The Supreme Court has jurisdiction under Article 142 to provide substantial justice, which includes creating a supernumerary seat for the petitioner. [E1]. Petitioner's efforts and marginalized status justify intervention by higher courts under Article 142 to ensure admission despite procedural issues with portal login fees. [E1, E2].",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_150_153",
+            "structural_label": "headnote_holding",
+            "char_length": 821,
+            "text_snippet": "Held: Petitioner logged in as many as on six occasions and  uploaded the documents, which evidently indicates that he wa"
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_150_153",
+            "structural_label": "final_disposition",
+            "char_length": 2598,
+            "text_snippet": "152\b [2024] 10 S.C.R. Digital Supreme Court Reports for JEE (Advanced) redirecting the candidate to the organizing IIT, "
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [
+            "E1",
+            "E2"
+          ],
+          "valid_source_ids": [
+            "E1",
+            "E2"
+          ],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 31.36,
+          "evidence_assembly_ms": 261.48,
+          "grounding_gate_ms": 7.64,
+          "prompt_construction_ms": 0.02,
+          "generation_ms": 126018.05,
+          "validation_ms": 0.1,
+          "total_ms": 126323.94
+        },
+        "total_latency_sec": 126.324,
+        "claims_count": 2
+      },
+      {
+        "query_id": "M6_002",
+        "question": "Does an appeal lie to the Supreme Court under Section 62 of the Insolvency and Bankruptcy Code against an order of the NCLAT approving withdrawal of CIRP under Rule 11?",
+        "expected_answerable": true,
+        "status": "answered",
+        "grounding_status": "sufficient_evidence",
+        "is_fast_exit": false,
+        "answer_text": "The Supreme Court can entertain an appeal against orders passed by NCLT under Section 62. [E1]. Once the Corporate Insolvency Resolution Process (CIRP) is admitted, all creditors become stakeholders and must be heard according to NCLT's mandate as per Section 62. [E1, E2]. The appellant raised objections regarding the source of funds for settlement, which could form a basis for an appeal against NCLAT's order under Rule 11 if it pertains to procedural irregularities or violations. [E2].",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_1802_1854",
+            "structural_label": "headnote_holding",
+            "char_length": 2526,
+            "text_snippet": "[2024] 10 S.C.R. \b 1803 GLAS Trust Company LLC v. BYJU Raveendran & Ors. institute an appeal, and nothing in the provisi"
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_1802_1854",
+            "structural_label": "headnote_holding",
+            "char_length": 2573,
+            "text_snippet": "1804\b [2024] 10 S.C.R. Digital Supreme Court Reports direct the parties to follow the course of action in Section 12A re"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [
+            "E1",
+            "E2"
+          ],
+          "valid_source_ids": [
+            "E1",
+            "E2"
+          ],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 25.83,
+          "evidence_assembly_ms": 375.42,
+          "grounding_gate_ms": 6.2,
+          "prompt_construction_ms": 0.02,
+          "generation_ms": 150514.95,
+          "validation_ms": 0.08,
+          "total_ms": 150928.96
+        },
+        "total_latency_sec": 150.929,
+        "claims_count": 3
+      },
+      {
+        "query_id": "M6_004",
+        "question": "Is a specific and clear entry in the balance sheet of a Corporate Debtor required to constitute an acknowledgment of debt under Section 18 of the Limitation Act for IBC proceedings?",
+        "expected_answerable": true,
+        "status": "answered",
+        "grounding_status": "sufficient_evidence",
+        "is_fast_exit": false,
+        "answer_text": "Acknowledgment in balance sheet entries and Auditors Report can indicate debt recognition. [E1]. Law requires examination of each case's facts to determine the clarity of acknowledgments made for creditor admission under Section 134(7). [E2].",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_1462_1474",
+            "structural_label": "headnote_holding",
+            "char_length": 1278,
+            "text_snippet": "Held: It was contended by the Appellant that there is no  unequivocal, unambiguous and specific acknowledgement of debt "
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_1462_1474",
+            "structural_label": "court_analysis",
+            "char_length": 2362,
+            "text_snippet": "[2024] 10 S.C.R. \b 1471 Vidyasagar Prasad v. UCO Bank & Anr. are expressly recognised by Section 134(7). Equally, the  a"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [
+            "E1",
+            "E2"
+          ],
+          "valid_source_ids": [
+            "E1",
+            "E2"
+          ],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 23.29,
+          "evidence_assembly_ms": 252.52,
+          "grounding_gate_ms": 7.06,
+          "prompt_construction_ms": 0.02,
+          "generation_ms": 123385.38,
+          "validation_ms": 0.08,
+          "total_ms": 123672.76
+        },
+        "total_latency_sec": 123.673,
+        "claims_count": 2
+      },
+      {
+        "query_id": "M6_005",
+        "question": "Can an authorized signatory who signs a cheque on behalf of a company be directed to deposit an interim sum under Section 148 of the Negotiable Instruments Act upon appeal against conviction under Section 138?",
+        "expected_answerable": true,
+        "status": "answered",
+        "grounding_status": "sufficient_evidence",
+        "is_fast_exit": false,
+        "answer_text": "An appellate court may order an authorized signatory who signs on behalf of a company to deposit interim compensation. [E2].",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_1890_1901",
+            "structural_label": "court_analysis",
+            "char_length": 2384,
+            "text_snippet": "[2024] 10 S.C.R. \b 1895 Bijay Agarwal v. M/s Medilines  Acting U/sec. 255(2) of Cr.PC accused is hereby convicted  for t"
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_1890_1901",
+            "structural_label": "court_analysis",
+            "char_length": 2233,
+            "text_snippet": "[2024] 10 S.C.R. \b 1897 Bijay Agarwal v. M/s Medilines  Appellate Court may order the appellant to deposit such  sum whi"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [
+            "E2"
+          ],
+          "valid_source_ids": [
+            "E2"
+          ],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 19.31,
+          "evidence_assembly_ms": 261.9,
+          "grounding_gate_ms": 6.58,
+          "prompt_construction_ms": 0.03,
+          "generation_ms": 120102.81,
+          "validation_ms": 0.1,
+          "total_ms": 120397.47
+        },
+        "total_latency_sec": 120.398,
+        "claims_count": 1
+      },
+      {
+        "query_id": "M6_007",
+        "question": "Are prison rules that assign manual labour and segregated duties according to the caste of inmates constitutional under Articles 14 and 15 of the Constitution?",
+        "expected_answerable": true,
+        "status": "answered",
+        "grounding_status": "sufficient_evidence",
+        "is_fast_exit": false,
+        "answer_text": "Prison rules that discriminate among individual prisoners on caste basis violate Article 14. [E2]. Such classification should be based solely on the correctional needs of individuals, not their caste identity. [E2].",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_493_638",
+            "structural_label": "headnote_holding",
+            "char_length": 2589,
+            "text_snippet": "494\b [2024] 10 S.C.R. Digital Supreme Court Reports references or definitions of \u201chabitual offenders\u201d in the impugned  p"
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_493_638",
+            "structural_label": "headnote_holding",
+            "char_length": 2464,
+            "text_snippet": "[2024] 10 S.C.R. \b 495 Sukanya Shantha v. Union of India & Ors. remissions has to be maximisation of the reformatory pot"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [
+            "E2"
+          ],
+          "valid_source_ids": [
+            "E2"
+          ],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 45.4,
+          "evidence_assembly_ms": 1123.4,
+          "grounding_gate_ms": 4.87,
+          "prompt_construction_ms": 0.02,
+          "generation_ms": 114858.51,
+          "validation_ms": 0.09,
+          "total_ms": 116042.37
+        },
+        "total_latency_sec": 116.042,
+        "claims_count": 2
+      },
+      {
+        "query_id": "M6_009",
+        "question": "Does Section 17(5)(d) of the CGST Act apply the functionality test to determine whether a building constructed for leasing qualifies as a plant for input tax credit?",
+        "expected_answerable": true,
+        "status": "answered",
+        "grounding_status": "sufficient_evidence",
+        "is_fast_exit": false,
+        "answer_text": "A building constructed for leasing can be classified as a plant within Section 17(5)(d) of the CGST Act if its construction is essential to carrying out service activities. [E1].",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_793_859",
+            "structural_label": "headnote_holding",
+            "char_length": 2573,
+            "text_snippet": "794\b [2024] 10 S.C.R. Digital Supreme Court Reports other than a hotel or a cinema theatre can be classified as a plant "
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_793_859",
+            "structural_label": "judicial_holding",
+            "char_length": 2249,
+            "text_snippet": "858\b [2024] 10 S.C.R. Digital Supreme Court Reports take input tax credit after the due date of furnishing of the  retur"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [
+            "E1"
+          ],
+          "valid_source_ids": [
+            "E1"
+          ],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 48.45,
+          "evidence_assembly_ms": 1166.51,
+          "grounding_gate_ms": 6.23,
+          "prompt_construction_ms": 0.03,
+          "generation_ms": 120904.64,
+          "validation_ms": 0.09,
+          "total_ms": 122136.2
+        },
+        "total_latency_sec": 122.136,
+        "claims_count": 1
+      },
+      {
+        "query_id": "M6_017",
+        "question": "What are the eligibility criteria and tenure prescribed under Section 18 of the Digital Personal Data Protection Act, 2023 for members of the Data Protection Board of India?",
+        "expected_answerable": false,
+        "status": "insufficient_evidence",
+        "grounding_status": "topically_relevant_but_insufficient_grounding",
+        "is_fast_exit": true,
+        "answer_text": "INSUFFICIENT EVIDENCE: Query explicitly inquires about statutory provisions (Section 18), but they are not present in retrieved evidence.",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_8_45_98",
+            "structural_label": "headnote_holding",
+            "char_length": 2019,
+            "text_snippet": "50\b [2024] 8 S.C.R. Digital Supreme Court Reports including counselling services and stress management workshops\u00a0\u2013  Thes"
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_8_45_98",
+            "structural_label": "headnote_holding",
+            "char_length": 2672,
+            "text_snippet": "46\b [2024] 8 S.C.R. Digital Supreme Court Reports years \u2013 Hence, an analysis of the results does not lend support  to th"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [],
+          "valid_source_ids": [],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Proposition Grounding Gate: Query explicitly inquires about statutory provisions (Section 18), but they are not present in retrieved evidence."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 62.38,
+          "evidence_assembly_ms": 656.25,
+          "grounding_gate_ms": 12.73,
+          "total_ms": 739.47
+        },
+        "total_latency_sec": 0.74,
+        "claims_count": 0
+      },
+      {
+        "query_id": "M6_018",
+        "question": "Does the Hindu legal concept of joint family coparcenary property apply to Mohammedans governed by Muslim law?",
+        "expected_answerable": false,
+        "status": "insufficient_evidence",
+        "grounding_status": "topically_relevant_but_insufficient_grounding",
+        "is_fast_exit": true,
+        "answer_text": "INSUFFICIENT EVIDENCE: Subject context ({'legal', 'joint', 'property', 'coparcenary', 'concept', 'family', 'hindu'}) and target predicate ({'muslim', 'mohammedans', 'governed'}) appear only in disjoint contexts and do not co-occur in any evidence sentence.",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_12_923_946",
+            "structural_label": "court_analysis",
+            "char_length": 1940,
+            "text_snippet": "[2024] 12 S.C.R. \b 931 Mansoor Saheb (Dead) & Ors. v. Salima (D) By Lrs. & Ors. that on several fundamental points. The "
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_12_923_946",
+            "structural_label": "court_analysis",
+            "char_length": 2221,
+            "text_snippet": "932\b [2024] 12 S.C.R. Supreme Court Reports 6.\t The same scheme of succession applies whether the  deceased was male or "
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [],
+          "valid_source_ids": [],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Proposition Grounding Gate: Subject context ({'legal', 'joint', 'property', 'coparcenary', 'concept', 'family', 'hindu'}) and target predicate ({'muslim', 'mohammedans', 'governed'}) appear only in disjoint contexts and do not co-occur in any evidence sentence."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 43.59,
+          "evidence_assembly_ms": 795.88,
+          "grounding_gate_ms": 7.76,
+          "total_ms": 851.75
+        },
+        "total_latency_sec": 0.852,
+        "claims_count": 0
+      },
+      {
+        "query_id": "M6_019",
+        "question": "Does the statutory provision for anticipatory bail under Section 438 CrPC establish that an accused can seek pre-arrest bail in contempt of court proceedings?",
+        "expected_answerable": false,
+        "status": "insufficient_evidence",
+        "grounding_status": "topically_relevant_but_insufficient_grounding",
+        "is_fast_exit": true,
+        "answer_text": "INSUFFICIENT EVIDENCE: Subject context ({'crpc', 'bail', 'statutory', 'anticipatory'}) and target predicate ({'contempt'}) appear only in disjoint contexts and do not co-occur in any evidence sentence.",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_9_257_312",
+            "structural_label": "headnote_holding",
+            "char_length": 2675,
+            "text_snippet": "258\b [2024] 9 S.C.R. Digital Supreme Court Reports in custody in connection with a particular offence apprehends arrest "
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_9_257_312",
+            "structural_label": "court_analysis",
+            "char_length": 2266,
+            "text_snippet": "264\b [2024] 9 S.C.R. Digital Supreme Court Reports i.\t The High Court committed a serious error in taking the view  that"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [],
+          "valid_source_ids": [],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Proposition Grounding Gate: Subject context ({'crpc', 'bail', 'statutory', 'anticipatory'}) and target predicate ({'contempt'}) appear only in disjoint contexts and do not co-occur in any evidence sentence."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 49.02,
+          "evidence_assembly_ms": 768.05,
+          "grounding_gate_ms": 15.58,
+          "total_ms": 840.18
+        },
+        "total_latency_sec": 0.84,
+        "claims_count": 0
+      },
+      {
+        "query_id": "M6_020",
+        "question": "Does Section 3(j) of the Patents Act, 1970 permit patenting of genetically modified mustard seeds containing transgenic traits as held by the Supreme Court?",
+        "expected_answerable": false,
+        "status": "insufficient_evidence",
+        "grounding_status": "topically_relevant_but_insufficient_grounding",
+        "is_fast_exit": true,
+        "answer_text": "INSUFFICIENT EVIDENCE: Query explicitly inquires about statutory provisions (Section 3), but they are not present in retrieved evidence.",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_7_1847_2142",
+            "structural_label": "court_analysis",
+            "char_length": 1944,
+            "text_snippet": "[2024] 7 S.C.R. \b 2057 Gene Campaign & Anr. v. Union of India & Ors. (2) \u201cgenetically engineered or modified food\u201d means"
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_7_1847_2142",
+            "structural_label": "court_analysis",
+            "char_length": 2241,
+            "text_snippet": "2098\b [2024] 7 S.C.R. Digital Supreme Court Reports (iv)\t that the 1989 Rules were framed prior to the coming into  forc"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [],
+          "valid_source_ids": [],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Proposition Grounding Gate: Query explicitly inquires about statutory provisions (Section 3), but they are not present in retrieved evidence."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 71.85,
+          "evidence_assembly_ms": 1893.04,
+          "grounding_gate_ms": 12.68,
+          "total_ms": 1990.85
+        },
+        "total_latency_sec": 1.991,
+        "claims_count": 0
+      }
+    ],
+    "config_3": [
+      {
+        "query_id": "M6_001",
+        "question": "Can the Supreme Court exercise powers under Article 142 of the Constitution to grant admission to an IIT candidate from a marginalized community who was prevented from paying fees due to a portal login glitch?",
+        "expected_answerable": true,
+        "status": "answered",
+        "grounding_status": "sufficient_evidence",
+        "is_fast_exit": false,
+        "answer_text": "The Supreme Court has substantial power under Article 142 to do justice, which includes addressing issues faced by marginalized citizens. [E1]. There is no dispute about the petitioner's eligibility for a seat at IIT Dhanbad and his Scheduled Caste status, which highlights systemic issues that may warrant judicial intervention. [E2].",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_150_153",
+            "structural_label": "headnote_holding",
+            "char_length": 821,
+            "text_snippet": "Held: Petitioner logged in as many as on six occasions and  uploaded the documents, which evidently indicates that he wa"
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_150_153",
+            "structural_label": "final_disposition",
+            "char_length": 957,
+            "text_snippet": "152\b [2024] 10 S.C.R. Digital Supreme Court Reports for JEE (Advanced) redirecting the candidate to the organizing IIT, "
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [
+            "E1",
+            "E2"
+          ],
+          "valid_source_ids": [
+            "E1",
+            "E2"
+          ],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 101.68,
+          "evidence_assembly_ms": 592.73,
+          "grounding_gate_ms": 17.4,
+          "prompt_construction_ms": 0.04,
+          "generation_ms": 110890.92,
+          "validation_ms": 0.12,
+          "total_ms": 111615.6
+        },
+        "total_latency_sec": 111.616,
+        "claims_count": 2
+      },
+      {
+        "query_id": "M6_002",
+        "question": "Does an appeal lie to the Supreme Court under Section 62 of the Insolvency and Bankruptcy Code against an order of the NCLAT approving withdrawal of CIRP under Rule 11?",
+        "expected_answerable": true,
+        "status": "answered",
+        "grounding_status": "sufficient_evidence",
+        "is_fast_exit": false,
+        "answer_text": "The Supreme Court directs parties in Section 12A read with Regulation 30A to follow a specific course of action, implying that appeals must adhere to these directions. [E2]. Once the Corporate Insolvency Resolution Process (CIRP) is admitted and proceedings become collective involving all creditors, NCLT has a mandate to hear all concerned parties. [E2].",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_1802_1854",
+            "structural_label": "headnote_holding",
+            "char_length": 2526,
+            "text_snippet": "[2024] 10 S.C.R. \b 1803 GLAS Trust Company LLC v. BYJU Raveendran & Ors. institute an appeal, and nothing in the provisi"
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_1802_1854",
+            "structural_label": "headnote_holding",
+            "char_length": 2573,
+            "text_snippet": "1804\b [2024] 10 S.C.R. Digital Supreme Court Reports direct the parties to follow the course of action in Section 12A re"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [
+            "E2"
+          ],
+          "valid_source_ids": [
+            "E2"
+          ],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 59.39,
+          "evidence_assembly_ms": 795.59,
+          "grounding_gate_ms": 6.71,
+          "prompt_construction_ms": 0.03,
+          "generation_ms": 108412.28,
+          "validation_ms": 0.14,
+          "total_ms": 109283.76
+        },
+        "total_latency_sec": 109.284,
+        "claims_count": 2
+      },
+      {
+        "query_id": "M6_004",
+        "question": "Is a specific and clear entry in the balance sheet of a Corporate Debtor required to constitute an acknowledgment of debt under Section 18 of the Limitation Act for IBC proceedings?",
+        "expected_answerable": true,
+        "status": "answered",
+        "grounding_status": "sufficient_evidence",
+        "is_fast_exit": false,
+        "answer_text": "Acknowledgment in balance sheet entries and Auditors Report can constitute an acknowledgment of debt. [E1]. Law requires case-by-case examination to establish unequivocal admission of liability, implying that not all entries automatically imply such recognition under Section 18 of the Limitation Act. [E2].",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_1462_1474",
+            "structural_label": "headnote_holding",
+            "char_length": 1278,
+            "text_snippet": "Held: It was contended by the Appellant that there is no  unequivocal, unambiguous and specific acknowledgement of debt "
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_1462_1474",
+            "structural_label": "court_analysis",
+            "char_length": 1357,
+            "text_snippet": "v. Ismail Golam Hossain Ariff, that there is a compulsion  in law to prepare a balance sheet but no compulsion to  make "
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [
+            "E1",
+            "E2"
+          ],
+          "valid_source_ids": [
+            "E1",
+            "E2"
+          ],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 61.17,
+          "evidence_assembly_ms": 466.71,
+          "grounding_gate_ms": 21.92,
+          "prompt_construction_ms": 0.04,
+          "generation_ms": 100738.97,
+          "validation_ms": 0.15,
+          "total_ms": 101302.49
+        },
+        "total_latency_sec": 101.303,
+        "claims_count": 2
+      },
+      {
+        "query_id": "M6_005",
+        "question": "Can an authorized signatory who signs a cheque on behalf of a company be directed to deposit an interim sum under Section 148 of the Negotiable Instruments Act upon appeal against conviction under Section 138?",
+        "expected_answerable": true,
+        "status": "answered",
+        "grounding_status": "sufficient_evidence",
+        "is_fast_exit": false,
+        "answer_text": "An appellate court may order an authorized signatory who signs on behalf of a company to deposit interim compensation. [E2].",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_1890_1901",
+            "structural_label": "court_analysis",
+            "char_length": 1501,
+            "text_snippet": "[2024] 10 S.C.R. \b 1895 Bijay Agarwal v. M/s Medilines  Acting U/sec. 255(2) of Cr.PC accused is hereby convicted  for t"
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_1890_1901",
+            "structural_label": "court_analysis",
+            "char_length": 1552,
+            "text_snippet": "[2024] 10 S.C.R. \b 1897 Bijay Agarwal v. M/s Medilines  Appellate Court may order the appellant to deposit such  sum whi"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [
+            "E2"
+          ],
+          "valid_source_ids": [
+            "E2"
+          ],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 82.71,
+          "evidence_assembly_ms": 571.62,
+          "grounding_gate_ms": 11.23,
+          "prompt_construction_ms": 0.04,
+          "generation_ms": 104164.46,
+          "validation_ms": 0.1,
+          "total_ms": 104844.1
+        },
+        "total_latency_sec": 104.844,
+        "claims_count": 1
+      },
+      {
+        "query_id": "M6_007",
+        "question": "Are prison rules that assign manual labour and segregated duties according to the caste of inmates constitutional under Articles 14 and 15 of the Constitution?",
+        "expected_answerable": true,
+        "status": "answered",
+        "grounding_status": "sufficient_evidence",
+        "is_fast_exit": false,
+        "answer_text": "Prison rules assigning manual labour and segregated duties based on caste are unconstitutional. [E2].",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_493_638",
+            "structural_label": "headnote_holding",
+            "char_length": 2589,
+            "text_snippet": "494\b [2024] 10 S.C.R. Digital Supreme Court Reports references or definitions of \u201chabitual offenders\u201d in the impugned  p"
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_493_638",
+            "structural_label": "headnote_holding",
+            "char_length": 2443,
+            "text_snippet": "[2024] 10 S.C.R. \b 495 Sukanya Shantha v. Union of India & Ors. remissions has to be maximisation of the reformatory pot"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [
+            "E2"
+          ],
+          "valid_source_ids": [
+            "E2"
+          ],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 72.52,
+          "evidence_assembly_ms": 1181.45,
+          "grounding_gate_ms": 5.01,
+          "prompt_construction_ms": 0.03,
+          "generation_ms": 91648.13,
+          "validation_ms": 0.12,
+          "total_ms": 92919.35
+        },
+        "total_latency_sec": 92.92,
+        "claims_count": 1
+      },
+      {
+        "query_id": "M6_009",
+        "question": "Does Section 17(5)(d) of the CGST Act apply the functionality test to determine whether a building constructed for leasing qualifies as a plant for input tax credit?",
+        "expected_answerable": true,
+        "status": "answered",
+        "grounding_status": "sufficient_evidence",
+        "is_fast_exit": false,
+        "answer_text": "Section 17(5)(d) considers buildings essential for carrying out activities like leasing as plants. [E1].",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_10_793_859",
+            "structural_label": "headnote_holding",
+            "char_length": 2573,
+            "text_snippet": "794\b [2024] 10 S.C.R. Digital Supreme Court Reports other than a hotel or a cinema theatre can be classified as a plant "
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_10_793_859",
+            "structural_label": "judicial_holding",
+            "char_length": 1747,
+            "text_snippet": "858\b [2024] 10 S.C.R. Digital Supreme Court Reports take input tax credit after the due date of furnishing of the  retur"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [
+            "E1"
+          ],
+          "valid_source_ids": [
+            "E1"
+          ],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Semantic legal support status: not_evaluated (citation reference existence verified; semantic correctness requires independent verification)."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 56.05,
+          "evidence_assembly_ms": 1274.75,
+          "grounding_gate_ms": 7.07,
+          "prompt_construction_ms": 0.04,
+          "generation_ms": 109120.64,
+          "validation_ms": 0.08,
+          "total_ms": 110471.55
+        },
+        "total_latency_sec": 110.472,
+        "claims_count": 1
+      },
+      {
+        "query_id": "M6_017",
+        "question": "What are the eligibility criteria and tenure prescribed under Section 18 of the Digital Personal Data Protection Act, 2023 for members of the Data Protection Board of India?",
+        "expected_answerable": false,
+        "status": "insufficient_evidence",
+        "grounding_status": "topically_relevant_but_insufficient_grounding",
+        "is_fast_exit": true,
+        "answer_text": "INSUFFICIENT EVIDENCE: Query explicitly inquires about statutory provisions (Section 18), but they are not present in retrieved evidence.",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_8_45_98",
+            "structural_label": "headnote_holding",
+            "char_length": 2019,
+            "text_snippet": "50\b [2024] 8 S.C.R. Digital Supreme Court Reports including counselling services and stress management workshops\u00a0\u2013  Thes"
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_8_45_98",
+            "structural_label": "headnote_holding",
+            "char_length": 2672,
+            "text_snippet": "46\b [2024] 8 S.C.R. Digital Supreme Court Reports years \u2013 Hence, an analysis of the results does not lend support  to th"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [],
+          "valid_source_ids": [],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Proposition Grounding Gate: Query explicitly inquires about statutory provisions (Section 18), but they are not present in retrieved evidence."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 69.91,
+          "evidence_assembly_ms": 694.49,
+          "grounding_gate_ms": 12.7,
+          "total_ms": 786.2
+        },
+        "total_latency_sec": 0.786,
+        "claims_count": 0
+      },
+      {
+        "query_id": "M6_018",
+        "question": "Does the Hindu legal concept of joint family coparcenary property apply to Mohammedans governed by Muslim law?",
+        "expected_answerable": false,
+        "status": "insufficient_evidence",
+        "grounding_status": "topically_relevant_but_insufficient_grounding",
+        "is_fast_exit": true,
+        "answer_text": "INSUFFICIENT EVIDENCE: Subject context ({'legal', 'joint', 'property', 'coparcenary', 'concept', 'family', 'hindu'}) and target predicate ({'muslim', 'mohammedans', 'governed'}) appear only in disjoint contexts and do not co-occur in any evidence sentence.",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_12_923_946",
+            "structural_label": "court_analysis",
+            "char_length": 1940,
+            "text_snippet": "[2024] 12 S.C.R. \b 931 Mansoor Saheb (Dead) & Ors. v. Salima (D) By Lrs. & Ors. that on several fundamental points. The "
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_12_923_946",
+            "structural_label": "court_analysis",
+            "char_length": 2221,
+            "text_snippet": "932\b [2024] 12 S.C.R. Supreme Court Reports 6.\t The same scheme of succession applies whether the  deceased was male or "
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [],
+          "valid_source_ids": [],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Proposition Grounding Gate: Subject context ({'legal', 'joint', 'property', 'coparcenary', 'concept', 'family', 'hindu'}) and target predicate ({'muslim', 'mohammedans', 'governed'}) appear only in disjoint contexts and do not co-occur in any evidence sentence."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 46.28,
+          "evidence_assembly_ms": 769.89,
+          "grounding_gate_ms": 8.78,
+          "total_ms": 830.29
+        },
+        "total_latency_sec": 0.83,
+        "claims_count": 0
+      },
+      {
+        "query_id": "M6_019",
+        "question": "Does the statutory provision for anticipatory bail under Section 438 CrPC establish that an accused can seek pre-arrest bail in contempt of court proceedings?",
+        "expected_answerable": false,
+        "status": "insufficient_evidence",
+        "grounding_status": "topically_relevant_but_insufficient_grounding",
+        "is_fast_exit": true,
+        "answer_text": "INSUFFICIENT EVIDENCE: Subject context ({'crpc', 'bail', 'statutory', 'anticipatory'}) and target predicate ({'contempt'}) appear only in disjoint contexts and do not co-occur in any evidence sentence.",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_9_257_312",
+            "structural_label": "headnote_holding",
+            "char_length": 2675,
+            "text_snippet": "258\b [2024] 9 S.C.R. Digital Supreme Court Reports in custody in connection with a particular offence apprehends arrest "
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_9_257_312",
+            "structural_label": "court_analysis",
+            "char_length": 2266,
+            "text_snippet": "264\b [2024] 9 S.C.R. Digital Supreme Court Reports i.\t The High Court committed a serious error in taking the view  that"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [],
+          "valid_source_ids": [],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Proposition Grounding Gate: Subject context ({'crpc', 'bail', 'statutory', 'anticipatory'}) and target predicate ({'contempt'}) appear only in disjoint contexts and do not co-occur in any evidence sentence."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 74.64,
+          "evidence_assembly_ms": 838.07,
+          "grounding_gate_ms": 10.98,
+          "total_ms": 930.68
+        },
+        "total_latency_sec": 0.931,
+        "claims_count": 0
+      },
+      {
+        "query_id": "M6_020",
+        "question": "Does Section 3(j) of the Patents Act, 1970 permit patenting of genetically modified mustard seeds containing transgenic traits as held by the Supreme Court?",
+        "expected_answerable": false,
+        "status": "insufficient_evidence",
+        "grounding_status": "topically_relevant_but_insufficient_grounding",
+        "is_fast_exit": true,
+        "answer_text": "INSUFFICIENT EVIDENCE: Query explicitly inquires about statutory provisions (Section 3), but they are not present in retrieved evidence.",
+        "active_evidence_passages": [
+          {
+            "evidence_id": "E1",
+            "document_id": "2024_7_1847_2142",
+            "structural_label": "court_analysis",
+            "char_length": 1944,
+            "text_snippet": "[2024] 7 S.C.R. \b 2057 Gene Campaign & Anr. v. Union of India & Ors. (2) \u201cgenetically engineered or modified food\u201d means"
+          },
+          {
+            "evidence_id": "E2",
+            "document_id": "2024_7_1847_2142",
+            "structural_label": "court_analysis",
+            "char_length": 2241,
+            "text_snippet": "2098\b [2024] 7 S.C.R. Digital Supreme Court Reports (iv)\t that the 1989 Rules were framed prior to the coming into  forc"
+          }
+        ],
+        "citation_validation": {
+          "is_valid": true,
+          "cited_source_ids": [],
+          "valid_source_ids": [],
+          "invalid_source_ids": [],
+          "unsupported_sentences": [],
+          "has_invalid_citations": false,
+          "validation_notes": [
+            "Proposition Grounding Gate: Query explicitly inquires about statutory provisions (Section 3), but they are not present in retrieved evidence."
+          ]
+        },
+        "timing_ms": {
+          "retrieval_ms": 66.77,
+          "evidence_assembly_ms": 1875.57,
+          "grounding_gate_ms": 8.73,
+          "total_ms": 1965.73
+        },
+        "total_latency_sec": 1.966,
+        "claims_count": 0
+      }
+    ]
+  }
+}

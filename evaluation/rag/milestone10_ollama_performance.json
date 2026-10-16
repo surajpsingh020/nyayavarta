@@ -1,0 +1,113 @@
+{
+  "metadata": {
+    "milestone": "Milestone 10",
+    "benchmark": "Bounded CPU Ollama Performance & Claim Audit",
+    "provider": "ollama",
+    "model_name": "phi3.5:latest",
+    "timestamp": "2026-10-14 19:06:18",
+    "queries_attempted": 8,
+    "provenance": "developer_curated"
+  },
+  "pipeline_decisions": {
+    "fast_exit_abstentions": 1,
+    "llm_invocations": 7,
+    "accepted_answers": 6,
+    "total_abstentions": 2,
+    "timeouts": 0
+  },
+  "latency_breakdown_seconds": {
+    "median_retrieval_sec": 0.086,
+    "median_evidence_assembly_sec": 0.858,
+    "median_grounding_gate_sec": 0.006,
+    "median_generation_sec": 87.393,
+    "p95_generation_sec": 122.87011,
+    "median_validation_sec": 0.0001,
+    "median_end_to_end_sec": 86.071,
+    "p95_end_to_end_sec": 123.191
+  },
+  "token_metrics": {
+    "avg_prompt_tokens": 0.0,
+    "avg_eval_tokens": 0.0
+  },
+  "claims_audit_summary": {
+    "total_claims_audited": 9,
+    "supported_claims": 8,
+    "partially_supported_claims": 1,
+    "unsupported_claims": 0,
+    "contradicted_claims": 0
+  },
+  "query_performance_details": [
+    {
+      "query_id": "M10_007",
+      "is_answerable": false,
+      "status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "is_fast_exit": false,
+      "timing_ms": {
+        "retrieval_ms": 97.31,
+        "evidence_assembly_ms": 759.84,
+        "grounding_gate_ms": 5.41,
+        "prompt_construction_ms": 0.02,
+        "generation_ms": 88377.12,
+        "validation_ms": 0.06,
+        "total_ms": 89246.02
+      },
+      "context_budget": {
+        "max_passages": 2,
+        "max_chars_per_passage": 550,
+        "max_total_chars": null,
+        "enable_compression": true,
+        "candidate_passages_count": 5,
+        "candidate_text_chars": 8240,
+        "active_passages_count": 2,
+        "active_passages_raw_chars": 1112,
+        "formatted_evidence_chars": 1407,
+        "prompt_chars": 2188,
+        "total_prompt_chars": 3358,
+        "prompt_tokens": 0,
+        "eval_tokens": 0
+      },
+      "llm_usage": {
+        "prompt_eval_count": 1141,
+        "prompt_eval_ms": 64452.14,
+        "eval_count": 125,
+        "eval_duration_ms": 20820.54,
+        "load_duration_ms": 78.21,
+        "total_duration_ms": 86312.62,
+        "tokens_per_second": 6.0,
+        "prompt_tokens_per_second": 17.7
+      },
+      "total_latency_sec": 89.246
+    },
+    {
+      "query_id": "M10_009",
+      "is_answerable": false,
+      "status": "insufficient_evidence",
+      "grounding_status": "topically_relevant_but_insufficient_grounding",
+      "is_fast_exit": true,
+      "timing_ms": {
+        "retrieval_ms": 87.44,
+        "evidence_assembly_ms": 1056.76,
+        "grounding_gate_ms": 9.77,
+        "total_ms": 1159.14
+      },
+      "context_budget": {
+        "max_passages": 2,
+        "max_chars_per_passage": 550,
+        "max_total_chars": null,
+        "enable_compression": true,
+        "candidate_passages_count": 5,
+        "candidate_text_chars": 11908,
+        "active_passages_count": 0,
+        "active_passages_raw_chars": 0,
+        "formatted_evidence_chars": 0,
+        "prompt_chars": 0,
+        "total_prompt_chars": 0,
+        "prompt_tokens": 0,
+        "eval_tokens": 0
+      },
+      "llm_usage": {},
+      "total_latency_sec": 1.159
+    }
+  ]
+}

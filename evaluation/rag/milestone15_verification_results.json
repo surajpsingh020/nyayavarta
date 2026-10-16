@@ -1,0 +1,867 @@
+{
+  "benchmark_metadata": {
+    "milestone": "Milestone 15 — False Verification Prevention and Answer-Level Safety",
+    "evaluation_date": "2026-10-14",
+    "evaluator": "NyayaVarta ClaimVerifier & Conservative Answer Aggregator",
+    "curation_status": "developer_curated",
+    "total_claims_evaluated": 44,
+    "total_scenarios_evaluated": 7,
+    "evaluation_latency_ms": 13.47
+  },
+  "overall_summary": {
+    "claim_level_accuracy": 0.9318,
+    "macro_f1": 0.9133,
+    "total_correct": 41,
+    "total_cases": 44,
+    "supported_class_precision": 1.0,
+    "supported_class_recall": 1.0,
+    "false_acceptance_rate_partially_supported": 0.0,
+    "partial_promoted_count": 0,
+    "false_acceptance_rate_unsupported": 0.0,
+    "unsupported_promoted_count": 0,
+    "false_acceptance_rate_contradicted": 0.0,
+    "contradicted_promoted_count": 0,
+    "total_non_supported_far": 0.0,
+    "total_non_supported_promoted_count": 0,
+    "false_rejection_rate_supported": 0.0,
+    "answer_level_false_verification_count": 0,
+    "answer_level_false_verification_rate": 0.0,
+    "not_evaluated_preservation_rate": 0.8333
+  },
+  "per_class_metrics": {
+    "supported": {
+      "gold_count": 6,
+      "predicted_count": 6,
+      "true_positives": 6,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0
+    },
+    "partially_supported": {
+      "gold_count": 16,
+      "predicted_count": 14,
+      "true_positives": 14,
+      "false_positives": 0,
+      "false_negatives": 2,
+      "precision": 1.0,
+      "recall": 0.875,
+      "f1_score": 0.9333
+    },
+    "unsupported": {
+      "gold_count": 4,
+      "predicted_count": 6,
+      "true_positives": 4,
+      "false_positives": 2,
+      "false_negatives": 0,
+      "precision": 0.6667,
+      "recall": 1.0,
+      "f1_score": 0.8
+    },
+    "contradicted": {
+      "gold_count": 12,
+      "predicted_count": 12,
+      "true_positives": 12,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0
+    },
+    "not_evaluated": {
+      "gold_count": 6,
+      "predicted_count": 6,
+      "true_positives": 5,
+      "false_positives": 1,
+      "false_negatives": 1,
+      "precision": 0.8333,
+      "recall": 0.8333,
+      "f1_score": 0.8333
+    }
+  },
+  "confusion_matrix": {
+    "supported": {
+      "supported": 6,
+      "partially_supported": 0,
+      "unsupported": 0,
+      "contradicted": 0,
+      "not_evaluated": 0
+    },
+    "partially_supported": {
+      "supported": 0,
+      "partially_supported": 14,
+      "unsupported": 1,
+      "contradicted": 0,
+      "not_evaluated": 1
+    },
+    "unsupported": {
+      "supported": 0,
+      "partially_supported": 0,
+      "unsupported": 4,
+      "contradicted": 0,
+      "not_evaluated": 0
+    },
+    "contradicted": {
+      "supported": 0,
+      "partially_supported": 0,
+      "unsupported": 0,
+      "contradicted": 12,
+      "not_evaluated": 0
+    },
+    "not_evaluated": {
+      "supported": 0,
+      "partially_supported": 0,
+      "unsupported": 1,
+      "contradicted": 0,
+      "not_evaluated": 5
+    }
+  },
+  "category_breakdown": {
+    "direct_holding_support": {
+      "total": 4,
+      "correct": 4,
+      "accuracy": 1.0,
+      "predictions": {
+        "supported": 4
+      }
+    },
+    "directly_contradicted_holding": {
+      "total": 4,
+      "correct": 4,
+      "accuracy": 1.0,
+      "predictions": {
+        "contradicted": 4
+      }
+    },
+    "unrelated_evidence": {
+      "total": 4,
+      "correct": 4,
+      "accuracy": 1.0,
+      "predictions": {
+        "unsupported": 4
+      }
+    },
+    "multipart_partial_support": {
+      "total": 4,
+      "correct": 4,
+      "accuracy": 1.0,
+      "predictions": {
+        "partially_supported": 4
+      }
+    },
+    "missing_statutory_exception": {
+      "total": 4,
+      "correct": 2,
+      "accuracy": 0.5,
+      "predictions": {
+        "partially_supported": 2,
+        "not_evaluated": 1,
+        "unsupported": 1
+      }
+    },
+    "party_submissions_as_holding": {
+      "total": 4,
+      "correct": 4,
+      "accuracy": 1.0,
+      "predictions": {
+        "contradicted": 4
+      }
+    },
+    "quoted_landmark_precedent_confusion": {
+      "total": 4,
+      "correct": 4,
+      "accuracy": 1.0,
+      "predictions": {
+        "partially_supported": 4
+      }
+    },
+    "overgeneralized_equitable_relief": {
+      "total": 4,
+      "correct": 4,
+      "accuracy": 1.0,
+      "predictions": {
+        "partially_supported": 4
+      }
+    },
+    "negation_modal_verb_variation": {
+      "total": 4,
+      "correct": 4,
+      "accuracy": 1.0,
+      "predictions": {
+        "contradicted": 4
+      }
+    },
+    "lexical_divergence_support": {
+      "total": 4,
+      "correct": 4,
+      "accuracy": 1.0,
+      "predictions": {
+        "supported": 2,
+        "not_evaluated": 2
+      }
+    },
+    "genuinely_ambiguous_uncertainty": {
+      "total": 4,
+      "correct": 3,
+      "accuracy": 0.75,
+      "predictions": {
+        "unsupported": 1,
+        "not_evaluated": 3
+      }
+    }
+  },
+  "answer_safety_scenarios": [
+    {
+      "scenario_id": "AS_01_all_supported",
+      "description": "All claims directly supported",
+      "expected_badge": "verified_supported",
+      "actual_badge": "verified_supported",
+      "passed": true,
+      "is_valid": true,
+      "semantic_support_status": "supported",
+      "claims_count": 2
+    },
+    {
+      "scenario_id": "AS_02_supported_and_partial",
+      "description": "One supported claim and one partially supported claim (missing condition)",
+      "expected_badge": "qualified_answer",
+      "actual_badge": "qualified_answer",
+      "passed": true,
+      "is_valid": true,
+      "semantic_support_status": "partially_supported",
+      "claims_count": 2
+    },
+    {
+      "scenario_id": "AS_03_supported_and_unsupported",
+      "description": "One supported claim and one unsupported/unrelated claim",
+      "expected_badge": "qualified_answer",
+      "actual_badge": "qualified_answer",
+      "passed": true,
+      "is_valid": true,
+      "semantic_support_status": "partially_supported",
+      "claims_count": 2
+    },
+    {
+      "scenario_id": "AS_04_supported_and_contradicted",
+      "description": "One supported claim and one contradicted holding claim",
+      "expected_badge": "rejected_answer",
+      "actual_badge": "rejected_answer",
+      "passed": true,
+      "is_valid": false,
+      "semantic_support_status": "contradicted",
+      "claims_count": 2
+    },
+    {
+      "scenario_id": "AS_05_supported_and_unverified",
+      "description": "One supported claim and one unverified claim (not_evaluated)",
+      "expected_badge": "unverified_answer",
+      "actual_badge": "unverified_answer",
+      "passed": true,
+      "is_valid": true,
+      "semantic_support_status": "not_evaluated",
+      "claims_count": 2
+    },
+    {
+      "scenario_id": "AS_06_all_contradicted",
+      "description": "All claims contradicted",
+      "expected_badge": "rejected_answer",
+      "actual_badge": "rejected_answer",
+      "passed": true,
+      "is_valid": false,
+      "semantic_support_status": "contradicted",
+      "claims_count": 1
+    },
+    {
+      "scenario_id": "AS_07_empty_claims",
+      "description": "Status answer with empty claims list",
+      "expected_badge": "rejected_answer",
+      "actual_badge": "rejected_answer",
+      "passed": true,
+      "is_valid": false,
+      "semantic_support_status": "not_evaluated",
+      "claims_count": 0
+    }
+  ],
+  "safety_invariants": {
+    "zero_false_acceptances_of_partially_supported": true,
+    "zero_false_acceptances_of_unsupported": true,
+    "zero_false_acceptances_of_contradicted": true,
+    "zero_false_verifications_at_answer_level": true,
+    "all_answer_safety_scenarios_passed": true
+  },
+  "detailed_evaluations": [
+    {
+      "review_id": "CR_M14_001",
+      "query_id": "M14_001",
+      "category": "direct_holding_support",
+      "claim_sentence": "The rules of the game must not be changed during the course of the game or after the game is played.",
+      "gold_support_label": "supported",
+      "predicted_status": "supported",
+      "is_correct": true,
+      "verification_method": "direct_holding_entailment",
+      "verification_reason": "Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.412
+    },
+    {
+      "review_id": "CR_M14_002",
+      "query_id": "M14_002",
+      "category": "direct_holding_support",
+      "claim_sentence": "Caste-based division of labour and segregation of prisoners in prisons in India violates the Constitution of India.",
+      "gold_support_label": "supported",
+      "predicted_status": "supported",
+      "is_correct": true,
+      "verification_method": "direct_holding_entailment",
+      "verification_reason": "Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.15
+    },
+    {
+      "review_id": "CR_M14_003",
+      "query_id": "M14_003",
+      "category": "direct_holding_support",
+      "claim_sentence": "Prolonged incarceration before being pronounced guilty of an offence should not be permitted to become punishment without trial under Article 21.",
+      "gold_support_label": "supported",
+      "predicted_status": "supported",
+      "is_correct": true,
+      "verification_method": "direct_holding_entailment",
+      "verification_reason": "Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.164
+    },
+    {
+      "review_id": "CR_M14_004",
+      "query_id": "M14_004",
+      "category": "direct_holding_support",
+      "claim_sentence": "Compassionate appointment is an exception to the general rule and cannot be claimed as a vested right for appointment.",
+      "gold_support_label": "supported",
+      "predicted_status": "supported",
+      "is_correct": true,
+      "verification_method": "direct_holding_entailment",
+      "verification_reason": "Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.154
+    },
+    {
+      "review_id": "CR_M14_005",
+      "query_id": "M14_005",
+      "category": "directly_contradicted_holding",
+      "claim_sentence": "The recruiting authority is empowered to alter qualification criteria midway during the selection process.",
+      "gold_support_label": "contradicted",
+      "predicted_status": "contradicted",
+      "is_correct": true,
+      "verification_method": "polarity_contradiction_check",
+      "verification_reason": "Claim asserts affirmative permission/power regarding 'alter_selection_criteria', but the cited judicial passage explicitly holds that the action cannot be directed / is prohibited / court lacks power.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.086
+    },
+    {
+      "review_id": "CR_M14_006",
+      "query_id": "M14_006",
+      "category": "directly_contradicted_holding",
+      "claim_sentence": "The Court may modify an arbitral award under Section 34 of the Arbitration Act.",
+      "gold_support_label": "contradicted",
+      "predicted_status": "contradicted",
+      "is_correct": true,
+      "verification_method": "polarity_contradiction_check",
+      "verification_reason": "Claim asserts affirmative permission/power regarding 'modify_arbitral_award', but the cited judicial passage explicitly holds that the action cannot be directed / is prohibited / court lacks power.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.073
+    },
+    {
+      "review_id": "CR_M14_007",
+      "query_id": "M14_007",
+      "category": "directly_contradicted_holding",
+      "claim_sentence": "The Supreme Court held that Parliament has unlimited amending power and Kesavananda is overruled.",
+      "gold_support_label": "contradicted",
+      "predicted_status": "contradicted",
+      "is_correct": true,
+      "verification_method": "polarity_contradiction_check",
+      "verification_reason": "Claim asserts affirmative permission/power regarding 'kesavananda_overruled', but the cited judicial passage explicitly holds that the action cannot be directed / is prohibited / court lacks power.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.047
+    },
+    {
+      "review_id": "CR_M14_008",
+      "query_id": "M14_008",
+      "category": "directly_contradicted_holding",
+      "claim_sentence": "The Patents Act permits unconditional patenting of all agricultural seeds.",
+      "gold_support_label": "contradicted",
+      "predicted_status": "contradicted",
+      "is_correct": true,
+      "verification_method": "polarity_contradiction_check",
+      "verification_reason": "Claim asserts affirmative permission/power regarding 'seed_patentability', but the cited judicial passage explicitly holds that the action cannot be directed / is prohibited / court lacks power.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.04
+    },
+    {
+      "review_id": "CR_M14_009",
+      "query_id": "M14_009",
+      "category": "unrelated_evidence",
+      "claim_sentence": "The maritime underwriter is discharged from liability where the cargo vessel was unseaworthy at inception of the voyage.",
+      "gold_support_label": "unsupported",
+      "predicted_status": "unsupported",
+      "is_correct": true,
+      "verification_method": "unrelated_evidence_check",
+      "verification_reason": "Cited evidence passage shares zero topical vocabulary with the claim (unrelated proposition attached to existing citation ID).",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.079
+    },
+    {
+      "review_id": "CR_M14_010",
+      "query_id": "M14_010",
+      "category": "unrelated_evidence",
+      "claim_sentence": "Multiplier method based on monthly income and disability percentage must be applied to calculate motor accident compensation.",
+      "gold_support_label": "unsupported",
+      "predicted_status": "unsupported",
+      "is_correct": true,
+      "verification_method": "unrelated_evidence_check",
+      "verification_reason": "Cited evidence passage shares zero topical vocabulary with the claim (unrelated proposition attached to existing citation ID).",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.084
+    },
+    {
+      "review_id": "CR_M14_011",
+      "query_id": "M14_011",
+      "category": "unrelated_evidence",
+      "claim_sentence": "Reassessment notice under Section 148 is void ab initio without statutory sanction from the specified authority under Section 151.",
+      "gold_support_label": "unsupported",
+      "predicted_status": "unsupported",
+      "is_correct": true,
+      "verification_method": "unrelated_evidence_check",
+      "verification_reason": "Cited evidence passage shares zero topical vocabulary with the claim (unrelated proposition attached to existing citation ID).",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.078
+    },
+    {
+      "review_id": "CR_M14_012",
+      "query_id": "M14_012",
+      "category": "unrelated_evidence",
+      "claim_sentence": "Prior environmental clearance under the EIA Notification mandates conducted public consultation in the affected local area.",
+      "gold_support_label": "unsupported",
+      "predicted_status": "unsupported",
+      "is_correct": true,
+      "verification_method": "unrelated_evidence_check",
+      "verification_reason": "Cited evidence passage shares zero topical vocabulary with the claim (unrelated proposition attached to existing citation ID).",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.073
+    },
+    {
+      "review_id": "CR_M14_013",
+      "query_id": "M14_013",
+      "category": "multipart_partial_support",
+      "claim_sentence": "The Supreme Court held that prolonged incarceration without trial violates Article 21 and ruled that all undertrial prisoners are entitled to immediate discharge.",
+      "gold_support_label": "partially_supported",
+      "predicted_status": "partially_supported",
+      "is_correct": true,
+      "verification_method": "multipart_claim_check",
+      "verification_reason": "Multi-part claim where the first proposition is grounded, but the conjunctive proposition (' all undertrial prisoners are entitled t...') lacks textual support in the cited passage.",
+      "unresolved_uncertainty": "The conjunctive assertion (' all undertrial prisoners are entitled t...') is not established by the cited evidence.",
+      "latency_ms": 0.301
+    },
+    {
+      "review_id": "CR_M14_014",
+      "query_id": "M14_014",
+      "category": "multipart_partial_support",
+      "claim_sentence": "The Court held that caste-based labor segregation in prisons violates Article 14 and ruled that all existing prison convictions stand quashed.",
+      "gold_support_label": "partially_supported",
+      "predicted_status": "partially_supported",
+      "is_correct": true,
+      "verification_method": "multipart_claim_check",
+      "verification_reason": "Multi-part claim where the first proposition is grounded, but the conjunctive proposition (' all existing prison convictions stand q...') lacks textual support in the cited passage.",
+      "unresolved_uncertainty": "The conjunctive assertion (' all existing prison convictions stand q...') is not established by the cited evidence.",
+      "latency_ms": 0.165
+    },
+    {
+      "review_id": "CR_M14_015",
+      "query_id": "M14_015",
+      "category": "multipart_partial_support",
+      "claim_sentence": "The Court held that the rules of the game cannot be changed midway and ruled that every candidate in the written test is mandatorily entitled to appointment.",
+      "gold_support_label": "partially_supported",
+      "predicted_status": "partially_supported",
+      "is_correct": true,
+      "verification_method": "multipart_claim_check",
+      "verification_reason": "Multi-part claim where the first proposition is grounded, but the conjunctive proposition (' every candidate in the written test is ...') lacks textual support in the cited passage.",
+      "unresolved_uncertainty": "The conjunctive assertion (' every candidate in the written test is ...') is not established by the cited evidence.",
+      "latency_ms": 0.237
+    },
+    {
+      "review_id": "CR_M14_016",
+      "query_id": "M14_016",
+      "category": "multipart_partial_support",
+      "claim_sentence": "The Court held that compassionate appointment is an exception to the general rule and ruled that all age limits are permanently suspended.",
+      "gold_support_label": "partially_supported",
+      "predicted_status": "partially_supported",
+      "is_correct": true,
+      "verification_method": "multipart_claim_check",
+      "verification_reason": "Multi-part claim where the first proposition is grounded, but the conjunctive proposition (' all age limits are permanently suspende...') lacks textual support in the cited passage.",
+      "unresolved_uncertainty": "The conjunctive assertion (' all age limits are permanently suspende...') is not established by the cited evidence.",
+      "latency_ms": 0.17
+    },
+    {
+      "review_id": "CR_M14_017",
+      "query_id": "M14_017",
+      "category": "missing_statutory_exception",
+      "claim_sentence": "The auction purchaser may deposit the balance consideration after 15 days without seeking any written consent.",
+      "gold_support_label": "partially_supported",
+      "predicted_status": "partially_supported",
+      "is_correct": true,
+      "verification_method": "statutory_qualification_omission_check",
+      "verification_reason": "Claim asserts that action may be taken without seeking any written consent, but the cited passage establishes that statutory qualification / condition (consent, writing) is required.",
+      "unresolved_uncertainty": "The cited authority requires statutory compliance/consent and does not authorize unconditional waiver.",
+      "latency_ms": 0.139
+    },
+    {
+      "review_id": "CR_M14_018",
+      "query_id": "M14_018",
+      "category": "missing_statutory_exception",
+      "claim_sentence": "An accused under PMLA is unconditionally entitled to bail upon serving 12 months in custody.",
+      "gold_support_label": "partially_supported",
+      "predicted_status": "partially_supported",
+      "is_correct": true,
+      "verification_method": "statutory_qualification_omission_check",
+      "verification_reason": "Claim asserts that action may be taken unconditionally entitled, but the cited passage establishes that statutory qualification / condition (condition, subject to) is required.",
+      "unresolved_uncertainty": "The cited authority requires statutory compliance/consent and does not authorize unconditional waiver.",
+      "latency_ms": 0.128
+    },
+    {
+      "review_id": "CR_M14_019",
+      "query_id": "M14_019",
+      "category": "missing_statutory_exception",
+      "claim_sentence": "The Magistrate may alter an interim maintenance order whenever requested by the husband.",
+      "gold_support_label": "partially_supported",
+      "predicted_status": "not_evaluated",
+      "is_correct": false,
+      "verification_method": "unverified_fallback",
+      "verification_reason": "Claim references valid evidence passages, but semantic legal entailment cannot be conclusively verified by deterministic rules.",
+      "unresolved_uncertainty": "Syntactic citation existence confirmed; independent legal verification required to confirm doctrinal accuracy.",
+      "latency_ms": 0.108
+    },
+    {
+      "review_id": "CR_M14_020",
+      "query_id": "M14_020",
+      "category": "missing_statutory_exception",
+      "claim_sentence": "A public servant can be summoned under Section 319 CrPC to face trial for offences under the PC Act.",
+      "gold_support_label": "partially_supported",
+      "predicted_status": "unsupported",
+      "is_correct": false,
+      "verification_method": "unrelated_evidence_check",
+      "verification_reason": "Cited evidence passage shares zero topical vocabulary with the claim (unrelated proposition attached to existing citation ID).",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.074
+    },
+    {
+      "review_id": "CR_M14_021",
+      "query_id": "M14_021",
+      "category": "party_submissions_as_holding",
+      "claim_sentence": "The Supreme Court held that Section 34 of the Arbitration Act allows the court to modify an arbitral award.",
+      "gold_support_label": "contradicted",
+      "predicted_status": "contradicted",
+      "is_correct": true,
+      "verification_method": "structural_party_submission_as_holding",
+      "verification_reason": "Claim asserts a binding judicial holding, but all cited evidence consists exclusively of party/counsel submissions.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.01
+    },
+    {
+      "review_id": "CR_M14_022",
+      "query_id": "M14_022",
+      "category": "party_submissions_as_holding",
+      "claim_sentence": "The Supreme Court ruled that executive remission decisions are completely immune from judicial review.",
+      "gold_support_label": "contradicted",
+      "predicted_status": "contradicted",
+      "is_correct": true,
+      "verification_method": "structural_party_submission_as_holding",
+      "verification_reason": "Claim asserts a binding judicial holding, but all cited evidence consists exclusively of party/counsel submissions.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.007
+    },
+    {
+      "review_id": "CR_M14_023",
+      "query_id": "M14_023",
+      "category": "party_submissions_as_holding",
+      "claim_sentence": "The Supreme Court ruled that banks have absolute right to forfeit earnest money without affording any hearing.",
+      "gold_support_label": "contradicted",
+      "predicted_status": "contradicted",
+      "is_correct": true,
+      "verification_method": "structural_party_submission_as_holding",
+      "verification_reason": "Claim asserts a binding judicial holding, but all cited evidence consists exclusively of party/counsel submissions.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.007
+    },
+    {
+      "review_id": "CR_M14_024",
+      "query_id": "M14_024",
+      "category": "party_submissions_as_holding",
+      "claim_sentence": "The Court held that an employee drawing supervisory salary is automatically excluded from the definition of workman regardless of duties.",
+      "gold_support_label": "contradicted",
+      "predicted_status": "contradicted",
+      "is_correct": true,
+      "verification_method": "structural_party_submission_as_holding",
+      "verification_reason": "Claim asserts a binding judicial holding, but all cited evidence consists exclusively of party/counsel submissions.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.007
+    },
+    {
+      "review_id": "CR_M14_025",
+      "query_id": "M14_025",
+      "category": "quoted_landmark_precedent_confusion",
+      "claim_sentence": "The 2024 bench adopted its own binding ruling that registration of FIR is mandatory under Section 154 CrPC upon disclosing cognizable offence.",
+      "gold_support_label": "partially_supported",
+      "predicted_status": "partially_supported",
+      "is_correct": true,
+      "verification_method": "quoted_precedent_attribution_check",
+      "verification_reason": "Claim attributes an operative holding from an earlier cited precedent as the current bench's new ruling.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.13
+    },
+    {
+      "review_id": "CR_M14_026",
+      "query_id": "M14_026",
+      "category": "quoted_landmark_precedent_confusion",
+      "claim_sentence": "The 2024 bench adopted as its own ruling the requirement to prepare arrest memos and notify relatives.",
+      "gold_support_label": "partially_supported",
+      "predicted_status": "partially_supported",
+      "is_correct": true,
+      "verification_method": "quoted_precedent_attribution_check",
+      "verification_reason": "Claim attributes an operative holding from an earlier cited precedent as the current bench's new ruling.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.105
+    },
+    {
+      "review_id": "CR_M14_027",
+      "query_id": "M14_027",
+      "category": "quoted_landmark_precedent_confusion",
+      "claim_sentence": "The 2024 bench adopted its own binding ruling that procedure established by law must be just, fair, and reasonable.",
+      "gold_support_label": "partially_supported",
+      "predicted_status": "partially_supported",
+      "is_correct": true,
+      "verification_method": "quoted_precedent_attribution_check",
+      "verification_reason": "Claim attributes an operative holding from an earlier cited precedent as the current bench's new ruling.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.111
+    },
+    {
+      "review_id": "CR_M14_028",
+      "query_id": "M14_028",
+      "category": "quoted_landmark_precedent_confusion",
+      "claim_sentence": "The 2024 bench adopted its own ruling that balance sheet entries constitute valid acknowledgment of debt under Section 18.",
+      "gold_support_label": "partially_supported",
+      "predicted_status": "partially_supported",
+      "is_correct": true,
+      "verification_method": "quoted_precedent_attribution_check",
+      "verification_reason": "Claim attributes an operative holding from an earlier cited precedent as the current bench's new ruling.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.109
+    },
+    {
+      "review_id": "CR_M14_029",
+      "query_id": "M14_029",
+      "category": "overgeneralized_equitable_relief",
+      "claim_sentence": "The Supreme Court ruled under Article 142 that all educational fee deadlines are universally forgiven.",
+      "gold_support_label": "partially_supported",
+      "predicted_status": "partially_supported",
+      "is_correct": true,
+      "verification_method": "overgeneralization_check",
+      "verification_reason": "Claim overgeneralizes a case-specific ruling or extraordinary equitable relief into a universal doctrine ('all educational fee deadlines').",
+      "unresolved_uncertainty": "The Court granted extraordinary relief on specific facts and did not declare a universal doctrine of general application.",
+      "latency_ms": 0.045
+    },
+    {
+      "review_id": "CR_M14_030",
+      "query_id": "M14_030",
+      "category": "overgeneralized_equitable_relief",
+      "claim_sentence": "The Court held that every commercial building automatically qualifies as plant under Section 17(5)(d).",
+      "gold_support_label": "partially_supported",
+      "predicted_status": "partially_supported",
+      "is_correct": true,
+      "verification_method": "overgeneralization_check",
+      "verification_reason": "Claim overgeneralizes a case-specific ruling or extraordinary equitable relief into a universal doctrine ('every commercial building automatically').",
+      "unresolved_uncertainty": "The Court granted extraordinary relief on specific facts and did not declare a universal doctrine of general application.",
+      "latency_ms": 0.043
+    },
+    {
+      "review_id": "CR_M14_031",
+      "query_id": "M14_031",
+      "category": "overgeneralized_equitable_relief",
+      "claim_sentence": "The Supreme Court held that fee payment defaults are universally forgiven in all educational institutions.",
+      "gold_support_label": "partially_supported",
+      "predicted_status": "partially_supported",
+      "is_correct": true,
+      "verification_method": "overgeneralization_check",
+      "verification_reason": "Claim overgeneralizes a case-specific ruling or extraordinary equitable relief into a universal doctrine ('universally forgiven').",
+      "unresolved_uncertainty": "The Court granted extraordinary relief on specific facts and did not declare a universal doctrine of general application.",
+      "latency_ms": 0.044
+    },
+    {
+      "review_id": "CR_M14_032",
+      "query_id": "M14_032",
+      "category": "overgeneralized_equitable_relief",
+      "claim_sentence": "The Court held that all commercial shopping malls qualify as plant across higher education.",
+      "gold_support_label": "partially_supported",
+      "predicted_status": "partially_supported",
+      "is_correct": true,
+      "verification_method": "overgeneralization_check",
+      "verification_reason": "Claim overgeneralizes a case-specific ruling or extraordinary equitable relief into a universal doctrine ('all commercial shopping malls').",
+      "unresolved_uncertainty": "The Court granted extraordinary relief on specific facts and did not declare a universal doctrine of general application.",
+      "latency_ms": 0.04
+    },
+    {
+      "review_id": "CR_M14_033",
+      "query_id": "M14_033",
+      "category": "negation_modal_verb_variation",
+      "claim_sentence": "The Appellate Court may order an authorized signatory who is not the drawer to deposit interim compensation under Section 148.",
+      "gold_support_label": "contradicted",
+      "predicted_status": "contradicted",
+      "is_correct": true,
+      "verification_method": "polarity_contradiction_check",
+      "verification_reason": "Judicial holding inversion detected: Claim asserts affirmative power ('may order'), whereas cited passage holds prohibition ('signatory merely authorized to sign on behalf of the company could not be directed').",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.088
+    },
+    {
+      "review_id": "CR_M14_034",
+      "query_id": "M14_034",
+      "category": "negation_modal_verb_variation",
+      "claim_sentence": "The High Court may modify an arbitral award where substantive justice requires alteration of damages.",
+      "gold_support_label": "contradicted",
+      "predicted_status": "contradicted",
+      "is_correct": true,
+      "verification_method": "polarity_contradiction_check",
+      "verification_reason": "Claim asserts affirmative permission/power regarding 'modify_arbitral_award', but the cited judicial passage explicitly holds that the action cannot be directed / is prohibited / court lacks power.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.024
+    },
+    {
+      "review_id": "CR_M14_035",
+      "query_id": "M14_035",
+      "category": "negation_modal_verb_variation",
+      "claim_sentence": "The High Court can order anticipatory bail in contempt proceedings under Section 438 CrPC.",
+      "gold_support_label": "contradicted",
+      "predicted_status": "contradicted",
+      "is_correct": true,
+      "verification_method": "polarity_contradiction_check",
+      "verification_reason": "Claim asserts affirmative permission/power regarding 'anticipatory_bail_contempt', but the cited judicial passage explicitly holds that the action cannot be directed / is prohibited / court lacks power.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.032
+    },
+    {
+      "review_id": "CR_M14_036",
+      "query_id": "M14_036",
+      "category": "negation_modal_verb_variation",
+      "claim_sentence": "The selection committee can modify qualification criteria during the selection process.",
+      "gold_support_label": "contradicted",
+      "predicted_status": "contradicted",
+      "is_correct": true,
+      "verification_method": "polarity_contradiction_check",
+      "verification_reason": "Claim asserts affirmative permission/power regarding 'alter_selection_criteria', but the cited judicial passage explicitly holds that the action cannot be directed / is prohibited / court lacks power.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.024
+    },
+    {
+      "review_id": "CR_M14_037",
+      "query_id": "M14_037",
+      "category": "lexical_divergence_support",
+      "claim_sentence": "Proof of circumstantial evidence must establish an unbroken chain pointing exclusively to guilt.",
+      "gold_support_label": "supported",
+      "predicted_status": "supported",
+      "is_correct": true,
+      "verification_method": "direct_holding_entailment",
+      "verification_reason": "Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.145
+    },
+    {
+      "review_id": "CR_M14_038",
+      "query_id": "M14_038",
+      "category": "lexical_divergence_support",
+      "claim_sentence": "A regulatory authority acting as a creature of statute cannot exceed its statutory provisions and jurisdiction.",
+      "gold_support_label": "supported",
+      "predicted_status": "supported",
+      "is_correct": true,
+      "verification_method": "direct_holding_entailment",
+      "verification_reason": "Core proposition vocabulary and legal context align faithfully with the cited judicial analysis/holding without polarity conflict.",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.143
+    },
+    {
+      "review_id": "CR_M14_039",
+      "query_id": "M14_039",
+      "category": "lexical_divergence_support",
+      "claim_sentence": "Vicarious criminal liability cannot be imputed to corporate officers without explicit legislative sanction.",
+      "gold_support_label": "not_evaluated",
+      "predicted_status": "not_evaluated",
+      "is_correct": true,
+      "verification_method": "unverified_fallback",
+      "verification_reason": "Claim references valid evidence passages, but semantic legal entailment cannot be conclusively verified by deterministic rules.",
+      "unresolved_uncertainty": "Syntactic citation existence confirmed; independent legal verification required to confirm doctrinal accuracy.",
+      "latency_ms": 0.094
+    },
+    {
+      "review_id": "CR_M14_040",
+      "query_id": "M14_040",
+      "category": "lexical_divergence_support",
+      "claim_sentence": "The execution court cannot go behind the decree and must enforce the adjudication as passed.",
+      "gold_support_label": "not_evaluated",
+      "predicted_status": "not_evaluated",
+      "is_correct": true,
+      "verification_method": "unverified_fallback",
+      "verification_reason": "Claim references valid evidence passages, but semantic legal entailment cannot be conclusively verified by deterministic rules.",
+      "unresolved_uncertainty": "Syntactic citation existence confirmed; independent legal verification required to confirm doctrinal accuracy.",
+      "latency_ms": 0.097
+    },
+    {
+      "review_id": "CR_M14_041",
+      "query_id": "M14_041",
+      "category": "genuinely_ambiguous_uncertainty",
+      "claim_sentence": "The remedies under the Consumer Protection Act and the Arbitration Act operate concurrently without mutual exclusion.",
+      "gold_support_label": "not_evaluated",
+      "predicted_status": "unsupported",
+      "is_correct": false,
+      "verification_method": "unrelated_evidence_check",
+      "verification_reason": "Cited evidence passage shares zero topical vocabulary with the claim (unrelated proposition attached to existing citation ID).",
+      "unresolved_uncertainty": null,
+      "latency_ms": 0.064
+    },
+    {
+      "review_id": "CR_M14_042",
+      "query_id": "M14_042",
+      "category": "genuinely_ambiguous_uncertainty",
+      "claim_sentence": "The discounted cash flow method is the sole appropriate method for determining fair market value in oppression petitions.",
+      "gold_support_label": "not_evaluated",
+      "predicted_status": "not_evaluated",
+      "is_correct": true,
+      "verification_method": "unverified_fallback",
+      "verification_reason": "Claim references valid evidence passages, but semantic legal entailment cannot be conclusively verified by deterministic rules.",
+      "unresolved_uncertainty": "Syntactic citation existence confirmed; independent legal verification required to confirm doctrinal accuracy.",
+      "latency_ms": 0.11
+    },
+    {
+      "review_id": "CR_M14_043",
+      "query_id": "M14_043",
+      "category": "genuinely_ambiguous_uncertainty",
+      "claim_sentence": "Section 5 of the Limitation Act is applicable to condone delay in filing cross-objections in civil appeals.",
+      "gold_support_label": "not_evaluated",
+      "predicted_status": "not_evaluated",
+      "is_correct": true,
+      "verification_method": "unverified_fallback",
+      "verification_reason": "Claim references valid evidence passages, but semantic legal entailment cannot be conclusively verified by deterministic rules.",
+      "unresolved_uncertainty": "Syntactic citation existence confirmed; independent legal verification required to confirm doctrinal accuracy.",
+      "latency_ms": 0.101
+    },
+    {
+      "review_id": "CR_M14_044",
+      "query_id": "M14_044",
+      "category": "genuinely_ambiguous_uncertainty",
+      "claim_sentence": "Airport terminal management under concession constitutes an essential public utility service under the Industrial Disputes Act.",
+      "gold_support_label": "not_evaluated",
+      "predicted_status": "not_evaluated",
+      "is_correct": true,
+      "verification_method": "unverified_fallback",
+      "verification_reason": "Claim references valid evidence passages, but semantic legal entailment cannot be conclusively verified by deterministic rules.",
+      "unresolved_uncertainty": "Syntactic citation existence confirmed; independent legal verification required to confirm doctrinal accuracy.",
+      "latency_ms": 0.1
+    }
+  ]
+}

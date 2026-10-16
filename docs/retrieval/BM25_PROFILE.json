@@ -1,0 +1,184 @@
+{
+    "query_count": 60,
+    "stage_breakdown": {
+        "connection_overhead_ms": {
+            "mean": 0.42273833823855966,
+            "median": 0.41050001163966954,
+            "p95": 0.6030999938957393,
+            "min": 0.3188000409863889,
+            "max": 0.6386000313796103
+        },
+        "sanitization_ms": {
+            "mean": 0.05433999661666652,
+            "median": 0.04734995309263468,
+            "p95": 0.08899997919797897,
+            "min": 0.03029999788850546,
+            "max": 0.3865999751724303
+        },
+        "fts_and_execution_ms": {
+            "mean": 3.030201661749743,
+            "median": 2.054349984973669,
+            "p95": 10.330299963243306,
+            "min": 0.3945999778807163,
+            "max": 12.441500031854957
+        },
+        "fts_or_execution_ms": {
+            "mean": 55.11627499751436,
+            "median": 58.12020003213547,
+            "p95": 90.77259997138754,
+            "min": 6.014199985656887,
+            "max": 92.01590000884607
+        },
+        "fetch_tuples_ms": {
+            "mean": 0.1133516663685441,
+            "median": 0.1084999821614474,
+            "p95": 0.32400002237409353,
+            "min": 0.000400003045797348,
+            "max": 0.4610000178217888
+        }
+    },
+    "term_preservation": [
+        {
+            "query": "Section 302/34 of IPC",
+            "tokens": [
+                "Section",
+                "302",
+                "34",
+                "of",
+                "IPC"
+            ],
+            "preserved": [
+                "Section",
+                "302",
+                "34",
+                "IPC"
+            ],
+            "missing": [],
+            "success": true
+        },
+        {
+            "query": "bail under Section 439 Cr.P.C.",
+            "tokens": [
+                "bail",
+                "under",
+                "Section",
+                "439",
+                "CrPC"
+            ],
+            "preserved": [
+                "bail",
+                "Section",
+                "439",
+                "Cr",
+                "P"
+            ],
+            "missing": [],
+            "success": true
+        },
+        {
+            "query": "twin conditions under Section 45 PMLA",
+            "tokens": [
+                "twin",
+                "conditions",
+                "under",
+                "Section",
+                "45",
+                "PMLA"
+            ],
+            "preserved": [
+                "twin",
+                "conditions",
+                "Section",
+                "45",
+                "PMLA"
+            ],
+            "missing": [],
+            "success": true
+        },
+        {
+            "query": "Article 21 and 14 of the Constitution",
+            "tokens": [
+                "Article",
+                "21",
+                "and",
+                "14",
+                "of",
+                "the",
+                "Constitution"
+            ],
+            "preserved": [
+                "Article",
+                "21",
+                "14",
+                "Constitution"
+            ],
+            "missing": [],
+            "success": true
+        },
+        {
+            "query": "Order XXI Rule 99 CPC dispossession",
+            "tokens": [
+                "Order",
+                "XXI",
+                "Rule",
+                "99",
+                "CPC",
+                "dispossession"
+            ],
+            "preserved": [
+                "Order",
+                "XXI",
+                "Rule",
+                "99",
+                "CPC",
+                "dispossession"
+            ],
+            "missing": [],
+            "success": true
+        },
+        {
+            "query": "anti-defection law under Tenth Schedule",
+            "tokens": [
+                "anti-defection",
+                "law",
+                "under",
+                "Tenth",
+                "Schedule"
+            ],
+            "preserved": [
+                "anti-defection",
+                "law",
+                "Tenth",
+                "Schedule"
+            ],
+            "missing": [],
+            "success": true
+        },
+        {
+            "query": "Section 17(5)(d) of CGST Act",
+            "tokens": [
+                "Section",
+                "17",
+                "5",
+                "of",
+                "CGST",
+                "Act"
+            ],
+            "preserved": [
+                "Section",
+                "17",
+                "CGST",
+                "Act"
+            ],
+            "missing": [],
+            "success": true
+        }
+    ],
+    "full_search_latency_ms": {
+        "mean": 31.06350501378377,
+        "median": 32.469868659973145,
+        "p95": 53.98917198181152,
+        "min": 3.6296844482421875,
+        "max": 59.04579162597656
+    }
+}

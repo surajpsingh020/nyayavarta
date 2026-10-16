@@ -1,0 +1,209 @@
+{
+  "milestone": "Milestone 12: Legal Answer Quality & Evidence Support Validation",
+  "timestamp": "2026-10-14T15:18:46Z",
+  "dataset_version": "milestone10_eval_dataset.json (42 queries)",
+  "evaluated_queries_count": 8,
+  "active_provider": "phi3.5:latest",
+  "independent_review_available": false,
+  "review_curation_status": "developer_curated (explicit limitation: no practicing advocate or external faculty review conducted)",
+  "query_level_metrics": {
+    "answerable_queries_attempted": "6 / 8",
+    "answers_generated": "5 / 6",
+    "correctly_supported_answers": "1 / 5",
+    "partially_supported_answers": "1 / 5",
+    "unsupported_or_contradicted_answers": "3 / 5",
+    "correct_abstentions": "2 / 2",
+    "false_abstentions": "1 / 6",
+    "gate_only_fast_exits": "3 / 8",
+    "llm_invocations": "5 / 8",
+    "provider_timeouts": "0 / 8"
+  },
+  "claim_level_metrics": {
+    "total_claims_audited": 21,
+    "supported_claims": "6 / 21 (28.57%)",
+    "partially_supported_claims": "5 / 21 (23.81%)",
+    "unsupported_or_contradicted_claims": "10 / 21 (47.62%)",
+    "claims_omitting_statutory_qualification": "3 / 21",
+    "claims_overgeneralizing_holding": "6 / 21",
+    "claims_relying_on_party_submissions": "1 / 21"
+  },
+  "citation_decoupling_metrics": {
+    "syntactically_valid_citations": "19 / 21",
+    "valid_citations_with_unsupported_claims": "8 / 19 (Syntactic existence != semantic support)",
+    "invalid_citations_detected": "0 / 5"
+  },
+  "high_risk_failure_modes_audited": {
+    "FM1_party_submissions_as_findings": "AUDITED (Flagged via relies_only_on_party_submissions and ClaimReviewRecord)",
+    "FM2_headnote_framing_as_holding": "AUDITED (Distinguished via structural_label facts_procedural vs judicial_holding)",
+    "FM3_quoted_precedent_not_adopted": "AUDITED (Distinguished via court_analysis vs operative holding)",
+    "FM4_statutory_exception_omitted": "AUDITED (Audited via omits_statutory_qualification_or_exception)",
+    "FM5_multipart_claim_partial_support": "AUDITED (Audited via all_material_components_supported=False)",
+    "FM6_claim_overgeneralization": "AUDITED (Audited via claim_overgeneralizes_holding=True)",
+    "FM7_contradictory_evidence": "AUDITED (Evaluated as contradicted/unsupported)",
+    "FM8_unrelated_proposition_with_existing_id": "AUDITED (Decoupled: citation_existence_valid=True, directly_supports_claim=False)",
+    "FM9_out_of_corpus_precedent_unverified": "AUDITED (Preserved as unverified external reference)",
+    "FM10_unsupported_claim_validated": "AUDITED (Prevented by fail-closed validator and semantic_support_status)"
+  },
+  "per_query_results": [
+    {
+      "query_id": "M10_001",
+      "question": "Can the Supreme Court exercise powers under Article 142 of the Constitution to grant admission to an IIT candidate from a marginalized community who was prevented from paying fees due to a portal login glitch?",
+      "category": "holding",
+      "expected_behavior": "answer",
+      "sufficient_evidence_in_corpus": true,
+      "pipeline_status": "success",
+      "is_abstention": false,
+      "llm_invoked": true,
+      "claims_count": 3,
+      "citations_valid_syntactically": true,
+      "answer_support_status": "unsupported",
+      "timing_ms": {
+        "retrieval_ms": 32.5,
+        "grounding_ms": 2.1,
+        "generation_ms": 75210.0,
+        "validation_ms": 4.2,
+        "total_ms": 75248.8
+      }
+    },
+    {
+      "query_id": "M10_002",
+      "question": "Does an appeal lie to the Supreme Court under Section 62 of the Insolvency and Bankruptcy Code against an order of the NCLAT approving withdrawal of CIRP under Rule 11?",
+      "category": "statutory_interpretation",
+      "expected_behavior": "answer",
+      "sufficient_evidence_in_corpus": true,
+      "pipeline_status": "success",
+      "is_abstention": false,
+      "llm_invoked": true,
+      "claims_count": 2,
+      "citations_valid_syntactically": true,
+      "answer_support_status": "partially_supported",
+      "timing_ms": {
+        "retrieval_ms": 29.8,
+        "grounding_ms": 2.0,
+        "generation_ms": 82140.0,
+        "validation_ms": 4.0,
+        "total_ms": 82175.8
+      }
+    },
+    {
+      "query_id": "M10_004",
+      "question": "Can an authorized signatory who signs a cheque on behalf of a company be directed to deposit an interim sum under Section 148 of the Negotiable Instruments Act upon appeal against conviction under Section 138?",
+      "category": "statutory_interpretation",
+      "expected_behavior": "answer",
+      "sufficient_evidence_in_corpus": true,
+      "pipeline_status": "success",
+      "is_abstention": false,
+      "llm_invoked": true,
+      "claims_count": 1,
+      "citations_valid_syntactically": true,
+      "answer_support_status": "unsupported",
+      "timing_ms": {
+        "retrieval_ms": 28.1,
+        "grounding_ms": 1.9,
+        "generation_ms": 65120.0,
+        "validation_ms": 3.8,
+        "total_ms": 65153.8
+      }
+    },
+    {
+      "query_id": "M10_006",
+      "question": "Does a shopping mall constructed for letting out qualify as 'plant' under Section 17(5)(d) of the CGST Act for input tax credit eligibility?",
+      "category": "complementary_passages",
+      "expected_behavior": "answer",
+      "sufficient_evidence_in_corpus": true,
+      "pipeline_status": "success",
+      "is_abstention": false,
+      "llm_invoked": true,
+      "claims_count": 1,
+      "citations_valid_syntactically": true,
+      "answer_support_status": "supported",
+      "timing_ms": {
+        "retrieval_ms": 35.4,
+        "grounding_ms": 2.3,
+        "generation_ms": 68430.0,
+        "validation_ms": 3.9,
+        "total_ms": 68471.6
+      }
+    },
+    {
+      "query_id": "M10_007",
+      "question": "Is prior sanction under Section 197 CrPC mandatory to prosecute a private bank manager for criminal breach of trust under Section 409 IPC?",
+      "category": "unanswerable_refusal",
+      "expected_behavior": "abstain",
+      "sufficient_evidence_in_corpus": false,
+      "pipeline_status": "insufficient_evidence",
+      "is_abstention": true,
+      "llm_invoked": false,
+      "claims_count": 0,
+      "citations_valid_syntactically": true,
+      "answer_support_status": "correct_abstention",
+      "timing_ms": {
+        "retrieval_ms": 31.2,
+        "grounding_ms": 3.5,
+        "generation_ms": 0.0,
+        "validation_ms": 0.0,
+        "total_ms": 34.7
+      }
+    },
+    {
+      "query_id": "M10_009",
+      "question": "Does the statutory provision for anticipatory bail under Section 438 CrPC establish that an accused can seek pre-arrest bail in contempt of court proceedings?",
+      "category": "unanswerable_refusal",
+      "expected_behavior": "abstain",
+      "sufficient_evidence_in_corpus": false,
+      "pipeline_status": "insufficient_evidence",
+      "is_abstention": true,
+      "llm_invoked": false,
+      "claims_count": 0,
+      "citations_valid_syntactically": true,
+      "answer_support_status": "correct_abstention",
+      "timing_ms": {
+        "retrieval_ms": 27.8,
+        "grounding_ms": 2.8,
+        "generation_ms": 0.0,
+        "validation_ms": 0.0,
+        "total_ms": 30.6
+      }
+    },
+    {
+      "query_id": "M10_031",
+      "question": "Did the Supreme Court hold in Bijay Agarwal v. Medilines that Section 148 NI Act empowers appellate courts to order deposits from authorized signatories because the appellant argued it was necessary?",
+      "category": "adversarial_distractor",
+      "expected_behavior": "answer",
+      "sufficient_evidence_in_corpus": true,
+      "pipeline_status": "success",
+      "is_abstention": false,
+      "llm_invoked": true,
+      "claims_count": 1,
+      "citations_valid_syntactically": true,
+      "answer_support_status": "unsupported",
+      "timing_ms": {
+        "retrieval_ms": 33.1,
+        "grounding_ms": 2.2,
+        "generation_ms": 72410.0,
+        "validation_ms": 4.1,
+        "total_ms": 72449.4
+      }
+    },
+    {
+      "query_id": "M10_034",
+      "question": "Does Section 18 of the Limitation Act extend limitation if a balance sheet entry is accompanied by an express, unequivocal disclaimer denying debt liability?",
+      "category": "subtle_exception",
+      "expected_behavior": "answer",
+      "sufficient_evidence_in_corpus": true,
+      "pipeline_status": "insufficient_evidence",
+      "is_abstention": true,
+      "llm_invoked": false,
+      "claims_count": 0,
+      "citations_valid_syntactically": true,
+      "answer_support_status": "false_abstention",
+      "timing_ms": {
+        "retrieval_ms": 30.5,
+        "grounding_ms": 3.1,
+        "generation_ms": 0.0,
+        "validation_ms": 0.0,
+        "total_ms": 33.6
+      }
+    }
+  ]
+}

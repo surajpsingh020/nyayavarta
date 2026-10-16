@@ -1,0 +1,1687 @@
+[
+  {
+    "mention_id": "CITE_GOLD_001",
+    "raw_text": "[2024] 10 S.C.R. 108",
+    "normalized_citation": "[2024] 10 S.C.R. 108",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_154_314",
+    "mention_context": "Reported at [2024] 10 S.C.R. 108 in criminal appeal.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_10_108_125",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_scr",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_002",
+    "raw_text": "[2024] 10 S.C.R. 126",
+    "normalized_citation": "[2024] 10 S.C.R. 126",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "As held in [2024] 10 S.C.R. 126.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_10_126_149",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_scr",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_003",
+    "raw_text": "[2024] 8 SCR 540",
+    "normalized_citation": "[2024] 8 SCR 540",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_1381_1403",
+    "mention_context": "Mineral Area Development Authority [2024] 8 SCR 540.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_8_540_560",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_scr",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_004",
+    "raw_text": "[2024] 10 SCR 154",
+    "normalized_citation": "[2024] 10 SCR 154",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Just Rights for Children Alliance [2024] 10 SCR 154.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_10_154_314",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_scr",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_005",
+    "raw_text": "[2024] 7 SCR 668",
+    "normalized_citation": "[2024] 7 SCR 668",
+    "citation_type": "scr",
+    "source_doc_id": "2024_8_34_44",
+    "mention_context": "Yogesh Goyanka v. Govind [2024] 7 SCR 668.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_7_668_675",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_scr",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_006",
+    "raw_text": "[2024] 8 SCR 34",
+    "normalized_citation": "[2024] 8 SCR 34",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_1381_1403",
+    "mention_context": "State of Gujarat v. Ambuja Cement [2024] 8 SCR 34.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_8_34_44",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_scr",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_007",
+    "raw_text": "[2024] 2 SCR 946",
+    "normalized_citation": "[2024] 2 SCR 946",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_154_314",
+    "mention_context": "High Court Bar Association [2024] 2 SCR 946.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_2_946_988",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_scr",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_008",
+    "raw_text": "[2024] 4 SCR 664",
+    "normalized_citation": "[2024] 4 SCR 664",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Pernod Ricard India [2024] 4 SCR 664.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_4_664_685",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_scr",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_009",
+    "raw_text": "[2024] 1 SCR 1",
+    "normalized_citation": "[2024] 1 SCR 1",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Constitution bench in [2024] 1 SCR 1.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_1_1_10",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_scr",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_010",
+    "raw_text": "[2024] 10 SCR 1313",
+    "normalized_citation": "[2024] 10 SCR 1313",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Reported in [2024] 10 SCR 1313.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_10_1313_1343",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_scr",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_011",
+    "raw_text": "[2024] 10 SCR 1344",
+    "normalized_citation": "[2024] 10 SCR 1344",
+    "citation_type": "scr",
+    "source_doc_id": "2024_8_34_44",
+    "mention_context": "As ruled in [2024] 10 SCR 1344.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_10_1344_1358",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_scr",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_012",
+    "raw_text": "[2024] 10 SCR 1359",
+    "normalized_citation": "[2024] 10 SCR 1359",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_154_314",
+    "mention_context": "Principles in [2024] 10 SCR 1359.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_10_1359_1370",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_scr",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_013",
+    "raw_text": "[2024] 10 SCR 1371",
+    "normalized_citation": "[2024] 10 SCR 1371",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Decided at [2024] 10 SCR 1371.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_10_1371_1380",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_scr",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_014",
+    "raw_text": "[2024] 11 SCR 1",
+    "normalized_citation": "[2024] 11 SCR 1",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Nine-judge bench [2024] 11 SCR 1.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_11_1_324",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_scr",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_015",
+    "raw_text": "[2024] 10 SCR 1381",
+    "normalized_citation": "[2024] 10 SCR 1381",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_154_314",
+    "mention_context": "Recent order in [2024] 10 SCR 1381.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_10_1381_1403",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_scr",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_016",
+    "raw_text": "2024 INSC 735",
+    "normalized_citation": "2024 INSC 735",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_154_314",
+    "mention_context": "Reported as 2024 INSC 735.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_10_108_125",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_insc",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_017",
+    "raw_text": "2024 INSC 572",
+    "normalized_citation": "2024 INSC 572",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_1381_1403",
+    "mention_context": "Neutral citation 2024 INSC 572.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_8_34_44",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_insc",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_018",
+    "raw_text": "2024 INSC 716",
+    "normalized_citation": "2024 INSC 716",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "In 2024 INSC 716 this Court observed.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_10_154_314",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_insc",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_019",
+    "raw_text": "2024 INSC 500",
+    "normalized_citation": "2024 INSC 500",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_8_34_44",
+    "mention_context": "Neutral citation 2024 INSC 500.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_7_474_531",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_insc",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_020",
+    "raw_text": "2024 INSC 150",
+    "normalized_citation": "2024 INSC 150",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_154_314",
+    "mention_context": "Referred in 2024 INSC 150.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_2_946_988",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_insc",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_021",
+    "raw_text": "2024 INSC 320",
+    "normalized_citation": "2024 INSC 320",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "As stated in 2024 INSC 320.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_5_174_202",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_insc",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_022",
+    "raw_text": "2024 INSC 10",
+    "normalized_citation": "2024 INSC 10",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Decided in 2024 INSC 10.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_1_65_72",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_insc",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_023",
+    "raw_text": "2024 INSC 410",
+    "normalized_citation": "2024 INSC 410",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_8_34_44",
+    "mention_context": "Cited from 2024 INSC 410.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_6_484_529",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_insc",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_024",
+    "raw_text": "2024 INSC 480",
+    "normalized_citation": "2024 INSC 480",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_154_314",
+    "mention_context": "Observed in 2024 INSC 480.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_7_218_245",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_insc",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_025",
+    "raw_text": "2024 INSC 650",
+    "normalized_citation": "2024 INSC 650",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Neutral reference 2024 INSC 650.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_9_166_185",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_insc",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_026",
+    "raw_text": "2024 INSC 800",
+    "normalized_citation": "2024 INSC 800",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Decision in 2024 INSC 800.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_10_1726_1735",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_insc",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_027",
+    "raw_text": "2024 INSC 850",
+    "normalized_citation": "2024 INSC 850",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_154_314",
+    "mention_context": "Neutral 2024 INSC 850.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_11_1142_1232",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_insc",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_028",
+    "raw_text": "2024INSC735",
+    "normalized_citation": "2024 INSC 735",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_8_34_44",
+    "mention_context": "Unspaced form 2024INSC735.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_10_108_125",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_insc",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_029",
+    "raw_text": "2024 INSC 572",
+    "normalized_citation": "2024 INSC 572",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Neutral cite 2024 INSC 572.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_8_34_44",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_insc",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_030",
+    "raw_text": "2024 INSC 716",
+    "normalized_citation": "2024 INSC 716",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_8_34_44",
+    "mention_context": "Neutral cite 2024 INSC 716.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_10_154_314",
+    "gold_is_self_citation": false,
+    "test_category": "exact_canonical_insc",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_031",
+    "raw_text": "[2024] 10 S.C.R. 108",
+    "normalized_citation": "[2024] 10 S.C.R. 108",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Header: [2024] 10 S.C.R. 108 : 2024 INSC 735",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_10_108_125",
+    "gold_is_self_citation": true,
+    "test_category": "self_citation",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_032",
+    "raw_text": "2024 INSC 735",
+    "normalized_citation": "2024 INSC 735",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Header: [2024] 10 S.C.R. 108 : 2024 INSC 735",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_10_108_125",
+    "gold_is_self_citation": true,
+    "test_category": "self_citation",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_033",
+    "raw_text": "[2024] 8 SCR 34",
+    "normalized_citation": "[2024] 8 SCR 34",
+    "citation_type": "scr",
+    "source_doc_id": "2024_8_34_44",
+    "mention_context": "Header: [2024] 8 SCR 34",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_8_34_44",
+    "gold_is_self_citation": true,
+    "test_category": "self_citation",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_034",
+    "raw_text": "2024 INSC 572",
+    "normalized_citation": "2024 INSC 572",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_8_34_44",
+    "mention_context": "Header: 2024 INSC 572",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_8_34_44",
+    "gold_is_self_citation": true,
+    "test_category": "self_citation",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_035",
+    "raw_text": "[2024] 10 SCR 154",
+    "normalized_citation": "[2024] 10 SCR 154",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_154_314",
+    "mention_context": "Header: [2024] 10 SCR 154",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_10_154_314",
+    "gold_is_self_citation": true,
+    "test_category": "self_citation",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_036",
+    "raw_text": "2024 INSC 716",
+    "normalized_citation": "2024 INSC 716",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_154_314",
+    "mention_context": "Header: 2024 INSC 716",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_10_154_314",
+    "gold_is_self_citation": true,
+    "test_category": "self_citation",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_037",
+    "raw_text": "[2024] 2 SCR 946",
+    "normalized_citation": "[2024] 2 SCR 946",
+    "citation_type": "scr",
+    "source_doc_id": "2024_2_946_988",
+    "mention_context": "Self SCR header",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_2_946_988",
+    "gold_is_self_citation": true,
+    "test_category": "self_citation",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_038",
+    "raw_text": "2024 INSC 150",
+    "normalized_citation": "2024 INSC 150",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_2_946_988",
+    "mention_context": "Self INSC header",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_2_946_988",
+    "gold_is_self_citation": true,
+    "test_category": "self_citation",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_039",
+    "raw_text": "[2024] 4 SCR 664",
+    "normalized_citation": "[2024] 4 SCR 664",
+    "citation_type": "scr",
+    "source_doc_id": "2024_4_664_685",
+    "mention_context": "Self SCR",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_4_664_685",
+    "gold_is_self_citation": true,
+    "test_category": "self_citation",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_040",
+    "raw_text": "2024 INSC 320",
+    "normalized_citation": "2024 INSC 320",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_5_174_202",
+    "mention_context": "Self INSC 2024 INSC 320 in 2024_5_174_202",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_5_174_202",
+    "gold_is_self_citation": true,
+    "test_category": "self_citation",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_041",
+    "raw_text": "[2024] 11 SCR 1",
+    "normalized_citation": "[2024] 11 SCR 1",
+    "citation_type": "scr",
+    "source_doc_id": "2024_11_1_324",
+    "mention_context": "Self SCR header 9 judge bench",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_11_1_324",
+    "gold_is_self_citation": true,
+    "test_category": "self_citation",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_042",
+    "raw_text": "2024 INSC 800",
+    "normalized_citation": "2024 INSC 800",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_1726_1735",
+    "mention_context": "Self INSC 800 in 2024_10_1726_1735",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_10_1726_1735",
+    "gold_is_self_citation": true,
+    "test_category": "self_citation",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_043",
+    "raw_text": "[2024] 7 SCR 474",
+    "normalized_citation": "[2024] 7 SCR 474",
+    "citation_type": "scr",
+    "source_doc_id": "2024_7_474_531",
+    "mention_context": "Self SCR 474",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_7_474_531",
+    "gold_is_self_citation": true,
+    "test_category": "self_citation",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_044",
+    "raw_text": "[2024] 6 SCR 484",
+    "normalized_citation": "[2024] 6 SCR 484",
+    "citation_type": "scr",
+    "source_doc_id": "2024_6_484_529",
+    "mention_context": "Self SCR 484",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_6_484_529",
+    "gold_is_self_citation": true,
+    "test_category": "self_citation",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_045",
+    "raw_text": "[2024] 9 SCR 166",
+    "normalized_citation": "[2024] 9 SCR 166",
+    "citation_type": "scr",
+    "source_doc_id": "2024_9_166_185",
+    "mention_context": "Self SCR 166",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "resolved",
+    "gold_target_document_id": "2024_9_166_185",
+    "gold_is_self_citation": true,
+    "test_category": "self_citation",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_046",
+    "raw_text": "(2019) 14 SCC 81",
+    "normalized_citation": "(2019) 14 SCC 81",
+    "citation_type": "scc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "As observed in (2019) 14 SCC 81.",
+    "components": {
+      "year": 2019
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_047",
+    "raw_text": "(2007) 3 SCC (Cri) 359",
+    "normalized_citation": "(2007) 3 SCC (Cri) 359",
+    "citation_type": "scc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Relying on (2007) 3 SCC (Cri) 359.",
+    "components": {
+      "year": 2007
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_048",
+    "raw_text": "AIR 1978 SC 597",
+    "normalized_citation": "AIR 1978 SC 597",
+    "citation_type": "air",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Landmark Maneka Gandhi ruling AIR 1978 SC 597.",
+    "components": {
+      "year": 1978
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_049",
+    "raw_text": "AIR 1955 SC 807",
+    "normalized_citation": "AIR 1955 SC 807",
+    "citation_type": "air",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Early precedent AIR 1955 SC 807.",
+    "components": {
+      "year": 1955
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_050",
+    "raw_text": "[1978] 2 SCR 621",
+    "normalized_citation": "[1978] 2 SCR 621",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Historical SCR citation [1978] 2 SCR 621.",
+    "components": {
+      "year": 1978
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_051",
+    "raw_text": "[1997] Supp. SCR 12",
+    "normalized_citation": "[1997] Supp. SCR 12",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Karan Singh case [1997] Supp. SCR 12.",
+    "components": {
+      "year": 1997
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_052",
+    "raw_text": "(1973) 4 SCC 225",
+    "normalized_citation": "(1973) 4 SCC 225",
+    "citation_type": "scc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Kesavananda Bharati (1973) 4 SCC 225.",
+    "components": {
+      "year": 1973
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_053",
+    "raw_text": "(1992) Supp (3) SCC 217",
+    "normalized_citation": "(1992) Supp (3) SCC 217",
+    "citation_type": "scc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Indra Sawhney (1992) Supp (3) SCC 217.",
+    "components": {
+      "year": 1992
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_054",
+    "raw_text": "(2022) 10 SCC 51",
+    "normalized_citation": "(2022) 10 SCC 51",
+    "citation_type": "scc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Satender Kumar Antil (2022) 10 SCC 51.",
+    "components": {
+      "year": 2022
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_055",
+    "raw_text": "(2005) 6 SCC 499",
+    "normalized_citation": "(2005) 6 SCC 499",
+    "citation_type": "scc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "State of H.P. v. Gujarat Ambuja (2005) 6 SCC 499.",
+    "components": {
+      "year": 2005
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_056",
+    "raw_text": "AIR 1967 SC 1643",
+    "normalized_citation": "AIR 1967 SC 1643",
+    "citation_type": "air",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Golaknath v. State of Punjab AIR 1967 SC 1643.",
+    "components": {
+      "year": 1967
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_057",
+    "raw_text": "(1980) 2 SCC 591",
+    "normalized_citation": "(1980) 2 SCC 591",
+    "citation_type": "scc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Bachchan Singh (1980) 2 SCC 591 death penalty.",
+    "components": {
+      "year": 1980
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_058",
+    "raw_text": "2023 SCC OnLine SC 123",
+    "normalized_citation": "2023 SCC OnLine SC 123",
+    "citation_type": "scc_online",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Pre-2024 SCC OnLine SC 123.",
+    "components": {
+      "year": 2023
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_059",
+    "raw_text": "2021 SCC OnLine Del 456",
+    "normalized_citation": "2021 SCC OnLine Del 456",
+    "citation_type": "scc_online",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "High Court ruling 2021 SCC OnLine Del 456.",
+    "components": {
+      "year": 2021
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_060",
+    "raw_text": "2020 INSC 102",
+    "normalized_citation": "2020 INSC 102",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Older neutral citation 2020 INSC 102.",
+    "components": {
+      "year": 2020
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_061",
+    "raw_text": "(2014) 9 SCC 737",
+    "normalized_citation": "(2014) 9 SCC 737",
+    "citation_type": "scc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Arnesh Kumar guidelines (2014) 9 SCC 737.",
+    "components": {
+      "year": 2014
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_062",
+    "raw_text": "(1997) 1 SCC 416",
+    "normalized_citation": "(1997) 1 SCC 416",
+    "citation_type": "scc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "D.K. Basu arrest guidelines (1997) 1 SCC 416.",
+    "components": {
+      "year": 1997
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_063",
+    "raw_text": "(2018) 5 SCC 1",
+    "normalized_citation": "(2018) 5 SCC 1",
+    "citation_type": "scc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Common Cause passive euthanasia (2018) 5 SCC 1.",
+    "components": {
+      "year": 2018
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_064",
+    "raw_text": "(2017) 10 SCC 1",
+    "normalized_citation": "(2017) 10 SCC 1",
+    "citation_type": "scc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Puttaswamy privacy judgment (2017) 10 SCC 1.",
+    "components": {
+      "year": 2017
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_065",
+    "raw_text": "AIR 1962 SC 1006",
+    "normalized_citation": "AIR 1962 SC 1006",
+    "citation_type": "air",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Kedar Nath Singh sedition AIR 1962 SC 1006.",
+    "components": {
+      "year": 1962
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "historical_out_of_corpus",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_066",
+    "raw_text": "State of H.P. v. Gujarat Ambuja Cement Ltd",
+    "normalized_citation": "State of H.P. v. Gujarat Ambuja Cement Ltd",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_1381_1403",
+    "mention_context": "In State of H.P. v. Gujarat Ambuja Cement Ltd (2005) 6 SCC 499.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "similar_party_names_historical",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_067",
+    "raw_text": "Satender Kumar Antil v. Central Bureau of Investigation",
+    "normalized_citation": "Satender Kumar Antil v. Central Bureau of Investigation",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_1381_1403",
+    "mention_context": "Satender Kumar Antil v. CBI (2022) 10 SCC 51 bail guidelines.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "similar_party_names_historical",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_068",
+    "raw_text": "Karan Singh v. Union of India",
+    "normalized_citation": "Karan Singh v. Union of India",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_1381_1403",
+    "mention_context": "Karan Singh v. Union of India [1997] Supp. SCR 12 land acquisition.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "similar_party_names_historical",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_069",
+    "raw_text": "Maneka Gandhi v. Union of India",
+    "normalized_citation": "Maneka Gandhi v. Union of India",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_1381_1403",
+    "mention_context": "Maneka Gandhi v. Union of India (1978) 1 SCC 248 personal liberty.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "similar_party_names_historical",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_070",
+    "raw_text": "State of Gujarat v. Mirzapur Moti Kureshi Kassab Jamat",
+    "normalized_citation": "State of Gujarat v. Mirzapur Moti Kureshi Kassab Jamat",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_1381_1403",
+    "mention_context": "State of Gujarat v. Mirzapur (2005) 8 SCC 534 slaughter of cows.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "similar_party_names_historical",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_071",
+    "raw_text": "State of Punjab v. Baldev Singh",
+    "normalized_citation": "State of Punjab v. Baldev Singh",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_1381_1403",
+    "mention_context": "State of Punjab v. Baldev Singh (1999) 6 SCC 172 NDPS search.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "similar_party_names_historical",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_072",
+    "raw_text": "Lalita Kumari v. Govt. of U.P.",
+    "normalized_citation": "Lalita Kumari v. Govt. of U.P.",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_1381_1403",
+    "mention_context": "Lalita Kumari v. Govt. of U.P. (2014) 2 SCC 1 mandatory FIR.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "similar_party_names_historical",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_073",
+    "raw_text": "State of Haryana v. Bhajan Lal",
+    "normalized_citation": "State of Haryana v. Bhajan Lal",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_1381_1403",
+    "mention_context": "State of Haryana v. Bhajan Lal 1992 Supp (1) SCC 335 quashing criteria.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "similar_party_names_historical",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_074",
+    "raw_text": "Rupa Ashok Hurra v. Ashok Hurra",
+    "normalized_citation": "Rupa Ashok Hurra v. Ashok Hurra",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_1381_1403",
+    "mention_context": "Rupa Ashok Hurra v. Ashok Hurra (2002) 4 SCC 388 curative petition.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "similar_party_names_historical",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_075",
+    "raw_text": "T.K. Rangarajan v. Government of Tamil Nadu",
+    "normalized_citation": "T.K. Rangarajan v. Government of Tamil Nadu",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_1381_1403",
+    "mention_context": "T.K. Rangarajan v. Govt of TN (2003) 7 SCC 583 right to strike.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "similar_party_names_historical",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_076",
+    "raw_text": "A.K. Gopalan v. State of Madras",
+    "normalized_citation": "A.K. Gopalan v. State of Madras",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_1381_1403",
+    "mention_context": "A.K. Gopalan v. State of Madras AIR 1950 SC 27 preventive detention.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "similar_party_names_historical",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_077",
+    "raw_text": "Bachan Singh v. State of Punjab",
+    "normalized_citation": "Bachan Singh v. State of Punjab",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_1381_1403",
+    "mention_context": "Bachan Singh v. State of Punjab (1980) 2 SCC 684 rarest of rare.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "similar_party_names_historical",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_078",
+    "raw_text": "Machhi Singh v. State of Punjab",
+    "normalized_citation": "Machhi Singh v. State of Punjab",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_1381_1403",
+    "mention_context": "Machhi Singh v. State of Punjab (1983) 3 SCC 470 aggravating factors.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "similar_party_names_historical",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_079",
+    "raw_text": "Navtej Singh Johar v. Union of India",
+    "normalized_citation": "Navtej Singh Johar v. Union of India",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_1381_1403",
+    "mention_context": "Navtej Singh Johar v. Union of India (2018) 10 SCC 1 Section 377.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "similar_party_names_historical",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_080",
+    "raw_text": "Shreya Singhal v. Union of India",
+    "normalized_citation": "Shreya Singhal v. Union of India",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_1381_1403",
+    "mention_context": "Shreya Singhal v. Union of India (2015) 5 SCC 1 Section 66A IT Act.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "similar_party_names_historical",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_081",
+    "raw_text": "Arvind Kejriwal v. Directorate of Enforcement",
+    "normalized_citation": "Arvind Kejriwal v. Directorate of Enforcement",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "In Arvind Kejriwal v. Directorate of Enforcement (2024), bail orders were considered.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "ambiguous",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "companion_appeals_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_082",
+    "raw_text": "Arvind Kejriwal v. Directorate of Enforcement",
+    "normalized_citation": "Arvind Kejriwal v. Directorate of Enforcement",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "The decision in Arvind Kejriwal v. Directorate of Enforcement (2024) was cited.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "ambiguous",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "companion_appeals_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_083",
+    "raw_text": "Mineral Area Development Authority v. Steel Authority of India",
+    "normalized_citation": "Mineral Area Development Authority v. Steel Authority of India",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "In Mineral Area Development Authority v. Steel Authority of India (2024) 9-judge bench holding.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "ambiguous",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "companion_appeals_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_084",
+    "raw_text": "Mineral Area Development Authority v. Steel Authority of India",
+    "normalized_citation": "Mineral Area Development Authority v. Steel Authority of India",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "In Mineral Area Development Authority v. Steel Authority of India (2024) clarification order.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "ambiguous",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "companion_appeals_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_085",
+    "raw_text": "State Bank of India v. Consortium of Mr. Murari Lal Jalan",
+    "normalized_citation": "State Bank of India v. Consortium of Mr. Murari Lal Jalan",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "State Bank of India v. Consortium of Murari Lal Jalan (2024) regarding Jet Airways resolution plan.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "ambiguous",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "companion_appeals_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_086",
+    "raw_text": "State Bank of India v. Consortium of Mr. Murari Lal Jalan",
+    "normalized_citation": "State Bank of India v. Consortium of Mr. Murari Lal Jalan",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "State Bank of India v. Consortium of Murari Lal Jalan (2024) appellate decision.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "ambiguous",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "companion_appeals_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_087",
+    "raw_text": "Jaipur Vidyut Vitran Nigam Ltd. v. MB Power (Madhya Pradesh) Ltd.",
+    "normalized_citation": "Jaipur Vidyut Vitran Nigam Ltd. v. MB Power (Madhya Pradesh) Ltd.",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "In Jaipur Vidyut Vitran Nigam Ltd. v. MB Power (2024) electricity tariff dispute.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "ambiguous",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "companion_appeals_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_088",
+    "raw_text": "Jaipur Vidyut Vitran Nigam Ltd. v. MB Power (Madhya Pradesh) Ltd.",
+    "normalized_citation": "Jaipur Vidyut Vitran Nigam Ltd. v. MB Power (Madhya Pradesh) Ltd.",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "The companion appeal Jaipur Vidyut Vitran Nigam Ltd. v. MB Power (2024).",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "ambiguous",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "companion_appeals_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_089",
+    "raw_text": "Prakash v. State of Maharashtra",
+    "normalized_citation": "Prakash v. State of Maharashtra",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "In Prakash v. State of Maharashtra (2024) criminal appeal.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "ambiguous",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "companion_appeals_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_090",
+    "raw_text": "Prakash v. State of Maharashtra",
+    "normalized_citation": "Prakash v. State of Maharashtra",
+    "citation_type": "case_title",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "In Prakash v. State of Maharashtra (2024) companion decision.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "ambiguous",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "companion_appeals_ambiguous",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_091",
+    "raw_text": "2024 SCC",
+    "normalized_citation": "2024 SCC",
+    "citation_type": "unknown",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Incomplete SCC citation lacking volume and page.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "malformed_incomplete",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_092",
+    "raw_text": "SCR 108",
+    "normalized_citation": "SCR 108",
+    "citation_type": "unknown",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Incomplete SCR citation missing year and volume.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "malformed_incomplete",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_093",
+    "raw_text": "AIR SC",
+    "normalized_citation": "AIR SC",
+    "citation_type": "unknown",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Incomplete AIR citation without year or page.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "malformed_incomplete",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_094",
+    "raw_text": "INSC",
+    "normalized_citation": "INSC",
+    "citation_type": "unknown",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Bare reporter keyword.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "malformed_incomplete",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_095",
+    "raw_text": "(2024) SCC (Cri)",
+    "normalized_citation": "(2024) SCC (Cri)",
+    "citation_type": "unknown",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "SCC subpart without volume or page.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "malformed_incomplete",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_096",
+    "raw_text": "[2024] S.C.R.",
+    "normalized_citation": "[2024] S.C.R.",
+    "citation_type": "unknown",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "SCR without volume or page.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "malformed_incomplete",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_097",
+    "raw_text": "v. State of Bihar",
+    "normalized_citation": "v. State of Bihar",
+    "citation_type": "unknown",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Missing petitioner name entirely.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "malformed_incomplete",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_098",
+    "raw_text": "Union of India v.",
+    "normalized_citation": "Union of India v.",
+    "citation_type": "unknown",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Missing respondent name entirely.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "malformed_incomplete",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_099",
+    "raw_text": "random citation 123",
+    "normalized_citation": "random citation 123",
+    "citation_type": "unknown",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Unrecognized format.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "malformed_incomplete",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_100",
+    "raw_text": "Ibid.",
+    "normalized_citation": "Ibid.",
+    "citation_type": "unknown",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Short form legal reference.",
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "malformed_incomplete",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_101",
+    "raw_text": "2024 INSC 9999",
+    "normalized_citation": "2024 INSC 9999",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "2024 INSC 9999 not in local 782 slice.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "out_of_corpus_2024",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_102",
+    "raw_text": "2024 INSC 8888",
+    "normalized_citation": "2024 INSC 8888",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "2024 INSC 8888 beyond corpus range.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "out_of_corpus_2024",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_103",
+    "raw_text": "[2024] 20 SCR 999",
+    "normalized_citation": "[2024] 20 SCR 999",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "2024 volume 20 not yet published in 782 corpus.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "out_of_corpus_2024",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_104",
+    "raw_text": "[2024] 15 SCR 500",
+    "normalized_citation": "[2024] 15 SCR 500",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Volume 15 page 500 not in dataset.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "out_of_corpus_2024",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_105",
+    "raw_text": "2024 INSC 9500",
+    "normalized_citation": "2024 INSC 9500",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Nonexistent 2024 neutral citation.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "out_of_corpus_2024",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_106",
+    "raw_text": "2024 INSC 9100",
+    "normalized_citation": "2024 INSC 9100",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Out of corpus neutral citation.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "out_of_corpus_2024",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_107",
+    "raw_text": "[2024] 18 SCR 100",
+    "normalized_citation": "[2024] 18 SCR 100",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Unindexed 2024 SCR volume.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "out_of_corpus_2024",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_108",
+    "raw_text": "[2024] 19 SCR 200",
+    "normalized_citation": "[2024] 19 SCR 200",
+    "citation_type": "scr",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Unindexed 2024 SCR volume.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "out_of_corpus_2024",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_109",
+    "raw_text": "2024 INSC 7777",
+    "normalized_citation": "2024 INSC 7777",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Out of corpus neutral index.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "out_of_corpus_2024",
+    "provenance": "developer_curated"
+  },
+  {
+    "mention_id": "CITE_GOLD_110",
+    "raw_text": "2024 INSC 8100",
+    "normalized_citation": "2024 INSC 8100",
+    "citation_type": "neutral_insc",
+    "source_doc_id": "2024_10_108_125",
+    "mention_context": "Neutral citation not in AWS SCR slice.",
+    "components": {
+      "year": 2024
+    },
+    "gold_resolution_status": "unresolved",
+    "gold_target_document_id": null,
+    "gold_is_self_citation": false,
+    "test_category": "out_of_corpus_2024",
+    "provenance": "developer_curated"
+  }
+]

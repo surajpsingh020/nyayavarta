@@ -1,0 +1,68 @@
+# ==============================================================================
+# NyayaVarta Root .gitignore
+# Safe for Python/FastAPI backend, ML pipelines, and future Next.js frontend
+# ==============================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Caches and local testing artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+*.tmp
+*.bak
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# Local Secrets & Credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Large Compiled Search Indexes (Regenerable via scripts/index/)
+data/indexes/*.db
+data/indexes/*.faiss
+data/indexes/dense_doc_ids.json
+data/indexes/dense_model_config.json
+
+# Large Knowledge Graph Databases & Intermediate Dumps (Exceeds GitHub 100MB limit)
+data/processed/graph/v1/*.db
+data/processed/graph/v2/*.db
+data/processed/graph/v1/*.jsonl
+data/processed/graph/v2/*.jsonl
+data/processed/extraction/v1/*.jsonl
+data/processed/extraction/v2/*.jsonl
+
+# Raw Scraped & Downloaded Judgment PDFs (Regenerable via scripts/ingest/)
+data/raw/aws_sc/pdf/
+
+# Model Weights & Caches
+models/*
+!models/.gitkeep
+
+# Temporary Run Directories & Scratch Files
+temp_run1/
+scratch/
+
+# Frontend / Node Build Artifacts (Future Next.js Web Client)
+node_modules/
+apps/web/.next/
+apps/web/out/
+apps/web/build/
+npm-debug.log*
+
+# OS & IDE Artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
