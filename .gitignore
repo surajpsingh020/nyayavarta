@@ -30,7 +30,7 @@ ENV/
 *.key
 
 # Large Compiled Search Indexes (Regenerable via scripts/index/)
-data/indexes/*.db
+data/indexes/*.db*
 data/indexes/*.faiss
 data/indexes/dense_doc_ids.json
 data/indexes/dense_model_config.json
@@ -59,6 +59,8 @@ node_modules/
 apps/web/.next/
 apps/web/out/
 apps/web/build/
+apps/web/dist/
+dist/
 npm-debug.log*
 
 # OS & IDE Artifacts

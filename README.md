@@ -20,8 +20,8 @@ The platform addresses the critical risks of large language models in legal rese
 
 > [!NOTE]
 > **Implementation Scope & Roadmap**:  
-> The current repository implements the complete FastAPI backend, hybrid retrieval engine, and verified RAG answer pipeline.  
-> - **Frontend (`apps/web`)**: Implements the architectural container skeleton and UI Safety Presentation Contract (Milestone 14); interactive web pages are planned for Phase 2.  
+> The current repository implements the complete FastAPI backend, hybrid retrieval engine, verified RAG answer pipeline, and React + TypeScript legal research web client.
+> - **Frontend (`apps/web`)**: Fully implemented React 18 + TypeScript + Vite legal research interface (Phase 2A); provides interactive query execution, audit presets, verification badge rendering, and clickable citation linking.
 > - **Roadmap Features**: PDF document upload (FR-02), voice transcription/ASR (FR-03), multilingual translation (FR-01/FR-04), and text-to-speech (FR-12) are roadmap items specified in [`docs/PRD.md`](docs/PRD.md) and are not yet implemented.
 
 ---
@@ -116,6 +116,14 @@ python scripts/benchmark/verify_e2e_demo_queries.py
 uvicorn apps.api.main:app --host 127.0.0.1 --port 8000 --reload
 ```
 Interactive API documentation will be available at `http://127.0.0.1:8000/docs`.
+
+### 7. Launch the Web Frontend Client
+```bash
+cd apps/web
+npm install
+npm run dev
+```
+Open `http://localhost:5173` in your browser. (To run frontend test suite: `npm test`; to build for production: `npm run build`).
 
 ---
 
