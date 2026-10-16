@@ -390,4 +390,81 @@ describe('NyayaVarta Frontend — Safe Answer Presentation Suite', () => {
       expect(provenance).toHaveTextContent(/Model information unavailable/i);
     });
   });
+
+  it('renders neutral abstention UI in ValidationSummary without misleading substantive-verification checkmarks', async () => {
+    const abstentionResult: RAGResult = {
+      ...mockBaseResult,
+      verification_badge: 'insufficient_evidence',
+      status: 'insufficient_evidence',
+      answer: 'INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question.',
+      evidence_passages: [],
+      claims: [],
+      citation_validation: {
+        ...mockBaseResult.citation_validation,
+        cited_source_ids: [],
+        semantic_support_status: 'not_evaluated',
+        validation_notes: ['System explicitly declared clean abstention due to insufficient evidence.']
+      }
+    };
+    vi.mocked(api.queryRag).mockResolvedValueOnce(abstentionResult);
+
+    render(<App />);
+    fireEvent.change(screen.getByLabelText(/Enter Legal Inquiry/i), { target: { value: 'Abstention UI test' } });
+    fireEvent.click(screen.getByRole('button', { name: /Verify Legal Query/i }));
+
+    await waitFor(() => {
+      expect(screen.getByTestId('badge-insufficient_evidence')).toBeInTheDocument();
+      expect(screen.getByText(/Judicial Corpus Abstention \(Insufficient Grounding\)/i)).toBeInTheDocument();
+    });
+
+    // VerificationSummary must render neutral abstention banner and N/A markers
+    expect(screen.getByText(/Mechanical Checks Only — Not Semantic Legal Verification/i)).toBeInTheDocument();
+    expect(screen.getByText(/Abstention Notice:/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/N\/A — No citations emitted in abstention/i).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText(/N\/A — System abstained from making claims/i)).toBeInTheDocument();
+
+    // Must never claim verified legal authority
+    expect(screen.queryByText(/^Verified Legal Authority$/i)).not.toBeInTheDocument();
+  });
+
+  it('preserves raw model output in audit mode toggle during abstention when present in metadata', async () => {
+    const rawAuditResult: RAGResult = {
+      ...mockBaseResult,
+      verification_badge: 'insufficient_evidence',
+      status: 'insufficient_evidence',
+      answer: 'INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question.',
+      evidence_passages: [],
+      claims: [],
+      retrieval_metadata: {
+        raw_model_generation: 'Raw ungrounded generation that was sanitized'
+      }
+    };
+    vi.mocked(api.queryRag).mockResolvedValueOnce(rawAuditResult);
+
+    render(<App />);
+    fireEvent.change(screen.getByLabelText(/Enter Legal Inquiry/i), { target: { value: 'Raw audit toggle test' } });
+    fireEvent.click(screen.getByRole('button', { name: /Verify Legal Query/i }));
+
+    await waitFor(() => {
+      expect(screen.getByTestId('badge-insufficient_evidence')).toBeInTheDocument();
+      expect(screen.getByText(/INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question\./i)).toBeInTheDocument();
+    });
+
+    // Raw ungrounded generation must NOT be visible initially
+    expect(screen.queryByText(/Raw ungrounded generation that was sanitized/i)).not.toBeInTheDocument();
+
+    // Toggle button should be available
+    const auditBtn = screen.getByRole('button', { name: /Inspect Raw Model Output \(Audit Mode\)/i });
+    expect(auditBtn).toBeInTheDocument();
+
+    // Clicking button reveals the raw ungrounded generation with audit warning
+    fireEvent.click(auditBtn);
+    expect(screen.getByText(/Raw ungrounded generation that was sanitized/i)).toBeInTheDocument();
+    expect(screen.getByText(/\[Raw Model Generation — Unverified \/ Non-Authoritative\]:/i)).toBeInTheDocument();
+
+    // Clicking again hides it
+    const hideBtn = screen.getByRole('button', { name: /Hide Raw Model Output/i });
+    fireEvent.click(hideBtn);
+    expect(screen.queryByText(/Raw ungrounded generation that was sanitized/i)).not.toBeInTheDocument();
+  });
 });

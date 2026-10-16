@@ -367,12 +367,12 @@ class MockLLMProvider(LLMProvider):
 class LocalOllamaProvider(LLMProvider):
     """
     Connects to local Ollama HTTP API (e.g. http://localhost:11434).
-    Recommended for lightweight local models (e.g. phi3.5:latest, qwen2.5:3b, llama3.2:3b).
+    Recommended for lightweight local models (e.g. llama3.2:1b, qwen2.5:3b, phi3.5:latest).
     """
 
     def __init__(
         self,
-        model_name: str = "phi3.5:latest",
+        model_name: str = "llama3.2:1b",
         base_url: str = "http://localhost:11434",
         timeout: float = 180.0,
         default_options: Optional[Dict[str, Any]] = None
@@ -496,7 +496,7 @@ class LocalOllamaProvider(LLMProvider):
             )
         except urllib.error.URLError as e:
             raise RuntimeError(
-                f"Local Ollama service unreachable at {self.base_url}: {e}. "
+                f"Local Ollama service unreachable at {self.base_url} for model '{self.model_name}': {e}. "
                 "Ensure Ollama daemon is running or specify provider_type='mock'."
             )
 
@@ -509,9 +509,9 @@ def get_llm_provider(provider_type: str = "mock", **kwargs) -> LLMProvider:
         mode = kwargs.get("mode", default_mode)
         return MockLLMProvider(mode=mode)
     elif p_type in ["ollama", "local"]:
-        model = kwargs.get("model_name", "phi3.5:latest")
+        model = kwargs.get("model_name", "llama3.2:1b")
         url = kwargs.get("base_url", "http://localhost:11434")
-        timeout = kwargs.get("timeout", 60.0)
+        timeout = kwargs.get("timeout", 180.0)
         options = kwargs.get("default_options")
         return LocalOllamaProvider(model_name=model, base_url=url, timeout=timeout, default_options=options)
     else:

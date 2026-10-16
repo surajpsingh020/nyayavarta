@@ -14,14 +14,16 @@ Tests cover:
 import pytest
 import os
 import json
+from typing import Optional, Dict, Any
+from unittest.mock import patch
 from fastapi.testclient import TestClient
 
 from apps.api.main import app
 from services.rag.models import EvidencePassage
 from services.rag.evidence import EvidenceAssembler, verify_evidence_offsets
-from services.rag.providers import MockLLMProvider
+from services.rag.providers import MockLLMProvider, LocalOllamaProvider, get_llm_provider, LLMProvider
 from services.rag.validator import CitationValidator
-from services.rag.pipeline import RAGPipeline
+from services.rag.pipeline import RAGPipeline, CANONICAL_ABSTENTION_MESSAGE
 
 
 @pytest.fixture(scope="module")
@@ -389,3 +391,266 @@ class TestStrengthenedCitationValidator:
         val2, claims2 = validator.validate(substantive_mention, mock_evidence)
         assert val2.is_valid is False
         assert len(val2.unsupported_sentences) == 1
+
+    def test_abstention_prefix_with_substantive_or_contradictory_prose_rejected(self):
+        """
+        Validator must reject multi-paragraph or substantive assertions even if they begin
+        with 'INSUFFICIENT EVIDENCE'. Only genuinely clean abstentions receive the waiver.
+        """
+        validator = CitationValidator()
+        mock_evidence = [
+            EvidencePassage(
+                evidence_id="E1",
+                document_id="doc1",
+                case_title="Case 1",
+                passage_text="The authorized officer cannot unilaterally extend the deposit period without written consent.",
+                start_char=0,
+                end_char=95,
+                judgment_rank=1,
+                judgment_score=1.0
+            )
+        ]
+
+        # Case 1: Multi-paragraph prose with ungrounded claims starting with INSUFFICIENT EVIDENCE
+        multiparagraph_prose = (
+            "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence.\n\n"
+            "The High Court held that the selection rules can be changed mid-way at the discretion of the bench.\n\n"
+            "Candidates have no vested right to completion of recruitment under initial rules."
+        )
+        assert validator.is_clean_abstention(multiparagraph_prose) is False
+        val1, claims1 = validator.validate(multiparagraph_prose, mock_evidence)
+        assert val1.is_valid is False
+        assert len(val1.unsupported_sentences) >= 2
+        assert val1.attribution_complete is False
+
+        # Case 2: Single-line affirmative legal rule disguised as an abstention
+        affirmative_disguised = "INSUFFICIENT EVIDENCE: The authorized officer can unilaterally extend the 15-day period without consent of the borrower."
+        assert validator.is_clean_abstention(affirmative_disguised) is False
+        val2, claims2 = validator.validate(affirmative_disguised, mock_evidence)
+        assert val2.is_valid is False
+        assert len(val2.unsupported_sentences) >= 1
+
+        # Case 3: Genuine clean abstention
+        clean_abs = "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question."
+        assert validator.is_clean_abstention(clean_abs) is True
+        val3, claims3 = validator.validate(clean_abs, mock_evidence)
+        assert val3.is_valid is True
+        assert len(val3.unsupported_sentences) == 0
+
+
+class TestLLMProviderFactory:
+    """Focused tests for LLM provider factory defaults, overrides, and error formatting."""
+
+    def test_ollama_provider_factory_defaults(self):
+        """Factory must default to llama3.2:1b and 180s timeout when provider_type is ollama."""
+        prov = get_llm_provider("ollama")
+        assert isinstance(prov, LocalOllamaProvider)
+        assert prov.model_name == "llama3.2:1b"
+        assert prov.timeout == 180.0
+        assert prov.base_url == "http://localhost:11434"
+
+    def test_local_provider_factory_defaults(self):
+        """Factory must treat 'local' alias identically to 'ollama'."""
+        prov = get_llm_provider("local")
+        assert isinstance(prov, LocalOllamaProvider)
+        assert prov.model_name == "llama3.2:1b"
+        assert prov.timeout == 180.0
+
+    def test_ollama_provider_factory_explicit_model_override(self):
+        """Factory must preserve explicit model_name override."""
+        prov = get_llm_provider("ollama", model_name="qwen2.5:0.5b")
+        assert isinstance(prov, LocalOllamaProvider)
+        assert prov.model_name == "qwen2.5:0.5b"
+        assert prov.timeout == 180.0
+
+    def test_ollama_provider_factory_explicit_timeout_override(self):
+        """Factory must preserve explicit timeout override."""
+        prov = get_llm_provider("ollama", timeout=45.0)
+        assert isinstance(prov, LocalOllamaProvider)
+        assert prov.model_name == "llama3.2:1b"
+        assert prov.timeout == 45.0
+
+    def test_local_ollama_provider_class_defaults(self):
+        """LocalOllamaProvider class itself must default to llama3.2:1b and 180s."""
+        prov = LocalOllamaProvider()
+        assert prov.model_name == "llama3.2:1b"
+        assert prov.timeout == 180.0
+
+    def test_timeout_error_identifies_model_and_timeout(self):
+        """TimeoutError message must explicitly identify the model name and timeout limit."""
+        prov = LocalOllamaProvider(model_name="llama3.2:1b", timeout=180.0)
+        with pytest.raises(TimeoutError) as exc_info:
+            with patch("urllib.request.urlopen", side_effect=TimeoutError("socket timed out")):
+                prov.generate(prompt="test prompt")
+        err_msg = str(exc_info.value)
+        assert "llama3.2:1b" in err_msg
+        assert "180.0s" in err_msg
+
+    def test_unreachable_error_identifies_model(self):
+        """URLError message must explicitly identify the model name."""
+        import urllib.error
+        prov = LocalOllamaProvider(model_name="llama3.2:1b", timeout=180.0)
+        with pytest.raises(RuntimeError) as exc_info:
+            with patch("urllib.request.urlopen", side_effect=urllib.error.URLError("connection refused")):
+                prov.generate(prompt="test prompt")
+        err_msg = str(exc_info.value)
+        assert "llama3.2:1b" in err_msg
+        assert "Local Ollama service unreachable" in err_msg
+
+
+class TestAbstentionSafetyAndMetadata:
+    """Regression tests for abstention canonicalization, metadata preservation, and fail-closed safety."""
+
+    def test_pipeline_clean_canonical_abstention_replaces_answer_and_preserves_metadata(self):
+        """Clean model abstention must yield canonical user answer and store raw output in metadata."""
+        class CleanAbstainProvider(LLMProvider):
+            def generate(self, prompt: str, system_prompt: Optional[str] = None, structured_schema: Optional[Dict[str, Any]] = None):
+                from services.rag.providers import LLMResponse
+                return LLMResponse(
+                    content="INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question.",
+                    model_name="test-model",
+                    latency_ms=10.0
+                )
+
+        pipeline = RAGPipeline(llm_provider=CleanAbstainProvider())
+        query = "Can the rules of selection be changed after recruitment commences under Rajasthan High Court rules?"
+        result = pipeline.query(query, top_k_judgments=2, max_passages=3)
+
+        assert result.status == "insufficient_evidence"
+        assert result.verification_badge == "insufficient_evidence"
+        assert result.answer == CANONICAL_ABSTENTION_MESSAGE
+        assert result.retrieval_metadata.get("raw_model_generation") is not None
+        assert "INSUFFICIENT EVIDENCE" in result.retrieval_metadata["raw_model_generation"]
+
+    def test_pipeline_insufficient_evidence_prefix_with_contradictory_prose_fails_closed(self):
+        """
+        When model generates substantive prose beginning with 'INSUFFICIENT EVIDENCE',
+        it must NOT bypass validation and MUST fail closed to rejected_answer.
+        """
+        class RambleProvider(LLMProvider):
+            def generate(self, prompt: str, system_prompt: Optional[str] = None, structured_schema: Optional[Dict[str, Any]] = None):
+                from services.rag.providers import LLMResponse
+                return LLMResponse(
+                    content=(
+                        "INSUFFICIENT EVIDENCE: The retrieved passages do not provide sufficient evidence.\n\n"
+                        "The Rajasthan High Court held that selection criteria can be freely modified mid-process.\n\n"
+                        "The appointing authority possesses unrestricted discretion to alter eligibility."
+                    ),
+                    model_name="test-model",
+                    latency_ms=10.0
+                )
+
+        pipeline = RAGPipeline(llm_provider=RambleProvider())
+        query = "Can the rules of selection be changed after recruitment commences under Rajasthan High Court rules?"
+        result = pipeline.query(query, top_k_judgments=2, max_passages=3)
+
+        # Must fail closed because ungrounded substantive assertions were made
+        assert result.status == "validation_failed"
+        assert result.verification_badge == "rejected_answer"
+        assert result.is_answer_suppressed is True
+        assert result.retrieval_metadata.get("raw_model_generation") is not None
+        assert "Rajasthan High Court held that selection criteria can be freely modified" in result.retrieval_metadata["raw_model_generation"]
+
+    def test_existing_supported_and_partially_supported_answers_unaffected(self):
+        """Standard supported and partially supported queries must remain unaffected by abstention safeguards."""
+        pipeline = RAGPipeline(llm_provider=MockLLMProvider())
+
+        # Supported query
+        supported_q = "Can the rules of selection or eligibility criteria be changed after the recruitment process has commenced under Rajasthan High Court rules?"
+        res1 = pipeline.query(supported_q, top_k_judgments=2, max_passages=3)
+        assert res1.status == "answered"
+        assert res1.verification_badge == "verified_supported"
+        assert not res1.answer.startswith("INSUFFICIENT EVIDENCE:")
+        assert len(res1.evidence_passages) > 0
+
+        # Partially supported query
+        partial_q = "Can the authorized officer unilaterally extend the 15-day period for deposit of 75% purchase money under SARFAESI Rule 9(4) without consent of the borrower?"
+        res2 = pipeline.query(partial_q, provider=get_llm_provider("mock_partial"), top_k_judgments=2, max_passages=3)
+        assert res2.status == "answered_with_qualification"
+        assert res2.verification_badge == "qualified_answer"
+        assert not res2.answer.startswith("INSUFFICIENT EVIDENCE:")
+
+
+class TestAdversarialCleanAbstentionSecurity:
+    """Targeted security regression tests for CitationValidator.is_clean_abstention()."""
+
+    GENUINE_ABSTENTIONS = [
+        "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question.",
+        "No relevant judgments found in the corpus for this query.",
+        "INSUFFICIENT EVIDENCE:",
+        "INSUFFICIENT EVIDENCE: Subject context and target predicate appear only in disjoint contexts.",
+        "INSUFFICIENT EVIDENCE: Query explicitly inquires about statutory provisions (Section 36A), but none are present in retrieved evidence."
+    ]
+
+    ADVERSARIAL_BYPASS_PATTERNS = [
+        # TC06: Deficiency statement followed by affirmative rule joined by 'but'
+        "INSUFFICIENT EVIDENCE: The passages do not provide sufficient evidence, but the court held rules cannot be changed mid-way.",
+        # TC07: Deficiency statement followed by affirmative holding joined by semicolon + 'however'
+        "INSUFFICIENT EVIDENCE: The evidence is insufficient; however the authorized officer can unilaterally extend the 15-day period.",
+        # TC08: Subordinate 'although' deficiency + affirmative grant
+        "INSUFFICIENT EVIDENCE: Although passages do not contain sufficient evidence, the appellant was granted bail under Article 21.",
+        # TC10: Deficiency statement followed by contradictory holding joined by 'but'
+        "INSUFFICIENT EVIDENCE: Passages do not provide sufficient proof, but rules can be freely changed mid-process.",
+        # TC12: Deficiency + factual case assertion joined by 'and'
+        "INSUFFICIENT EVIDENCE: Evidence does not support the claim, and petitioner scored 65 marks in the preliminary examination.",
+        # TC14: Deficiency + multiple factual clauses on one line
+        "INSUFFICIENT EVIDENCE: Retrieved records do not establish the issue, the rules were framed in 2002, and vacancies were notified in 2009.",
+        # TC15: Deficiency + affirmative rule joined by em-dash
+        "INSUFFICIENT EVIDENCE: Evidence not found — the full bench held selection rules are inviolable.",
+        # TC19: Deficiency phrase 'cannot answer' + affirmative ruling clause
+        "INSUFFICIENT EVIDENCE: Cannot answer from evidence because the court allowed changing the rules mid-way."
+    ]
+
+    ADDITIONAL_ADVERSARIAL_VARIANTS = [
+        # Period + affirmative ruling sentence
+        "INSUFFICIENT EVIDENCE: The passages do not support this. The Rajasthan High Court ruled that rules cannot be changed.",
+        # Period + contradictory claim
+        "INSUFFICIENT EVIDENCE: Retrieved passages are insufficient. Selection criteria may be altered at any time by the employer.",
+        # Colon + factual assertion
+        "INSUFFICIENT EVIDENCE: The passages lack relevant context: the appellant filed a writ petition in the High Court in 2013.",
+        # Lowercase prefix + 'but' affirmative assertion
+        "insufficient evidence: not enough evidence is present but the governor has exclusive power under Article 309.",
+        # Irregular whitespace + 'but' dismissal assertion
+        "   INSUFFICIENT   EVIDENCE:   The passages do not provide proof, but the High Court dismissed the petition.   ",
+        # Affirmative claim without deficiency indicators
+        "INSUFFICIENT EVIDENCE: The authorized officer can unilaterally extend the 15-day period without borrower consent.",
+        # Coordinating conjunction without legal keywords
+        "INSUFFICIENT EVIDENCE: Retrieved records do not establish the issue, and the examination was held in June.",
+        # Contrastive pivot without deficiency declaration
+        "INSUFFICIENT EVIDENCE: The passages are insufficient, however the high court allowed the prayer."
+    ]
+
+    def test_genuine_abstentions_accepted(self):
+        """All genuine concise abstentions must evaluate to True."""
+        for text in self.GENUINE_ABSTENTIONS:
+            assert CitationValidator.is_clean_abstention(text) is True, f"Failed on genuine abstention: {text}"
+
+    def test_eight_identified_bypasses_rejected(self):
+        """All 8 adversarial bypass patterns must be rejected by is_clean_abstention()."""
+        for text in self.ADVERSARIAL_BYPASS_PATTERNS:
+            assert CitationValidator.is_clean_abstention(text) is False, f"Bypass succeeded on: {text}"
+
+    def test_additional_single_line_variants_rejected(self):
+        """Additional single-line variants with conjunctions, semicolons, dashes must be rejected."""
+        for text in self.ADDITIONAL_ADVERSARIAL_VARIANTS:
+            assert CitationValidator.is_clean_abstention(text) is False, f"Variant succeeded on: {text}"
+
+    def test_adversarial_single_line_fails_closed_in_pipeline(self):
+        """An adversarial single-line response must fail closed to rejected_answer and be suppressed."""
+        class SingleLineBypassProvider(LLMProvider):
+            def generate(self, prompt: str, system_prompt: Optional[str] = None, structured_schema: Optional[Dict[str, Any]] = None):
+                from services.rag.providers import LLMResponse
+                return LLMResponse(
+                    content="INSUFFICIENT EVIDENCE: The passages do not provide sufficient evidence, but the court held rules cannot be changed mid-way.",
+                    model_name="test-bypass-model",
+                    latency_ms=10.0
+                )
+
+        pipeline = RAGPipeline(llm_provider=SingleLineBypassProvider())
+        query = "Can the rules of selection be changed after recruitment commences under Rajasthan High Court rules?"
+        result = pipeline.query(query, top_k_judgments=2, max_passages=3)
+
+        assert result.status == "validation_failed"
+        assert result.verification_badge == "rejected_answer"
+        assert result.is_answer_suppressed is True
+        assert result.retrieval_metadata.get("raw_model_generation") is not None
