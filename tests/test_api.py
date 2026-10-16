@@ -87,3 +87,44 @@ def test_rag_query_unexpected_exception_500_masked():
         app.dependency_overrides.pop(get_rag_pipeline, None)
 
 
+def test_cors_allowed_development_origin():
+    """Verify that an allowed development origin receives CORS headers without credentials."""
+    response = client.get("/v1/health", headers={"Origin": "http://localhost:5173"})
+    assert response.status_code == 200
+    assert response.headers.get("access-control-allow-origin") == "http://localhost:5173"
+    assert response.headers.get("access-control-allow-credentials") is None or response.headers.get("access-control-allow-credentials") == "false"
+
+
+def test_cors_unapproved_origin_rejected():
+    """Verify that an unauthorized origin is not granted CORS access."""
+    response = client.get("/v1/health", headers={"Origin": "https://unauthorized-external-domain.com"})
+    assert response.status_code == 200
+    assert "access-control-allow-origin" not in response.headers
+
+
+def test_cors_preflight_options():
+    """Verify preflight OPTIONS requests for allowed vs unapproved origins."""
+    # Allowed origin preflight
+    allowed_preflight = client.options(
+        "/v1/rag/query",
+        headers={
+            "Origin": "http://127.0.0.1:5173",
+            "Access-Control-Request-Method": "POST",
+            "Access-Control-Request-Headers": "content-type",
+        }
+    )
+    assert allowed_preflight.status_code == 200
+    assert allowed_preflight.headers.get("access-control-allow-origin") == "http://127.0.0.1:5173"
+    assert "POST" in allowed_preflight.headers.get("access-control-allow-methods", "")
+
+    # Unapproved origin preflight
+    unapproved_preflight = client.options(
+        "/v1/rag/query",
+        headers={
+            "Origin": "https://malicious-site.example.com",
+            "Access-Control-Request-Method": "POST",
+        }
+    )
+    assert "access-control-allow-origin" not in unapproved_preflight.headers
+
+
