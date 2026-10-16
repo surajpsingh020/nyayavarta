@@ -37,6 +37,8 @@ from services.rag.providers import LLMProvider, MockLLMProvider, get_llm_provide
 from services.rag.validator import CitationValidator
 from services.rag.grounding_gate import PropositionGroundingGate, GroundingStatus, GroundingDecision
 
+CANONICAL_ABSTENTION_MESSAGE = "INSUFFICIENT EVIDENCE: The retrieved judicial passages do not provide sufficient evidence to answer this question."
+
 
 class RAGPipeline:
     def __init__(
@@ -392,7 +394,7 @@ class RAGPipeline:
                     supplied_evidence=active_passages
                 )
                 if structured_obj.status == "abstain":
-                    answer_text = f"INSUFFICIENT EVIDENCE: {structured_obj.abstention_reason or 'Retrieved passages insufficient.'}"
+                    answer_text = CANONICAL_ABSTENTION_MESSAGE
                     status = "insufficient_evidence"
                     grounding_status = GroundingStatus.TOPICALLY_RELEVANT_BUT_INSUFFICIENT_GROUNDING.value
                 else:
@@ -432,24 +434,36 @@ class RAGPipeline:
                 answer=llm_response.content,
                 supplied_evidence=active_passages
             )
-            answer_text = llm_response.content
-            ans_trimmed = llm_response.content.strip()
-            ans_lower = ans_trimmed.lower()
+            raw_model_content = llm_response.content
+            ans_trimmed = raw_model_content.strip()
+
+            # Determine whether the generation is a genuinely clean abstention
+            is_clean_abs = (
+                self.validator.is_clean_abstention(ans_trimmed) and
+                val_result.is_valid and
+                len(val_result.cited_source_ids) == 0
+            )
+
             if not ans_trimmed:
                 status = "error"
                 grounding_status = GroundingStatus.GENERATION_FAILED.value
-            elif ans_lower.startswith("insufficient evidence") or "insufficient evidence: the retrieved" in ans_lower:
+                answer_text = raw_model_content
+            elif is_clean_abs:
                 status = "insufficient_evidence"
                 grounding_status = GroundingStatus.TOPICALLY_RELEVANT_BUT_INSUFFICIENT_GROUNDING.value
+                answer_text = CANONICAL_ABSTENTION_MESSAGE
             elif not val_result.is_valid:
                 status = "validation_failed"
                 grounding_status = GroundingStatus.VALIDATION_FAILED.value
+                answer_text = raw_model_content
             elif val_result.validation_status == "partially_supported":
                 status = "answered_with_qualification"
                 grounding_status = GroundingStatus.SUFFICIENT_EVIDENCE.value
+                answer_text = raw_model_content
             else:
                 status = "answered"
                 grounding_status = GroundingStatus.SUFFICIENT_EVIDENCE.value
+                answer_text = raw_model_content
 
         timing_ms["validation_ms"] = round((time.perf_counter() - t0) * 1000.0, 2)
         timing_ms["total_ms"] = round((time.perf_counter() - t_start) * 1000.0, 2)
@@ -467,6 +481,7 @@ class RAGPipeline:
             "max_chars_per_passage": max_chars_per_passage,
             "max_total_chars": max_total_chars,
             "enable_compression": enable_compression,
+            "raw_model_generation": llm_response.content if 'llm_response' in locals() and llm_response else None,
             "context_budget": {
                 "max_passages": max_passages,
                 "max_chars_per_passage": max_chars_per_passage,
@@ -499,6 +514,10 @@ class RAGPipeline:
             evidence_passages=active_passages,
             answer_text=answer_text
         )
+
+        # Enforce canonical abstention string when badge or status is insufficient_evidence
+        if verification_badge == "insufficient_evidence" or status == "insufficient_evidence":
+            answer_text = CANONICAL_ABSTENTION_MESSAGE
 
         return RAGResult(
             query=query_text,

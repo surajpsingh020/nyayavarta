@@ -132,7 +132,7 @@ export const AnswerDisplay: React.FC<AnswerDisplayProps> = ({ result, onCitation
         ) : isAbstention ? (
           <div className="p-4 rounded-lg bg-sky-50 border border-sky-200 text-sky-950 flex items-start gap-3">
             <Info className="w-5 h-5 text-sky-600 shrink-0 mt-0.5" />
-            <div className="space-y-1">
+            <div className="space-y-1 w-full">
               <h4 className="font-semibold text-sm text-sky-900">
                 Judicial Corpus Abstention (Insufficient Grounding)
               </h4>
@@ -142,6 +142,30 @@ export const AnswerDisplay: React.FC<AnswerDisplayProps> = ({ result, onCitation
               <p className="text-[11px] text-sky-600 mt-2">
                 Grounding State: <code className="bg-sky-100 px-1 py-0.5 rounded">{result.grounding_status}</code>
               </p>
+
+              {/* Raw generation audit inspection if model output was sanitized to canonical abstention */}
+              {result.retrieval_metadata?.raw_model_generation &&
+                result.retrieval_metadata.raw_model_generation.trim() !== result.answer.trim() && (
+                  <div className="pt-2 mt-2 border-t border-sky-200/60">
+                    <button
+                      type="button"
+                      onClick={() => setShowSuppressed(!showSuppressed)}
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-sky-800 hover:text-sky-950 underline focus:outline-none"
+                    >
+                      {showSuppressed ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                      <span>{showSuppressed ? 'Hide Raw Model Output' : 'Inspect Raw Model Output (Audit Mode)'}</span>
+                    </button>
+
+                    {showSuppressed && (
+                      <div className="mt-2 p-3 bg-white/90 rounded border border-sky-200 font-mono text-xs text-slate-700 whitespace-pre-wrap border-dashed">
+                        <span className="font-sans font-semibold text-[11px] text-slate-500 block mb-1">
+                          [Raw Model Generation — Unverified / Non-Authoritative]:
+                        </span>
+                        {result.retrieval_metadata.raw_model_generation}
+                      </div>
+                    )}
+                  </div>
+                )}
             </div>
           </div>
         ) : (

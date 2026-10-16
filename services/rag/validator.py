@@ -30,6 +30,108 @@ class CitationValidator:
         self.require_citations_on_all_claims = require_citations_on_all_claims
         self.verifier = verifier or ClaimVerifier()
 
+    @classmethod
+    def is_clean_abstention(cls, text: str) -> bool:
+        """
+        Determine if an answer is a genuinely clean explicit abstention, as opposed to
+        substantive legal prose that happens to begin with 'INSUFFICIENT EVIDENCE'.
+
+        A genuinely clean abstention MUST:
+        1. Start with an explicit abstention declaration (e.g. 'INSUFFICIENT EVIDENCE' or
+           'No relevant judgments found in the corpus for this query.').
+        2. Be concise: at most 2 lines and at most 300 characters.
+        3. Not contain citations ([E#]).
+        4. Not introduce substantive legal claims, holdings, or factual assertions;
+           any accompanying text must strictly describe evidentiary deficiency or absence.
+        """
+        if not text or not isinstance(text, str):
+            return False
+
+        trimmed = text.strip()
+        lower = trimmed.lower()
+
+        # 1. Check for abstention prefix / phrase
+        prefix_match = re.match(r'^insufficient\s+evidence(?:\s*:\s*|\s+-\s*|\s+)?', lower)
+        is_no_relevant = (lower == "no relevant judgments found in the corpus for this query.")
+        if not prefix_match and not is_no_relevant:
+            return False
+
+        # 2. Check structure and brevity (multi-paragraph text is never a clean abstention)
+        lines = [l.strip() for l in trimmed.splitlines() if l.strip()]
+        if len(lines) > 2 or len(trimmed) > 300:
+            return False
+
+        # 3. Must not contain citation markers
+        if re.search(r'\[(?:E\d+|E#|E|evidence|source|ref)[^\]]*\]', trimmed, re.IGNORECASE):
+            return False
+
+        # 4. Check remainder text for evidence deficiency indicators
+        # If pure abstention declaration with no remainder, it is clean
+        if lower in ["insufficient evidence", "insufficient evidence.", "insufficient evidence:"]:
+            return True
+
+        if is_no_relevant:
+            return True
+
+        if prefix_match:
+            remainder = lower[prefix_match.end():].strip()
+        else:
+            remainder = lower
+
+        if not remainder:
+            return True
+
+        # Deficiency keywords that characterize genuine abstention rationales
+        deficiency_indicators = [
+            "not provide", "not contain", "no relevant", "do not", "does not",
+            "fails to", "cannot be determined", "not present", "disjoint",
+            "inadequate", "unsupported", "lacks", "none are present", "none present",
+            "unable to", "not found", "insufficient", "no evidence", "missing",
+            "do not support", "does not support", "cannot answer", "not established",
+            "not enough", "absence of"
+        ]
+
+        has_deficiency = any(indicator in remainder for indicator in deficiency_indicators)
+        if not has_deficiency:
+            return False
+
+        # 5. Substantive legal holding or factual assertion patterns that must NEVER appear in a clean abstention
+        substantive_patterns = [
+            # Adjudicative rulings & holdings
+            r'\b(?:held|ruled|decided|concluded|ordered|granted|dismissed|allowed|permitted|acquitted|convicted)\b',
+            # Litigation parties & proceedings
+            r'\b(?:appellant|petitioner|respondent|accused|prosecution|plaintiff|defendant|writ petition|civil appeal|criminal appeal|full bench|division bench)\b',
+            # Substantive legal rules & affirmative powers
+            r'\b(?:rules?\s+(?:can|cannot|may|must|shall)\s+be|power\s+under\s+article|governor\s+has|officer\s+can|employer\s+may|criteria\s+may|authority\s+may)\b',
+            # Case facts & specific statutory actions
+            r'\b(?:scored\s+\d+|vacancies\s+were|rules\s+were\s+framed|notified\s+in\s+\d+|filed\s+(?:a\s+)?(?:writ|appeal|petition)|preliminary\s+examination)\b',
+            r'\b(?:unilaterally\s+extend|extend\s+the\s+\d+-day|borrower\s+consent)\b'
+        ]
+        for pat in substantive_patterns:
+            if re.search(pat, remainder):
+                return False
+
+        # 6. Contrastive pivots that transition from deficiency to affirmative assertions
+        # Genuine abstentions only contrast into absence (e.g. "...inquires about Section 36A, but none are present...")
+        contrastive_match = re.search(r'\b(?:but|however|although|though|while|yet|nevertheless)\s+(.*)', remainder)
+        if contrastive_match:
+            after_pivot = contrastive_match.group(1).strip()
+            # The clause following a contrastive pivot MUST explicitly declare deficiency/absence
+            if not any(ind in after_pivot for ind in ["none are present", "none present", "no relevant", "not present", "not found", "no evidence", "not provide", "not contain", "neither"]):
+                return False
+
+        # 7. Multi-clause and sentence validation across punctuation (periods, semicolons, em-dashes, colons, and clause conjunctions)
+        clauses = [s.strip() for s in re.split(r'(?:(?<=[\.\?!])\s+|;\s*|:\s*|\s+[—–-]\s+|,\s+(?:and|or|while|whereas|although|though|because)\s+)', remainder) if s.strip()]
+        if len(clauses) > 1:
+            for c in clauses[1:]:
+                # Subsequent clauses must describe evidence deficiency, absence, or scoping
+                clause_has_deficiency = any(ind in c for ind in deficiency_indicators)
+                is_scoping = any(sc in c for sc in ["to answer this question", "in retrieved evidence", "in the corpus", "on this issue"])
+                if not (clause_has_deficiency or is_scoping):
+                    return False
+
+        return True
+
     def validate(
         self,
         answer: str,
@@ -89,13 +191,9 @@ class CitationValidator:
         supplied_ids: Set[str] = {ep.evidence_id.upper() for ep in supplied_evidence}
         validation_notes: List[str] = []
 
-        # 1. Check for explicit abstention / insufficient evidence
-        # Must start with or explicitly declare insufficient evidence rather than just mention it in passing
-        ans_lower = ans_trimmed.lower()
-        is_explicit_abstention = (
-            ans_lower.startswith("insufficient evidence") or
-            ans_lower == "no relevant judgments found in the corpus for this query."
-        )
+        # 1. Check for explicit clean abstention / insufficient evidence
+        # Must be a genuinely clean abstention rather than substantive prose with an abstention prefix
+        ans_clean_abstention = self.is_clean_abstention(ans_trimmed)
 
         # 2. Extract citation tags & malformed markers
         raw_matches = self.RE_CITATION_TAG.findall(answer)
@@ -110,9 +208,9 @@ class CitationValidator:
                 seen.add(cid.upper())
                 unique_cited.append(cid.upper())
 
-        # If answer is explicit abstention and has NO citations, handle cleanly
-        if is_explicit_abstention and len(unique_cited) == 0:
-            validation_notes.append("System explicitly declared abstention due to insufficient evidence.")
+        # If answer is a genuinely clean explicit abstention and has NO citations, handle cleanly
+        if ans_clean_abstention and len(unique_cited) == 0:
+            validation_notes.append("System explicitly declared clean abstention due to insufficient evidence.")
             result = CitationValidationResult(
                 is_valid=True,
                 validation_status="valid",
@@ -181,9 +279,10 @@ class CitationValidator:
                     "order:", "civil appeal", "criminal appeal", "writ petition"
                 ]
             )
-            is_meta = is_heading or is_bench_header or is_structural or any(
+            is_clean_abs_sentence = s.lower().startswith("insufficient evidence") and self.is_clean_abstention(s)
+            is_meta = is_heading or is_bench_header or is_structural or is_clean_abs_sentence or any(
                 s.lower().startswith(m) for m in [
-                    "insufficient evidence", "as stated above", "in conclusion",
+                    "as stated above", "in conclusion",
                     "to summarize", "note:", "disclaimer:", "###", "##", "#"
                 ]
             )

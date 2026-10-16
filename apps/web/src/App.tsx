@@ -70,7 +70,10 @@ export const App: React.FC = () => {
             <AnswerDisplay result={result} onCitationClick={handleCitationClick} />
 
             {/* Validation & Grounding Metrics */}
-            <ValidationSummary validation={result.citation_validation} />
+            <ValidationSummary
+              validation={result.citation_validation}
+              isAbstention={result.verification_badge === 'insufficient_evidence' || result.status === 'insufficient_evidence'}
+            />
 
             {/* Claim-by-Claim Verification Audit */}
             {result.claims && result.claims.length > 0 && (
