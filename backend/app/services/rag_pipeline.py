@@ -647,6 +647,7 @@ class RAGPipeline:
 
             except Exception as ge:
                 logger.warning(f"Error querying Neo4j Knowledge Graph ({ge}). Using in-memory graph.")
+                self.is_connected = False
                 graph_results = []
 
         # Fallback to In-Memory Graph if Neo4j is offline or returned no results

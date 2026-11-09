@@ -235,32 +235,48 @@ Please answer the query thoroughly in English following the System Directives:
         """Deterministic legal response generator when external API is unreachable."""
         q_lower = query.lower()
 
-        # Identify subject
-        if "murder" in q_lower or "302" in q_lower or "103" in q_lower:
+        # Identify subject (supports English and Hindi keywords)
+        if (
+            "murder" in q_lower or "302" in q_lower or "103" in q_lower
+            or "हत्या" in q_lower or "कत्ल" in q_lower
+        ):
             old_law = "Section 302 of the Indian Penal Code (IPC), 1860"
             new_law = "Section 103 of the Bharatiya Nyaya Sanhita (BNS), 2023"
-            subject = "Murder"
+            subject = "Punishment for Murder"
             details = (
-                "Whoever commits murder is punishable with death, or imprisonment for life, and fine. "
-                "The substantive elements of the offense remain identical in Section 103 of BNS 2023."
+                "Whoever commits murder is punishable with death, or imprisonment for life, and shall also be liable to fine. "
+                "The substantive offense is now governed under Section 103(1) of BNS 2023. Additionally, Section 103(2) "
+                "specifically penalizes mob lynching and group murder with life imprisonment or death."
             )
-        elif "cheating" in q_lower or "fraud" in q_lower or "420" in q_lower or "318" in q_lower:
+        elif (
+            "cheating" in q_lower or "fraud" in q_lower or "420" in q_lower or "318" in q_lower
+            or "धोखाधड़ी" in q_lower or "ठगी" in q_lower
+        ):
             old_law = "Section 420 of the Indian Penal Code (IPC), 1860"
             new_law = "Section 318 of the Bharatiya Nyaya Sanhita (BNS), 2023"
             subject = "Cheating and Dishonestly Inducing Delivery of Property"
             details = (
-                "Cheating and dishonest inducement of property is now codified under Section 318 of BNS 2023. "
+                "Cheating and dishonest inducement of property is codified under Section 318 of BNS 2023. "
                 "Punishment includes imprisonment for a term which may extend to seven years, and fine."
             )
-        elif "fir" in q_lower or "police" in q_lower or "154" in q_lower or "173" in q_lower:
+        elif (
+            "fir" in q_lower or "police" in q_lower or "154" in q_lower or "173" in q_lower
+            or "एफआईआर" in query or "जीरो" in query or "दर्ज" in query or "थाना" in query
+        ):
             old_law = "Section 154 of the Code of Criminal Procedure (CrPC), 1973"
             new_law = "Section 173 of the Bharatiya Nagarik Suraksha Sanhita (BNSS), 2023"
-            subject = "First Information Report (FIR)"
+            subject = "First Information Report (FIR) & Zero FIR Legality"
             details = (
-                "Under Section 173 of BNSS, an FIR can now be filed electronically (e-FIR), and the Zero FIR concept "
-                "is formalized, enabling any citizen to lodge an FIR at any police station regardless of jurisdiction."
+                "Under Section 173 of the Bharatiya Nagarik Suraksha Sanhita (BNSS), 2023 (replacing Section 154 CrPC), "
+                "the concept of Zero FIR is formally codified into statute. Any citizen can lodge an FIR at ANY police station "
+                "regardless of territorial jurisdiction. The station must immediately record the information, provide a free copy to "
+                "the complainant, and transfer the case to the competent jurisdictional police station. "
+                "Furthermore, Section 173(1) BNSS allows information to be submitted electronically (e-FIR), which must be signed within three days."
             )
-        elif "evidence" in q_lower or "electronic" in q_lower or "65b" in q_lower or "63" in q_lower:
+        elif (
+            "evidence" in q_lower or "electronic" in q_lower or "65b" in q_lower or "63" in q_lower
+            or "सबूत" in query or "साक्ष्य" in query
+        ):
             old_law = "Section 65B of the Indian Evidence Act (IEA), 1872"
             new_law = "Section 63 of the Bharatiya Sakshya Adhiniyam (BSA), 2023"
             subject = "Admissibility of Electronic Records"
@@ -269,12 +285,12 @@ Please answer the query thoroughly in English following the System Directives:
                 "server logs, digital records, smartphone messages, and GPS location records."
             )
         else:
-            old_law = "Relevant sections of the Indian Penal Code (IPC)"
-            new_law = "Bharatiya Nyaya Sanhita (BNS), 2023"
+            old_law = "Relevant sections of the Indian Penal Code (IPC) / CrPC"
+            new_law = "Bharatiya Nyaya Sanhita (BNS) / BNSS, 2023"
             subject = "General Legal Assessment"
             details = (
-                "Under India's criminal legal framework (BNS, BNSS, and BSA in effect from July 1, 2024), "
-                "citizens are protected against unlawful acts and have full recourse through jurisdictional courts."
+                "Under India's modern criminal legal framework (BNS, BNSS, and BSA effective July 1, 2024), "
+                "citizens are protected against unlawful acts and have full recourse through jurisdictional courts and legal aid authorities."
             )
 
         profile_intro = {
@@ -295,8 +311,8 @@ Please answer the query thoroughly in English following the System Directives:
 
 ### 2. Immediate Recommended Steps
 1. Document all evidence, incident details, messages, or relevant records.
-2. If this involves a cognizable offense, approach your nearest police station to lodge an FIR under Section 173 BNSS (Zero FIR is permitted).
-3. You can also file online grievances via official state police citizen portals.
+2. If this involves a cognizable offense, approach your nearest police station to lodge an FIR under Section 173 BNSS (Zero FIR is fully legal and mandatory to accept).
+3. You can also file online grievances via official state police citizen portals or National Cyber Crime Reporting Portal.
 
 ### 3. Free Legal Aid & Helplines
 - **National Legal Aid Helpline**: Call **15100** (Toll-Free, 24x7) for free legal aid provided by NALSA / DLSA.
@@ -317,6 +333,7 @@ Please answer the query thoroughly in English following the System Directives:
             (r"(?:Section|Sec\.)?\s*(\d+[A-Za-z]?)\s*(?:of\s*)?(?:the\s*)?BNSS", "Bharatiya Nagarik Suraksha Sanhita, 2023"),
             (r"(?:Section|Sec\.)?\s*(\d+[A-Za-z]?)\s*(?:of\s*)?(?:the\s*)?BSA", "Bharatiya Sakshya Adhiniyam, 2023"),
             (r"(?:Section|Sec\.)?\s*(\d+[A-Za-z]?)\s*(?:of\s*)?(?:the\s*)?IPC", "Indian Penal Code, 1860 (Historical)"),
+            (r"(?:Section|Sec\.)?\s*(\d+[A-Za-z]?)\s*(?:of\s*)?(?:the\s*)?CrPC", "Code of Criminal Procedure, 1973 (Historical)"),
         ]
         seen = set()
         for pat, act in patterns:
@@ -330,4 +347,27 @@ Please answer the query thoroughly in English following the System Directives:
                         "subject": f"Statutory Provision under {act}",
                         "key_changes": f"Governed under {act}"
                     })
+
+        # Add context-driven citations if empty
+        if not citations:
+            t_lower = text.lower()
+            if "173" in text or "fir" in t_lower or "एफआईआर" in text:
+                citations.append({
+                    "section": "Section 173, BNSS 2023",
+                    "subject": "Information in cognizable cases & Zero FIR (replaces Section 154 CrPC)",
+                    "key_changes": "Formalizes Zero FIR; enables e-FIR registration."
+                })
+            if "103" in text or "302" in text or "murder" in t_lower:
+                citations.append({
+                    "section": "Section 103, BNS 2023",
+                    "subject": "Punishment for Murder (replaces Section 302 IPC)",
+                    "key_changes": "Sub-clause (2) defines group mob lynching."
+                })
+            if "318" in text or "420" in text or "cheating" in t_lower:
+                citations.append({
+                    "section": "Section 318, BNS 2023",
+                    "subject": "Cheating & Dishonest Inducement (replaces Section 420 IPC)",
+                    "key_changes": "Consolidates cheating penalties up to seven years."
+                })
+
         return citations[:5]
