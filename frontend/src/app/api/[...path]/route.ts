@@ -32,6 +32,7 @@ async function handleProxy(req: NextRequest, { params }: { params: { path: strin
       method: req.method,
       headers,
       body,
+      signal: AbortSignal.timeout(60000),
     });
 
     const resHeaders = new Headers();

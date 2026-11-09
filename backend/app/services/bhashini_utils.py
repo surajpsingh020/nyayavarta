@@ -25,8 +25,8 @@ logger = logging.getLogger(__name__)
 # Cache for pipeline configurations: (task_type, source_lang, target_lang) -> config dict
 _PIPELINE_CACHE: dict = {}
 
-# Default HTTP request timeout in seconds
-BHASHINI_TIMEOUT = 12.0
+# Default HTTP request timeout in seconds (fast failover to deterministic legal engine)
+BHASHINI_TIMEOUT = 3.0
 
 
 def is_dummy_or_empty_key(key: Optional[str]) -> bool:
@@ -151,10 +151,12 @@ class BhashiniService:
                 else:
                     body = await resp.text()
                     logger.warning(f"BHASHINI pipeline query returned status {resp.status}: {body}")
+                    _PIPELINE_CACHE[cache_key] = None
+                    return None
         except Exception as e:
             logger.warning(f"BHASHINI pipeline config fetch failed: {e}")
-
-        return None
+            _PIPELINE_CACHE[cache_key] = None
+            return None
 
     async def detect_language(self, text: str) -> str:
         """Detect the language of the provided text.

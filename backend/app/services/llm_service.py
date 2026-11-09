@@ -5,15 +5,20 @@ old-to-new Indian law mapping (IPC->BNS, CrPC->BNSS, Evidence Act->BSA),
 citation extraction, and legal aid routing (NALSA / DLSA / 15100).
 """
 
+import asyncio
 import json
 import logging
 import re
+import time
 from typing import Any, Dict, List, Optional
 
 from app.config import get_settings
 from app.models.schemas import UserProfile
 
 logger = logging.getLogger(__name__)
+
+# Cooldown timestamp if Gemini returns 429 quota exhaustion to prevent blocking retries
+_GEMINI_QUOTA_EXHAUSTED_UNTIL: float = 0.0
 
 # System prompt defining Nyayavarta legal AI persona
 SYSTEM_PROMPT = """You are Nyayavarta (न्यायवार्ता), an expert, empathetic, and authoritative legal assistant designed to help Indian citizens navigate the Indian legal system, understand their rights, and map old Indian laws to new laws.
@@ -157,21 +162,39 @@ Please answer the query thoroughly in English following the System Directives:
 
         # 3. Call Gemini API
         english_text = ""
-        if self.client:
+        global _GEMINI_QUOTA_EXHAUSTED_UNTIL
+        now = time.time()
+
+        if self.client and now >= _GEMINI_QUOTA_EXHAUSTED_UNTIL:
             try:
                 from google.genai import types
-                response = self.client.models.generate_content(
-                    model=self.settings.GEMINI_MODEL,
-                    contents=user_prompt,
-                    config=types.GenerateContentConfig(
-                        system_instruction=SYSTEM_PROMPT,
-                        temperature=0.2,
+
+                def _call_gemini():
+                    return self.client.models.generate_content(
+                        model=self.settings.GEMINI_MODEL,
+                        contents=user_prompt,
+                        config=types.GenerateContentConfig(
+                            system_instruction=SYSTEM_PROMPT,
+                            temperature=0.2,
+                        )
                     )
+
+                response = await asyncio.wait_for(
+                    asyncio.to_thread(_call_gemini),
+                    timeout=8.0
                 )
                 if response and response.text:
                     english_text = response.text.strip()
             except Exception as e:
-                logger.error(f"Gemini API call failed ({e}). Falling back to internal legal generator.")
+                err_str = str(e)
+                if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
+                    _GEMINI_QUOTA_EXHAUSTED_UNTIL = time.time() + 3600
+                    logger.warning(
+                        "Gemini API quota exhausted (429 RESOURCE_EXHAUSTED). "
+                        "Entering 1-hour fast cooldown. Switching to internal deterministic legal engine."
+                    )
+                else:
+                    logger.error(f"Gemini API call failed ({e}). Falling back to internal legal generator.")
 
         # 4. Fallback generator if API call didn't return text
         if not english_text:
@@ -192,7 +215,9 @@ Please answer the query thoroughly in English following the System Directives:
         if not text or not text.strip() or source_lang == target_lang:
             return text
 
-        if not self.client:
+        global _GEMINI_QUOTA_EXHAUSTED_UNTIL
+        now = time.time()
+        if not self.client or now < _GEMINI_QUOTA_EXHAUSTED_UNTIL:
             return text
 
         lang_names = {
@@ -214,15 +239,27 @@ Please answer the query thoroughly in English following the System Directives:
 
         try:
             from google.genai import types
-            response = self.client.models.generate_content(
-                model=self.settings.GEMINI_MODEL,
-                contents=prompt,
-                config=types.GenerateContentConfig(temperature=0.1)
+
+            def _call_translate():
+                return self.client.models.generate_content(
+                    model=self.settings.GEMINI_MODEL,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(temperature=0.1)
+                )
+
+            response = await asyncio.wait_for(
+                asyncio.to_thread(_call_translate),
+                timeout=6.0
             )
             if response and response.text:
                 return response.text.strip()
         except Exception as e:
-            logger.warning(f"LLM translation failed ({e}). Returning original text.")
+            err_str = str(e)
+            if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
+                _GEMINI_QUOTA_EXHAUSTED_UNTIL = time.time() + 3600
+                logger.warning("Gemini API quota exhausted (429) during translation. Entering 1-hour fast cooldown.")
+            else:
+                logger.warning(f"LLM translation failed ({e}). Returning original text.")
 
         return text
 
@@ -272,6 +309,33 @@ Please answer the query thoroughly in English following the System Directives:
                 "regardless of territorial jurisdiction. The station must immediately record the information, provide a free copy to "
                 "the complainant, and transfer the case to the competent jurisdictional police station. "
                 "Furthermore, Section 173(1) BNSS allows information to be submitted electronically (e-FIR), which must be signed within three days."
+            )
+        elif (
+            "arrest" in q_lower or "गिरफ्तारी" in q_lower or "35" in q_lower or "custody" in q_lower or "कस्टडी" in q_lower
+        ):
+            old_law = "Section 41A, 50, and 54 of the Code of Criminal Procedure (CrPC), 1973"
+            new_law = "Section 35 and Section 53 of the Bharatiya Nagarik Suraksha Sanhita (BNSS), 2023"
+            subject = "Citizen Rights Upon Arrest & Mandatory Safeguards"
+            details = (
+                "Under Section 35 of BNSS 2023, arrest procedures have been reformed with vital safeguards: "
+                "(1) For offenses punishable with less than 7 years imprisonment, prior permission of a Deputy Superintendent of Police (DSP) is mandatory before arresting senior citizens or infirm persons. "
+                "(2) Right to receive a written Notice of Appearance under Section 35(3) BNSS before arrest. "
+                "(3) Right to be informed immediately of the full grounds of arrest and bail eligibility (Section 47 BNSS / formerly Section 50 CrPC). "
+                "(4) Right to consult and be represented by an advocate of choice during interrogation. "
+                "(5) Mandatory medical examination of the arrested person upon detention under Section 53 BNSS."
+            )
+        elif (
+            "legal aid" in q_lower or "nalsa" in q_lower or "dlsa" in q_lower or "15100" in q_lower
+            or "वरिष्ठ" in query or "senior" in q_lower or "सहायता" in query
+        ):
+            old_law = "Legal Services Authorities Act, 1987 & Article 39A of the Constitution of India"
+            new_law = "NALSA Legal Services Authorities Framework & Maintenance and Welfare of Parents and Senior Citizens Act, 2007"
+            subject = "Free Legal Aid & Senior Citizen Welfare Entitlements"
+            details = (
+                "Under Article 39A of the Constitution of India and Section 12 of the Legal Services Authorities Act, 1987: "
+                "(1) Free legal representation and advice are guaranteed to Senior Citizens, women, children, members of SC/ST communities, and individuals in custody. "
+                "(2) The National Legal Aid Helpline 15100 operates 24x7 toll-free across all States and District Legal Services Authorities (DLSA). "
+                "(3) Senior citizens facing abandonment, maintenance denial, or property disputes have statutory recourse before Maintenance Tribunals with free doorstep paralegal assistance."
             )
         elif (
             "evidence" in q_lower or "electronic" in q_lower or "65b" in q_lower or "63" in q_lower
@@ -368,6 +432,18 @@ Please answer the query thoroughly in English following the System Directives:
                     "section": "Section 318, BNS 2023",
                     "subject": "Cheating & Dishonest Inducement (replaces Section 420 IPC)",
                     "key_changes": "Consolidates cheating penalties up to seven years."
+                })
+            if "35" in text or "arrest" in t_lower or "गिरफ्तारी" in text:
+                citations.append({
+                    "section": "Section 35 & 53, BNSS 2023",
+                    "subject": "Rights of Arrested Person & Procedures (replaces Section 41A, 50, 54 CrPC)",
+                    "key_changes": "DSP permission for senior citizens; mandatory medical examination."
+                })
+            if "15100" in text or "legal aid" in t_lower or "विधिक सहायता" in text:
+                citations.append({
+                    "section": "Section 12, Legal Services Authorities Act, 1987",
+                    "subject": "Entitlement to Free Legal Aid & 15100 Helpline",
+                    "key_changes": "Free state-sponsored counsel for eligible citizens and senior citizens."
                 })
 
         return citations[:5]

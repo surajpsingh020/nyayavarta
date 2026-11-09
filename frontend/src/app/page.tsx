@@ -16,6 +16,7 @@ import ProfileSelector from '@/components/ProfileSelector';
 import ChatInterface from '@/components/ChatInterface';
 import DocumentUpload from '@/components/DocumentUpload';
 import { UserProfileType, checkHealth, UploadResponse } from '@/lib/api';
+import { getUITranslations } from '@/lib/i18n';
 
 export default function Home() {
   const [selectedLanguage, setSelectedLanguage] = useState('hi');
@@ -23,6 +24,8 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<'chat' | 'upload' | 'reference'>('chat');
   const [backendStatus, setBackendStatus] = useState<'checking' | 'healthy' | 'offline'>('checking');
   const [uploadedFiles, setUploadedFiles] = useState<UploadResponse[]>([]);
+
+  const t = getUITranslations(selectedLanguage);
 
   useEffect(() => {
     checkHealth()
@@ -44,23 +47,23 @@ export default function Home() {
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <span className="bg-accent-500 text-white font-bold text-[10px] px-2 py-0.5 rounded uppercase">
-              Emergency & Aid
+              {t.emergencyTitle}
             </span>
             <span className="font-medium text-gray-200">
-              National Legal Aid Helpline (NALSA / DLSA):
+              {t.legalAidText}
             </span>
             <a
               href="tel:15100"
               className="font-bold text-accent-300 hover:text-accent-200 underline inline-flex items-center gap-1"
             >
-              <PhoneCall className="w-3 h-3" /> 15100 (Toll-Free, 24x7)
+              <PhoneCall className="w-3 h-3" /> {t.tollFree}
             </a>
           </div>
 
           <div className="flex items-center gap-4 text-gray-300 text-[11px]">
-            <span>Police: <strong>112</strong></span>
-            <span>Cyber Crime: <strong>1930</strong></span>
-            <span>Women: <strong>1091</strong></span>
+            <span>{t.police}</span>
+            <span>{t.cyberCrime}</span>
+            <span>{t.women}</span>
           </div>
         </div>
       </div>
@@ -76,7 +79,7 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-xl font-extrabold text-primary-900 tracking-tight">
-                  न्यायवार्ता
+                  {t.appTitle}
                 </h1>
                 <span className="text-xs font-semibold text-gray-400">|</span>
                 <span className="text-base font-bold text-gray-800">
@@ -84,11 +87,11 @@ export default function Home() {
                 </span>
                 <span className="hidden sm:inline-flex items-center gap-1 bg-green-50 text-green-700 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-green-200">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
-                  {backendStatus === 'healthy' ? 'API Online' : 'Active'}
+                  {backendStatus === 'healthy' ? t.apiOnline : 'Active'}
                 </span>
               </div>
               <p className="text-xs text-gray-500">
-                Multilingual Legal Assistant for Indian Citizens (IPC → BNS / CrPC → BNSS / BSA)
+                {t.appSubtitle}
               </p>
             </div>
           </div>
@@ -118,7 +121,7 @@ export default function Home() {
               }`}
             >
               <MessageSquare className="w-4 h-4" />
-              Legal Chat (कानूनी परामर्श)
+              {t.tabChat}
             </button>
 
             <button
@@ -131,7 +134,7 @@ export default function Home() {
               }`}
             >
               <Upload className="w-4 h-4" />
-              Document Ingestion (दस्तावेज़ जोड़ें)
+              {t.tabUpload}
             </button>
 
             <button
@@ -144,13 +147,13 @@ export default function Home() {
               }`}
             >
               <BookOpen className="w-4 h-4" />
-              Law Transition Matrix (कानून चार्ट)
+              {t.tabMatrix}
             </button>
           </nav>
 
           <div className="hidden md:flex items-center gap-2 text-xs text-gray-500">
             <ShieldCheck className="w-4 h-4 text-primary-600" />
-            <span>Hybrid RAG + Gemini 3.8 Flash</span>
+            <span>{t.ragTag}</span>
           </div>
         </div>
 
@@ -162,6 +165,7 @@ export default function Home() {
               <ProfileSelector
                 selectedProfile={selectedProfile}
                 onProfileChange={setSelectedProfile}
+                selectedLanguage={selectedLanguage}
               />
             </div>
 
@@ -258,10 +262,10 @@ export default function Home() {
           <div className="card space-y-4">
             <div>
               <h3 className="text-base font-bold text-gray-900">
-                Key Criminal Law Transitions (IPC → BNS / CrPC → BNSS / IEA → BSA)
+                {t.matrixTitle}
               </h3>
               <p className="text-xs text-gray-500 mt-1">
-                Effective July 1, 2024, Indian criminal law transitioned to modernized statutes. Here are the most critical section mappings:
+                {t.matrixSubtitle}
               </p>
             </div>
 
@@ -269,10 +273,10 @@ export default function Home() {
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
                   <tr className="bg-primary-50 text-primary-950 border-b border-primary-200">
-                    <th className="p-3 font-bold">Subject / Crime</th>
-                    <th className="p-3 font-bold">Old Law Section</th>
-                    <th className="p-3 font-bold">New Law Section (2023)</th>
-                    <th className="p-3 font-bold">Key Transition Note</th>
+                    <th className="p-3 font-bold">{t.matrixHeaders.crime}</th>
+                    <th className="p-3 font-bold">{t.matrixHeaders.oldLaw}</th>
+                    <th className="p-3 font-bold">{t.matrixHeaders.newLaw}</th>
+                    <th className="p-3 font-bold">{t.matrixHeaders.note}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">

@@ -3,6 +3,7 @@
 import React from 'react';
 import { User, GraduationCap, HeartHandshake, Briefcase } from 'lucide-react';
 import { UserProfileType } from '@/lib/api';
+import { getUITranslations } from '@/lib/i18n';
 
 interface ProfileOption {
   id: UserProfileType;
@@ -46,23 +47,31 @@ export const USER_PROFILES: ProfileOption[] = [
 interface ProfileSelectorProps {
   selectedProfile: UserProfileType;
   onProfileChange: (profile: UserProfileType) => void;
+  selectedLanguage?: string;
   className?: string;
 }
 
 export default function ProfileSelector({
   selectedProfile,
   onProfileChange,
+  selectedLanguage = 'hi',
   className = '',
 }: ProfileSelectorProps) {
+  const t = getUITranslations(selectedLanguage);
+
   return (
     <div className={`space-y-2 ${className}`}>
       <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500">
-        User Persona / उपयोगकर्ता प्रोफ़ाइल
+        {t.personaHeader}
       </label>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
         {USER_PROFILES.map((profile) => {
           const Icon = profile.icon;
           const isSelected = selectedProfile === profile.id;
+          const localized = t.personas[profile.id];
+          const title = localized ? localized.title : profile.label;
+          const desc = localized ? localized.desc : profile.description;
+
           return (
             <button
               key={profile.id}
@@ -83,16 +92,16 @@ export default function ProfileSelector({
                   <Icon className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="text-xs font-bold text-primary-700 block leading-tight">
-                    {profile.hindiLabel}
+                  <span className="text-sm font-bold text-gray-900 block leading-tight">
+                    {selectedLanguage === 'hi' ? profile.hindiLabel : profile.label}
                   </span>
-                  <span className="text-sm font-semibold text-gray-900 block leading-tight">
-                    {profile.label}
+                  <span className="text-[11px] font-medium text-primary-700 block leading-tight">
+                    {selectedLanguage === 'hi' ? profile.label : profile.hindiLabel}
                   </span>
                 </div>
               </div>
               <p className="text-[11px] text-gray-500 line-clamp-2 mt-1">
-                {profile.description}
+                {desc}
               </p>
             </button>
           );

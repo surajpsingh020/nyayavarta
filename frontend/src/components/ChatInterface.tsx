@@ -22,6 +22,7 @@ import {
   UserProfileType,
   ChatResponse,
 } from '@/lib/api';
+import { getUITranslations } from '@/lib/i18n';
 import AudioPlayer from './AudioPlayer';
 import CitationCard from './CitationCard';
 
@@ -31,34 +32,12 @@ interface ChatInterfaceProps {
   className?: string;
 }
 
-const SAMPLE_PROMPTS = [
-  {
-    text: 'एफआईआर (FIR) कैसे दर्ज कराएं? क्या Zero FIR मान्य है?',
-    lang: 'hi',
-    label: 'FIR / Zero FIR (BNSS 173)',
-  },
-  {
-    text: 'पुराने IPC 420 और नए BNS 318 (धोखाधड़ी) में क्या अंतर है?',
-    lang: 'hi',
-    label: 'Cheating (IPC 420 → BNS 318)',
-  },
-  {
-    text: 'What are my rights upon arrest under BNSS Section 35?',
-    lang: 'en',
-    label: 'Arrest Rights (BNSS 35)',
-  },
-  {
-    text: 'वरिष्ठ नागरिकों के लिए मुफ्त कानूनी सहायता और 15100 हेल्पलाइन की जानकारी दें।',
-    lang: 'hi',
-    label: 'Free Legal Aid (NALSA 15100)',
-  },
-];
-
 export default function ChatInterface({
   selectedLanguage,
   selectedProfile,
   className = '',
 }: ChatInterfaceProps) {
+  const t = getUITranslations(selectedLanguage);
   const [messages, setMessages] = useState<MessageItem[]>([]);
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -281,13 +260,13 @@ export default function ChatInterface({
           </div>
           <div>
             <h2 className="text-base font-bold tracking-tight flex items-center gap-2">
-              न्यायवार्ता AI Assistant
+              {t.chatHeader}
               <span className="text-[10px] bg-accent-500/20 text-accent-200 border border-accent-400/30 px-2 py-0.5 rounded-full font-medium">
                 Live RAG
               </span>
             </h2>
             <p className="text-[11px] text-primary-200">
-              Indian Penal Code (IPC) → Bharatiya Nyaya Sanhita (BNS) & Legal Aid
+              {t.chatSubtitle}
             </p>
           </div>
         </div>
@@ -316,20 +295,20 @@ export default function ChatInterface({
             </div>
             <div className="max-w-md space-y-1.5">
               <h3 className="text-lg font-bold text-gray-800">
-                नमस्ते! How can Nyayavarta assist you today?
+                {t.chatGreeting}
               </h3>
               <p className="text-xs text-gray-500 leading-relaxed">
-                Type in your language or click the microphone to speak. Our hybrid legal RAG will map old IPC laws to new BNS provisions and provide step-by-step aid.
+                {t.chatGreetingSub}
               </p>
             </div>
 
             {/* Quick Sample Prompts */}
             <div className="w-full max-w-xl text-left space-y-2 mt-2">
               <span className="text-[11px] font-semibold uppercase text-gray-400 tracking-wider block">
-                Suggested Legal Queries (सुझाए गए प्रश्न)
+                {t.suggestedQueriesTitle}
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {SAMPLE_PROMPTS.map((prompt, idx) => (
+                {t.suggestedQueries.map((prompt, idx) => (
                   <button
                     key={idx}
                     type="button"
@@ -483,7 +462,7 @@ export default function ChatInterface({
           <div className="flex items-center justify-between bg-red-50 border border-red-200 rounded-xl px-4 py-2 animate-pulse">
             <div className="flex items-center gap-2 text-red-700 text-xs font-semibold">
               <span className="w-2.5 h-2.5 rounded-full bg-red-600" />
-              Recording Voice Query... ({recordDuration}s)
+              {t.listening} ({recordDuration}s)
             </div>
             <button
               type="button"
@@ -491,7 +470,7 @@ export default function ChatInterface({
               className="flex items-center gap-1 text-xs font-bold bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700"
             >
               <Square className="w-3.5 h-3.5 fill-current" />
-              Stop & Send
+              {t.stopSend}
             </button>
           </div>
         )}
@@ -513,7 +492,7 @@ export default function ChatInterface({
                 ? 'border-red-500 bg-red-500 text-white animate-bounce'
                 : 'border-gray-200 text-gray-600 hover:border-primary-500 hover:text-primary-600 hover:bg-primary-50'
             } disabled:opacity-50`}
-            title={isRecording ? 'Stop recording' : 'Speak your query (बोलकर पूछें)'}
+            title={isRecording ? t.stopSend : 'Speak your query (बोलकर पूछें)'}
             aria-label="Microphone record button"
           >
             <Mic className="w-5 h-5" />
@@ -524,7 +503,7 @@ export default function ChatInterface({
             type="text"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            placeholder="Type your legal query (e.g. IPC 420 vs BNS 318, FIR procedure)..."
+            placeholder={t.inputPlaceholder}
             disabled={isLoading || isRecording}
             className="flex-1 px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm text-gray-900 focus:bg-white focus:border-primary-500 focus:ring-4 focus:ring-primary-100 outline-none transition-all placeholder:text-gray-400 disabled:opacity-50"
           />
