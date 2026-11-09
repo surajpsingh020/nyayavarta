@@ -1,0 +1,74 @@
+{
+  "laws": [
+    {
+      "old_law": "Indian Penal Code (IPC), 1860 - Section 302",
+      "new_law": "Bharatiya Nyaya Sanhita (BNS), 2023 - Section 103",
+      "subject": "Murder",
+      "description": "Whoever commits murder shall be punished with death, or imprisonment for life, and shall also be liable to fine.",
+      "key_changes": "Section number changed from 302 to 103. The substantive provisions remain largely similar."
+    },
+    {
+      "old_law": "Indian Penal Code (IPC), 1860 - Section 376",
+      "new_law": "Bharatiya Nyaya Sanhita (BNS), 2023 - Section 65",
+      "subject": "Rape",
+      "description": "Defines the offence of rape and its punishment, including imprisonment which shall not be less than ten years and may extend to imprisonment for life.",
+      "key_changes": "Section number changed from 376 to 65. Community service introduced as a punishment for certain offences."
+    },
+    {
+      "old_law": "Indian Penal Code (IPC), 1860 - Section 420",
+      "new_law": "Bharatiya Nyaya Sanhita (BNS), 2023 - Section 318",
+      "subject": "Cheating and dishonestly inducing delivery of property",
+      "description": "Whoever cheats and thereby dishonestly induces the person deceived to deliver any property.",
+      "key_changes": "Section number changed from 420 to 318. Provisions remain substantively similar."
+    },
+    {
+      "old_law": "Indian Penal Code (IPC), 1860 - Section 498A",
+      "new_law": "Bharatiya Nyaya Sanhita (BNS), 2023 - Section 86",
+      "subject": "Cruelty by husband or relatives of husband",
+      "description": "Whoever, being the husband or the relative of the husband of a woman, subjects such woman to cruelty shall be punished.",
+      "key_changes": "Section number changed from 498A to 86. Substantive provisions remain similar with enhanced focus on women's safety."
+    },
+    {
+      "old_law": "Indian Penal Code (IPC), 1860 - Section 304B",
+      "new_law": "Bharatiya Nyaya Sanhita (BNS), 2023 - Section 80",
+      "subject": "Dowry death",
+      "description": "Where the death of a woman is caused by burns or bodily injury within seven years of marriage and it is shown that she was subjected to cruelty by husband or relatives in connection with demand for dowry.",
+      "key_changes": "Section number changed from 304B to 80. The provision remains substantively the same."
+    },
+    {
+      "old_law": "Code of Criminal Procedure (CrPC), 1973 - Section 154",
+      "new_law": "Bharatiya Nagarik Suraksha Sanhita (BNSS), 2023 - Section 173",
+      "subject": "First Information Report (FIR)",
+      "description": "Information relating to the commission of a cognizable offence given to the police, recorded as FIR.",
+      "key_changes": "FIR can now also be filed electronically. Zero FIR concept formalized allowing filing at any police station regardless of jurisdiction."
+    },
+    {
+      "old_law": "Code of Criminal Procedure (CrPC), 1973 - Section 41",
+      "new_law": "Bharatiya Nagarik Suraksha Sanhita (BNSS), 2023 - Section 35",
+      "subject": "Arrest without warrant",
+      "description": "Specifies when a police officer may arrest without a warrant.",
+      "key_changes": "Mandatory requirement to display arrest memo. Use of handcuffs restricted to specific categories of offences."
+    },
+    {
+      "old_law": "Indian Evidence Act, 1872 - Section 65B",
+      "new_law": "Bharatiya Sakshya Adhiniyam (BSA), 2023 - Section 63",
+      "subject": "Admissibility of electronic records",
+      "description": "Electronic records are admissible as evidence, subject to conditions laid down.",
+      "key_changes": "Expanded scope of electronic evidence. Includes emails, server logs, digital documents, GPS data, and messages from communication devices."
+    },
+    {
+      "old_law": "Indian Penal Code (IPC), 1860 - Section 379",
+      "new_law": "Bharatiya Nyaya Sanhita (BNS), 2023 - Section 305",
+      "subject": "Theft",
+      "description": "Whoever commits theft shall be punished with imprisonment of either description for a term which may extend to three years, or with fine, or with both.",
+      "key_changes": "Section number changed from 379 to 305. Community service added as possible punishment for petty theft."
+    },
+    {
+      "old_law": "Indian Penal Code (IPC), 1860 - Section 34",
+      "new_law": "Bharatiya Nyaya Sanhita (BNS), 2023 - Section 3(5)",
+      "subject": "Acts done by several persons in furtherance of common intention",
+      "description": "When a criminal act is done by several persons in furtherance of the common intention of all, each of such persons is liable for that act.",
+      "key_changes": "Now covered under Section 3(5) of BNS. The principle of common intention remains the same."
+    }
+  ]
+}
