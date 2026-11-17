@@ -15,7 +15,7 @@ export interface ChatRequest {
   text?: string;
   audio_base64?: string;
   source_language: string;
-  user_profile: UserProfileType;
+  user_profile?: UserProfileType;
 }
 
 export interface ChatResponse {

@@ -10,17 +10,17 @@ import {
   ShieldCheck,
   CheckCircle2,
   ExternalLink,
+  ArrowRight,
+  FileText,
 } from 'lucide-react';
 import LanguageSelector from '@/components/LanguageSelector';
-import ProfileSelector from '@/components/ProfileSelector';
 import ChatInterface from '@/components/ChatInterface';
 import DocumentUpload from '@/components/DocumentUpload';
-import { UserProfileType, checkHealth, UploadResponse } from '@/lib/api';
+import { checkHealth, UploadResponse } from '@/lib/api';
 import { getUITranslations } from '@/lib/i18n';
 
 export default function Home() {
   const [selectedLanguage, setSelectedLanguage] = useState('hi');
-  const [selectedProfile, setSelectedProfile] = useState<UserProfileType>('general');
   const [activeTab, setActiveTab] = useState<'chat' | 'upload' | 'reference'>('chat');
   const [backendStatus, setBackendStatus] = useState<'checking' | 'healthy' | 'offline'>('checking');
   const [uploadedFiles, setUploadedFiles] = useState<UploadResponse[]>([]);
@@ -160,98 +160,116 @@ export default function Home() {
         {/* Tab 1: Chat Interface */}
         {activeTab === 'chat' && (
           <div className="space-y-5">
-            {/* Persona Selector Banner */}
-            <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200">
-              <ProfileSelector
-                selectedProfile={selectedProfile}
-                onProfileChange={setSelectedProfile}
-                selectedLanguage={selectedLanguage}
-              />
-            </div>
-
-            {/* Chat Area */}
             <ChatInterface
               selectedLanguage={selectedLanguage}
-              selectedProfile={selectedProfile}
             />
           </div>
         )}
 
         {/* Tab 2: Document Upload & Knowledge Base */}
         {activeTab === 'upload' && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 space-y-6">
-              <DocumentUpload onUploadSuccess={handleDocumentUploaded} />
-
-              {/* Uploaded Documents History */}
-              <div className="card">
-                <h4 className="font-bold text-gray-800 text-sm mb-3">
-                  Dynamically Ingested Files (अपलोड किए गए दस्तावेज़)
-                </h4>
-                {uploadedFiles.length === 0 ? (
-                  <p className="text-xs text-gray-400 italic">
-                    No custom documents uploaded in this session yet. Uploaded PDF or Word files will be indexed into FAISS vector space and BM25 corpus instantly.
-                  </p>
-                ) : (
-                  <div className="space-y-2">
-                    {uploadedFiles.map((file, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-center justify-between p-3 rounded-xl bg-gray-50 border border-gray-200 text-xs"
-                      >
-                        <div className="flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-green-600" />
-                          <span className="font-semibold text-gray-800">{file.filename}</span>
-                        </div>
-                        <span className="bg-primary-100 text-primary-800 px-2 py-0.5 rounded-full text-[11px] font-medium">
-                          {file.chunks_created} chunks indexed
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                )}
+          <div className="space-y-6">
+            {/* Educational Explainer Banner */}
+            <div className="bg-gradient-to-r from-blue-900 via-primary-900 to-indigo-900 text-white rounded-2xl p-6 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+              <div className="space-y-2 max-w-2xl">
+                <div className="inline-flex items-center gap-1.5 bg-accent-500/20 text-accent-300 border border-accent-400/30 px-2.5 py-0.5 rounded-full text-xs font-semibold">
+                  <FileText className="w-3.5 h-3.5" />
+                  What is Document Upload? (दस्तावेज़ कैसे काम करता है?)
+                </div>
+                <h3 className="text-lg font-bold">
+                  Ask AI Questions Directly About Your Legal Report or FIR Copy
+                </h3>
+                <p className="text-xs text-gray-200 leading-relaxed">
+                  When you upload an FIR copy, court petition, agreement, or police report (PDF/DOCX), Nyayavarta parses its text, segments it into searchable chunks, and indexes it into the Neo4j Knowledge Graph. You can then ask questions in the <strong>Legal Chat</strong> (via text or voice) and the AI will reference your specific document!
+                </p>
               </div>
+
+              <button
+                type="button"
+                onClick={() => setActiveTab('chat')}
+                className="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow transition-all whitespace-nowrap self-start md:self-auto"
+              >
+                Go to Legal Chat <ArrowRight className="w-4 h-4" />
+              </button>
             </div>
 
-            {/* RAG Knowledge Base Stats */}
-            <div className="space-y-4">
-              <div className="card bg-gradient-to-br from-primary-900 to-primary-950 text-white">
-                <h4 className="font-bold text-sm mb-2 text-accent-300">
-                  GraphRAG Architecture (Neo4j)
-                </h4>
-                <p className="text-xs text-gray-300 leading-relaxed mb-4">
-                  Nyayavarta combines Neo4j Knowledge Graph traversal with BM25 keyword search to maximize legal accuracy.
-                </p>
-                <div className="space-y-2.5 text-xs">
-                  <div className="flex justify-between pb-1.5 border-b border-white/10">
-                    <span className="text-gray-300">Knowledge Graph</span>
-                    <span className="font-mono font-semibold text-white">Neo4j (Cypher Traversal)</span>
-                  </div>
-                  <div className="flex justify-between pb-1.5 border-b border-white/10">
-                    <span className="text-gray-300">Keyword Retrieval</span>
-                    <span className="font-mono font-semibold text-white">rank-bm25 (BM25Okapi)</span>
-                  </div>
-                  <div className="flex justify-between pb-1.5 border-b border-white/10">
-                    <span className="text-gray-300">Orchestration</span>
-                    <span className="font-mono font-semibold text-accent-300">LangChain Neo4jGraph</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-300">Statutory Graph Data</span>
-                    <span className="font-mono font-semibold text-white">IPC/CrPC → BNS/BNSS/BSA</span>
-                  </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2 space-y-6">
+                <DocumentUpload onUploadSuccess={handleDocumentUploaded} />
+
+                {/* Uploaded Documents History */}
+                <div className="card">
+                  <h4 className="font-bold text-gray-800 text-sm mb-3 flex items-center justify-between">
+                    <span>Indexed Documents in this Session (अपलोड किए गए दस्तावेज़)</span>
+                    <span className="text-xs font-normal text-gray-500">
+                      {uploadedFiles.length} file(s)
+                    </span>
+                  </h4>
+                  {uploadedFiles.length === 0 ? (
+                    <p className="text-xs text-gray-400 italic">
+                      No documents uploaded yet. Upload a PDF or Word file above (or using the paperclip button in the chat) to index its content into the knowledge graph.
+                    </p>
+                  ) : (
+                    <div className="space-y-2">
+                      {uploadedFiles.map((file, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-center justify-between p-3 rounded-xl bg-gray-50 border border-gray-200 text-xs"
+                        >
+                          <div className="flex items-center gap-2">
+                            <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
+                            <span className="font-semibold text-gray-800">{file.filename}</span>
+                          </div>
+                          <span className="bg-primary-100 text-primary-800 px-2.5 py-0.5 rounded-full text-[11px] font-medium">
+                            {file.chunks_created} chunks in Neo4j
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
 
-              <div className="card">
-                <h4 className="font-bold text-gray-800 text-sm mb-2">
-                  Document Guidelines
-                </h4>
-                <ul className="text-xs text-gray-600 space-y-2 list-disc list-inside">
-                  <li>Supported: FIR copies, court petitions, bail orders, legal contracts.</li>
-                  <li>Text extraction via <strong>PyMuPDF</strong> with page-level metadata.</li>
-                  <li>Max file size: 20MB.</li>
-                  <li>Indexed chunks are automatically retrieved in subsequent chat queries.</li>
-                </ul>
+              {/* RAG Knowledge Base Stats */}
+              <div className="space-y-4">
+                <div className="card bg-gradient-to-br from-primary-900 to-primary-950 text-white">
+                  <h4 className="font-bold text-sm mb-2 text-accent-300">
+                    GraphRAG Architecture (Neo4j)
+                  </h4>
+                  <p className="text-xs text-gray-300 leading-relaxed mb-4">
+                    Nyayavarta combines Neo4j Knowledge Graph traversal with BM25 keyword search to maximize legal accuracy.
+                  </p>
+                  <div className="space-y-2.5 text-xs">
+                    <div className="flex justify-between pb-1.5 border-b border-white/10">
+                      <span className="text-gray-300">Knowledge Graph</span>
+                      <span className="font-mono font-semibold text-white">Neo4j (Cypher Traversal)</span>
+                    </div>
+                    <div className="flex justify-between pb-1.5 border-b border-white/10">
+                      <span className="text-gray-300">Keyword Retrieval</span>
+                      <span className="font-mono font-semibold text-white">rank-bm25 (BM25Okapi)</span>
+                    </div>
+                    <div className="flex justify-between pb-1.5 border-b border-white/10">
+                      <span className="text-gray-300">Orchestration</span>
+                      <span className="font-mono font-semibold text-accent-300">LangChain Neo4jGraph</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-300">Statutory Graph Data</span>
+                      <span className="font-mono font-semibold text-white">IPC/CrPC → BNS/BNSS/BSA</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="card">
+                  <h4 className="font-bold text-gray-800 text-sm mb-2">
+                    Document Guidelines
+                  </h4>
+                  <ul className="text-xs text-gray-600 space-y-2 list-disc list-inside">
+                    <li>Supported: FIR copies, court petitions, bail orders, legal contracts.</li>
+                    <li>Text extraction via <strong>PyMuPDF</strong> with page-level metadata.</li>
+                    <li>Max file size: 20MB.</li>
+                    <li>Indexed chunks are automatically retrieved in subsequent chat queries.</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
