@@ -181,10 +181,16 @@ Please answer the query thoroughly in English following the System Directives:
 
                 response = await asyncio.wait_for(
                     asyncio.to_thread(_call_gemini),
-                    timeout=8.0
+                    timeout=5.0
                 )
                 if response and response.text:
                     english_text = response.text.strip()
+            except asyncio.TimeoutError:
+                _GEMINI_QUOTA_EXHAUSTED_UNTIL = time.time() + 300
+                logger.warning(
+                    "Gemini API call timed out. Entering 5-minute fast cooldown. "
+                    "Switching to internal deterministic legal engine."
+                )
             except Exception as e:
                 err_str = str(e)
                 if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
@@ -192,6 +198,12 @@ Please answer the query thoroughly in English following the System Directives:
                     logger.warning(
                         "Gemini API quota exhausted (429 RESOURCE_EXHAUSTED). "
                         "Entering 1-hour fast cooldown. Switching to internal deterministic legal engine."
+                    )
+                elif "503" in err_str or "UNAVAILABLE" in err_str:
+                    _GEMINI_QUOTA_EXHAUSTED_UNTIL = time.time() + 300
+                    logger.warning(
+                        "Gemini API temporarily unavailable (503 UNAVAILABLE). "
+                        "Entering 5-minute fast cooldown. Switching to internal deterministic legal engine."
                     )
                 else:
                     logger.error(f"Gemini API call failed ({e}). Falling back to internal legal generator.")
@@ -249,15 +261,21 @@ Please answer the query thoroughly in English following the System Directives:
 
             response = await asyncio.wait_for(
                 asyncio.to_thread(_call_translate),
-                timeout=6.0
+                timeout=4.0
             )
             if response and response.text:
                 return response.text.strip()
+        except asyncio.TimeoutError:
+            _GEMINI_QUOTA_EXHAUSTED_UNTIL = time.time() + 300
+            logger.warning("Gemini translation timed out. Entering 5-minute fast cooldown.")
         except Exception as e:
             err_str = str(e)
             if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
                 _GEMINI_QUOTA_EXHAUSTED_UNTIL = time.time() + 3600
                 logger.warning("Gemini API quota exhausted (429) during translation. Entering 1-hour fast cooldown.")
+            elif "503" in err_str or "UNAVAILABLE" in err_str:
+                _GEMINI_QUOTA_EXHAUSTED_UNTIL = time.time() + 300
+                logger.warning("Gemini API unavailable (503) during translation. Entering 5-minute fast cooldown.")
             else:
                 logger.warning(f"LLM translation failed ({e}). Returning original text.")
 
