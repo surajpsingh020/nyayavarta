@@ -15,13 +15,13 @@ logger = logging.getLogger(__name__)
 
 
 def simple_tokenize(text: str) -> List[str]:
-    """Tokenize text into lowercase alphanumeric tokens.
+    """Tokenize text into lowercase alphanumeric tokens across Indian scripts and English.
 
-    Preserves legal codes like '302', 'bns', 'ipc', '420', 'fir'.
+    Preserves legal codes like '302', 'bns', 'ipc', '420', 'fir' as well as multilingual words.
     """
     if not text:
         return []
-    return re.findall(r"\b\w+\b", text.lower())
+    return [w.strip() for w in re.findall(r"[\w]+", text.lower()) if len(w.strip()) > 1]
 
 
 def extract_section_numbers(text: str) -> List[str]:
@@ -126,16 +126,15 @@ OPTIONAL MATCH (newSec)-[:BELONGS_TO]->(newAct:Act)
 OPTIONAL MATCH (newSec)-[:COVERS_OFFENCE]->(off:Offence)
 OPTIONAL MATCH (newSec)-[:ROUTES_TO_AID]->(aid:LegalAid)
 WHERE
-  oldSec.section_number IN $sections
-  OR newSec.section_number IN $sections
-  OR ANY(term IN $terms WHERE
+  (size($sections) > 0 AND (oldSec.section_number IN $sections OR newSec.section_number IN $sections))
+  OR (size($terms) > 0 AND ANY(term IN $terms WHERE
        toLower(oldSec.subject) CONTAINS term
        OR toLower(newSec.subject) CONTAINS term
        OR toLower(off.name) CONTAINS term
        OR toLower(oldSec.description) CONTAINS term
        OR toLower(newSec.description) CONTAINS term
        OR toLower(r.notes) CONTAINS term
-  )
+  ))
 RETURN
   oldSec.id AS old_id,
   oldSec.section_number AS old_section,
@@ -155,7 +154,7 @@ LIMIT $limit
 
 CYPHER_DOC_CHUNK_SEARCH = """
 MATCH (doc:DocumentChunk)
-WHERE ANY(term IN $terms WHERE toLower(doc.text) CONTAINS term)
+WHERE size($terms) > 0 AND ANY(term IN $terms WHERE toLower(doc.text) CONTAINS term)
 OPTIONAL MATCH (doc)-[:REFERENCES_SECTION]->(s:Section)
 RETURN
   doc.id AS id,
@@ -581,15 +580,19 @@ class RAGPipeline:
         tokens = simple_tokenize(query)
 
         # Filter out common short stopwords
-        stopwords = {"what", "is", "the", "under", "for", "and", "or", "in", "to", "of", "a", "an", "how", "can"}
+        stopwords = {"what", "is", "the", "under", "for", "and", "or", "in", "to", "of", "a", "an", "how", "can", "are", "by", "from"}
         search_terms = [t for t in tokens if t not in stopwords and len(t) > 2]
+
+        # Guard: If query contains no legal sections and no meaningful search terms, return empty to prevent irrelevant fallback citations
+        if not sections and not search_terms:
+            return []
 
         graph_results = []
 
         # -------------------------------------------------------------
         # 1. Cypher Graph Traversal (Neo4j or In-Memory Graph Fallback)
         # -------------------------------------------------------------
-        if self.is_connected and self.graph:
+        if self.is_connected and self.graph and (sections or search_terms):
             try:
                 # Query section transitions in Neo4j
                 neo_records = self.graph.query(
@@ -694,14 +697,14 @@ class RAGPipeline:
         # 2. Sparse BM25 Keyword Scoring
         # -------------------------------------------------------------
         bm25_results = []
-        if self.bm25 and tokens:
+        if self.bm25 and search_terms:
             try:
-                raw_scores = self.bm25.get_scores(tokens)
+                raw_scores = self.bm25.get_scores(search_terms)
                 max_bm25 = max(raw_scores) if len(raw_scores) > 0 else 0.0
-                if max_bm25 > 0:
+                if max_bm25 > 0.1:
                     ranked_indices = sorted(range(len(raw_scores)), key=lambda i: raw_scores[i], reverse=True)
                     for idx in ranked_indices[:k]:
-                        if raw_scores[idx] > 0:
+                        if raw_scores[idx] > 0.1:
                             doc = self.corpus_docs[idx]
                             bm25_results.append({
                                 "text": doc["text"],

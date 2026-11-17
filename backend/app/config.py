@@ -14,7 +14,7 @@ class Settings(BaseSettings):
 
     # Gemini API key
     GEMINI_API_KEY: str = ""
-    GEMINI_MODEL: str = "gemini-3.8-flash"
+    GEMINI_MODEL: str = "gemini-3.5-flash-lite"
 
     # RAG settings
     CHUNK_SIZE: int = 500

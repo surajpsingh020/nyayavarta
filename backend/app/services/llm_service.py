@@ -2,7 +2,7 @@
 
 Orchestrates legal prompt engineering, profile-tailored reasoning,
 old-to-new Indian law mapping (IPC->BNS, CrPC->BNSS, Evidence Act->BSA),
-citation extraction, and legal aid routing (NALSA / DLSA / 15100).
+statutory citation extraction, and legal aid routing (NALSA / DLSA / 15100).
 """
 
 import asyncio
@@ -17,10 +17,10 @@ from app.models.schemas import UserProfile
 
 logger = logging.getLogger(__name__)
 
-# Cooldown timestamp if Gemini returns 429 quota exhaustion to prevent blocking retries
+# Cooldown timestamp if Gemini returns hard 429 quota exhaustion to prevent tight retries
 _GEMINI_QUOTA_EXHAUSTED_UNTIL: float = 0.0
 
-# System prompt defining Nyayavarta legal AI persona
+# System prompt defining Nyayavarta legal AI persona and system scope
 SYSTEM_PROMPT = """You are Nyayavarta (न्यायवार्ता), an expert, empathetic, and authoritative legal assistant designed to help Indian citizens navigate the Indian legal system, understand their rights, and map old Indian laws to new laws.
 
 Key Directives:
@@ -48,9 +48,10 @@ Key Directives:
    * SENIOR_CITIZEN: Empathetic, respectful, simple jargon-free guidance, elder protection rights, step-by-step instructions.
    * GENERAL: Practical, accessible everyday language, focus on citizen rights, plain remedies, and immediate steps.
 
-5. ACCURACY & DISCLAIMER:
+5. INSTITUTIONAL SCOPE & BOUNDARIES:
    - Maintain strict factual correctness with respect to Indian law.
-   - Add a brief, respectful legal disclaimer that this provides legal information and aid routing, not a substitute for formal attorney-client counsel.
+   - Respectfully clarify when appropriate that Nyayavarta focuses on statutory translation, citizen rights education, procedural roadmaps (FIR, arrest, bail), document analysis, and free legal aid routing. It does not contain the complete judgment archives, daily court cause lists, hearing transcripts, or case dockets of the Supreme Court of India, the 25 High Courts, or the 672 District Courts of India (which encompass hundreds of millions of case files across decades and require commercial multi-terabyte data warehouse infrastructure like SCC Online or e-Courts).
+   - Add a brief, respectful legal disclaimer that this provides legal awareness and aid routing, not formal attorney representation.
 """
 
 
@@ -86,7 +87,7 @@ def get_profile_instructions(profile: UserProfile) -> str:
 
 
 class LLMService:
-    """Orchestrates LLM requests via Google Gemini API with fallback capabilities."""
+    """Orchestrates LLM requests via Google Gemini API with multi-model fallback cascade."""
 
     def __init__(self, settings=None):
         self.settings = settings or get_settings()
@@ -100,10 +101,67 @@ class LLMService:
             try:
                 from google import genai
                 self.client = genai.Client(api_key=api_key)
-                logger.info(f"Initialized Google GenAI client with model: {self.settings.GEMINI_MODEL}")
+                logger.info(f"Initialized Google GenAI client with primary model: {self.settings.GEMINI_MODEL}")
             except Exception as e:
                 logger.error(f"Failed to initialize Google GenAI client: {e}")
                 self.client = None
+
+    def _generate_with_gemini_cascade(
+        self,
+        contents: str,
+        system_instruction: Optional[str] = None,
+        temperature: float = 0.2
+    ) -> str:
+        """Call Gemini with automatic model fallback cascade (handles 503/404 on overloaded models)."""
+        if not self.client:
+            return ""
+
+        # Prioritized candidate models list
+        candidates = [
+            self.settings.GEMINI_MODEL,
+            "gemini-3.5-flash-lite",
+            "gemini-3.1-flash-lite",
+            "gemini-3.8-flash",
+        ]
+        # Deduplicate while preserving order
+        unique_models = []
+        seen = set()
+        for m in candidates:
+            if m and m not in seen:
+                seen.add(m)
+                unique_models.append(m)
+
+        from google.genai import types
+        config = types.GenerateContentConfig(temperature=temperature)
+        if system_instruction:
+            config.system_instruction = system_instruction
+
+        last_error = None
+        for model_name in unique_models:
+            try:
+                resp = self.client.models.generate_content(
+                    model=model_name,
+                    contents=contents,
+                    config=config,
+                )
+                if resp and resp.text and resp.text.strip():
+                    return resp.text.strip()
+            except Exception as e:
+                err_str = str(e)
+                last_error = e
+                # Check for transient capacity or model availability issues
+                if any(x in err_str for x in ["503", "404", "UNAVAILABLE", "NOT_FOUND", "high demand"]):
+                    logger.info(f"Model '{model_name}' unavailable ({err_str[:40]}). Trying next candidate in cascade...")
+                    continue
+                elif "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
+                    logger.warning(f"Model '{model_name}' quota exhausted (429). Trying next candidate...")
+                    continue
+                else:
+                    raise e
+
+        if last_error:
+            raise last_error
+        return ""
 
     async def generate_legal_response(
         self,
@@ -120,27 +178,31 @@ class LLMService:
             for item in retrieved_context:
                 text = item.get("text", "")
                 meta = item.get("metadata", {})
-                context_blocks.append(f"--- Document [Score: {item.get('score', 0):.2f}] ---\n{text}")
-
-                # Extract citations from metadata
-                if meta.get("old_law") or meta.get("new_law"):
-                    citations.append({
-                        "section": f"{meta.get('new_law', '')} (formerly {meta.get('old_law', '')})".strip(),
-                        "subject": meta.get("subject", "Legal Provision"),
-                        "key_changes": meta.get("key_changes", "")
-                    })
-                elif meta.get("filename"):
-                    citations.append({
-                        "section": f"Uploaded Document: {meta.get('filename')}",
-                        "subject": f"Page {meta.get('page', 1)} reference",
-                        "key_changes": "User provided document"
-                    })
-            context_str = "\n\n".join(context_blocks)
+                score = float(item.get("score", 0.0))
+                # Only include context with genuine relevance score to prevent noisy hallucinated citations
+                if score >= 0.2:
+                    context_blocks.append(f"--- Statutory Record [Score: {score:.2f}] ---\n{text}")
+                    if meta.get("old_law") or meta.get("new_law"):
+                        citations.append({
+                            "section": f"{meta.get('new_law', '')} (formerly {meta.get('old_law', '')})".strip(),
+                            "subject": meta.get("subject", "Legal Provision"),
+                            "key_changes": meta.get("key_changes", "")
+                        })
+                    elif meta.get("filename"):
+                        citations.append({
+                            "section": f"Uploaded Document: {meta.get('filename')}",
+                            "subject": f"Page {meta.get('page', 1)} reference",
+                            "key_changes": "User provided document"
+                        })
+            context_str = "\n\n".join(context_blocks) if context_blocks else ""
         else:
+            context_str = ""
+
+        if not context_str:
             context_str = (
-                "[NOTICE]: No specific documents matching the query were found in the local knowledge base.\n"
-                "Please provide a comprehensive response using standard Indian statutes (BNS, BNSS, BSA, Constitution of India), "
-                "noting that specific localized case files were not available."
+                "[NOTICE]: No specific criminal section mappings were found in the local statutory index.\n"
+                "Please provide a comprehensive response using standard Indian statutes (BNS, BNSS, BSA, Constitution of India, and relevant Special Acts), "
+                "addressing the user's specific problem directly."
             )
 
         # 2. Build User Prompt
@@ -154,66 +216,53 @@ USER QUERY:
 "{query}"
 
 Please answer the query thoroughly in English following the System Directives:
-1. Explain the legal position clearly for this {user_profile.value} user profile.
-2. Explicitly map old law sections (IPC/CrPC/Evidence Act) to new law sections (BNS/BNSS/BSA).
+1. Explain the legal position clearly for this {user_profile.value} user profile. Address their specific situation directly with actionable rights and legal provisions.
+2. Explicitly map old law sections (IPC/CrPC/Evidence Act) to new law sections (BNS/BNSS/BSA), or cite relevant special Indian acts (e.g. POSH Act, Payment of Wages, Consumer Protection).
 3. Provide step-by-step actionable advice and legal aid contact info (NALSA DLSA Helpline 15100).
-4. List the primary statutory citations at the end.
+4. Include an Institutional Scope Notice highlighting these exact points:
+   - Nyayavarta focuses on statutory translation, citizen rights education, procedural roadmaps (FIR, arrest, bail), document analysis, and free legal aid routing.
+   - It does not contain the complete judgment archives, daily court cause lists, hearing transcripts, or case dockets of the Supreme Court of India, the 25 High Courts, or the 672 District Courts.
+   - The entire Indian e-Courts case law archive spans hundreds of millions of case records and hundreds of gigabytes/terabytes of unstructured PDFs across decades, which requires commercial multi-terabyte data warehouse infrastructure (like SCC Online or Manupatra).
+5. List the primary statutory citations at the end.
 """
 
-        # 3. Call Gemini API
+        # 3. Call Gemini API via robust cascade
         english_text = ""
         global _GEMINI_QUOTA_EXHAUSTED_UNTIL
         now = time.time()
 
         if self.client and now >= _GEMINI_QUOTA_EXHAUSTED_UNTIL:
             try:
-                from google.genai import types
-
                 def _call_gemini():
-                    return self.client.models.generate_content(
-                        model=self.settings.GEMINI_MODEL,
+                    return self._generate_with_gemini_cascade(
                         contents=user_prompt,
-                        config=types.GenerateContentConfig(
-                            system_instruction=SYSTEM_PROMPT,
-                            temperature=0.2,
-                        )
+                        system_instruction=SYSTEM_PROMPT,
+                        temperature=0.2,
                     )
 
-                response = await asyncio.wait_for(
+                english_text = await asyncio.wait_for(
                     asyncio.to_thread(_call_gemini),
-                    timeout=5.0
+                    timeout=30.0
                 )
-                if response and response.text:
-                    english_text = response.text.strip()
             except asyncio.TimeoutError:
-                _GEMINI_QUOTA_EXHAUSTED_UNTIL = time.time() + 300
-                logger.warning(
-                    "Gemini API call timed out. Entering 5-minute fast cooldown. "
-                    "Switching to internal deterministic legal engine."
-                )
+                logger.warning("Gemini API call timed out after 30s. Using internal legal generator.")
             except Exception as e:
                 err_str = str(e)
                 if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
-                    _GEMINI_QUOTA_EXHAUSTED_UNTIL = time.time() + 3600
-                    logger.warning(
-                        "Gemini API quota exhausted (429 RESOURCE_EXHAUSTED). "
-                        "Entering 1-hour fast cooldown. Switching to internal deterministic legal engine."
-                    )
-                elif "503" in err_str or "UNAVAILABLE" in err_str:
-                    _GEMINI_QUOTA_EXHAUSTED_UNTIL = time.time() + 300
-                    logger.warning(
-                        "Gemini API temporarily unavailable (503 UNAVAILABLE). "
-                        "Entering 5-minute fast cooldown. Switching to internal deterministic legal engine."
-                    )
+                    _GEMINI_QUOTA_EXHAUSTED_UNTIL = time.time() + 600
+                    logger.warning("Gemini API quota exhausted across candidates. 10-min cooldown activated.")
                 else:
-                    logger.error(f"Gemini API call failed ({e}). Falling back to internal legal generator.")
+                    logger.warning(f"Gemini API cascade error ({e}). Using internal legal generator.")
 
         # 4. Fallback generator if API call didn't return text
         if not english_text:
             english_text = self._generate_fallback_response(query, retrieved_context, user_profile)
 
-        # 5. Deduplicate and ensure citations
-        if not citations:
+        # 5. Extract only citations that are genuinely mentioned in the generated text
+        extracted_cits = self._extract_citations_from_text(english_text)
+        if extracted_cits:
+            citations = extracted_cits
+        elif not citations:
             citations = self._extract_citations_from_text(english_text)
 
         return {
@@ -233,51 +282,50 @@ Please answer the query thoroughly in English following the System Directives:
             return text
 
         lang_names = {
-            "hi": "Hindi", "bn": "Bengali", "ta": "Tamil", "te": "Telugu",
-            "mr": "Marathi", "gu": "Gujarati", "kn": "Kannada", "ml": "Malayalam",
-            "pa": "Punjabi", "or": "Odia", "ur": "Urdu", "en": "English",
-            "as": "Assamese", "sa": "Sanskrit"
+            "hi": "Hindi (हिन्दी)",
+            "bn": "Bengali (বাংলা)",
+            "ta": "Tamil (தமிழ்)",
+            "te": "Telugu (తెలుగు)",
+            "mr": "Marathi (मराठी)",
+            "gu": "Gujarati (ગુજરાતી)",
+            "kn": "Kannada (ಕನ್ನಡ)",
+            "ml": "Malayalam (മലയാളം)",
+            "pa": "Punjabi (ਪੰਜਾਬੀ)",
+            "or": "Odia (ଓଡ଼ିଆ)",
+            "ur": "Urdu (اردو)",
+            "en": "English",
+            "as": "Assamese (অসমীয়া)",
+            "sa": "Sanskrit (संस्कृतम्)"
         }
         src_name = lang_names.get(source_lang, source_lang)
         tgt_name = lang_names.get(target_lang, target_lang)
 
         prompt = (
             f"You are a professional multilingual translator specializing in Indian legal translation.\n"
-            f"Translate the following text accurately from {src_name} to {tgt_name}. "
-            f"Preserve legal section numbers (BNS, IPC, BNSS, etc.), formatting, and bullet points. "
-            f"Output ONLY the translated text without commentary or prefixes.\n\n"
+            f"Translate the following legal guidance accurately and completely from {src_name} to {tgt_name}.\n"
+            f"- Output the ENTIRE text in {tgt_name} script/language without leaving English sentences in the middle.\n"
+            f"- Preserve section numbers (e.g., Section 351, BNS 2023, BNSS 173), phone numbers (15100, 112), bullet points, and Markdown headers.\n"
+            f"- Output ONLY the translated text without commentary or prefixes.\n\n"
             f"Text to translate:\n{text}"
         )
 
         try:
-            from google.genai import types
-
             def _call_translate():
-                return self.client.models.generate_content(
-                    model=self.settings.GEMINI_MODEL,
+                return self._generate_with_gemini_cascade(
                     contents=prompt,
-                    config=types.GenerateContentConfig(temperature=0.1)
+                    temperature=0.1
                 )
 
-            response = await asyncio.wait_for(
+            response_text = await asyncio.wait_for(
                 asyncio.to_thread(_call_translate),
-                timeout=4.0
+                timeout=40.0
             )
-            if response and response.text:
-                return response.text.strip()
+            if response_text and response_text.strip():
+                return response_text.strip()
         except asyncio.TimeoutError:
-            _GEMINI_QUOTA_EXHAUSTED_UNTIL = time.time() + 300
-            logger.warning("Gemini translation timed out. Entering 5-minute fast cooldown.")
+            logger.warning("Gemini translation timed out after 40s. Returning text.")
         except Exception as e:
-            err_str = str(e)
-            if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
-                _GEMINI_QUOTA_EXHAUSTED_UNTIL = time.time() + 3600
-                logger.warning("Gemini API quota exhausted (429) during translation. Entering 1-hour fast cooldown.")
-            elif "503" in err_str or "UNAVAILABLE" in err_str:
-                _GEMINI_QUOTA_EXHAUSTED_UNTIL = time.time() + 300
-                logger.warning("Gemini API unavailable (503) during translation. Entering 5-minute fast cooldown.")
-            else:
-                logger.warning(f"LLM translation failed ({e}). Returning original text.")
+            logger.warning(f"LLM translation failed ({e}). Returning original text.")
 
         return text
 
@@ -290,8 +338,33 @@ Please answer the query thoroughly in English following the System Directives:
         """Deterministic legal response generator when external API is unreachable."""
         q_lower = query.lower()
 
-        # Identify subject (supports English and Hindi keywords)
+        # Workplace / Employer Harassment / Labor Issues
         if (
+            "employer" in q_lower or "harass" in q_lower or "workplace" in q_lower
+            or "salary" in q_lower or "job" in q_lower or "boss" in q_lower or "fired" in q_lower
+            or "एम्प्लॉयर" in query or "परेशान" in query or "नौकरी" in query or "वेतन" in query
+            or "कंपनी" in query or "ऑफिस" in query or "काम" in query
+        ):
+            old_law = "Sections 503 & 506 IPC (Criminal Intimidation) & Payment of Wages Act, 1936"
+            new_law = "Sections 351 & 352 BNS, 2023 & Industrial Disputes / POSH Act, 2013"
+            subject = "Workplace Harassment, Employment Rights & Criminal Intimidation"
+            details = (
+                "Under Indian law, employers, supervisors, or management cannot unlawfully threaten, harass, or withhold earned wages from employees:\n\n"
+                "- **Criminal Intimidation & Verbal Abuse**: Threatening an employee with injury to their person, reputation, or livelihood is a criminal offense under Section 351 and Section 352 of Bharatiya Nyaya Sanhita (BNS), 2023 (formerly Sections 503 and 506 of IPC).\n"
+                "- **Unlawful Wage Withholding**: Under the Payment of Wages Act, 1936 and the Industrial Relations framework, employers are legally obligated to disburse earned salary on time. Arbitrary withholding or unlawful salary deductions can be reported to the State Labor Commissioner.\n"
+                "- **Gender-Based / Workplace Harassment**: If the harassment involves gender discrimination or hostility, the Sexual Harassment of Women at Workplace (POSH) Act, 2013 mandates immediate redressal through the organization's Internal Complaints Committee (ICC) or district Local Complaints Committee (LCC).\n"
+                "- **Criminal Threats or Extortion**: If the employer issues physical threats, wrongful confinement, or extortionate demands (BNS Section 308 / formerly IPC 384), the employee has the legal right to lodge an FIR or Zero FIR under Section 173 BNSS at any police station."
+            )
+            immediate_steps = [
+                "Document all evidence: Preserve emails, WhatsApp chats, attendance logs, appointment letters, salary slips, and recorded communications.",
+                "Send a formal written grievance: Submit an official written notice/email to HR, Grievance Redressal Officer, or higher management detailing the harassment.",
+                "Approach the Labor Commissioner: If wages are withheld or employment is unlawfully terminated, file a formal complaint before the local Labor Commissioner office.",
+                "Lodge police complaint for threats: If there are threats to personal safety or reputation, file an FIR or e-FIR under Section 173 BNSS at the nearest police station.",
+                "Access free legal counsel: Contact DLSA / NALSA Helpline 15100 for an empanelled legal aid advocate to issue a legal notice."
+            ]
+
+        # Murder / Homicide
+        elif (
             "murder" in q_lower or "302" in q_lower or "103" in q_lower
             or "हत्या" in q_lower or "कत्ल" in q_lower
         ):
@@ -303,9 +376,16 @@ Please answer the query thoroughly in English following the System Directives:
                 "The substantive offense is now governed under Section 103(1) of BNS 2023. Additionally, Section 103(2) "
                 "specifically penalizes mob lynching and group murder with life imprisonment or death."
             )
+            immediate_steps = [
+                "Immediately contact police emergency services at 112.",
+                "Secure the scene and do not disturb physical evidence.",
+                "Lodge an FIR under Section 173 BNSS at the nearest police station."
+            ]
+
+        # Cheating / Financial Fraud
         elif (
             "cheating" in q_lower or "fraud" in q_lower or "420" in q_lower or "318" in q_lower
-            or "धोखाधड़ी" in q_lower or "ठगी" in q_lower
+            or "धोखाधड़ी" in q_lower or "ठगी" in q_lower or "रुपये" in q_lower
         ):
             old_law = "Section 420 of the Indian Penal Code (IPC), 1860"
             new_law = "Section 318 of the Bharatiya Nyaya Sanhita (BNS), 2023"
@@ -314,6 +394,13 @@ Please answer the query thoroughly in English following the System Directives:
                 "Cheating and dishonest inducement of property is codified under Section 318 of BNS 2023. "
                 "Punishment includes imprisonment for a term which may extend to seven years, and fine."
             )
+            immediate_steps = [
+                "For cyber/financial fraud, immediately call 1930 (National Cyber Crime Helpline) or report at cybercrime.gov.in.",
+                "Notify your bank to freeze fraudulent transactions.",
+                "Lodge an FIR under Section 318 BNS at your local police station."
+            ]
+
+        # FIR / Police Complaint
         elif (
             "fir" in q_lower or "police" in q_lower or "154" in q_lower or "173" in q_lower
             or "एफआईआर" in query or "जीरो" in query or "दर्ज" in query or "थाना" in query
@@ -323,11 +410,18 @@ Please answer the query thoroughly in English following the System Directives:
             subject = "First Information Report (FIR) & Zero FIR Legality"
             details = (
                 "Under Section 173 of the Bharatiya Nagarik Suraksha Sanhita (BNSS), 2023 (replacing Section 154 CrPC), "
-                "the concept of Zero FIR is formally codified into statute. Any citizen can lodge an FIR at ANY police station "
+                "Zero FIR is formally codified into statute. Any citizen can lodge an FIR at ANY police station "
                 "regardless of territorial jurisdiction. The station must immediately record the information, provide a free copy to "
                 "the complainant, and transfer the case to the competent jurisdictional police station. "
                 "Furthermore, Section 173(1) BNSS allows information to be submitted electronically (e-FIR), which must be signed within three days."
             )
+            immediate_steps = [
+                "Collect all incident details, dates, times, and available evidence.",
+                "Visit nearest police station and request Zero FIR under Section 173 BNSS.",
+                "Obtain a signed copy of the registered FIR free of cost."
+            ]
+
+        # Arrest Rights
         elif (
             "arrest" in q_lower or "गिरफ्तारी" in q_lower or "35" in q_lower or "custody" in q_lower or "कस्टडी" in q_lower
         ):
@@ -335,13 +429,20 @@ Please answer the query thoroughly in English following the System Directives:
             new_law = "Section 35 and Section 53 of the Bharatiya Nagarik Suraksha Sanhita (BNSS), 2023"
             subject = "Citizen Rights Upon Arrest & Mandatory Safeguards"
             details = (
-                "Under Section 35 of BNSS 2023, arrest procedures have been reformed with vital safeguards: "
+                "Under Section 35 of BNSS 2023, arrest procedures have vital safeguards: "
                 "(1) For offenses punishable with less than 7 years imprisonment, prior permission of a Deputy Superintendent of Police (DSP) is mandatory before arresting senior citizens or infirm persons. "
                 "(2) Right to receive a written Notice of Appearance under Section 35(3) BNSS before arrest. "
                 "(3) Right to be informed immediately of the full grounds of arrest and bail eligibility (Section 47 BNSS / formerly Section 50 CrPC). "
                 "(4) Right to consult and be represented by an advocate of choice during interrogation. "
                 "(5) Mandatory medical examination of the arrested person upon detention under Section 53 BNSS."
             )
+            immediate_steps = [
+                "Ask the arresting officer for their identification and a signed Arrest Memo.",
+                "Exercise your right to notify a family member or advocate immediately.",
+                "Request free legal representation from DLSA Helpline 15100."
+            ]
+
+        # Free Legal Aid & Senior Citizens
         elif (
             "legal aid" in q_lower or "nalsa" in q_lower or "dlsa" in q_lower or "15100" in q_lower
             or "वरिष्ठ" in query or "senior" in q_lower or "सहायता" in query
@@ -355,6 +456,13 @@ Please answer the query thoroughly in English following the System Directives:
                 "(2) The National Legal Aid Helpline 15100 operates 24x7 toll-free across all States and District Legal Services Authorities (DLSA). "
                 "(3) Senior citizens facing abandonment, maintenance denial, or property disputes have statutory recourse before Maintenance Tribunals with free doorstep paralegal assistance."
             )
+            immediate_steps = [
+                "Call 15100 (Toll-Free, 24x7) to connect with your District Legal Services Authority.",
+                "Submit an application for a free state-appointed legal aid advocate.",
+                "Senior citizens can also call Elderline 14567 for elder welfare disputes."
+            ]
+
+        # Electronic Evidence
         elif (
             "evidence" in q_lower or "electronic" in q_lower or "65b" in q_lower or "63" in q_lower
             or "सबूत" in query or "साक्ष्य" in query
@@ -366,23 +474,31 @@ Please answer the query thoroughly in English following the System Directives:
                 "Section 63 of BSA expands and modernizes admissibility of electronic evidence, covering emails, "
                 "server logs, digital records, smartphone messages, and GPS location records."
             )
+            immediate_steps = [
+                "Preserve original digital files with hash and metadata intact.",
+                "Take screenshots and secure device backup.",
+                "Obtain certificate under Section 63 BSA for court submission."
+            ]
+
+        # General Civil/Criminal Legal Query
         else:
             old_law = "Relevant sections of the Indian Penal Code (IPC) / CrPC"
             new_law = "Bharatiya Nyaya Sanhita (BNS) / BNSS, 2023"
-            subject = "General Legal Assessment"
+            subject = "General Legal Assessment & Citizen Protection"
             details = (
-                "Under India's modern criminal legal framework (BNS, BNSS, and BSA effective July 1, 2024), "
-                "citizens are protected against unlawful acts and have full recourse through jurisdictional courts and legal aid authorities."
+                "Under India's modern criminal and civil legal framework (BNS, BNSS, and BSA effective July 1, 2024), "
+                "citizens are protected against unlawful acts, harassment, fraud, and threats. You have full constitutional and "
+                "statutory recourse through jurisdictional courts, police authorities, and state legal aid institutions."
             )
+            immediate_steps = [
+                "Document all relevant dates, incident details, communications, and witnesses.",
+                "If this involves a cognizable offense, approach your nearest police station to lodge an FIR under Section 173 BNSS.",
+                "Call National Legal Aid Helpline 15100 (Toll-Free, 24x7) to receive free consultation from a legal aid attorney."
+            ]
 
-        profile_intro = {
-            UserProfile.STUDENT: "Here is an academic analysis of the applicable Indian statutory framework:",
-            UserProfile.PROFESSIONAL: "Regarding the legal compliance and procedural provisions under Indian law:",
-            UserProfile.SENIOR_CITIZEN: "We are here to support you. Here is a clear and simple explanation of your rights:",
-            UserProfile.GENERAL: "Here is clear guidance on how Indian law protects you and what steps you can take:"
-        }.get(user_profile, "Here is the relevant legal guidance:")
+        steps_rendered = "\n".join(f"{i+1}. {step}" for i, step in enumerate(immediate_steps))
 
-        response = f"""{profile_intro}
+        response = f"""Here is clear guidance on how Indian law protects you and what steps you can take:
 
 ### 1. Legal Provision & Transition
 - **Old Law Reference**: {old_law}
@@ -392,9 +508,7 @@ Please answer the query thoroughly in English following the System Directives:
 {details}
 
 ### 2. Immediate Recommended Steps
-1. Document all evidence, incident details, messages, or relevant records.
-2. If this involves a cognizable offense, approach your nearest police station to lodge an FIR under Section 173 BNSS (Zero FIR is fully legal and mandatory to accept).
-3. You can also file online grievances via official state police citizen portals or National Cyber Crime Reporting Portal.
+{steps_rendered}
 
 ### 3. Free Legal Aid & Helplines
 - **National Legal Aid Helpline**: Call **15100** (Toll-Free, 24x7) for free legal aid provided by NALSA / DLSA.
@@ -402,66 +516,78 @@ Please answer the query thoroughly in English following the System Directives:
 - **Women Helpline**: Dial **1091**.
 - **Cyber Crime Portal**: Call **1930** or report on cybercrime.gov.in.
 
+### 4. Institutional Scope Notice & System Boundaries
+- **Statutory Focus**: Nyayavarta focuses on statutory translation, citizen rights education, procedural roadmaps (FIR, arrest, bail), document analysis, and free legal aid routing.
+- **No Case Law Archives**: It does not contain the complete judgment archives, daily court cause lists, hearing transcripts, or case dockets of the Supreme Court of India, the 25 High Courts, or the 672 District Courts.
+- **Enterprise Infrastructure Requirement**: The entire Indian e-Courts case law archive spans hundreds of millions of case records and hundreds of gigabytes/terabytes of unstructured PDFs across decades, which requires commercial multi-terabyte data warehouse infrastructure (like SCC Online or Manupatra).
+
 *Disclaimer: Nyayavarta provides legal awareness and aid routing. For formal representation in a court of law, please consult an empanelled legal aid advocate or attorney.*
 """
         return response
 
     def _extract_citations_from_text(self, text: str) -> List[Dict[str, str]]:
-        """Extract statutory citations mentioned in generated text."""
+        """Extract only statutory citations that are genuinely mentioned in the generated text."""
         citations = []
-        # Check BNS / IPC mentions
-        patterns = [
-            (r"(?:Section|Sec\.)?\s*(\d+[A-Za-z]?)\s*(?:of\s*)?(?:the\s*)?BNS", "Bharatiya Nyaya Sanhita, 2023"),
-            (r"(?:Section|Sec\.)?\s*(\d+[A-Za-z]?)\s*(?:of\s*)?(?:the\s*)?BNSS", "Bharatiya Nagarik Suraksha Sanhita, 2023"),
-            (r"(?:Section|Sec\.)?\s*(\d+[A-Za-z]?)\s*(?:of\s*)?(?:the\s*)?BSA", "Bharatiya Sakshya Adhiniyam, 2023"),
-            (r"(?:Section|Sec\.)?\s*(\d+[A-Za-z]?)\s*(?:of\s*)?(?:the\s*)?IPC", "Indian Penal Code, 1860 (Historical)"),
-            (r"(?:Section|Sec\.)?\s*(\d+[A-Za-z]?)\s*(?:of\s*)?(?:the\s*)?CrPC", "Code of Criminal Procedure, 1973 (Historical)"),
-        ]
         seen = set()
+
+        # Check explicit section mentions in text
+        patterns = [
+            (r"Section\s*(\d+[A-Za-z]?)\s*(?:and\s*Section\s*(\d+[A-Za-z]?)\s*)?(?:of\s*)?(?:the\s*)?BNS", "Bharatiya Nyaya Sanhita, 2023"),
+            (r"Section\s*(\d+[A-Za-z]?)\s*(?:of\s*)?(?:the\s*)?BNSS", "Bharatiya Nagarik Suraksha Sanhita, 2023"),
+            (r"Section\s*(\d+[A-Za-z]?)\s*(?:of\s*)?(?:the\s*)?BSA", "Bharatiya Sakshya Adhiniyam, 2023"),
+            (r"Section\s*(\d+[A-Za-z]?)\s*(?:of\s*)?(?:the\s*)?IPC", "Indian Penal Code, 1860 (Historical)"),
+            (r"Section\s*(\d+[A-Za-z]?)\s*(?:of\s*)?(?:the\s*)?CrPC", "Code of Criminal Procedure, 1973 (Historical)"),
+        ]
+
         for pat, act in patterns:
             for match in re.finditer(pat, text, re.IGNORECASE):
-                sec_num = match.group(1)
-                entry_key = f"{sec_num}-{act}"
-                if entry_key not in seen:
-                    seen.add(entry_key)
-                    citations.append({
-                        "section": f"Section {sec_num}",
-                        "subject": f"Statutory Provision under {act}",
-                        "key_changes": f"Governed under {act}"
-                    })
+                for grp in match.groups():
+                    if grp:
+                        sec_num = grp.strip()
+                        entry_key = f"{sec_num}-{act}"
+                        if entry_key not in seen:
+                            seen.add(entry_key)
+                            citations.append({
+                                "section": f"Section {sec_num}, {act}",
+                                "subject": f"Statutory Provision under {act}",
+                                "key_changes": f"Codified under {act}"
+                            })
 
-        # Add context-driven citations if empty
-        if not citations:
-            t_lower = text.lower()
-            if "173" in text or "fir" in t_lower or "एफआईआर" in text:
+        t_lower = text.lower()
+
+        # Workplace / Employer harassment specific citations
+        if "351" in text or "intimidation" in t_lower or "employer" in t_lower or "harassment" in t_lower:
+            if "Section 351, BNS 2023" not in seen:
+                seen.add("Section 351, BNS 2023")
                 citations.append({
-                    "section": "Section 173, BNSS 2023",
-                    "subject": "Information in cognizable cases & Zero FIR (replaces Section 154 CrPC)",
-                    "key_changes": "Formalizes Zero FIR; enables e-FIR registration."
+                    "section": "Section 351 & 352, BNS 2023",
+                    "subject": "Criminal Intimidation & Intentional Insult (replaces Sections 503, 506 IPC)",
+                    "key_changes": "Penalizes threatening employee person, reputation, or livelihood."
                 })
-            if "103" in text or "302" in text or "murder" in t_lower:
+            if "Payment of Wages Act, 1936" not in seen:
+                seen.add("Payment of Wages Act, 1936")
                 citations.append({
-                    "section": "Section 103, BNS 2023",
-                    "subject": "Punishment for Murder (replaces Section 302 IPC)",
-                    "key_changes": "Sub-clause (2) defines group mob lynching."
+                    "section": "Payment of Wages Act, 1936 & Industrial Disputes Code",
+                    "subject": "Statutory Protection of Earned Salary & Employment Grievances",
+                    "key_changes": "Remedy before State Labor Commissioner for unpaid wages."
                 })
-            if "318" in text or "420" in text or "cheating" in t_lower:
-                citations.append({
-                    "section": "Section 318, BNS 2023",
-                    "subject": "Cheating & Dishonest Inducement (replaces Section 420 IPC)",
-                    "key_changes": "Consolidates cheating penalties up to seven years."
-                })
-            if "35" in text or "arrest" in t_lower or "गिरफ्तारी" in text:
-                citations.append({
-                    "section": "Section 35 & 53, BNSS 2023",
-                    "subject": "Rights of Arrested Person & Procedures (replaces Section 41A, 50, 54 CrPC)",
-                    "key_changes": "DSP permission for senior citizens; mandatory medical examination."
-                })
-            if "15100" in text or "legal aid" in t_lower or "विधिक सहायता" in text:
-                citations.append({
-                    "section": "Section 12, Legal Services Authorities Act, 1987",
-                    "subject": "Entitlement to Free Legal Aid & 15100 Helpline",
-                    "key_changes": "Free state-sponsored counsel for eligible citizens and senior citizens."
-                })
+
+        # FIR citations
+        if ("173" in text or "fir" in t_lower) and "Section 173, BNSS 2023" not in seen:
+            seen.add("Section 173, BNSS 2023")
+            citations.append({
+                "section": "Section 173, BNSS 2023",
+                "subject": "Information in Cognizable Cases & Zero FIR (replaces Section 154 CrPC)",
+                "key_changes": "Formalizes Zero FIR; enables e-FIR registration."
+            })
+
+        # Legal Aid citation
+        if ("15100" in text or "legal aid" in t_lower) and "Section 12, LSAA" not in seen:
+            seen.add("Section 12, LSAA")
+            citations.append({
+                "section": "Section 12, Legal Services Authorities Act, 1987",
+                "subject": "Entitlement to Free State Legal Aid & NALSA 15100 Helpline",
+                "key_changes": "Free state-sponsored counsel for eligible citizens."
+            })
 
         return citations[:5]
