@@ -69,6 +69,48 @@
       "subject": "Acts done by several persons in furtherance of common intention",
       "description": "When a criminal act is done by several persons in furtherance of the common intention of all, each of such persons is liable for that act.",
       "key_changes": "Now covered under Section 3(5) of BNS. The principle of common intention remains the same."
+    },
+    {
+      "old_law": "Indian Penal Code (IPC), 1860 - Section 212",
+      "new_law": "Bharatiya Nyaya Sanhita (BNS), 2023 - Section 249",
+      "subject": "Harbouring offender",
+      "description": "Whenever an offence has been committed, whoever harbours or conceals a person whom he knows or has reason to believe to be the offender, to screen him from legal punishment.",
+      "key_changes": "Section changed from 212 IPC to Section 249 BNS. If the offence is punishable with death (such as murder), harbouring is punishable with rigorous imprisonment up to 5 years and fine."
+    },
+    {
+      "old_law": "Indian Penal Code (IPC), 1860 - Section 201",
+      "new_law": "Bharatiya Nyaya Sanhita (BNS), 2023 - Section 238",
+      "subject": "Causing disappearance of evidence of offence, or giving false information to screen offender",
+      "description": "Whoever, knowing or having reason to believe that an offence has been committed, causes any evidence of the commission of that offence to disappear, to screen the offender.",
+      "key_changes": "Section changed from 201 IPC to Section 238 BNS. If the offence screened is capital (murder), penalty includes imprisonment up to 7 years and fine."
+    },
+    {
+      "old_law": "Code of Criminal Procedure (CrPC), 1973 - Section 39",
+      "new_law": "Bharatiya Nagarik Suraksha Sanhita (BNSS), 2023 - Section 33",
+      "subject": "Public to give information of certain offences (Duty to report murder/crimes to police)",
+      "description": "Every person aware of the commission of, or intention of any other person to commit, certain heinous offences (including murder, offences against the State) is legally obligated to inform the nearest magistrate or police officer.",
+      "key_changes": "Replaces Section 39 CrPC. Codifies citizen duty to report heinous crimes like murder to police without delay."
+    },
+    {
+      "old_law": "Indian Penal Code (IPC), 1860 - Sections 503 & 506",
+      "new_law": "Bharatiya Nyaya Sanhita (BNS), 2023 - Sections 351 & 352",
+      "subject": "Criminal intimidation and intentional insult",
+      "description": "Whoever threatens another with any injury to his person, reputation or property, or to the person or reputation of any one in whom that person is interested.",
+      "key_changes": "Sections 503 and 506 IPC replaced by Sections 351 and 352 BNS. Penalizes workplace intimidation, harassment, and verbal threats."
+    },
+    {
+      "old_law": "Code of Criminal Procedure (CrPC), 1973 - Sections 436, 437 & 439",
+      "new_law": "Bharatiya Nagarik Suraksha Sanhita (BNSS), 2023 - Sections 478, 479 & 483",
+      "subject": "Bail provisions and rights of undertrial prisoners",
+      "description": "Statutory rules governing grant of bail in bailable and non-bailable offences, and maximum period for which an undertrial prisoner can be detained.",
+      "key_changes": "Section 479 BNSS introduces progressive bail relief for first-time offenders who have served one-third of maximum sentence."
+    },
+    {
+      "old_law": "Legal Services Authorities Act, 1987 - Section 12",
+      "new_law": "Legal Services Authorities Framework (NALSA / DLSA) - Section 12",
+      "subject": "Criteria for giving legal services (Free Legal Aid)",
+      "description": "Every citizen eligible under Section 12 (women, children, custody, low-income, senior citizens) has the statutory right to free legal representation and legal aid counsel.",
+      "key_changes": "National Legal Aid Helpline 15100 operational 24x7. Empanelled legal aid advocates provided at State expense."
     }
   ]
 }

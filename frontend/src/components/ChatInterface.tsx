@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import {
   Send,
   Mic,
@@ -47,6 +48,17 @@ import { getUITranslations } from '@/lib/i18n';
 import { INDIAN_LANGUAGES } from './LanguageSelector';
 import AudioPlayer from './AudioPlayer';
 import CitationCard from './CitationCard';
+
+function formatLegalMarkdown(raw: string): string {
+  if (!raw) return '';
+  // Fix collapsed markdown table rows where | | occurs on a single line
+  let formatted = raw.replace(/\|\s*\|\s*(:?-+:?)/g, '|\n| $1');
+  formatted = formatted.replace(/\|\s*\|\s*([^|\n]+)/g, '|\n| $1');
+  // Ensure tables have empty lines before and after
+  formatted = formatted.replace(/([^\n])\n\|/g, '$1\n\n|');
+  formatted = formatted.replace(/\|\n([^|\n#\d\*\-])/g, '|\n\n$1');
+  return formatted;
+}
 
 interface ChatInterfaceProps {
   selectedLanguage: string;
@@ -214,6 +226,22 @@ export default function ChatInterface({
       await loadUserThreads();
     } catch (err: any) {
       alert(`Failed to delete consultation: ${err.message || 'Error'}`);
+    }
+  };
+
+  const handleDeleteAllThreads = async () => {
+    if (threads.length === 0) return;
+    if (!confirm('Are you sure you want to delete all consultation histories? This action is permanent and cannot be undone.')) {
+      return;
+    }
+    try {
+      for (const th of threads) {
+        await deleteThread(th.id);
+      }
+      startNewConsultation();
+      await loadUserThreads();
+    } catch (err: any) {
+      alert(`Failed to delete all consultations: ${err.message || 'Error'}`);
     }
   };
 
@@ -526,9 +554,21 @@ export default function ChatInterface({
     }
   };
 
-  const clearChat = () => {
-    if (confirm('Clear the current legal consultation conversation?')) {
-      startNewConsultation();
+  const clearChat = async () => {
+    if (activeThreadId) {
+      if (confirm('Delete this active legal consultation from your history? This action is permanent.')) {
+        try {
+          await deleteThread(activeThreadId);
+          startNewConsultation();
+          await loadUserThreads();
+        } catch (err: any) {
+          alert(`Failed to delete consultation: ${err.message || 'Error'}`);
+        }
+      }
+    } else {
+      if (confirm('Clear the current legal consultation conversation?')) {
+        startNewConsultation();
+      }
     }
   };
 
@@ -558,14 +598,26 @@ export default function ChatInterface({
                 {t.historyTitle}
               </span>
             </div>
-            <button
-              type="button"
-              onClick={() => setShowHistorySidebar(false)}
-              className="p-1 text-gray-400 hover:text-gray-600 rounded-lg lg:hidden"
-              title="Close history sidebar"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
+            <div className="flex items-center gap-1">
+              {threads.length > 0 && (
+                <button
+                  type="button"
+                  onClick={handleDeleteAllThreads}
+                  className="p-1 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
+                  title="Delete all consultation history / सभी इतिहास हटाएँ"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={() => setShowHistorySidebar(false)}
+                className="p-1 text-gray-400 hover:text-gray-600 rounded-lg lg:hidden cursor-pointer"
+                title="Close history sidebar"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
           {/* New Consultation Button */}
@@ -652,8 +704,9 @@ export default function ChatInterface({
                     <button
                       type="button"
                       onClick={(e) => handleDeleteThread(e, th.id)}
-                      className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded transition-all shrink-0"
-                      title="Delete this consultation"
+                      className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all shrink-0 cursor-pointer"
+                      title="Delete this consultation / परामर्श हटाएँ"
+                      aria-label="Delete consultation"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -717,16 +770,16 @@ export default function ChatInterface({
           </div>
 
           <div className="flex items-center gap-2">
-            {messages.length > 0 && (
+            {(messages.length > 0 || activeThreadId) && (
               <button
                 type="button"
                 onClick={clearChat}
-                className="p-1.5 text-gray-300 hover:text-red-300 hover:bg-primary-800/80 rounded-lg transition-colors flex items-center gap-1 text-xs cursor-pointer"
-                title="Clear current consultation"
-                aria-label="Clear chat"
+                className="px-2.5 py-1.5 text-red-300 hover:text-red-100 bg-red-950/40 hover:bg-red-900/60 border border-red-800/60 rounded-xl transition-all flex items-center gap-1.5 text-xs font-semibold cursor-pointer shadow-2xs"
+                title="Delete this consultation permanently / परामर्श हटाएँ"
+                aria-label="Delete chat"
               >
-                <Trash2 className="w-4 h-4" />
-                <span className="hidden md:inline">{t.clearChatBtn}</span>
+                <Trash2 className="w-3.5 h-3.5 text-red-400" />
+                <span>Delete Chat</span>
               </button>
             )}
           </div>
@@ -860,6 +913,7 @@ export default function ChatInterface({
                         {/* Markdown Formatted Legal Advice */}
                         <div className="prose prose-sm max-w-none text-gray-800 text-xs sm:text-sm leading-relaxed">
                           <ReactMarkdown
+                            remarkPlugins={[remarkGfm]}
                             components={{
                               h1: ({ node, ...props }) => (
                                 <h2 className="text-base font-extrabold text-primary-950 mt-4 mb-2 pb-1 border-b border-primary-100 flex items-center gap-1.5" {...props} />
@@ -891,24 +945,27 @@ export default function ChatInterface({
                                 <strong className="font-bold text-primary-950" {...props} />
                               ),
                               blockquote: ({ node, ...props }) => (
-                                <blockquote className="border-l-4 border-accent-400 bg-amber-50/80 p-3 rounded-r-xl my-2.5 text-xs text-amber-900 shadow-2xs" {...props} />
+                                <blockquote className="border-l-4 border-amber-500 bg-amber-50/80 p-3 rounded-r-xl my-2.5 text-xs text-amber-900 shadow-2xs" {...props} />
                               ),
                               table: ({ node, ...props }) => (
-                                <div className="overflow-x-auto my-3 rounded-xl border border-gray-200 shadow-2xs">
-                                  <table className="w-full text-left text-xs border-collapse" {...props} />
+                                <div className="overflow-x-auto my-3 rounded-xl border border-slate-200/90 shadow-2xs bg-white">
+                                  <table className="w-full text-left text-xs border-collapse divide-y divide-slate-200" {...props} />
                                 </div>
                               ),
                               thead: ({ node, ...props }) => (
-                                <thead className="bg-primary-100/80 text-primary-950 font-bold border-b border-primary-200" {...props} />
+                                <thead className="bg-slate-100 text-slate-900 font-bold" {...props} />
                               ),
                               th: ({ node, ...props }) => (
-                                <th className="p-2.5 font-bold text-primary-950 border-r border-primary-200/50 last:border-r-0" {...props} />
+                                <th className="p-3 font-bold text-slate-900 border-r border-slate-200 last:border-r-0 whitespace-nowrap" {...props} />
+                              ),
+                              tbody: ({ node, ...props }) => (
+                                <tbody className="divide-y divide-slate-100 bg-white" {...props} />
                               ),
                               tr: ({ node, ...props }) => (
-                                <tr className="hover:bg-primary-50/30 transition-colors border-b border-gray-100 last:border-b-0" {...props} />
+                                <tr className="hover:bg-slate-50/80 transition-colors" {...props} />
                               ),
                               td: ({ node, ...props }) => (
-                                <td className="p-2.5 text-gray-700 border-r border-gray-100 last:border-r-0 align-top" {...props} />
+                                <td className="p-3 text-slate-800 border-r border-slate-100 last:border-r-0 align-top leading-relaxed" {...props} />
                               ),
                               code: ({ node, inline, ...props }: any) =>
                                 inline ? (
@@ -918,7 +975,7 @@ export default function ChatInterface({
                                 ),
                             }}
                           >
-                            {displayText}
+                            {formatLegalMarkdown(displayText)}
                           </ReactMarkdown>
                         </div>
 

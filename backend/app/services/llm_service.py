@@ -90,6 +90,25 @@ NON_LEGAL_INDICATORS = {
 }
 
 
+def _clean_llm_markdown(text: str) -> str:
+    """Ensure clean GitHub Flavored Markdown table structure and section headers."""
+    if not text:
+        return text
+
+    # Fix collapsed markdown table rows where | | occurs on a single line
+    # e.g., "| Key Changes | | :--- | :--- | | Murder | IPC Section 302 |"
+    cleaned = re.sub(r"\|\s*\|\s*(:?-+:?)", r"|\n| \1", text)
+    cleaned = re.sub(r"\|\s*\|\s*([^|\n]+)", r"|\n| \1", cleaned)
+
+    # Ensure table header separator | :--- | has a newline before and after
+    cleaned = re.sub(r"([^\n])\n(\|[\s:-]+\|)", r"\1\n\n\2", cleaned)
+
+    # Ensure double newlines before and after tables
+    cleaned = re.sub(r"(\|[^\n]+\|)\n([^|\n#\d\*\-])", r"\1\n\n\2", cleaned)
+
+    return cleaned
+
+
 def is_out_of_domain_query(query: str) -> bool:
     """Detect if query is clearly outside the legal domain."""
     if not query:
@@ -352,16 +371,46 @@ Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, 
         if not english_text:
             english_text = self._generate_fallback_response(query, retrieved_context, user_profile)
 
-        # 5. Extract only citations that are genuinely mentioned in the generated text
+        # Clean markdown formatting so tables have proper newlines
+        english_text = _clean_llm_markdown(english_text)
+
+        # 5. Combine and prioritize retrieved RAG citations and text-extracted citations
+        final_citations: List[Dict[str, str]] = []
+        seen_sections = set()
+
+        # Prioritize relevant citations that were retrieved from Neo4j AND are mentioned in text or query
+        for c in citations:
+            sec = c.get("section", "")
+            sec_num_match = re.search(r"\b(\d+[A-Za-z]?)\b", sec)
+            if sec_num_match:
+                s_num = sec_num_match.group(1).upper()
+                if s_num in english_text or s_num in query:
+                    if s_num not in seen_sections:
+                        seen_sections.add(s_num)
+                        final_citations.append(c)
+
+        # Add any other citations extracted from the generated text
         extracted_cits = self._extract_citations_from_text(english_text)
-        if extracted_cits:
-            citations = extracted_cits
-        elif not citations:
-            citations = self._extract_citations_from_text(english_text)
+        for ec in extracted_cits:
+            ec_sec = ec.get("section", "")
+            ec_match = re.search(r"\b(\d+[A-Za-z]?)\b", ec_sec)
+            s_num = ec_match.group(1).upper() if ec_match else ec_sec
+            if s_num not in seen_sections:
+                seen_sections.add(s_num)
+                final_citations.append(ec)
+
+        # Ensure legal aid citation is present if helpline is mentioned
+        if ("15100" in english_text or "legal aid" in english_text.lower()) and "12" not in seen_sections:
+            seen_sections.add("12")
+            final_citations.append({
+                "section": "Section 12, Legal Services Authorities Act, 1987",
+                "subject": "Entitlement to Free State Legal Aid & NALSA 15100 Helpline",
+                "key_changes": "Free state-sponsored counsel for eligible citizens."
+            })
 
         return {
             "english_response": english_text,
-            "citations": citations,
+            "citations": final_citations[:5] if final_citations else citations[:5],
             "user_profile": user_profile.value
         }
 
@@ -398,7 +447,8 @@ Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, 
             f"You are a professional multilingual translator specializing in Indian legal translation.\n"
             f"Translate the following legal guidance accurately and completely from {src_name} to {tgt_name}.\n"
             f"- Output the ENTIRE text in {tgt_name} script/language without leaving English sentences in the middle.\n"
-            f"- Preserve section numbers (e.g., Section 318, BNS 2023, BNSS 173), phone numbers (15100, 112, 1930), Markdown tables (| col | col |), bullet points, and '###' headers.\n"
+            f"- CRITICAL TABLE FORMATTING: Preserve Markdown table formatting with exact row line-breaks. Every table row starting with '|' MUST be on a new line (e.g. '| Col 1 | Col 2 |\n| :--- | :--- |\n| Val 1 | Val 2 |'). Never concatenate table rows into a single line.\n"
+            f"- Preserve section numbers (e.g., Section 318, BNS 2023, BNSS 173), phone numbers (15100, 112, 1930), bullet points, and '###' headers.\n"
             f"- Output ONLY the translated text without commentary or prefixes.\n\n"
             f"Text to translate:\n{text}"
         )
@@ -415,7 +465,7 @@ Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, 
                 timeout=40.0
             )
             if response_text and response_text.strip():
-                return response_text.strip()
+                return _clean_llm_markdown(response_text.strip())
         except asyncio.TimeoutError:
             logger.warning("Gemini translation timed out after 40s. Returning text.")
         except Exception as e:
@@ -716,38 +766,115 @@ Here is clear guidance on how Indian law protects you and what steps you can tak
         citations = []
         seen = set()
 
-        # Check explicit section mentions in text
+        # Known statutes lookup for authoritative titling and notes
+        STATUTE_INFO = {
+            "103": ("BNS Section 103 (formerly IPC Section 302)", "Punishment for Murder & Capital Offence", "Death penalty or imprisonment for life, and fine."),
+            "302": ("IPC Section 302 (replaced by BNS Section 103)", "Punishment for Murder (Historical)", "Replaced by Section 103 BNS."),
+            "249": ("BNS Section 249 (formerly IPC Section 212)", "Harbouring Offender (Screening from Punishment)", "Harbouring a person who committed a capital offence carries up to 5 years rigorous imprisonment."),
+            "212": ("IPC Section 212 (replaced by BNS Section 249)", "Harbouring Offender (Historical)", "Replaced by Section 249 BNS."),
+            "238": ("BNS Section 238 (formerly IPC Section 201)", "Causing Disappearance of Evidence / Giving False Info", "Penalizes destroying evidence or misleading police to screen an offender."),
+            "201": ("IPC Section 201 (replaced by BNS Section 238)", "Disappearance of Evidence (Historical)", "Replaced by Section 238 BNS."),
+            "33": ("BNSS Section 33 (formerly CrPC Section 39)", "Duty of Public to Give Information of Heinous Crimes", "Mandates every citizen aware of murder/heinous crimes to inform the nearest police or magistrate."),
+            "39": ("CrPC Section 39 (replaced by BNSS Section 33)", "Public Duty to Inform Police (Historical)", "Replaced by Section 33 BNSS."),
+            "318": ("BNS Section 318 (formerly IPC Section 420)", "Cheating & Dishonestly Inducing Delivery of Property", "Imprisonment up to 7 years and fine."),
+            "420": ("IPC Section 420 (replaced by BNS Section 318)", "Cheating (Historical)", "Replaced by Section 318 BNS."),
+            "86": ("BNS Section 86 (formerly IPC Section 498A)", "Cruelty by Husband or Relatives", "Enhanced focus on women safety; imprisonment up to 3 years and fine."),
+            "498A": ("IPC Section 498A (replaced by BNS Section 86)", "Cruelty (Historical)", "Replaced by Section 86 BNS."),
+            "65": ("BNS Section 65 (formerly IPC Section 376)", "Punishment for Rape & Sexual Offences", "Imprisonment not less than 10 years up to life."),
+            "376": ("IPC Section 376 (replaced by BNS Section 65)", "Rape (Historical)", "Replaced by Section 65 BNS."),
+            "80": ("BNS Section 80 (formerly IPC Section 304B)", "Dowry Death", "Imprisonment not less than 7 years up to life."),
+            "304B": ("IPC Section 304B (replaced by BNS Section 80)", "Dowry Death (Historical)", "Replaced by Section 80 BNS."),
+            "305": ("BNS Section 305 (formerly IPC Section 379)", "Theft & Larceny", "Imprisonment up to 3 years, fine, or community service."),
+            "379": ("IPC Section 379 (replaced by BNS Section 305)", "Theft (Historical)", "Replaced by Section 305 BNS."),
+            "351": ("BNS Section 351 (formerly IPC Section 503)", "Criminal Intimidation & Workplace Threats", "Penalizes threatening a person, reputation, or livelihood."),
+            "352": ("BNS Section 352 (formerly IPC Section 506)", "Punishment for Criminal Intimidation", "Penalizes threats of death, injury, or ruin."),
+            "173": ("BNSS Section 173 (formerly CrPC Section 154)", "Information in Cognizable Cases & Zero FIR", "Formalizes Zero FIR across any station; enables electronic e-FIR."),
+            "154": ("CrPC Section 154 (replaced by BNSS Section 173)", "FIR Registration (Historical)", "Replaced by Section 173 BNSS."),
+            "35": ("BNSS Section 35 (formerly CrPC Section 41/41A)", "Arrest Safeguards & Notice of Appearance", "Mandates notice of appearance before arrest for offences under 7 years."),
+            "63": ("BSA Section 63 (formerly IEA Section 65B)", "Admissibility of Electronic and Digital Records", "Expands electronic evidence to include server logs, mobile chats, and GPS."),
+            "65B": ("IEA Section 65B (replaced by BSA Section 63)", "Electronic Records (Historical)", "Replaced by Section 63 BSA."),
+            "478": ("BNSS Section 478 (formerly CrPC Section 436)", "Bail in Bailable Offences", "Mandatory statutory right to bail for bailable matters."),
+            "479": ("BNSS Section 479", "Maximum Period of Detention of Undertrials", "Provides early bail relief for undertrial prisoners who served one-third sentence."),
+            "483": ("BNSS Section 483 (formerly CrPC Section 439)", "Special Powers of High Court / Sessions Court on Bail", "Discretionary bail relief in non-bailable offences."),
+        }
+
+        # Check explicit section mentions in text (both "Section 103 BNS" and "BNS Section 103")
         patterns = [
-            (r"Section\s*(\d+[A-Za-z]?)\s*(?:and\s*Section\s*(\d+[A-Za-z]?)\s*)?(?:of\s*)?(?:the\s*)?BNS", "Bharatiya Nyaya Sanhita, 2023"),
-            (r"Section\s*(\d+[A-Za-z]?)\s*(?:of\s*)?(?:the\s*)?BNSS", "Bharatiya Nagarik Suraksha Sanhita, 2023"),
-            (r"Section\s*(\d+[A-Za-z]?)\s*(?:of\s*)?(?:the\s*)?BSA", "Bharatiya Sakshya Adhiniyam, 2023"),
-            (r"Section\s*(\d+[A-Za-z]?)\s*(?:of\s*)?(?:the\s*)?IPC", "Indian Penal Code, 1860 (Historical)"),
-            (r"Section\s*(\d+[A-Za-z]?)\s*(?:of\s*)?(?:the\s*)?CrPC", "Code of Criminal Procedure, 1973 (Historical)"),
+            (r"\bBNS\s*(?:Section|Sec\.?)?\s*(\d+[A-Za-z]?|\d+\(\d+\))\b", "BNS"),
+            (r"Section\s*(\d+[A-Za-z]?|\d+\(\d+\))\s*(?:of\s*)?(?:the\s*)?BNS\b", "BNS"),
+            (r"\bBNSS\s*(?:Section|Sec\.?)?\s*(\d+[A-Za-z]?|\d+\(\d+\))\b", "BNSS"),
+            (r"Section\s*(\d+[A-Za-z]?|\d+\(\d+\))\s*(?:of\s*)?(?:the\s*)?BNSS\b", "BNSS"),
+            (r"\bBSA\s*(?:Section|Sec\.?)?\s*(\d+[A-Za-z]?|\d+\(\d+\))\b", "BSA"),
+            (r"Section\s*(\d+[A-Za-z]?|\d+\(\d+\))\s*(?:of\s*)?(?:the\s*)?BSA\b", "BSA"),
+            (r"\bIPC\s*(?:Section|Sec\.?)?\s*(\d+[A-Za-z]?|\d+\(\d+\))\b", "IPC"),
+            (r"Section\s*(\d+[A-Za-z]?|\d+\(\d+\))\s*(?:of\s*)?(?:the\s*)?IPC\b", "IPC"),
+            (r"\bCrPC\s*(?:Section|Sec\.?)?\s*(\d+[A-Za-z]?|\d+\(\d+\))\b", "CrPC"),
+            (r"Section\s*(\d+[A-Za-z]?|\d+\(\d+\))\s*(?:of\s*)?(?:the\s*)?CrPC\b", "CrPC"),
         ]
 
-        for pat, act in patterns:
+        for pat, act_code in patterns:
             for match in re.finditer(pat, text, re.IGNORECASE):
-                for grp in match.groups():
-                    if grp:
-                        sec_num = grp.strip()
-                        entry_key = f"{sec_num}-{act}"
-                        if entry_key not in seen:
-                            seen.add(entry_key)
-                            citations.append({
-                                "section": f"Section {sec_num}, {act}",
-                                "subject": f"Statutory Provision under {act}",
-                                "key_changes": f"Codified under {act}"
-                            })
+                sec_num = match.group(1).strip()
+                sec_upper = sec_num.upper()
+                if sec_upper in seen:
+                    continue
+                seen.add(sec_upper)
+
+                info = STATUTE_INFO.get(sec_upper)
+                if info:
+                    citations.append({
+                        "section": info[0],
+                        "subject": info[1],
+                        "key_changes": info[2]
+                    })
+                else:
+                    act_full = {
+                        "BNS": "Bharatiya Nyaya Sanhita, 2023",
+                        "BNSS": "Bharatiya Nagarik Suraksha Sanhita, 2023",
+                        "BSA": "Bharatiya Sakshya Adhiniyam, 2023",
+                        "IPC": "Indian Penal Code, 1860 (Historical)",
+                        "CrPC": "Code of Criminal Procedure, 1973 (Historical)"
+                    }.get(act_code, act_code)
+                    citations.append({
+                        "section": f"Section {sec_num}, {act_full}",
+                        "subject": f"Statutory Provision under {act_full}",
+                        "key_changes": f"Codified under {act_full}"
+                    })
 
         t_lower = text.lower()
 
+        # Check for specific offences discussed in text
+        if ("murder" in t_lower or "103" in text or "302" in text) and "103" not in seen and "302" not in seen:
+            seen.add("103")
+            citations.insert(0, {
+                "section": "BNS Section 103 (formerly IPC Section 302)",
+                "subject": "Punishment for Murder & Capital Offence",
+                "key_changes": "Death penalty or imprisonment for life, and fine."
+            })
+
+        if ("harbour" in t_lower or "harbor" in t_lower or "249" in text or "212" in text) and "249" not in seen:
+            seen.add("249")
+            citations.append({
+                "section": "BNS Section 249 (formerly IPC Section 212)",
+                "subject": "Harbouring Offender (Screening from Legal Punishment)",
+                "key_changes": "Harbouring a person who committed a capital offence carries up to 5 years rigorous imprisonment."
+            })
+
+        if ("disappearance of evidence" in t_lower or "hiding evidence" in t_lower or "238" in text or "201" in text) and "238" not in seen:
+            seen.add("238")
+            citations.append({
+                "section": "BNS Section 238 (formerly IPC Section 201)",
+                "subject": "Causing Disappearance of Evidence / Giving False Info",
+                "key_changes": "Penalizes destroying evidence or misleading police to screen an offender."
+            })
+
         # Workplace / Employer harassment specific citations
         if "351" in text or "intimidation" in t_lower or "employer" in t_lower or "harassment" in t_lower:
-            if "Section 351, BNS 2023" not in seen:
-                seen.add("Section 351, BNS 2023")
+            if "351" not in seen:
+                seen.add("351")
                 citations.append({
-                    "section": "Section 351 & 352, BNS 2023",
-                    "subject": "Criminal Intimidation & Intentional Insult (replaces Sections 503, 506 IPC)",
+                    "section": "BNS Section 351 & 352 (formerly IPC Sections 503 & 506)",
+                    "subject": "Criminal Intimidation & Intentional Insult",
                     "key_changes": "Penalizes threatening employee person, reputation, or livelihood."
                 })
             if "Payment of Wages Act, 1936" not in seen:
@@ -759,11 +886,11 @@ Here is clear guidance on how Indian law protects you and what steps you can tak
                 })
 
         # FIR citations
-        if ("173" in text or "fir" in t_lower) and "Section 173, BNSS 2023" not in seen:
-            seen.add("Section 173, BNSS 2023")
+        if ("173" in text or "fir" in t_lower) and "173" not in seen:
+            seen.add("173")
             citations.append({
-                "section": "Section 173, BNSS 2023",
-                "subject": "Information in Cognizable Cases & Zero FIR (replaces Section 154 CrPC)",
+                "section": "BNSS Section 173 (formerly CrPC Section 154)",
+                "subject": "Information in Cognizable Cases & Zero FIR",
                 "key_changes": "Formalizes Zero FIR; enables e-FIR registration."
             })
 
