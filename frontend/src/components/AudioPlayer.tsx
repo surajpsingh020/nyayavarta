@@ -41,6 +41,87 @@ function cleanMarkdownForSpeech(text: string): string {
     .trim();
 }
 
+const AUDIO_LABELS: Record<string, { listen: string; playPrompt: string; paused: string; reading: string }> = {
+  en: {
+    listen: 'Listen in Voice (Read Aloud)',
+    playPrompt: 'Click play to hear full legal advice read aloud',
+    paused: 'Voice Paused',
+    reading: 'Reading Legal Guidance Aloud...',
+  },
+  hi: {
+    listen: 'ध्वनि में सुनें (Listen in Voice)',
+    playPrompt: 'पूरा कानूनी उत्तर सुनने के लिए प्ले बटन दबाएं',
+    paused: 'ध्वनि रुकी हुई है (Paused)',
+    reading: 'कानूनी उत्तर पढ़ा जा रहा है (Speaking Guidance...)',
+  },
+  bn: {
+    listen: 'কণ্ঠে শুনুন (Listen in Voice)',
+    playPrompt: 'সম্পূর্ণ আইনি পরামর্শ শুনতে প্লে বোতামে চাপুন',
+    paused: 'কণ্ঠ স্থগিত (Paused)',
+    reading: 'আইনি পরামর্শ পাঠ করা হচ্ছে (Speaking Guidance...)',
+  },
+  te: {
+    listen: 'వాయిస్‌లో వినండి (Listen in Voice)',
+    playPrompt: 'పూర్తి చట్టపరమైన సలహా వినడానికి ప్లే నొక్కండి',
+    paused: 'వాయిస్ నిలిపివేయబడింది (Paused)',
+    reading: 'చట్టపరమైన సలహా చదవబడుతోంది (Speaking...)',
+  },
+  ta: {
+    listen: 'குரலில் கேளுங்கள் (Listen in Voice)',
+    playPrompt: 'முழு சட்ட ஆலோசனையையும் கேட்க பிளே பொத்தானை அழுத்தவும்',
+    paused: 'குரல் இடைநிறுத்தப்பட்டது (Paused)',
+    reading: 'சட்ட ஆலோசனை வாசிக்கப்படுகிறது (Speaking...)',
+  },
+  mr: {
+    listen: 'आवाजात ऐका (Listen in Voice)',
+    playPrompt: 'पूर्ण कायदेशीर सल्ला ऐकण्यासाठी प्ले बटण दाबा',
+    paused: 'आवाज थांबवला आहे (Paused)',
+    reading: 'कायदेशीर सल्ला वाचला जात आहे (Speaking...)',
+  },
+  gu: {
+    listen: 'અવાજમાં સાંભળો (Listen in Voice)',
+    playPrompt: 'સંપૂર્ણ કાનૂની સલાહ સાંભળવા માટે પ્લે બટન દબાવો',
+    paused: 'અવાજ થોભાવેલ છે (Paused)',
+    reading: 'કાનૂની સલાહ વાંચવામાં આવી રહી છે (Speaking...)',
+  },
+  kn: {
+    listen: 'ಧ್ವನಿಯಲ್ಲಿ ಕೇಳಿ (Listen in Voice)',
+    playPrompt: 'ಸಂಪೂರ್ಣ ಕಾನೂನು ಸಲಹೆಯನ್ನು ಕೇಳಲು ಪ್ಲೇ ಬಟನ್ ಒತ್ತಿರಿ',
+    paused: 'ಧ್ವನಿ ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ (Paused)',
+    reading: 'ಕಾನೂನು ಸಲಹೆ ಓದಲಾಗುತ್ತಿದೆ (Speaking...)',
+  },
+  ml: {
+    listen: 'ശബ്ദത്തിൽ കേൾക്കുക (Listen in Voice)',
+    playPrompt: 'പൂർണ്ണ നിയമോപദേശം കേൾക്കാൻ പ്ലേ അമർത്തുക',
+    paused: 'ശബ്ദം താൽക്കാലികമായി നിർത്തി (Paused)',
+    reading: 'നിയമോപദേശം വായിക്കുന്നു (Speaking...)',
+  },
+  pa: {
+    listen: 'ਆਵਾਜ਼ ਵਿੱਚ ਸੁਣੋ (Listen in Voice)',
+    playPrompt: 'ਪੂਰੀ ਕਾਨੂੰਨੀ ਸਲਾਹ ਸੁਣਨ ਲਈ ਪਲੇ ਬਟਨ ਦਬਾਓ',
+    paused: 'ਆਵਾਜ਼ ਰੋਕੀ ਗਈ (Paused)',
+    reading: 'ਕਾਨੂੰਨੀ ਸਲਾਹ ਪੜ੍ਹੀ ਜਾ ਰਹੀ ਹੈ (Speaking...)',
+  },
+  or: {
+    listen: 'ଶବ୍ଦରେ ଶୁଣନ୍ତୁ (Listen in Voice)',
+    playPrompt: 'ସମ୍ପୂର୍ଣ୍ଣ ଆଇନଗତ ପରାମର୍ଶ ଶୁଣିବା ପାଇଁ ପ୍ଲେ ବଟନ୍ ଦବାନ୍ତୁ',
+    paused: 'ଶବ୍ଦ ବନ୍ଦ ହୋଇଛି (Paused)',
+    reading: 'ଆଇନଗତ ପରାମର୍ଶ ପଢାଯାଉଛି (Speaking...)',
+  },
+  ur: {
+    listen: 'آواز میں سنیں (Listen in Voice)',
+    playPrompt: 'مکمل قانونی مشورہ سننے کے لیے پلے کا بٹن دبائیں',
+    paused: 'آواز روکی گئی (Paused)',
+    reading: 'قانونی مشورہ پڑھا جا رہا ہے (Speaking...)',
+  },
+  as: {
+    listen: 'শব্দত শুনক (Listen in Voice)',
+    playPrompt: 'সম্পূৰ্ণ আইনী পৰামৰ্শ শুনিবলৈ প্লে বুটাম টিপক',
+    paused: 'শব্দ স্থগিত (Paused)',
+    reading: 'আইনী পৰামৰ্শ পাঠ কৰা হৈছে (Speaking...)',
+  },
+};
+
 export default function AudioPlayer({
   audioBase64,
   textToSpeak,
@@ -269,26 +350,20 @@ export default function AudioPlayer({
       {/* Audio Status Label */}
       <div className="flex-1 min-w-0">
         <p className="text-xs font-semibold text-primary-900 truncate">
-          {isPlaying
-            ? isPaused
-              ? language === 'en'
-                ? 'Voice Paused'
-                : 'ध्वनि रुकी हुई है (Paused)'
-              : language === 'en'
-                ? 'Reading Legal Guidance Aloud...'
-                : 'कानूनी उत्तर पढ़ा जा रहा है (Speaking Guidance...)'
-            : language === 'en'
-              ? 'Listen in Voice (Read Aloud)'
-              : 'ध्वनि में सुनें (Listen in Voice)'}
+          {(() => {
+            const lbl = AUDIO_LABELS[language] || AUDIO_LABELS.en;
+            if (isPlaying) {
+              return isPaused ? lbl.paused : lbl.reading;
+            }
+            return lbl.listen;
+          })()}
         </p>
         <p className="text-[10px] text-primary-700 truncate">
           {isPlaying
             ? hasRealAudio
               ? 'High-Fidelity Indian Voice Active'
               : 'Browser Speech Synthesizer Active'
-            : language === 'en'
-              ? 'Click play to hear full legal advice read aloud'
-              : 'पूरा कानूनी उत्तर सुनने के लिए प्ले बटन दबाएं'}
+            : (AUDIO_LABELS[language] || AUDIO_LABELS.en).playPrompt}
         </p>
       </div>
 
