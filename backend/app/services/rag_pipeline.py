@@ -64,6 +64,8 @@ CYPHER_CONSTRAINTS = [
     "CREATE CONSTRAINT offence_name_unique IF NOT EXISTS FOR (o:Offence) REQUIRE o.name IS UNIQUE",
     "CREATE CONSTRAINT aid_name_unique IF NOT EXISTS FOR (aid:LegalAid) REQUIRE aid.name IS UNIQUE",
     "CREATE CONSTRAINT doc_chunk_unique IF NOT EXISTS FOR (d:DocumentChunk) REQUIRE d.id IS UNIQUE",
+    "CREATE CONSTRAINT case_cit_unique IF NOT EXISTS FOR (c:CasePrecedent) REQUIRE c.citation IS UNIQUE",
+    "CREATE CONSTRAINT neutral_cit_unique IF NOT EXISTS FOR (c:CasePrecedent) REQUIRE c.neutral_citation IS UNIQUE",
 ]
 
 CYPHER_SEED_ACTS = """
