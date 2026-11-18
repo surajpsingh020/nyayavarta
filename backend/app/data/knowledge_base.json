@@ -139,6 +139,20 @@
       "subject": "Possession, delivery or use of prohibited arms and ammunition",
       "description": "Whoever manufactures, sells, transfers, converts, repairs, tests, proves or has in his possession or delivers any prohibited arms or prohibited ammunition.",
       "key_changes": "Section 25(1-C) of Arms Act prescribes rigorous imprisonment not less than 3 years which may extend to 7 or 10 years, and fine. Non-bailable and cognizable offense."
+    },
+    {
+      "old_law": "Indian Penal Code (IPC), 1860 - Section 120B",
+      "new_law": "Bharatiya Nyaya Sanhita (BNS), 2023 - Section 61(2)",
+      "subject": "Criminal conspiracy to commit an offence",
+      "description": "Whoever is a party to a criminal conspiracy to commit an offence punishable with death, imprisonment for life or rigorous imprisonment for a term of two years or upwards.",
+      "key_changes": "Section 120B IPC replaced by Section 61(2) BNS. Substantive provisions maintained for conspiratorial agreements to commit criminal offences."
+    },
+    {
+      "old_law": "Indian Penal Code (IPC), 1860 - Section 406",
+      "new_law": "Bharatiya Nyaya Sanhita (BNS), 2023 - Section 316",
+      "subject": "Punishment for criminal breach of trust",
+      "description": "Whoever commits criminal breach of trust shall be punished with imprisonment of either description for a term which may extend to five years, or with fine, or with both.",
+      "key_changes": "Section 406 IPC replaced by Section 316 BNS. Misappropriation of entrusted property, financial deposits, or investor funds is strictly punishable."
     }
   ]
 }

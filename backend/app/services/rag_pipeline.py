@@ -158,8 +158,13 @@ LIMIT $limit
 
 CYPHER_DOC_CHUNK_SEARCH = """
 MATCH (doc:DocumentChunk)
-WHERE ($filename IS NOT NULL AND (doc.filename = $filename OR doc.filename CONTAINS $filename))
-   OR (size($terms) > 0 AND ANY(term IN $terms WHERE toLower(doc.text) CONTAINS term))
+WHERE (
+  $filename IS NOT NULL AND (
+    doc.filename = $filename OR doc.filename CONTAINS $filename OR $filename CONTAINS doc.filename
+  )
+) OR (
+  $filename IS NULL AND size($terms) > 0 AND ANY(term IN $terms WHERE toLower(doc.text) CONTAINS term)
+)
 OPTIONAL MATCH (doc)-[:REFERENCES_SECTION]->(s:Section)
 RETURN
   doc.id AS id,
@@ -735,6 +740,11 @@ class RAGPipeline:
                     for idx in ranked_indices[:k]:
                         if raw_scores[idx] > 0.1:
                             doc = self.corpus_docs[idx]
+                            meta = doc.get("metadata", {})
+                            if document_name and meta.get("type") == "user_document":
+                                fn = meta.get("filename", "")
+                                if fn and document_name.lower() not in fn.lower() and fn.lower() not in document_name.lower():
+                                    continue
                             bm25_results.append({
                                 "text": doc["text"],
                                 "metadata": doc["metadata"],
