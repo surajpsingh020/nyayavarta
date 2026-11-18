@@ -118,7 +118,8 @@ def is_out_of_domain_query(query: str) -> bool:
         return False
     q_clean = query.lower().strip()
     for term in NON_LEGAL_INDICATORS:
-        if term in q_clean:
+        # Require word boundary so 'electron' does not falsely match 'electronic records/evidence'
+        if re.search(rf"\b{re.escape(term)}\b", q_clean):
             return True
     return False
 

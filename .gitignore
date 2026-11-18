@@ -33,3 +33,5 @@ uploads/
 *.db
 *.sqlite
 *.sqlite3
+*.log
+*.jsonl

@@ -1,0 +1,123 @@
+{
+  "version": "1.0",
+  "name": "Nyayavarta Legal GraphRAG Golden Evaluation Dataset",
+  "description": "Curated benchmark dataset of real-world Indian legal queries, statutory transition ground truths, and evaluation criteria.",
+  "test_cases": [
+    {
+      "id": "eval-001",
+      "question": "What is the difference between old IPC 420 and new BNS 318 for cheating and fraud?",
+      "category": "penal_transition",
+      "expected_sections": ["318", "420"],
+      "expected_acts": ["BNS", "IPC"],
+      "key_criteria": [
+        "Identifies BNS Section 318 as the replacement for IPC Section 420",
+        "Mentions dishonest inducement of property as key ingredient",
+        "Punishment up to 7 years imprisonment and fine",
+        "Provides National Legal Aid Helpline 15100"
+      ],
+      "ground_truth_answer": "Under the 2023 criminal law reform, IPC Section 420 has been replaced by Section 318 of the Bharatiya Nyaya Sanhita (BNS). The substantive ingredients remain identical: whoever cheats and dishonestly induces a person to deliver property is punished with imprisonment up to 7 years and fine. Evidence can be submitted digitally under Section 63 BSA and Zero FIR registered under Section 173 BNSS."
+    },
+    {
+      "id": "eval-002",
+      "question": "What are my rights upon arrest without warrant under BNSS Section 35?",
+      "category": "procedural_safeguards",
+      "expected_sections": ["35", "41"],
+      "expected_acts": ["BNSS", "CrPC"],
+      "key_criteria": [
+        "Replaces Section 41 of CrPC",
+        "Mandatory preparation of arrest memo",
+        "Notice of Appearance (Section 35(3) BNSS) before arrest for offences under 7 years",
+        "Right to inform a relative/friend",
+        "Restriction on mechanical use of handcuffs"
+      ],
+      "ground_truth_answer": "Under Section 35 of the Bharatiya Nagarik Suraksha Sanhita (BNSS, 2023, replacing Section 41 CrPC), police cannot make mechanical arrests for offences punishable with up to 7 years imprisonment without first issuing a Notice of Appearance. The arrestee has the right to see the arrest memo, inform a designated friend or family member immediately, undergo medical examination, and seek free legal representation under NALSA (15100)."
+    },
+    {
+      "id": "eval-003",
+      "question": "My neighbour has forcibly built a boundary wall capturing my land without my consent. What legal remedies do I have?",
+      "category": "property_trespass",
+      "expected_sections": ["329", "333", "173"],
+      "expected_acts": ["BNS", "BNSS"],
+      "key_criteria": [
+        "Criminal trespass under BNS Section 329 and punishment under BNS Section 333 (replaces IPC 441/447)",
+        "Right to file police complaint / Zero FIR under Section 173 BNSS",
+        "Civil remedy: Permanent injunction and recovery of possession under Specific Relief Act",
+        "Preservation of land deeds, mutation records, and survey maps"
+      ],
+      "ground_truth_answer": "Forcible land grabbing constitutes Criminal Trespass under Section 329 and is punishable under Section 333 of the Bharatiya Nyaya Sanhita (BNS, 2023). You can lodge a police complaint under Section 173 BNSS for immediate law enforcement intervention and file a suit for recovery of possession and permanent injunction before the Civil Court."
+    },
+    {
+      "id": "eval-004",
+      "question": "Summarize the key charges in this report",
+      "category": "document_grounding",
+      "document_name": "FIR-14002-2024-PRT-Ps.pdf",
+      "expected_sections": ["17", "20", "25(1-C)", "384", "506"],
+      "expected_acts": ["UAPA", "ARMS", "BNS", "IPC"],
+      "key_criteria": [
+        "Identifies Unlawful Activities (Prevention) Act Sections 17 & 20 (terrorist funding & membership)",
+        "Identifies Arms Act Section 25(1-C) (prohibited arms possession)",
+        "Mentions extortion demands against business establishment (IPC 384/506 or BNS 308/351)",
+        "References Porompat Police Station / FIR 140(02)2024",
+        "Zero contamination with unrelated chit-fund or rape cases"
+      ],
+      "ground_truth_answer": "The official police First Information Report (FIR No. 140(02)2024 PRT-PS, Porompat Police Station) charges the accused with Sections 17 & 20 of the Unlawful Activities (Prevention) Act, 1967 (UAPA) for terrorist funding and banned organization membership, Section 25(1-C) of the Arms Act, 1959 for prohibited weapons, and extortion/intimidation demands under the Penal Code."
+    },
+    {
+      "id": "eval-005",
+      "question": "Someone issued me a cheque for Rs 5 lakhs which bounced due to insufficient funds. What is the procedure and timeline to take legal action?",
+      "category": "special_acts",
+      "expected_sections": ["138"],
+      "expected_acts": ["NI_ACT"],
+      "key_criteria": [
+        "Governed by Section 138 of Negotiable Instruments Act, 1881",
+        "Mandatory statutory demand notice within 30 days of receiving bank memo",
+        "15-day statutory cure period for drawer to pay",
+        "Filing criminal complaint before Magistrate within 1 month of cause of action",
+        "Punishment up to 2 years imprisonment or fine twice the cheque amount"
+      ],
+      "ground_truth_answer": "Under Section 138 of the Negotiable Instruments Act, 1881, cheque dishonour for insufficient funds is a quasi-criminal offence. You must send a formal legal demand notice to the drawer within 30 days of receiving the bank memo giving them 15 days to make payment. If they fail to pay, you must file a criminal complaint before the Judicial Magistrate within 30 days thereafter. The penalty extends to 2 years imprisonment and/or a fine up to twice the cheque amount."
+    },
+    {
+      "id": "eval-006",
+      "question": "How are electronic records, WhatsApp chats, and server logs proved in court under the new evidence act?",
+      "category": "evidence_rules",
+      "expected_sections": ["63", "65B"],
+      "expected_acts": ["BSA", "IEA"],
+      "key_criteria": [
+        "Governed by Section 63 of Bharatiya Sakshya Adhiniyam, 2023 (BSA, replaces Section 65B IEA)",
+        "Explicitly recognizes server logs, mobile chats, GPS, emails, and device extractions",
+        "Primary electronic evidence admissible with electronic certificate",
+        "Expands scope to digital records created or stored in cloud"
+      ],
+      "ground_truth_answer": "Under Section 63 of the Bharatiya Sakshya Adhiniyam (BSA, 2023, which replaces Section 65B of the Indian Evidence Act), electronic records including WhatsApp messages, emails, server logs, CCTV footage, and location data are fully admissible as primary evidence when accompanied by an electronic certificate verifying device authenticity."
+    },
+    {
+      "id": "eval-007",
+      "question": "How does the landmark Supreme Court judgment Lalita Kumari apply to filing an FIR?",
+      "category": "case_precedents",
+      "expected_sections": ["173", "154"],
+      "expected_acts": ["BNSS", "CrPC"],
+      "key_criteria": [
+        "Cites Lalita Kumari v. Govt. of U.P. (2014) 2 SCC 1",
+        "Mandatory registration of FIR under Section 154 CrPC / Section 173 BNSS if cognizable offence is disclosed",
+        "No preliminary inquiry permitted if information discloses cognizable offence",
+        "Preliminary inquiry limited to 7 days for specified categories (matrimonial, commercial disputes)"
+      ],
+      "ground_truth_answer": "In Lalita Kumari v. Govt. of U.P. (2014) 2 SCC 1, a 5-judge Constitution Bench of the Supreme Court held that the registration of a First Information Report (FIR) under Section 154 CrPC (now Section 173 BNSS) is mandatory if the information discloses the commission of a cognizable offence. Police officers cannot refuse registration or conduct preliminary inquiries in cognizable cases."
+    },
+    {
+      "id": "eval-008",
+      "question": "What is Zero FIR and can a police station refuse to register my FIR because the crime happened in another district?",
+      "category": "procedural_safeguards",
+      "expected_sections": ["173"],
+      "expected_acts": ["BNSS"],
+      "key_criteria": [
+        "Codified in Section 173 of the Bharatiya Nagarik Suraksha Sanhita (BNSS, 2023)",
+        "Zero FIR allows recording information at ANY police station regardless of territorial jurisdiction",
+        "Police station assigns FIR number '0' and must transfer case to jurisdictional police station",
+        "Police refusal to register Zero FIR is unlawful"
+      ],
+      "ground_truth_answer": "Under Section 173 of the Bharatiya Nagarik Suraksha Sanhita (BNSS, 2023), the concept of Zero FIR is formally codified into statute. A police station CANNOT refuse to register an FIR on the grounds of territorial jurisdiction. They must record the information as a Zero FIR, initiate immediate emergent steps, and transfer the case to the competent jurisdictional station."
+    }
+  ]
+}

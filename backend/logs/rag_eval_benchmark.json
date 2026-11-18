@@ -1,0 +1,177 @@
+{
+  "timestamp": "2026-11-18T20:19:40Z",
+  "total_test_cases": 8,
+  "mean_metrics": {
+    "mean_context_recall": 1.0,
+    "mean_context_precision": 0.308,
+    "mean_faithfulness": 0.944,
+    "mean_answer_relevance": 0.981,
+    "mean_rag_triad_score": 0.808
+  },
+  "eval_records": [
+    {
+      "id": "eval-001",
+      "category": "penal_transition",
+      "question": "What is the difference between old IPC 420 and new BNS 318 for cheating and fraud?",
+      "expected_sections": [
+        "318",
+        "420"
+      ],
+      "retrieved_section_hits": [
+        "318",
+        "420"
+      ],
+      "context_recall": 1.0,
+      "context_precision": 0.4,
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "rag_triad_score": 0.85,
+      "latency_s": 6.37,
+      "judge_rationale": "The generated response accurately identifies BNS Section 318 as the replacement for IPC Section 420 based on the context, mentions the core element of dishonest inducement of property, covers the punishment and penalties, and includes the NALSA/DLSA helpline 15100 as required. All mandatory criteria are fully met without any hallucinations."
+    },
+    {
+      "id": "eval-002",
+      "category": "procedural_safeguards",
+      "question": "What are my rights upon arrest without warrant under BNSS Section 35?",
+      "expected_sections": [
+        "35",
+        "41"
+      ],
+      "retrieved_section_hits": [
+        "35",
+        "41"
+      ],
+      "context_recall": 1.0,
+      "context_precision": 0.6,
+      "faithfulness": 0.8,
+      "answer_relevance": 0.9,
+      "rag_triad_score": 0.825,
+      "latency_s": 6.92,
+      "judge_rationale": "The generated response correctly aligns with the retrieved context regarding BNSS Section 35 replacing CrPC Section 41, mandatory arrest memos, and handcuffs. However, it slightly hallucinates/extrapolates detailed sections like BNSS Section 37/48 and 58 which were not explicitly in the retrieved context graph, though legally accurate. It misses the specific inclusion of Notice of Appearance under Section 35(3) for offenses under 7 years which was listed in the mandatory evaluation criteria."
+    },
+    {
+      "id": "eval-003",
+      "category": "property_trespass",
+      "question": "My neighbour has forcibly built a boundary wall capturing my land without my consent. What legal remedies do I have?",
+      "expected_sections": [
+        "329",
+        "333",
+        "173"
+      ],
+      "retrieved_section_hits": [
+        "329",
+        "333",
+        "173"
+      ],
+      "context_recall": 1.0,
+      "context_precision": 0.2,
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "rag_triad_score": 0.8,
+      "latency_s": 6.83,
+      "judge_rationale": "The generated response accurately incorporates all the legal provisions from the retrieved context (BNS Sections 329 & 333 for criminal trespass, Section 173 BNSS for police complaint, Specific Relief Act reference, and NALSA helpline 15100). It covers all mandatory evaluation criteria and provides a clear, highly relevant step-by-step action plan and civil/criminal remedies without hallucinating extraneous sections not present in the context."
+    },
+    {
+      "id": "eval-004",
+      "category": "document_grounding",
+      "question": "Summarize the key charges in this report",
+      "expected_sections": [
+        "17",
+        "20",
+        "25(1-C)",
+        "384",
+        "506"
+      ],
+      "retrieved_section_hits": [
+        "17",
+        "20",
+        "25(1-C)",
+        "384",
+        "506"
+      ],
+      "context_recall": 1.0,
+      "context_precision": 0.133,
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "rag_triad_score": 0.783,
+      "latency_s": 14.5,
+      "judge_rationale": "The generated response accurately extracts all key charges from the retrieved context (UAPA Sections 17 & 20, Arms Act Section 25(1-C), IPC 384/506 for extortion and intimidation, and FIR details from Porompat Police Station) without any hallucination or contamination from unrelated cases."
+    },
+    {
+      "id": "eval-005",
+      "category": "special_acts",
+      "question": "Someone issued me a cheque for Rs 5 lakhs which bounced due to insufficient funds. What is the procedure and timeline to take legal action?",
+      "expected_sections": [
+        "138"
+      ],
+      "retrieved_section_hits": [
+        "138"
+      ],
+      "context_recall": 1.0,
+      "context_precision": 0.2,
+      "faithfulness": 0.95,
+      "answer_relevance": 1.0,
+      "rag_triad_score": 0.787,
+      "latency_s": 8.86,
+      "judge_rationale": "The generated response accurately incorporates Section 138 of the NI Act, the 30-day timeline for notice after the bank memo, the 15-day cure period, the subsequent 30-day timeline to file a complaint, and the prescribed penalties (up to 2 years imprisonment or fine up to twice the amount). It relies correctly on the provided legal knowledge graph and hits all mandatory evaluation criteria while maintaining strong contextual alignment."
+    },
+    {
+      "id": "eval-006",
+      "category": "evidence_rules",
+      "question": "How are electronic records, WhatsApp chats, and server logs proved in court under the new evidence act?",
+      "expected_sections": [
+        "63",
+        "65B"
+      ],
+      "retrieved_section_hits": [
+        "63",
+        "65B"
+      ],
+      "context_recall": 1.0,
+      "context_precision": 0.4,
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "rag_triad_score": 0.85,
+      "latency_s": 7.1,
+      "judge_rationale": "The generated response perfectly incorporates all mandatory evaluation criteria and retrieves factual information directly from the provided context, accurately outlining Section 63 of the BSA (replacing Section 65B of IEA), electronic record admissibility (WhatsApp, server logs, emails), required certification, and actionable citizen steps, along with NALSA legal aid helplines."
+    },
+    {
+      "id": "eval-007",
+      "category": "case_precedents",
+      "question": "How does the landmark Supreme Court judgment Lalita Kumari apply to filing an FIR?",
+      "expected_sections": [
+        "173",
+        "154"
+      ],
+      "retrieved_section_hits": [
+        "173",
+        "154"
+      ],
+      "context_recall": 1.0,
+      "context_precision": 0.267,
+      "faithfulness": 0.8,
+      "answer_relevance": 0.95,
+      "rag_triad_score": 0.754,
+      "latency_s": 13.48,
+      "judge_rationale": "The generated response accurately explains the Lalita Kumari judgment regarding mandatory FIR registration for cognizable offenses and covers the transition from CrPC to BNSS. However, it introduces external legal knowledge about Lalita Kumari's exceptions (such as preliminary inquiries for matrimonial or commercial disputes) that were not present in the provided retrieved context, though it successfully addresses the core evaluation criteria and user question."
+    },
+    {
+      "id": "eval-008",
+      "category": "procedural_safeguards",
+      "question": "What is Zero FIR and can a police station refuse to register my FIR because the crime happened in another district?",
+      "expected_sections": [
+        "173"
+      ],
+      "retrieved_section_hits": [
+        "173"
+      ],
+      "context_recall": 1.0,
+      "context_precision": 0.267,
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "rag_triad_score": 0.817,
+      "latency_s": 14.65,
+      "judge_rationale": "The generated response accurately defines Zero FIR, correctly identifies that a police station cannot refuse registration based on jurisdiction, cites the appropriate statutory framework (BNSS Section 173), and covers all mandatory evaluation criteria and user queries without hallucination."
+    }
+  ]
+}

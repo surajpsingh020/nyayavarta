@@ -25,6 +25,8 @@ from app.services.bhashini_utils import (
     get_bhashini_service,
 )
 from app.services.llm_service import LLMService
+from app.services.guardrails_service import GuardrailsEngine
+from app.services.tracing_service import LLMTrace, get_tracing_service
 
 logger = logging.getLogger(__name__)
 
@@ -45,6 +47,16 @@ async def chat_endpoint(
     auth_db = get_auth_db()
 
     current_thread_id = payload.thread_id
+
+    # ---------------------------------------------------------
+    # LLMOps Tracing Initialization
+    # ---------------------------------------------------------
+    tracing_service = get_tracing_service()
+    trace = LLMTrace(
+        user_id=user["id"] if user else None,
+        thread_id=current_thread_id,
+        query=payload.text or ""
+    )
 
     try:
         # ---------------------------------------------------------
@@ -79,8 +91,42 @@ async def chat_endpoint(
                 detail="Either text or audio_base64 must be provided."
             )
 
+        trace.query = user_text
+
+        # ---------------------------------------------------------
+        # Step 1.5: Security Guardrails & Data Leak Prevention (DLP)
+        # ---------------------------------------------------------
+        guard_span = trace.start_span("guardrails")
+        guard_result = GuardrailsEngine.sanitize_input(user_text)
+        trace.guardrail_status = guard_result.violation_type
+        trace.guardrail_redactions = guard_result.redactions
+        trace.sanitized_query = guard_result.sanitized_text
+        guard_span.stop({
+            "is_safe": guard_result.is_safe,
+            "violation_type": guard_result.violation_type,
+            "redactions": len(guard_result.redactions)
+        })
+
+        if not guard_result.is_safe:
+            refusal_text = GuardrailsEngine.get_security_refusal_response(guard_result.violation_type, language=target_output_lang)
+            trace.response_text = refusal_text
+            tracing_service.record_trace(trace)
+            return ChatResponse(
+                original_query=user_text,
+                english_query=user_text,
+                regional_response=refusal_text,
+                english_response=refusal_text,
+                citations=[],
+                audio_base64=None,
+                detected_language=target_output_lang,
+                thread_id=current_thread_id,
+            )
+
+        # Proceed with sanitized text (PII redacted)
+        sanitized_user_text = guard_result.sanitized_text
+
         # Detect the actual script/language of the input text
-        detected_input_lang = detect_language_heuristic(user_text)
+        detected_input_lang = detect_language_heuristic(sanitized_user_text)
         if detected_input_lang != "en" and (target_output_lang in ("auto", "en") or payload.source_language == "auto"):
             target_output_lang = detected_input_lang
         elif detected_input_lang == "en" and target_output_lang in ("auto", "en"):
@@ -93,9 +139,10 @@ async def chat_endpoint(
         if user:
             try:
                 if not current_thread_id:
-                    thread_title = user_text[:60] if user_text else "Legal Consultation"
+                    thread_title = sanitized_user_text[:60] if sanitized_user_text else "Legal Consultation"
                     created_th = auth_db.create_thread(user_id=user["id"], title=thread_title)
                     current_thread_id = created_th["id"]
+                    trace.thread_id = current_thread_id
 
                 auth_db.add_message(
                     user_id=user["id"],
@@ -110,22 +157,23 @@ async def chat_endpoint(
         # ---------------------------------------------------------
         # Step 2: Translation to English for Legal Search
         # ---------------------------------------------------------
-        english_query = user_text
+        english_query = sanitized_user_text
         if detected_input_lang != "en":
             logger.info(f"Translating query from '{detected_input_lang}' to 'en'")
             try:
-                # Primary translation via Gemini model cascade
+                trans_span = trace.start_span("input_translation")
                 english_query = await llm_service.translate_with_llm(
-                    user_text, source_lang=detected_input_lang, target_lang="en"
+                    sanitized_user_text, source_lang=detected_input_lang, target_lang="en"
                 )
+                trans_span.stop({"source": detected_input_lang, "target": "en"})
             except Exception as le:
                 logger.warning(f"LLM translation to English failed ({le}). Trying Bhashini...")
                 try:
                     english_query = await bhashini.translate_text(
-                        user_text, source_lang=detected_input_lang, target_lang="en"
+                        sanitized_user_text, source_lang=detected_input_lang, target_lang="en"
                     )
                 except Exception:
-                    english_query = user_text
+                    english_query = sanitized_user_text
 
         logger.info(f"Normalized English Query: {english_query}")
 
@@ -134,6 +182,7 @@ async def chat_endpoint(
         # ---------------------------------------------------------
         top_k = getattr(settings, "TOP_K_RESULTS", 5) if settings else 5
         retrieved_docs = []
+        retrieval_span = trace.start_span("retrieval")
         if rag_pipeline:
             try:
                 retrieved_docs = rag_pipeline.search(
@@ -145,10 +194,17 @@ async def chat_endpoint(
             except Exception as e:
                 logger.error(f"Error during RAG search: {e}")
                 retrieved_docs = []
+        retrieval_span.stop({
+            "results_count": len(retrieved_docs),
+            "doc_filter": payload.document_name,
+            "sections": [d.get("linked_section") for d in retrieved_docs if d.get("linked_section")]
+        })
+        trace.retrieved_sections = [str(d.get("linked_section")) for d in retrieved_docs if d.get("linked_section")]
 
         # ---------------------------------------------------------
         # Step 4: Gemini LLM Generation (Context + Scope + Citations)
         # ---------------------------------------------------------
+        gen_span = trace.start_span("llm_generation")
         try:
             llm_result = await llm_service.generate_legal_response(
                 query=english_query,
@@ -170,6 +226,13 @@ async def chat_endpoint(
             )
             citations = llm_service._extract_citations_from_text(english_response)
 
+        gen_span.stop({
+            "response_length": len(english_response),
+            "citations_count": len(citations)
+        })
+        trace.citations = citations
+        trace.response_text = english_response
+
         # ---------------------------------------------------------
         # Step 5: Translate Legal Response into Selected Output Language
         # ---------------------------------------------------------
@@ -177,6 +240,7 @@ async def chat_endpoint(
         if target_output_lang != "en":
             logger.info(f"Translating legal response into user target language '{target_output_lang}'")
             try:
+                resp_trans_span = trace.start_span("response_translation")
                 translated_response = await llm_service.translate_with_llm(
                     english_response, source_lang="en", target_lang=target_output_lang
                 )
@@ -186,6 +250,7 @@ async def chat_endpoint(
                     and not translated_response.startswith("[")
                 ):
                     regional_response = translated_response
+                resp_trans_span.stop({"target_language": target_output_lang})
             except Exception as trans_err:
                 logger.warning(f"Translation to '{target_output_lang}' failed: {trans_err}")
 
@@ -194,9 +259,14 @@ async def chat_endpoint(
         # ---------------------------------------------------------
         audio_base64: Optional[str] = None
         try:
+            tts_span = trace.start_span("tts_synthesis")
             audio_base64 = await bhashini.text_to_speech(regional_response, language=target_output_lang)
+            tts_span.stop({"language": target_output_lang})
         except Exception as e:
             logger.debug(f"TTS synthesis notice: {e}")
+
+        # Record LLMOps Telemetry Trace
+        tracing_service.record_trace(trace)
 
         # ---------------------------------------------------------
         # Step 7: Return Structured Response & Persist Assistant Message
@@ -232,6 +302,8 @@ async def chat_endpoint(
     except HTTPException:
         raise
     except Exception as exc:
+        trace.error = str(exc)
+        tracing_service.record_trace(trace)
         logger.error(f"Unhandled error in chat endpoint: {exc}", exc_info=True)
         fallback_en = llm_service._generate_fallback_response(
             payload.text or "Legal query", [], payload.user_profile
@@ -313,3 +385,21 @@ async def translate_endpoint(request: Request, payload: TranslateRequest):
         target_language=target_lang,
         audio_base64=audio_base64,
     )
+
+
+# -------------------------------------------------------------
+# LLMOps Observability & Telemetry Endpoints
+# -------------------------------------------------------------
+
+@router.get("/llmops/metrics", summary="Get aggregate LLMOps telemetry metrics")
+async def get_llmops_metrics():
+    """Retrieve online performance metrics, average latency, and guardrail interception statistics."""
+    tracing_service = get_tracing_service()
+    return tracing_service.get_telemetry_metrics()
+
+
+@router.get("/llmops/traces", summary="Get recent LLMOps consultation traces")
+async def get_llmops_traces(limit: int = 25):
+    """Retrieve detailed execution traces, guardrail redactions, and span timings."""
+    tracing_service = get_tracing_service()
+    return tracing_service.get_recent_traces(limit=limit)

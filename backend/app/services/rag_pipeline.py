@@ -25,11 +25,24 @@ def simple_tokenize(text: str) -> List[str]:
 
 
 def extract_section_numbers(text: str) -> List[str]:
-    """Extract legal section numbers like 302, 103, 420, 318, 65B, 3(5), etc."""
+    """Extract legal section numbers like 302, 103, 420, 318, 65B, 3(5), etc.
+    Avoid matching currency, amounts, or time like 'Rs 5 lakhs', '30 days', '15 days'.
+    """
     if not text:
         return []
-    # Match standalone numbers, lettered sections (65B, 498A), or subsections (3(5))
-    matches = re.findall(r"\b(\d+[A-Za-z]?|\d+\(\d+\))\b", text)
+    # 1. Explicit statutory section indicators: "section 302", "sec 420", "u/s 318", "sections 329 & 333"
+    explicit_matches = re.findall(r"(?:section|sec|u/s|s\.)\s*([0-9A-Za-z\(\)\-&,\s]+)", text, re.IGNORECASE)
+    sections = []
+    for m in explicit_matches:
+        sub_secs = re.findall(r"\b\d+[A-Za-z\(\)\-]*\b", m)
+        sections.extend(sub_secs)
+
+    if sections:
+        return list(set(sections))
+
+    # 2. Fallback: match 2+ digit codes or alphanumeric sections (e.g. 302, 420, 65B, 498A)
+    # Exclude standalone single digits (1-9) to avoid confusing quantities/currency with sections
+    matches = re.findall(r"\b(\d{2,}[A-Za-z]?|\d+\([A-Za-z0-9\-]+\))\b", text)
     return list(set(matches))
 
 
@@ -105,23 +118,20 @@ MERGE (newSec:Section {id: $new_id})
 
 MERGE (off:Offence {name: $subject})
 
-WITH oldSec, newSec, off
-MATCH (oldAct:Act {code: $old_act_code})
+MERGE (oldAct:Act {code: $old_act_code})
 MERGE (oldSec)-[:BELONGS_TO]->(oldAct)
 
-WITH oldSec, newSec, off
-MATCH (newAct:Act {code: $new_act_code})
+MERGE (newAct:Act {code: $new_act_code})
 MERGE (newSec)-[:BELONGS_TO]->(newAct)
 
-WITH oldSec, newSec, off
 MERGE (oldSec)-[r:REPLACED_BY]->(newSec)
   SET r.notes = $key_changes, r.transition_date = '2024-07-01'
 MERGE (newSec)-[:REPLACES]->(oldSec)
 MERGE (oldSec)-[:COVERS_OFFENCE]->(off)
 MERGE (newSec)-[:COVERS_OFFENCE]->(off)
 
-WITH newSec
-MATCH (aid:LegalAid {name: 'NALSA / DLSA'})
+MERGE (aid:LegalAid {name: 'NALSA / DLSA'})
+  SET aid.helpline = '15100', aid.type = 'Free Legal Aid & Representation'
 MERGE (newSec)-[:ROUTES_TO_AID]->(aid)
 """
 
@@ -132,15 +142,24 @@ OPTIONAL MATCH (newSec)-[:BELONGS_TO]->(newAct:Act)
 OPTIONAL MATCH (newSec)-[:COVERS_OFFENCE]->(off:Offence)
 OPTIONAL MATCH (newSec)-[:ROUTES_TO_AID]->(aid:LegalAid)
 WHERE
-  (size($sections) > 0 AND (oldSec.section_number IN $sections OR newSec.section_number IN $sections))
-  OR (size($terms) > 0 AND ANY(term IN $terms WHERE
-       toLower(oldSec.subject) CONTAINS term
-       OR toLower(newSec.subject) CONTAINS term
-       OR toLower(off.name) CONTAINS term
-       OR toLower(oldSec.description) CONTAINS term
-       OR toLower(newSec.description) CONTAINS term
-       OR toLower(r.notes) CONTAINS term
+  (size($sections) > 0 AND (
+     ANY(s IN $sections WHERE oldSec.section_number = s OR newSec.section_number = s OR s IN split(COALESCE(oldSec.section_number, ''), ' & ') OR s IN split(COALESCE(newSec.section_number, ''), ' & '))
   ))
+  OR (size($terms) > 0 AND ANY(term IN $terms WHERE
+       toLower(COALESCE(oldSec.subject, '')) CONTAINS term
+       OR toLower(COALESCE(newSec.subject, '')) CONTAINS term
+       OR toLower(COALESCE(off.name, '')) CONTAINS term
+       OR toLower(COALESCE(oldSec.description, '')) CONTAINS term
+       OR toLower(COALESCE(newSec.description, '')) CONTAINS term
+       OR toLower(COALESCE(newSec.key_changes, '')) CONTAINS term
+       OR toLower(COALESCE(r.notes, '')) CONTAINS term
+  ))
+WITH oldSec, newSec, r, oldAct, newAct, off, aid,
+     (CASE WHEN size($sections) > 0 AND ANY(s IN $sections WHERE oldSec.section_number = s OR newSec.section_number = s OR s IN split(COALESCE(oldSec.section_number, ''), ' & ') OR s IN split(COALESCE(newSec.section_number, ''), ' & ')) THEN 100 ELSE 0 END +
+      REDUCE(acc = 0, term IN $terms | acc + CASE WHEN toLower(COALESCE(oldSec.subject, '')) CONTAINS term OR toLower(COALESCE(newSec.subject, '')) CONTAINS term THEN 25 ELSE 0 END) +
+      REDUCE(acc = 0, term IN $terms | acc + CASE WHEN toLower(COALESCE(oldSec.description, '')) CONTAINS term OR toLower(COALESCE(newSec.description, '')) CONTAINS term THEN 10 ELSE 0 END)
+     ) AS match_score
+ORDER BY match_score DESC
 RETURN
   oldSec.id AS old_id,
   oldSec.section_number AS old_section,
@@ -151,10 +170,11 @@ RETURN
   newSec.section_number AS new_section,
   newAct.code AS new_act,
   newSec.description AS new_description,
-  r.notes AS key_changes,
+  COALESCE(newSec.key_changes, r.notes, '') AS key_changes,
   off.name AS offence,
   aid.name AS legal_aid_name,
-  aid.helpline AS helpline
+  aid.helpline AS helpline,
+  match_score
 LIMIT $limit
 """
 
@@ -265,15 +285,15 @@ class InMemoryLegalGraph:
             old_snum = str(old_sec.get("section_number", "")).upper()
             new_snum = str(new_sec.get("section_number", "")).upper()
 
-            # Exact section match is highest priority (+10 points)
-            if old_snum in upper_sections or new_snum in upper_sections:
-                score += 10.0
+            # Exact section match is highest priority (+100 points)
+            if any(s in old_snum for s in upper_sections) or any(s in new_snum for s in upper_sections):
+                score += 100.0
 
             # Keyword matching score
             full_text = f"{old_sec.get('subject', '')} {old_sec.get('description', '')} {new_sec.get('description', '')} {self.key_changes.get(pair_key, '')}".lower()
             matching_terms = sum(1 for term in terms if len(term) > 2 and term in full_text)
             if matching_terms > 0:
-                score += matching_terms
+                score += (matching_terms * 10.0)
 
             if score > 0 and pair_key not in seen_pairs:
                 seen_pairs.add(pair_key)
@@ -343,6 +363,16 @@ def parse_law_identifier(law_str: str) -> tuple[str, str, str]:
         act_code = "ARMS"
     elif "Legal Services" in law_clean or "NALSA" in law_clean:
         act_code = "LSAA"
+    elif "Negotiable Instruments" in law_clean or "NI Act" in law_clean:
+        act_code = "NI_ACT"
+    elif "Protection of Children" in law_clean or "POCSO" in law_clean:
+        act_code = "POCSO"
+    elif "Narcotic" in law_clean or "NDPS" in law_clean:
+        act_code = "NDPS"
+    elif "Consumer Protection" in law_clean:
+        act_code = "CPA"
+    elif "Information Technology" in law_clean or "IT Act" in law_clean:
+        act_code = "IT_ACT"
     else:
         act_code = "LAW"
 
@@ -602,8 +632,13 @@ class RAGPipeline:
         sections = extract_section_numbers(query)
         tokens = simple_tokenize(query)
 
-        # Filter out common short stopwords
-        stopwords = {"what", "is", "the", "under", "for", "and", "or", "in", "to", "of", "a", "an", "how", "can", "are", "by", "from"}
+        # Filter out common query and structural stopwords
+        stopwords = {
+            "what", "is", "the", "under", "for", "and", "or", "in", "to", "of", "a", "an",
+            "how", "can", "are", "by", "from", "section", "sections", "act", "acts", "law",
+            "laws", "code", "tell", "explain", "about", "me", "my", "this", "that", "with",
+            "does", "have", "has", "had", "will", "would", "should", "could", "any", "some"
+        }
         search_terms = [t for t in tokens if t not in stopwords and len(t) > 2]
 
         is_doc_query = bool(document_name) or any(
