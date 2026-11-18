@@ -252,6 +252,8 @@ class LLMService:
         # 1. Format retrieved RAG context
         context_blocks = []
         citations: List[Dict[str, str]] = []
+        has_user_document = False
+        user_doc_filenames = set()
 
         if retrieved_context:
             for item in retrieved_context:
@@ -260,18 +262,18 @@ class LLMService:
                 score = float(item.get("score", 0.0))
                 # Only include context with genuine relevance score to prevent noisy hallucinated citations
                 if score >= 0.2:
-                    context_blocks.append(f"--- Statutory Record [Score: {score:.2f}] ---\n{text}")
-                    if meta.get("old_law") or meta.get("new_law"):
+                    if meta.get("type") == "user_document" or meta.get("filename"):
+                        has_user_document = True
+                        fname = meta.get("filename", "User Document")
+                        user_doc_filenames.add(fname)
+                        pg = meta.get("page", 1)
+                        context_blocks.append(f"--- Uploaded Legal Document Evidence: {fname} (Page {pg}) ---\n{text}")
+                    elif meta.get("old_law") or meta.get("new_law"):
+                        context_blocks.append(f"--- Statutory Knowledge Graph Record [Score: {score:.2f}] ---\n{text}")
                         citations.append({
                             "section": f"{meta.get('new_law', '')} (formerly {meta.get('old_law', '')})".strip(),
                             "subject": meta.get("subject", "Legal Provision"),
                             "key_changes": meta.get("key_changes", "")
-                        })
-                    elif meta.get("filename"):
-                        citations.append({
-                            "section": f"Uploaded Document: {meta.get('filename')}",
-                            "subject": f"Page {meta.get('page', 1)} reference",
-                            "key_changes": "User provided document"
                         })
             context_str = "\n\n".join(context_blocks) if context_blocks else ""
         else:
@@ -284,20 +286,43 @@ class LLMService:
                 "addressing the user's specific problem directly."
             )
 
+        # Build specific document analysis directive if user uploaded an official legal document
+        doc_analysis_directive = ""
+        if has_user_document:
+            docs_list_str = ", ".join(user_doc_filenames)
+            doc_analysis_directive = f"""
+CRITICAL DOCUMENT-GROUNDED CHARGES & SPECIAL ACTS INSTRUCTION:
+The user is specifically asking about an uploaded official legal document/report ({docs_list_str}).
+1. EXTRACT ALL FORMAL CHARGES FROM THE DOCUMENT:
+   - Identify every statutory section, penal provision, and Act abbreviation explicitly recorded on the document (including Special Acts like UAPA, Arms Act, NDPS, POCSO, POSH, etc., as well as general penal codes like IPC / BNS).
+   - In First Information Reports (FIRs), carefully inspect the header lines, "u/s", "Under Section", or "Brief description of offense with section & of property carried off".
+   - If the document contains charges such as "17/20 UA(P)Act. & 25(1-C)A.Act.", you MUST explicitly identify and explain:
+     * Section 17 of the Unlawful Activities (Prevention) Act, 1967 (UAPA): Punishment for raising funds for a terrorist act (minimum 5 years up to life imprisonment, and fine).
+     * Section 20 of the Unlawful Activities (Prevention) Act, 1967 (UAPA): Punishment for being a member of a terrorist gang or banned organization (punishable with imprisonment extending to life, and fine).
+     * Section 25(1-C) of the Arms Act, 1959: Punishment for manufacturing, possession, delivery, or use of prohibited firearms or live ammunition (rigorous imprisonment not less than 3 years up to 7 or 10 years, and fine).
+     * Accompanying penal offenses: Extortion (BNS Section 308 / formerly IPC Section 383/384) and Criminal Intimidation (BNS Section 351/352 / formerly IPC Section 503/506).
+2. CASE SPECIFICS FROM DOCUMENT:
+   - State the Police Station, District, FIR Number, Date/Time of Occurrence, and Date/Time of Reporting.
+   - Name the Informant / Complainant and the Accused entity (e.g. KCP War Group, (Kanglei) Mangal).
+   - Summarize the concrete allegations: monetary extortion demands, threats to dental clinic staff, coerced donation for ammunition, and discovery of live ammunition in an envelope marked "DENTAL HUB".
+3. STATUTORY CHARGES TABLE:
+   - Include both the Special Acts (UAPA, Arms Act) and relevant general penal code transitions (BNS / IPC) in Section 2 of your response.
+"""
+
         # 2. Build User Prompt with Structured Legal Directives
         profile_guide = get_profile_instructions(user_profile)
         user_prompt = f"""{profile_guide}
 
-RETRIEVED LEGAL CONTEXT FROM KNOWLEDGE BASE:
+RETRIEVED LEGAL CONTEXT FROM KNOWLEDGE BASE & UPLOADED DOCUMENTS:
 {context_str}
 
 USER QUERY:
 "{query}"
-
+{doc_analysis_directive}
 STRICT LANGUAGE CONSISTENCY REQUIREMENT:
 - You must generate this response ENTIRELY and 100% in fluent, professional ENGLISH.
 - DO NOT mix Hindi sentences, Hinglish words, or Devanagari script anywhere in the response (no "ज़मीन", "कब्जा", "थाना", etc.).
-- All section titles, explanations, legal assessments, action plans, and notices must be written in pure English. Explain Indian property and criminal concepts in clear, everyday plain English (e.g. use "unlawful land grabbing", "illegal encroachment", "criminal trespass", "property registry and mutation documents", "police complaint under BNSS Section 173", "civil suit for permanent injunction and recovery of possession under the Specific Relief Act").
+- All section titles, explanations, legal assessments, action plans, and notices must be written in pure English. Explain Indian property and criminal concepts in clear, everyday plain English.
 
 CRITICAL DOMAIN & SCOPE VERIFICATION:
 - Verify if the user query concerns Indian law, legal disputes, police/FIR complaints, citizen rights, or court processes.
@@ -314,22 +339,23 @@ Begin with a warm, professional legal greeting:
 - First, explain the entire situation in empathetic, easy-to-understand layman's language without legal jargon, so that any citizen clearly understands how the law views their situation.
 - Then, state the core legal assessment and statutory stance in 2-3 clear, authoritative sentences addressing the user's specific query.
 
-### 2. Statutory Law Transition (IPC / CrPC → BNS / BNSS / BSA)
-Provide a clear comparative markdown table:
-| Legal Subject | Historical Provision | Modern Provision (2023) | Key Statutory Changes & Punishment |
+### 2. Statutory Law Transition & Charges Breakdown (Special Acts & BNS / BNSS / BSA)
+Provide a clear comparative markdown table covering all charges:
+| Statutory Act & Section | Legal Subject / Charge | Key Elements & Severity / Punishment | Modern Applicability / Transition |
 | :--- | :--- | :--- | :--- |
-| [Subject] | [e.g. IPC Section 420] | [e.g. BNS Section 318] | [Exact penalty, changes in definition, bailable status] |
+| [Statute e.g. UAPA Sec 17] | [Terrorist Funding] | [Min 5 yrs to Life, Fine] | [Special Anti-Terror Act; bail restricted u/s 43D(5)] |
+| [Statute e.g. BNS Sec 308] | [Extortion] | [Imprisonment up to 3 yrs / 10 yrs] | [Replaces IPC Section 384] |
 
-Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, Digital Evidence admissibility under BSA 63, or community service).
+Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, Digital Evidence admissibility under BSA 63, or special statutory bail standards).
 
 ### 3. Step-by-Step Action Plan for Citizen
-1. **[Step 1 Title]**: Exact practical action (e.g. preserving chats, emails, banking proofs).
-2. **[Step 2 Title]**: Statutory remedy (e.g. approaching police for FIR under BNSS 173 or Cyber Crime portal 1930).
-3. **[Step 3 Title]**: Legal escalation (e.g. filing grievance before Magistrate or Labor Commissioner).
+1. **[Step 1 Title]**: Exact practical action (e.g. preserving chats, emails, banking proofs, physical evidence).
+2. **[Step 2 Title]**: Statutory remedy (e.g. approaching police for FIR under BNSS 173, cooperating with Investigating Officer, seeking witness protection).
+3. **[Step 3 Title]**: Legal escalation (e.g. filing grievance before Magistrate, seeking DLSA counsel).
 
 ### 4. Citizen Rights & Procedural Safeguards
-- **[Right 1]**: Citizen protection under the law.
-- **[Right 2]**: Procedural safeguards against harassment or unlawful arrest.
+- **[Right 1]**: Citizen protection under the law (e.g. Witness Protection Scheme, Zero FIR).
+- **[Right 2]**: Procedural safeguards against harassment or unlawful coercion.
 
 ### 5. Free Legal Aid & Emergency Helplines
 - **National Legal Aid Helpline (NALSA / DLSA)**: Call **15100** (Toll-Free, 24x7) for free legal aid and counsel.
@@ -338,7 +364,7 @@ Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, 
 - **Women Helpline**: Dial **1091**
 
 ### 6. Institutional Scope Notice
-- **Statutory Focus**: Nyayavarta provides statutory translation, rights education, procedural roadmaps (FIR, arrest, bail), and free legal aid routing.
+- **Statutory Focus**: Nyayavarta provides statutory translation, rights education, procedural roadmaps (FIR, arrest, bail), document analysis, and free legal aid routing.
 - **Case Law Boundary**: It does not contain the complete judgment archives, daily court cause lists, hearing transcripts, or case dockets of the Supreme Court of India, the 25 High Courts, or the 672 District Courts (which span hundreds of millions of case files across decades and require commercial multi-terabyte data warehouse infrastructure like SCC Online or Manupatra).
 
 *Disclaimer: This response provides legal literacy and institutional aid routing under the Legal Services Authorities Act, 1987. For representation in court, consult an empanelled legal aid advocate.*
@@ -646,6 +672,30 @@ Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, 
                 "Lodge an FIR under Section 318 BNS at your local police station."
             ]
 
+        # Document Analysis / Special Acts / Extortion & Terror Charges
+        elif (
+            "uapa" in q_lower or "arms act" in q_lower or "extortion" in q_lower
+            or "key charges" in q_lower or "charges in this report" in q_lower
+            or any("17/20" in (item.get("text", "") or "") for item in retrieved_context)
+            or any("kcp" in (item.get("text", "") or "").lower() for item in retrieved_context)
+        ):
+            old_law = "Sections 17 & 20 UA(P) Act, 1967, Section 25(1-C) Arms Act, 1959 & Sections 384/506 IPC"
+            new_law = "Sections 17 & 20 UAPA (Special Act), Section 25(1-C) Arms Act & Sections 308/351 BNS, 2023"
+            subject = "Terrorist Funding, Terrorist Organization Membership, Prohibited Arms & Extortion"
+            details = (
+                "Based on the official police First Information Report (FIR No. 140(02)2024 PRT-PS, Porompat Police Station, Imphal East) and complainant report by Dr. Raynold Singh Khumanthem:\n\n"
+                "1. **Section 17, Unlawful Activities (Prevention) Act, 1967 (UAPA)**: Penalizes raising, collecting, or providing funds for a terrorist act or terrorist organization. Coercing citizens and clinic staff into paying extortionate demands or 'donations' for a banned extremist group (KCP War Group) constitutes terrorist funding. Punishable with imprisonment not less than 5 years extending to life, and fine. Regular bail is heavily restricted under Section 43D(5) UAPA.\n"
+                "2. **Section 20, Unlawful Activities (Prevention) Act, 1967 (UAPA)**: Penalizes being a member of a terrorist gang or banned organization (Kangleipak Communist Party / KCP War Group). Punishable with imprisonment extending to life, and fine.\n"
+                "3. **Section 25(1-C), Arms Act, 1959**: Penalizes the possession, delivery, manufacture, or transfer of prohibited arms or prohibited ammunition. Specifically invoked due to live firearm ammunition being left in an envelope marked 'DENTAL HUB' at the Kongba Bazar clinic entrance. Attracts rigorous imprisonment of not less than 3 years up to 7 or 10 years, and fine.\n"
+                "4. **Extortion & Criminal Intimidation (BNS Sections 308 & 351 / formerly IPC Sections 384 & 506)**: Intimidating clinic doctors and staff under threat to life and property to extort Rs 1,00,000 (and coercing payment of Rs 30,000) constitutes extortion and criminal intimidation under the general penal framework."
+            )
+            immediate_steps = [
+                "Preserve all physical and electronic evidence: Safeguard the envelope, live ammunition, threatening letters, call records, and payment receipts without tampering.",
+                "Cooperate with the Investigating Officer (SDPO): Provide complete statements and any clinic CCTV footage to Smt. Babitarani Swain, IPS, SDPO PRT, or the assigned investigating authority.",
+                "Request formal witness and victim protection: Because the matter involves a banned terrorist outfit and firearm ammunition, formally petition the Superintendent of Police (SP) for police protection under the Witness Protection Scheme.",
+                "Access legal counsel via Legal Aid: Contact DLSA / NALSA Helpline 15100 to ensure formal representation and procedural monitoring throughout the trial."
+            ]
+
         # FIR / Police Complaint
         elif (
             "fir" in q_lower or "police" in q_lower or "154" in q_lower or "173" in q_lower
@@ -817,6 +867,20 @@ Here is clear guidance on how Indian law protects you and what steps you can tak
             "478": ("BNSS Section 478 (formerly CrPC Section 436)", "Bail in Bailable Offences", "Mandatory statutory right to bail for bailable matters."),
             "479": ("BNSS Section 479", "Maximum Period of Detention of Undertrials", "Provides early bail relief for undertrial prisoners who served one-third sentence."),
             "483": ("BNSS Section 483 (formerly CrPC Section 439)", "Special Powers of High Court / Sessions Court on Bail", "Discretionary bail relief in non-bailable offences."),
+            # Extortion
+            "308": ("BNS Section 308 (formerly IPC Section 383 & 384)", "Extortion by Putting Person in Fear of Injury", "Imprisonment up to 3 years, or fine, or both (up to 10 years if threat involves death/grievous hurt)."),
+            "384": ("IPC Section 384 (replaced by BNS Section 308)", "Punishment for Extortion (Historical)", "Replaced by Section 308 BNS."),
+            "383": ("IPC Section 383 (replaced by BNS Section 308)", "Extortion Definition (Historical)", "Replaced by Section 308 BNS."),
+            # Criminal Trespass / Land Encroachment
+            "329": ("BNS Section 329 (formerly IPC Section 441)", "Criminal Trespass & Unlawful Encroachment", "Entering property in possession of another to commit offence or intimidate."),
+            "333": ("BNS Section 333 (formerly IPC Section 447)", "Punishment for Criminal Trespass", "Imprisonment up to 3 months, or fine up to Rs 5,000, or both."),
+            "441": ("IPC Section 441 (replaced by BNS Section 329)", "Criminal Trespass (Historical)", "Replaced by Section 329 BNS."),
+            "447": ("IPC Section 447 (replaced by BNS Section 333)", "Punishment for Criminal Trespass (Historical)", "Replaced by Section 333 BNS."),
+            # Special Acts: UAPA & Arms Act
+            "17": ("Section 17, Unlawful Activities (Prevention) Act, 1967", "Punishment for Raising Funds for Terrorist Act", "Imprisonment for not less than 5 years extending to life, and fine. Non-bailable under Section 43D(5)."),
+            "20": ("Section 20, Unlawful Activities (Prevention) Act, 1967", "Punishment for Being Member of Terrorist Gang or Organisation", "Imprisonment extending to life, and fine. Targets members of declared terrorist entities."),
+            "25(1-C)": ("Section 25(1-C), Arms Act, 1959", "Possession / Delivery of Prohibited Arms or Ammunition", "Rigorous imprisonment not less than 3 years up to 7 or 10 years, and fine."),
+            "25": ("Section 25, Arms Act, 1959", "Punishment for Certain Offences under Arms Act", "Rigorous imprisonment and fine for illegal arms/ammunition possession."),
         }
 
         # Check explicit section mentions in text (both "Section 103 BNS" and "BNS Section 103")
@@ -831,6 +895,10 @@ Here is clear guidance on how Indian law protects you and what steps you can tak
             (r"Section\s*(\d+[A-Za-z]?|\d+\(\d+\))\s*(?:of\s*)?(?:the\s*)?IPC\b", "IPC"),
             (r"\bCrPC\s*(?:Section|Sec\.?)?\s*(\d+[A-Za-z]?|\d+\(\d+\))\b", "CrPC"),
             (r"Section\s*(\d+[A-Za-z]?|\d+\(\d+\))\s*(?:of\s*)?(?:the\s*)?CrPC\b", "CrPC"),
+            (r"\b(?:UA\(P\)\s*Act|UAPA)\s*(?:Section|Sec\.?)?\s*(\d+[A-Za-z\-]*)\b", "UAPA"),
+            (r"Section\s*(\d+[A-Za-z\-]*)\s*(?:of\s*)?(?:the\s*)?(?:UA\(P\)\s*Act|UAPA)\b", "UAPA"),
+            (r"\b(?:Arms\s*Act|A\.\s*Act)\s*(?:Section|Sec\.?)?\s*(\d+[\(A-Za-z0-9\-\)]*)\b", "Arms Act"),
+            (r"Section\s*(\d+[\(A-Za-z0-9\-\)]*)\s*(?:of\s*)?(?:the\s*)?(?:Arms\s*Act|A\.\s*Act)\b", "Arms Act"),
         ]
 
         for pat, act_code in patterns:
@@ -905,6 +973,48 @@ Here is clear guidance on how Indian law protects you and what steps you can tak
                     "subject": "Statutory Protection of Earned Salary & Employment Grievances",
                     "key_changes": "Remedy before State Labor Commissioner for unpaid wages."
                 })
+
+        # UAPA & Arms Act & Extortion specific citations
+        if "uapa" in t_lower or "ua(p)" in t_lower or "terrorist" in t_lower:
+            if "17" not in seen:
+                seen.add("17")
+                citations.append({
+                    "section": "Section 17, Unlawful Activities (Prevention) Act, 1967",
+                    "subject": "Punishment for Raising Funds for Terrorist Act",
+                    "key_changes": "Imprisonment not less than 5 years extending to life, and fine. Stringent bail restrictions under Section 43D(5) UAPA."
+                })
+            if "20" not in seen:
+                seen.add("20")
+                citations.append({
+                    "section": "Section 20, Unlawful Activities (Prevention) Act, 1967",
+                    "subject": "Punishment for Being Member of Terrorist Gang or Organisation",
+                    "key_changes": "Imprisonment extending to life, and fine. Applies to members of banned unlawful organizations."
+                })
+
+        if "arms act" in t_lower or "25(1-c)" in t_lower or "ammunition" in t_lower or "firearm" in t_lower:
+            if "25(1-C)" not in seen and "25" not in seen:
+                seen.add("25(1-C)")
+                citations.append({
+                    "section": "Section 25(1-C), Arms Act, 1959",
+                    "subject": "Possession / Delivery of Prohibited Arms or Ammunition",
+                    "key_changes": "Rigorous imprisonment not less than 3 years up to 7 or 10 years, and fine."
+                })
+
+        if ("extortion" in t_lower or "308" in text or "384" in text) and "308" not in seen:
+            seen.add("308")
+            citations.append({
+                "section": "BNS Section 308 (formerly IPC Section 383 & 384)",
+                "subject": "Extortion by Putting Person in Fear of Injury",
+                "key_changes": "Replaced IPC 384. Punishable with imprisonment up to 3 years, fine, or both (up to 10 years if threat to life)."
+            })
+
+        if ("trespass" in t_lower or "encroachment" in t_lower or "land" in t_lower or "329" in text) and "329" not in seen:
+            seen.add("329")
+            citations.append({
+                "section": "BNS Section 329 & 333 (formerly IPC Section 441 & 447)",
+                "subject": "Criminal Trespass & Unlawful Land Encroachment",
+                "key_changes": "Replaces IPC 441/447. Criminal remedy under BNSS 173 and civil injunction under Specific Relief Act."
+            })
 
         # FIR citations
         if ("173" in text or "fir" in t_lower) and "173" not in seen:

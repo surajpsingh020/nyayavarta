@@ -17,6 +17,7 @@ export interface ChatRequest {
   source_language: string;
   user_profile?: UserProfileType;
   thread_id?: string;
+  document_name?: string;
 }
 
 export interface ChatResponse {

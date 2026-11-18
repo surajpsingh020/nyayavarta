@@ -17,6 +17,7 @@ class ChatRequest(BaseModel):
     source_language: str = Field("hi", description="BCP-47 language code (e.g., 'hi', 'ta', 'bn')")
     user_profile: UserProfile = Field(UserProfile.GENERAL, description="User's profile category")
     thread_id: Optional[str] = Field(None, description="Active consultation thread ID")
+    document_name: Optional[str] = Field(None, description="Filename of currently active/attached user document")
 
 
 class ChatResponse(BaseModel):

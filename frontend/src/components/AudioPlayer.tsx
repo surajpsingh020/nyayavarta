@@ -271,16 +271,24 @@ export default function AudioPlayer({
         <p className="text-xs font-semibold text-primary-900 truncate">
           {isPlaying
             ? isPaused
-              ? 'ध्वनि रुकी हुई है (Paused)'
-              : 'कानूनी उत्तर पढ़ा जा रहा है (Speaking Guidance...)'
-            : 'ध्वनि में सुनें (Listen in Voice)'}
+              ? language === 'en'
+                ? 'Voice Paused'
+                : 'ध्वनि रुकी हुई है (Paused)'
+              : language === 'en'
+                ? 'Reading Legal Guidance Aloud...'
+                : 'कानूनी उत्तर पढ़ा जा रहा है (Speaking Guidance...)'
+            : language === 'en'
+              ? 'Listen in Voice (Read Aloud)'
+              : 'ध्वनि में सुनें (Listen in Voice)'}
         </p>
         <p className="text-[10px] text-primary-700 truncate">
           {isPlaying
             ? hasRealAudio
               ? 'High-Fidelity Indian Voice Active'
               : 'Browser Speech Synthesizer Active'
-            : 'Click play to hear full legal advice read aloud'}
+            : language === 'en'
+              ? 'Click play to hear full legal advice read aloud'
+              : 'पूरा कानूनी उत्तर सुनने के लिए प्ले बटन दबाएं'}
         </p>
       </div>
 

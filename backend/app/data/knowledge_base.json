@@ -111,6 +111,34 @@
       "subject": "Criteria for giving legal services (Free Legal Aid)",
       "description": "Every citizen eligible under Section 12 (women, children, custody, low-income, senior citizens) has the statutory right to free legal representation and legal aid counsel.",
       "key_changes": "National Legal Aid Helpline 15100 operational 24x7. Empanelled legal aid advocates provided at State expense."
+    },
+    {
+      "old_law": "Indian Penal Code (IPC), 1860 - Section 383 & 384",
+      "new_law": "Bharatiya Nyaya Sanhita (BNS), 2023 - Section 308",
+      "subject": "Extortion by putting person in fear of injury or death",
+      "description": "Whoever intentionally puts any person in fear of any injury to that person or to any other, and thereby dishonestly induces the person so put in fear to deliver to any person any property or valuable security.",
+      "key_changes": "Section 383 and 384 IPC replaced by Section 308 BNS. Extortion by threat is punishable with imprisonment up to 3 years, or fine, or both. If threat involves death or grievous hurt, punishment extends up to 10 years."
+    },
+    {
+      "old_law": "Indian Penal Code (IPC), 1860 - Section 441 & 447",
+      "new_law": "Bharatiya Nyaya Sanhita (BNS), 2023 - Section 329 & 333",
+      "subject": "Criminal trespass and house trespass (Illegal land encroachment)",
+      "description": "Whoever enters into or upon property in the possession of another with intent to commit an offence or to intimidate, insult or annoy any person in possession of such property.",
+      "key_changes": "Criminal trespass codified under Section 329 and punished under Section 333 BNS. Aggrieved citizens can seek police intervention under Section 173 BNSS and civil injunction under Specific Relief Act."
+    },
+    {
+      "old_law": "Unlawful Activities (Prevention) Act, 1967 - Section 17 & 20",
+      "new_law": "Unlawful Activities (Prevention) Act, 1967 - Section 17 & 20",
+      "subject": "Terrorist funding and membership in banned terrorist organization (UAPA)",
+      "description": "Section 17 penalizes raising or collecting funds for terrorist acts (minimum 5 years up to life imprisonment and fine). Section 20 penalizes being a member of a terrorist gang or banned organization (punishable with imprisonment extending to life and fine).",
+      "key_changes": "Special Anti-Terror Legislation. Operates alongside general criminal codes. Governed by stringent bail conditions under Section 43D(5) UAPA."
+    },
+    {
+      "old_law": "Arms Act, 1959 - Section 25(1-C)",
+      "new_law": "Arms Act, 1959 - Section 25(1-C)",
+      "subject": "Possession, delivery or use of prohibited arms and ammunition",
+      "description": "Whoever manufactures, sells, transfers, converts, repairs, tests, proves or has in his possession or delivers any prohibited arms or prohibited ammunition.",
+      "key_changes": "Section 25(1-C) of Arms Act prescribes rigorous imprisonment not less than 3 years which may extend to 7 or 10 years, and fine. Non-bailable and cognizable offense."
     }
   ]
 }

@@ -136,8 +136,12 @@ async def chat_endpoint(
         retrieved_docs = []
         if rag_pipeline:
             try:
-                retrieved_docs = rag_pipeline.search(english_query, top_k=top_k)
-                logger.info(f"Retrieved {len(retrieved_docs)} documents from GraphRAG.")
+                retrieved_docs = rag_pipeline.search(
+                    english_query,
+                    top_k=top_k,
+                    document_name=payload.document_name
+                )
+                logger.info(f"Retrieved {len(retrieved_docs)} documents from GraphRAG (doc_filter: {payload.document_name}).")
             except Exception as e:
                 logger.error(f"Error during RAG search: {e}")
                 retrieved_docs = []

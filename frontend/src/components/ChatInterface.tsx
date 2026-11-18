@@ -298,16 +298,25 @@ export default function ChatInterface({
       setAttachedDoc(res);
 
       const sysMsgId = 'sys-' + Date.now();
+      const isEnglish = selectedLanguage === 'en';
+      const engText = `📄 **Document Successfully Indexed**: "${res.filename}"\n\n- **Indexed Chunks**: ${res.chunks_created} Chunks\n- **Knowledge Graph Status**: Linked to statutory Sections in Neo4j.\n\nYou can now ask legal queries about this document! (e.g., "Summarize the key charges in this report", "What sections apply?")`;
+      const hinText = `📄 **दस्तावेज़ सफलतापूर्वक इंडेक्स किया गया**: "${res.filename}"\n\n- **इंडेक्स किए गए भाग**: ${res.chunks_created} Chunks\n- **नॉलेज ग्राफ स्थिति**: Neo4j ग्राफ में संबंधित कानूनी धाराओं (Sections) से जोड़ा गया।\n\nअब आप इस दस्तावेज़ से संबंधित कोई भी कानूनी प्रश्न पूछ सकते हैं! (उदाहरण: "इस रिपोर्ट में कौन-सी धाराएं लगी हैं?", "FIR के मुख्य आरोप क्या हैं?")`;
+
       setMessages((prev) => [
         ...prev,
         {
           id: sysMsgId,
           sender: 'assistant',
-          regionalResponse: `📄 **दस्तावेज़ सफलतापूर्वक इंडेक्स किया गया**: "${res.filename}"\n\n- **इंडेक्स किए गए भाग**: ${res.chunks_created} Chunks\n- **नॉलेज ग्राफ स्थिति**: Neo4j ग्राफ में संबंधित कानूनी धाराओं (Sections) से जोड़ा गया।\n\nअब आप इस दस्तावेज़ से संबंधित कोई भी कानूनी प्रश्न पूछ सकते हैं! (उदाहरण: "इस रिपोर्ट में कौन-सी धाराएं लगी हैं?", "FIR के मुख्य आरोप क्या हैं?")`,
-          englishResponse: `📄 **Document Successfully Indexed**: "${res.filename}"\n\n- **Indexed Chunks**: ${res.chunks_created} Chunks\n- **Knowledge Graph Status**: Linked to statutory Sections in Neo4j.\n\nYou can now ask legal queries about this document! (e.g., "Summarize the key charges in this report", "What sections apply?")`,
+          detectedLanguage: selectedLanguage,
+          regionalResponse: isEnglish ? engText : hinText,
+          englishResponse: engText,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         },
       ]);
+      setMessageLanguages((prev) => ({
+        ...prev,
+        [sysMsgId]: selectedLanguage,
+      }));
     } catch (err: any) {
       alert(`Document upload failed: ${err.message || 'Server error'}`);
     } finally {
@@ -345,6 +354,7 @@ export default function ChatInterface({
         source_language: selectedLanguage,
         user_profile: 'general',
         thread_id: activeThreadId || undefined,
+        document_name: attachedDoc?.filename || undefined,
       });
 
       if (response.thread_id && response.thread_id !== activeThreadId) {
@@ -483,6 +493,7 @@ export default function ChatInterface({
         source_language: 'auto', // Request automatic audio language identification
         user_profile: 'general',
         thread_id: activeThreadId || undefined,
+        document_name: attachedDoc?.filename || undefined,
       });
 
       if (response.thread_id && response.thread_id !== activeThreadId) {
@@ -834,7 +845,10 @@ export default function ChatInterface({
               const currentTranslation = cachedTranslations[msg.id]?.[activeLang];
               const displayText = isUser
                 ? msg.originalQuery || ''
-                : currentTranslation?.text || msg.regionalResponse || msg.englishResponse || '';
+                : currentTranslation?.text ||
+                  (activeLang === 'en'
+                    ? (msg.englishResponse || msg.regionalResponse)
+                    : (msg.regionalResponse || msg.englishResponse)) || '';
               const activeAudio = isUser
                 ? null
                 : currentTranslation?.audioBase64 || msg.audioBase64;
@@ -979,12 +993,14 @@ export default function ChatInterface({
                           </ReactMarkdown>
                         </div>
 
-                        {/* Audio Player for Spoken Voice Advice */}
-                        <AudioPlayer
-                          audioBase64={activeAudio}
-                          language={activeLang}
-                          textToSpeak={displayText}
-                        />
+                        {/* Audio Player for Spoken Voice Advice (only for substantive advice, not system notifications) */}
+                        {!msg.id.startsWith('sys-') && (
+                          <AudioPlayer
+                            audioBase64={activeAudio}
+                            language={activeLang}
+                            textToSpeak={displayText}
+                          />
+                        )}
 
                         {/* Legal Citations & Law Transition Matrix */}
                         {msg.citations && msg.citations.length > 0 && (

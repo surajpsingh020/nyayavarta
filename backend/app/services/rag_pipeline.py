@@ -79,6 +79,10 @@ MERGE (iea:Act {code: 'IEA'})
   SET iea.title = 'Indian Evidence Act, 1872', iea.era = 'OLD', iea.year = 1872
 MERGE (bsa:Act {code: 'BSA'})
   SET bsa.title = 'Bharatiya Sakshya Adhiniyam, 2023', bsa.era = 'NEW', bsa.year = 2023
+MERGE (uapa:Act {code: 'UAPA'})
+  SET uapa.title = 'Unlawful Activities (Prevention) Act, 1967', uapa.era = 'SPECIAL', uapa.year = 1967
+MERGE (arms:Act {code: 'ARMS'})
+  SET arms.title = 'Arms Act, 1959', arms.era = 'SPECIAL', arms.year = 1959
 MERGE (aid:LegalAid {name: 'NALSA / DLSA'})
   SET aid.helpline = '15100', aid.type = 'Free Legal Aid & Representation'
 """
@@ -154,14 +158,17 @@ LIMIT $limit
 
 CYPHER_DOC_CHUNK_SEARCH = """
 MATCH (doc:DocumentChunk)
-WHERE size($terms) > 0 AND ANY(term IN $terms WHERE toLower(doc.text) CONTAINS term)
+WHERE ($filename IS NOT NULL AND (doc.filename = $filename OR doc.filename CONTAINS $filename))
+   OR (size($terms) > 0 AND ANY(term IN $terms WHERE toLower(doc.text) CONTAINS term))
 OPTIONAL MATCH (doc)-[:REFERENCES_SECTION]->(s:Section)
 RETURN
   doc.id AS id,
   doc.filename AS filename,
   doc.page AS page,
+  doc.chunk_index AS chunk_index,
   doc.text AS text,
   s.section_number AS linked_section
+ORDER BY doc.page ASC, doc.chunk_index ASC
 LIMIT $limit
 """
 
@@ -283,15 +290,18 @@ class InMemoryLegalGraph:
         matched_items.sort(key=lambda x: x[0], reverse=True)
         return [item[1] for item in matched_items[:limit]]
 
-    def search_docs(self, terms: List[str], limit: int = 5) -> List[dict]:
+    def search_docs(self, terms: List[str], limit: int = 15, filename: Optional[str] = None) -> List[dict]:
         results = []
         for doc in self.doc_chunks:
+            if filename and filename.lower() not in doc["filename"].lower():
+                continue
             text_lower = doc["text"].lower()
-            if any(term in text_lower for term in terms if len(term) > 2):
+            if filename or any(term in text_lower for term in terms if len(term) > 2):
                 results.append({
                     "id": doc["id"],
                     "filename": doc["filename"],
                     "page": doc["page"],
+                    "chunk_index": doc.get("chunk_index", 0),
                     "text": doc["text"],
                     "linked_section": doc["mentioned_sections"][0] if doc["mentioned_sections"] else None,
                     "metadata": doc.get("metadata", {}),
@@ -320,13 +330,19 @@ def parse_law_identifier(law_str: str) -> tuple[str, str, str]:
         act_code = "BNSS"
     elif "Evidence" in law_clean or "BSA" in law_clean or "Bharatiya Sakshya" in law_clean:
         act_code = "BSA" if "BSA" in law_clean or "Bharatiya Sakshya" in law_clean else "IEA"
+    elif "UAPA" in law_clean or "Unlawful Activities" in law_clean:
+        act_code = "UAPA"
+    elif "Arms" in law_clean:
+        act_code = "ARMS"
+    elif "Legal Services" in law_clean or "NALSA" in law_clean:
+        act_code = "LSAA"
     else:
         act_code = "LAW"
 
-    # Extract section number (e.g. 302, 103, 65B, 3(5))
-    sec_match = re.search(r"Section\s+([0-9A-Za-z\(\)]+)", law_clean, re.IGNORECASE)
-    sec_num = sec_match.group(1) if sec_match else "0"
-    node_id = f"{act_code}_{sec_num}".replace("(", "_").replace(")", "")
+    # Extract section number (e.g. 302, 103, 65B, 3(5), 25(1-C), 17 & 20)
+    sec_match = re.search(r"Section\s+([0-9A-Za-z\(\)\-&,\s]+)", law_clean, re.IGNORECASE)
+    sec_num = sec_match.group(1).strip() if sec_match else "0"
+    node_id = f"{act_code}_{sec_num}".replace("(", "_").replace(")", "").replace(" ", "_").replace("&", "_").replace("-", "_")
     return node_id, act_code, sec_num
 
 
@@ -570,7 +586,7 @@ class RAGPipeline:
         self._init_bm25()
         return len(texts)
 
-    def search(self, query: str, top_k: Optional[int] = None) -> List[dict]:
+    def search(self, query: str, top_k: Optional[int] = None, document_name: Optional[str] = None) -> List[dict]:
         """Perform GraphRAG search combining Cypher knowledge graph traversal and BM25 relevance."""
         if not query or not query.strip():
             return []
@@ -583,8 +599,12 @@ class RAGPipeline:
         stopwords = {"what", "is", "the", "under", "for", "and", "or", "in", "to", "of", "a", "an", "how", "can", "are", "by", "from"}
         search_terms = [t for t in tokens if t not in stopwords and len(t) > 2]
 
-        # Guard: If query contains no legal sections and no meaningful search terms, return empty to prevent irrelevant fallback citations
-        if not sections and not search_terms:
+        is_doc_query = bool(document_name) or any(
+            w in query.lower() for w in ["report", "fir", "document", "charge", "charges", "complaint", "summary", "summarize", "page", "case"]
+        )
+
+        # Guard: If query contains no legal sections and no meaningful search terms and no document attached, return empty
+        if not sections and not search_terms and not document_name:
             return []
 
         graph_results = []
@@ -592,61 +612,66 @@ class RAGPipeline:
         # -------------------------------------------------------------
         # 1. Cypher Graph Traversal (Neo4j or In-Memory Graph Fallback)
         # -------------------------------------------------------------
-        if self.is_connected and self.graph and (sections or search_terms):
+        if self.is_connected and self.graph:
             try:
-                # Query section transitions in Neo4j
-                neo_records = self.graph.query(
-                    CYPHER_GRAPH_TRAVERSAL,
-                    params={
-                        "sections": sections,
-                        "terms": search_terms,
-                        "limit": k,
-                    }
-                )
-                for rec in neo_records:
-                    old_law = f"{rec.get('old_act', 'Act')} - Section {rec.get('old_section', '')}"
-                    new_law = f"{rec.get('new_act', 'Act')} - Section {rec.get('new_section', '')}"
-                    subject = rec.get("subject", "")
-                    formatted_text = (
-                        f"Old Law: {old_law}\n"
-                        f"New Law: {new_law}\n"
-                        f"Subject: {subject}\n"
-                        f"Description: {rec.get('new_description', rec.get('old_description', ''))}\n"
-                        f"Key Changes: {rec.get('key_changes', '')}\n"
-                        f"Legal Aid: {rec.get('legal_aid_name', 'NALSA / DLSA')} (Helpline: {rec.get('helpline', '15100')})"
+                # Query section transitions in Neo4j if terms or sections present
+                if sections or search_terms:
+                    neo_records = self.graph.query(
+                        CYPHER_GRAPH_TRAVERSAL,
+                        params={
+                            "sections": sections,
+                            "terms": search_terms,
+                            "limit": k,
+                        }
                     )
-                    graph_results.append({
-                        "text": formatted_text,
-                        "metadata": {
-                            "old_law": old_law,
-                            "new_law": new_law,
-                            "subject": subject,
-                            "key_changes": rec.get("key_changes", ""),
-                            "source": "neo4j_knowledge_graph",
-                            "type": "law_mapping",
-                        },
-                        "score": 1.0,
-                    })
+                    for rec in neo_records:
+                        old_law = f"{rec.get('old_act', 'Act')} - Section {rec.get('old_section', '')}"
+                        new_law = f"{rec.get('new_act', 'Act')} - Section {rec.get('new_section', '')}"
+                        subject = rec.get("subject", "")
+                        formatted_text = (
+                            f"Old Law: {old_law}\n"
+                            f"New Law: {new_law}\n"
+                            f"Subject: {subject}\n"
+                            f"Description: {rec.get('new_description', rec.get('old_description', ''))}\n"
+                            f"Key Changes: {rec.get('key_changes', '')}\n"
+                            f"Legal Aid: {rec.get('legal_aid_name', 'NALSA / DLSA')} (Helpline: {rec.get('helpline', '15100')})"
+                        )
+                        graph_results.append({
+                            "text": formatted_text,
+                            "metadata": {
+                                "old_law": old_law,
+                                "new_law": new_law,
+                                "subject": subject,
+                                "key_changes": rec.get("key_changes", ""),
+                                "source": "neo4j_knowledge_graph",
+                                "type": "law_mapping",
+                            },
+                            "score": 1.0,
+                        })
 
                 # Query uploaded document chunks in Neo4j
-                doc_records = self.graph.query(
-                    CYPHER_DOC_CHUNK_SEARCH,
-                    params={
-                        "terms": search_terms,
-                        "limit": k,
-                    }
-                )
-                for d in doc_records:
-                    graph_results.append({
-                        "text": d.get("text", ""),
-                        "metadata": {
-                            "filename": d.get("filename", ""),
-                            "page": d.get("page", 1),
-                            "source": "neo4j_document_chunk",
-                            "type": "user_document",
-                        },
-                        "score": 0.9,
-                    })
+                if is_doc_query or document_name:
+                    doc_limit = 20 if document_name else 12
+                    doc_records = self.graph.query(
+                        CYPHER_DOC_CHUNK_SEARCH,
+                        params={
+                            "filename": document_name,
+                            "terms": search_terms,
+                            "limit": doc_limit,
+                        }
+                    )
+                    for d in doc_records:
+                        graph_results.append({
+                            "text": d.get("text", ""),
+                            "metadata": {
+                                "filename": d.get("filename", ""),
+                                "page": d.get("page", 1),
+                                "chunk_index": d.get("chunk_index", 0),
+                                "source": "neo4j_document_chunk",
+                                "type": "user_document",
+                            },
+                            "score": 0.95,
+                        })
 
             except Exception as ge:
                 logger.warning(f"Error querying Neo4j Knowledge Graph ({ge}). Using in-memory graph.")
@@ -655,43 +680,47 @@ class RAGPipeline:
 
         # Fallback to In-Memory Graph if Neo4j is offline or returned no results
         if not graph_results:
-            mem_law_records = self.in_memory_graph.search(sections, search_terms, limit=k)
-            for rec in mem_law_records:
-                old_law = f"{rec['old_act']} - Section {rec['old_section']}"
-                new_law = f"{rec['new_act']} - Section {rec['new_section']}"
-                formatted_text = (
-                    f"Old Law: {old_law}\n"
-                    f"New Law: {new_law}\n"
-                    f"Subject: {rec['subject']}\n"
-                    f"Description: {rec.get('new_description', rec.get('old_description', ''))}\n"
-                    f"Key Changes: {rec['key_changes']}\n"
-                    f"Legal Aid: {rec['legal_aid_name']} (Helpline: {rec['helpline']})"
-                )
-                graph_results.append({
-                    "text": formatted_text,
-                    "metadata": {
-                        "old_law": old_law,
-                        "new_law": new_law,
-                        "subject": rec["subject"],
-                        "key_changes": rec["key_changes"],
-                        "source": "in_memory_knowledge_graph",
-                        "type": "law_mapping",
-                    },
-                    "score": 0.95,
-                })
+            if sections or search_terms:
+                mem_law_records = self.in_memory_graph.search(sections, search_terms, limit=k)
+                for rec in mem_law_records:
+                    old_law = f"{rec['old_act']} - Section {rec['old_section']}"
+                    new_law = f"{rec['new_act']} - Section {rec['new_section']}"
+                    formatted_text = (
+                        f"Old Law: {old_law}\n"
+                        f"New Law: {new_law}\n"
+                        f"Subject: {rec['subject']}\n"
+                        f"Description: {rec.get('new_description', rec.get('old_description', ''))}\n"
+                        f"Key Changes: {rec['key_changes']}\n"
+                        f"Legal Aid: {rec['legal_aid_name']} (Helpline: {rec['helpline']})"
+                    )
+                    graph_results.append({
+                        "text": formatted_text,
+                        "metadata": {
+                            "old_law": old_law,
+                            "new_law": new_law,
+                            "subject": rec["subject"],
+                            "key_changes": rec["key_changes"],
+                            "source": "in_memory_knowledge_graph",
+                            "type": "law_mapping",
+                        },
+                        "score": 0.95,
+                    })
 
-            mem_doc_records = self.in_memory_graph.search_docs(search_terms, limit=k)
-            for d in mem_doc_records:
-                graph_results.append({
-                    "text": d["text"],
-                    "metadata": d.get("metadata") or {
-                        "filename": d["filename"],
-                        "page": d["page"],
-                        "source": "upload",
-                        "type": "user_document",
-                    },
-                    "score": 0.85,
-                })
+            if is_doc_query or document_name:
+                doc_limit = 20 if document_name else 12
+                mem_doc_records = self.in_memory_graph.search_docs(search_terms, limit=doc_limit, filename=document_name)
+                for d in mem_doc_records:
+                    meta = d.get("metadata") or {}
+                    meta.setdefault("filename", d["filename"])
+                    meta.setdefault("page", d["page"])
+                    meta.setdefault("chunk_index", d.get("chunk_index", 0))
+                    meta.setdefault("source", "upload")
+                    meta.setdefault("type", "user_document")
+                    graph_results.append({
+                        "text": d["text"],
+                        "metadata": meta,
+                        "score": 0.95,
+                    })
 
         # -------------------------------------------------------------
         # 2. Sparse BM25 Keyword Scoring
@@ -721,7 +750,15 @@ class RAGPipeline:
 
         # Prioritize Graph Traversal (weight 0.7) and BM25 (weight 0.3)
         for item in graph_results:
-            key = item["metadata"].get("new_law") or item["metadata"].get("filename") or item["text"][:60]
+            meta = item.get("metadata", {})
+            if meta.get("type") == "user_document" or meta.get("filename"):
+                fname = meta.get("filename", "doc")
+                pg = meta.get("page", 1)
+                ci = meta.get("chunk_index", 0)
+                key = f"doc_{fname}_{pg}_{ci}"
+            else:
+                key = f"law_{meta.get('new_law') or meta.get('old_law') or item['text'][:50]}"
+
             g_score = float(item["score"])
             combined[key] = {
                 "text": item["text"],
@@ -733,7 +770,15 @@ class RAGPipeline:
             }
 
         for item in bm25_results:
-            key = item["metadata"].get("new_law") or item["metadata"].get("filename") or item["text"][:60]
+            meta = item.get("metadata", {})
+            if meta.get("type") == "user_document" or meta.get("filename"):
+                fname = meta.get("filename", "doc")
+                pg = meta.get("page", 1)
+                ci = meta.get("chunk_index", 0)
+                key = f"doc_{fname}_{pg}_{ci}"
+            else:
+                key = f"law_{meta.get('new_law') or meta.get('old_law') or item['text'][:50]}"
+
             b_score = float(item["score"])
             if key in combined:
                 combined[key]["score"] = round(combined[key]["score"] + (0.3 * b_score), 4)
@@ -750,7 +795,8 @@ class RAGPipeline:
 
         results = list(combined.values())
         results.sort(key=lambda r: r["score"], reverse=True)
-        return results[:k]
+        max_k = max(k, 15) if (document_name or any(r.get("metadata", {}).get("type") == "user_document" for r in results)) else k
+        return results[:max_k]
 
     @property
     def documents(self) -> List[dict]:
