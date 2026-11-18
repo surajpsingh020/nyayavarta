@@ -6,6 +6,7 @@ statutory citation extraction, and legal aid routing (NALSA / DLSA / 15100).
 """
 
 import asyncio
+import base64
 import json
 import logging
 import re
@@ -328,6 +329,69 @@ Please answer the query thoroughly in English following the System Directives:
             logger.warning(f"LLM translation failed ({e}). Returning original text.")
 
         return text
+
+    async def transcribe_and_detect_audio(self, audio_base64: str) -> Dict[str, str]:
+        """Automatically detect spoken Indian language and transcribe audio verbatim."""
+        if not audio_base64 or not self.client:
+            return {"detected_language": "hi", "transcription": ""}
+
+        # Determine MIME type if data URI prefix is present
+        mime_type = "audio/webm"
+        clean_b64 = audio_base64.strip()
+        if clean_b64.startswith("data:"):
+            match = re.match(r"data:([^;]+);base64,(.+)", clean_b64)
+            if match:
+                mime_type = match.group(1)
+                clean_b64 = match.group(2)
+
+        try:
+            audio_bytes = base64.b64decode(clean_b64)
+            if len(audio_bytes) < 100:
+                return {"detected_language": "hi", "transcription": ""}
+        except Exception as e:
+            logger.warning(f"Audio base64 decode error: {e}")
+            return {"detected_language": "hi", "transcription": ""}
+
+        from google.genai import types
+        part = types.Part.from_bytes(data=audio_bytes, mime_type=mime_type)
+
+        prompt = (
+            "You are an expert multilingual speech recognition system for Indian citizens.\n"
+            "Listen to this audio recording carefully:\n"
+            "1. Automatically identify the language being spoken. Return the BCP-47 language code:\n"
+            "   'bn' (Bengali), 'hi' (Hindi), 'ta' (Tamil), 'te' (Telugu), 'mr' (Marathi), 'gu' (Gujarati),\n"
+            "   'kn' (Kannada), 'ml' (Malayalam), 'pa' (Punjabi), 'or' (Odia), 'ur' (Urdu), 'as' (Assamese),\n"
+            "   'sa' (Sanskrit), or 'en' (English).\n"
+            "2. Transcribe the audio verbatim in its native script (for example, Bengali script if Bengali is spoken).\n"
+            "3. If the audio is empty, pure silence, or background noise without speech, return empty transcription.\n"
+            "Respond ONLY with a JSON object:\n"
+            "{\"detected_language\": \"<code>\", \"transcription\": \"<verbatim text>\"}"
+        )
+
+        try:
+            def _call_asr():
+                return self._generate_with_gemini_cascade(
+                    contents=[part, prompt],
+                    temperature=0.1
+                )
+
+            res_str = await asyncio.wait_for(
+                asyncio.to_thread(_call_asr),
+                timeout=25.0
+            )
+
+            if res_str:
+                clean_json = re.sub(r"^```(?:json)?\s*", "", res_str.strip())
+                clean_json = re.sub(r"\s*```$", "", clean_json)
+                data = json.loads(clean_json)
+                detected = data.get("detected_language", "hi").strip().lower()
+                text = data.get("transcription", "").strip()
+                logger.info(f"Audio ASR detected language '{detected}': '{text[:60]}'")
+                return {"detected_language": detected, "transcription": text}
+        except Exception as e:
+            logger.warning(f"Gemini audio transcription error: {e}")
+
+        return {"detected_language": "hi", "transcription": ""}
 
     def _generate_fallback_response(
         self,

@@ -23,11 +23,13 @@ import {
 import {
   sendChatMessage,
   uploadDocument,
+  translateLegalText,
   MessageItem,
   ChatResponse,
   UploadResponse,
 } from '@/lib/api';
 import { getUITranslations } from '@/lib/i18n';
+import { INDIAN_LANGUAGES } from './LanguageSelector';
 import AudioPlayer from './AudioPlayer';
 import CitationCard from './CitationCard';
 
@@ -35,23 +37,6 @@ interface ChatInterfaceProps {
   selectedLanguage: string;
   className?: string;
 }
-
-const BCP47_SPEECH_MAP: Record<string, string> = {
-  hi: 'hi-IN',
-  en: 'en-IN',
-  mr: 'mr-IN',
-  bn: 'bn-IN',
-  ta: 'ta-IN',
-  te: 'te-IN',
-  gu: 'gu-IN',
-  kn: 'kn-IN',
-  ml: 'ml-IN',
-  pa: 'pa-IN',
-  or: 'or-IN',
-  ur: 'ur-IN',
-  as: 'as-IN',
-  sa: 'sa-IN',
-};
 
 export default function ChatInterface({
   selectedLanguage,
@@ -63,21 +48,21 @@ export default function ChatInterface({
   const [isLoading, setIsLoading] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  // Per-message language toggle: { [messageId]: 'regional' | 'english' }
-  const [languageToggleMap, setLanguageToggleMap] = useState<Record<string, 'regional' | 'english'>>({});
+  // Per-message active language tracking: { [messageId]: 'bn' | 'hi' | 'en' | ... }
+  const [messageLanguages, setMessageLanguages] = useState<Record<string, string>>({});
+  // Per-message cached translations: { [messageId]: { [langCode]: { text: string, audioBase64?: string } } }
+  const [cachedTranslations, setCachedTranslations] = useState<
+    Record<string, Record<string, { text: string; audioBase64?: string | null }>>
+  >({});
+  const [translatingMsgId, setTranslatingMsgId] = useState<string | null>(null);
 
   // Document Attachment State in Chat
   const [isUploadingDoc, setIsUploadingDoc] = useState(false);
   const [attachedDoc, setAttachedDoc] = useState<UploadResponse | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  // Voice recording & Web Speech Recognition state
-  const [isListening, setIsListening] = useState(false);
-  const [speechInterim, setSpeechInterim] = useState('');
-  const speechRecognitionRef = useRef<any>(null);
-
-  // MediaRecorder Fallback
-  const [isMediaRecording, setIsMediaRecording] = useState(false);
+  // Voice recording via MediaRecorder (universal multimodal recording)
+  const [isRecording, setIsRecording] = useState(false);
   const [recordDuration, setRecordDuration] = useState(0);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
@@ -87,19 +72,17 @@ export default function ChatInterface({
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isLoading, isListening]);
+  }, [messages, isLoading, isRecording]);
 
-  // Clean up timers & speech recognition on unmount
+  // Clean up timers on unmount
   useEffect(() => {
     return () => {
       if (recordTimerRef.current) clearInterval(recordTimerRef.current);
-      if (speechRecognitionRef.current) {
-        try {
-          speechRecognitionRef.current.stop();
-        } catch {}
+      if (mediaRecorderRef.current && isRecording) {
+        mediaRecorderRef.current.stop();
       }
     };
-  }, []);
+  }, [isRecording]);
 
   const handleCopyText = (id: string, text: string) => {
     navigator.clipboard.writeText(text);
@@ -107,11 +90,45 @@ export default function ChatInterface({
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  const toggleLanguageView = (messageId: string) => {
-    setLanguageToggleMap((prev) => ({
-      ...prev,
-      [messageId]: prev[messageId] === 'english' ? 'regional' : 'english',
-    }));
+  // -------------------------------------------------------------
+  // Dynamic Language & Audio Switcher per Response Message
+  // -------------------------------------------------------------
+  const handleSwitchMessageLanguage = async (msg: MessageItem, targetLang: string) => {
+    if (translatingMsgId) return;
+    const currentLang = messageLanguages[msg.id] || msg.detectedLanguage || selectedLanguage;
+    if (currentLang === targetLang) return;
+
+    // Check if translation is already cached in memory
+    const cached = cachedTranslations[msg.id]?.[targetLang];
+    if (cached) {
+      setMessageLanguages((prev) => ({ ...prev, [msg.id]: targetLang }));
+      return;
+    }
+
+    setTranslatingMsgId(msg.id);
+    try {
+      // Source text: prioritize English response as universal pivot, else regional response
+      const sourceText = msg.englishResponse || msg.regionalResponse || '';
+      const sourceLang = msg.englishResponse ? 'en' : currentLang;
+
+      const res = await translateLegalText(sourceText, targetLang, sourceLang);
+
+      setCachedTranslations((prev) => ({
+        ...prev,
+        [msg.id]: {
+          ...(prev[msg.id] || {}),
+          [targetLang]: {
+            text: res.translated_text,
+            audioBase64: res.audio_base64,
+          },
+        },
+      }));
+      setMessageLanguages((prev) => ({ ...prev, [msg.id]: targetLang }));
+    } catch (err: any) {
+      alert(`Could not translate response to selected language: ${err.message || 'Network error'}`);
+    } finally {
+      setTranslatingMsgId(null);
+    }
   };
 
   // -------------------------------------------------------------
@@ -126,7 +143,6 @@ export default function ChatInterface({
       const res = await uploadDocument(file);
       setAttachedDoc(res);
 
-      // Add a system announcement message in the chat
       const sysMsgId = 'sys-' + Date.now();
       setMessages((prev) => [
         ...prev,
@@ -151,7 +167,7 @@ export default function ChatInterface({
   };
 
   // -------------------------------------------------------------
-  // Send Chat Message
+  // Send Text Chat Message
   // -------------------------------------------------------------
   const handleSendMessage = async (textToSend?: string) => {
     const text = (textToSend || inputText).trim();
@@ -167,7 +183,6 @@ export default function ChatInterface({
 
     setMessages((prev) => [...prev, newUserMessage]);
     setInputText('');
-    setSpeechInterim('');
     setIsLoading(true);
 
     try {
@@ -178,6 +193,8 @@ export default function ChatInterface({
       });
 
       const assistantMessageId = 'resp-' + Date.now();
+      const detectedLang = response.detected_language || selectedLanguage;
+
       const newAssistantMessage: MessageItem = {
         id: assistantMessageId,
         sender: 'assistant',
@@ -187,13 +204,28 @@ export default function ChatInterface({
         englishResponse: response.english_response,
         citations: response.citations,
         audioBase64: response.audio_base64,
+        detectedLanguage: detectedLang,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
 
       setMessages((prev) => [...prev, newAssistantMessage]);
-      setLanguageToggleMap((prev) => ({
+      setMessageLanguages((prev) => ({
         ...prev,
-        [assistantMessageId]: 'regional',
+        [assistantMessageId]: detectedLang,
+      }));
+
+      // Pre-populate translation cache with initial responses
+      setCachedTranslations((prev) => ({
+        ...prev,
+        [assistantMessageId]: {
+          [detectedLang]: {
+            text: response.regional_response,
+            audioBase64: response.audio_base64,
+          },
+          ...(response.english_response
+            ? { en: { text: response.english_response, audioBase64: null } }
+            : {}),
+        },
       }));
     } catch (err: any) {
       const errorMessageId = 'err-' + Date.now();
@@ -213,94 +245,17 @@ export default function ChatInterface({
   };
 
   // -------------------------------------------------------------
-  // Web Speech API: Real-Time Voice Recognition (Speech-to-Text)
+  // Automatic Audio Recognition & Multimodal Speech Recording
   // -------------------------------------------------------------
-  const toggleListening = () => {
-    if (isListening) {
-      stopListening();
+  const toggleRecording = () => {
+    if (isRecording) {
+      stopRecording();
     } else {
-      startListening();
+      startRecording();
     }
   };
 
-  const startListening = () => {
-    const SpeechRecognition =
-      (typeof window !== 'undefined' &&
-        ((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition)) ||
-      null;
-
-    if (!SpeechRecognition) {
-      // Fallback to MediaRecorder if Web Speech is unsupported
-      startMediaRecording();
-      return;
-    }
-
-    try {
-      const recognition = new SpeechRecognition();
-      speechRecognitionRef.current = recognition;
-      recognition.continuous = false;
-      recognition.interimResults = true;
-
-      const langCode = BCP47_SPEECH_MAP[selectedLanguage.toLowerCase()] || 'hi-IN';
-      recognition.lang = langCode;
-
-      recognition.onstart = () => {
-        setIsListening(true);
-        setSpeechInterim('');
-      };
-
-      recognition.onresult = (event: any) => {
-        let interim = '';
-        let final = '';
-
-        for (let i = event.resultIndex; i < event.results.length; ++i) {
-          if (event.results[i].isFinal) {
-            final += event.results[i][0].transcript;
-          } else {
-            interim += event.results[i][0].transcript;
-          }
-        }
-
-        if (final) {
-          setInputText((prev) => (prev ? `${prev} ${final.trim()}` : final.trim()));
-          setSpeechInterim('');
-        } else {
-          setSpeechInterim(interim);
-        }
-      };
-
-      recognition.onerror = (event: any) => {
-        console.warn('Speech recognition error:', event.error);
-        setIsListening(false);
-        setSpeechInterim('');
-      };
-
-      recognition.onend = () => {
-        setIsListening(false);
-        setSpeechInterim('');
-      };
-
-      recognition.start();
-    } catch (err) {
-      console.warn('Speech recognition start failed, using fallback:', err);
-      startMediaRecording();
-    }
-  };
-
-  const stopListening = () => {
-    if (speechRecognitionRef.current) {
-      try {
-        speechRecognitionRef.current.stop();
-      } catch {}
-    }
-    setIsListening(false);
-    setSpeechInterim('');
-  };
-
-  // -------------------------------------------------------------
-  // MediaRecorder Fallback
-  // -------------------------------------------------------------
-  const startMediaRecording = async () => {
+  const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       audioChunksRef.current = [];
@@ -313,7 +268,7 @@ export default function ChatInterface({
 
       mediaRecorder.onstop = async () => {
         stream.getTracks().forEach((track) => track.stop());
-        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
+        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
 
         const reader = new FileReader();
         reader.readAsDataURL(audioBlob);
@@ -326,7 +281,7 @@ export default function ChatInterface({
       };
 
       mediaRecorder.start();
-      setIsMediaRecording(true);
+      setIsRecording(true);
       setRecordDuration(0);
 
       recordTimerRef.current = setInterval(() => {
@@ -337,10 +292,10 @@ export default function ChatInterface({
     }
   };
 
-  const stopMediaRecording = () => {
-    if (mediaRecorderRef.current && isMediaRecording) {
+  const stopRecording = () => {
+    if (mediaRecorderRef.current && isRecording) {
       mediaRecorderRef.current.stop();
-      setIsMediaRecording(false);
+      setIsRecording(false);
       if (recordTimerRef.current) clearInterval(recordTimerRef.current);
     }
   };
@@ -350,7 +305,7 @@ export default function ChatInterface({
     const newUserMessage: MessageItem = {
       id: userMessageId,
       sender: 'user',
-      originalQuery: '🎤 [ध्वनि प्रश्न / Voice Query]',
+      originalQuery: '🎤 [ऑडियो विश्लेषण हो रहा है... / Transcribing audio query...]',
       isAudioQuery: true,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
@@ -361,11 +316,22 @@ export default function ChatInterface({
     try {
       const response: ChatResponse = await sendChatMessage({
         audio_base64: audioBase64,
-        source_language: selectedLanguage,
+        source_language: 'auto', // Request automatic audio language identification
         user_profile: 'general',
       });
 
+      // Update user message with the recognized spoken words in native script
+      setMessages((prev) =>
+        prev.map((m) =>
+          m.id === userMessageId
+            ? { ...m, originalQuery: response.original_query }
+            : m
+        )
+      );
+
       const assistantMessageId = 'resp-' + Date.now();
+      const detectedLang = response.detected_language || 'hi';
+
       const newAssistantMessage: MessageItem = {
         id: assistantMessageId,
         sender: 'assistant',
@@ -375,13 +341,28 @@ export default function ChatInterface({
         englishResponse: response.english_response,
         citations: response.citations,
         audioBase64: response.audio_base64,
+        detectedLanguage: detectedLang,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
 
       setMessages((prev) => [...prev, newAssistantMessage]);
-      setLanguageToggleMap((prev) => ({
+      setMessageLanguages((prev) => ({
         ...prev,
-        [assistantMessageId]: 'regional',
+        [assistantMessageId]: detectedLang,
+      }));
+
+      // Cache initial native language response and English fallback
+      setCachedTranslations((prev) => ({
+        ...prev,
+        [assistantMessageId]: {
+          [detectedLang]: {
+            text: response.regional_response,
+            audioBase64: response.audio_base64,
+          },
+          ...(response.english_response
+            ? { en: { text: response.english_response, audioBase64: null } }
+            : {}),
+        },
       }));
     } catch (err: any) {
       setMessages((prev) => [
@@ -389,8 +370,8 @@ export default function ChatInterface({
         {
           id: 'err-' + Date.now(),
           sender: 'assistant',
-          regionalResponse: `त्रुटि (Error): ${err.message || 'Speech processing failed.'}`,
-          englishResponse: `Error: ${err.message || 'Speech processing failed.'}`,
+          regionalResponse: `त्रुटि (Error): ${err.message || 'Speech recognition failed.'}`,
+          englishResponse: `Error: ${err.message || 'Speech recognition failed.'}`,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         },
       ]);
@@ -408,7 +389,7 @@ export default function ChatInterface({
 
   return (
     <div className={`flex flex-col h-[750px] bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden ${className}`}>
-      {/* Hidden File Input for Document Attachment */}
+      {/* Hidden File Input for PDF/Doc Upload */}
       <input
         type="file"
         ref={fileInputRef}
@@ -418,48 +399,49 @@ export default function ChatInterface({
       />
 
       {/* Chat Header */}
-      <div className="px-5 py-3.5 bg-gradient-to-r from-primary-900 via-primary-800 to-primary-900 text-white flex items-center justify-between shadow-xs">
+      <div className="px-5 py-3.5 bg-gradient-to-r from-primary-900 to-primary-800 text-white flex items-center justify-between border-b border-primary-700">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center border border-white/20">
-            <Scale className="w-5 h-5 text-accent-300" />
+          <div className="w-9 h-9 rounded-xl bg-accent-500/20 border border-accent-400/30 flex items-center justify-center text-accent-300">
+            <Scale className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-base font-bold tracking-tight flex items-center gap-2">
-              {t.chatHeader}
-              <span className="text-[10px] bg-accent-500/20 text-accent-200 border border-accent-400/30 px-2 py-0.5 rounded-full font-medium">
+            <div className="flex items-center gap-2">
+              <h2 className="text-sm font-bold tracking-tight">
+                {t.chatHeader}
+              </h2>
+              <span className="bg-accent-500/30 text-accent-200 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-accent-400/20">
                 Live GraphRAG
               </span>
-            </h2>
-            <p className="text-[11px] text-primary-200">
+            </div>
+            <p className="text-[11px] text-gray-300">
               {t.chatSubtitle}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          {messages.length > 0 && (
-            <button
-              type="button"
-              onClick={clearChat}
-              className="p-1.5 text-primary-200 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-              title="Clear conversation"
-              aria-label="Clear chat"
-            >
-              <Trash2 className="w-4 h-4" />
-            </button>
-          )}
-        </div>
+        {messages.length > 0 && (
+          <button
+            type="button"
+            onClick={clearChat}
+            className="p-1.5 text-gray-300 hover:text-red-300 hover:bg-primary-800/80 rounded-lg transition-colors"
+            title="Clear Chat Conversation"
+            aria-label="Clear chat"
+          >
+            <Trash2 className="w-4 h-4" />
+          </button>
+        )}
       </div>
 
-      {/* Messages Thread */}
-      <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-5 bg-gray-50/50">
+      {/* Messages Scroll Area */}
+      <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 bg-slate-50/60">
         {messages.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center text-center p-6 space-y-5">
-            <div className="w-14 h-14 rounded-2xl bg-primary-100 flex items-center justify-center text-primary-600 shadow-inner">
-              <Sparkles className="w-7 h-7" />
+          <div className="h-full flex flex-col items-center justify-center text-center p-6 space-y-4">
+            <div className="w-16 h-16 rounded-3xl bg-primary-100 flex items-center justify-center text-primary-700 shadow-inner">
+              <Sparkles className="w-8 h-8" />
             </div>
-            <div className="max-w-md space-y-1.5">
-              <h3 className="text-lg font-bold text-gray-800">
+
+            <div className="max-w-md space-y-1">
+              <h3 className="text-lg font-bold text-gray-900">
                 {t.chatGreeting}
               </h3>
               <p className="text-xs text-gray-500 leading-relaxed">
@@ -467,24 +449,25 @@ export default function ChatInterface({
               </p>
             </div>
 
-            {/* Quick Sample Prompts */}
-            <div className="w-full max-w-xl text-left space-y-2 mt-2">
-              <span className="text-[11px] font-semibold uppercase text-gray-400 tracking-wider block">
+            {/* Quick Suggested Queries */}
+            <div className="w-full max-w-xl text-left space-y-2 pt-2">
+              <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider text-center">
                 {t.suggestedQueriesTitle}
-              </span>
+              </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {t.suggestedQueries.map((prompt, idx) => (
+                {t.suggestedQueries.map((query, idx) => (
                   <button
                     key={idx}
                     type="button"
-                    onClick={() => handleSendMessage(prompt.text)}
-                    className="p-3 rounded-xl border border-gray-200 bg-white hover:border-primary-400 hover:bg-primary-50/50 text-left transition-all text-xs text-gray-700 shadow-2xs group"
+                    onClick={() => handleSendMessage(query.text)}
+                    disabled={isLoading}
+                    className="p-3 bg-white hover:bg-primary-50/70 border border-gray-200 hover:border-primary-300 rounded-xl text-left transition-all group shadow-2xs flex flex-col justify-between"
                   >
-                    <span className="font-semibold text-primary-700 block mb-0.5 group-hover:text-primary-800">
-                      {prompt.label}
+                    <span className="text-xs font-semibold text-primary-900 group-hover:text-primary-700">
+                      {query.label}
                     </span>
-                    <span className="line-clamp-2 text-gray-600 text-[11px]">
-                      "{prompt.text}"
+                    <span className="text-[11px] text-gray-500 line-clamp-1 mt-1">
+                      "{query.text}"
                     </span>
                   </button>
                 ))}
@@ -494,11 +477,14 @@ export default function ChatInterface({
         ) : (
           messages.map((msg) => {
             const isUser = msg.sender === 'user';
-            const currentLang = languageToggleMap[msg.id] || 'regional';
-            const displayText =
-              currentLang === 'english'
-                ? msg.englishResponse || msg.regionalResponse || ''
-                : msg.regionalResponse || msg.englishResponse || '';
+            const activeLang = messageLanguages[msg.id] || msg.detectedLanguage || selectedLanguage;
+            const currentTranslation = cachedTranslations[msg.id]?.[activeLang];
+            const displayText = isUser
+              ? msg.originalQuery || ''
+              : currentTranslation?.text || msg.regionalResponse || msg.englishResponse || '';
+            const activeAudio = isUser
+              ? null
+              : currentTranslation?.audioBase64 || msg.audioBase64;
 
             return (
               <div
@@ -506,7 +492,7 @@ export default function ChatInterface({
                 className={`flex flex-col ${isUser ? 'items-end' : 'items-start'}`}
               >
                 <div
-                  className={`max-w-[85%] md:max-w-[75%] rounded-2xl p-4 shadow-xs ${
+                  className={`max-w-[85%] md:max-w-[78%] rounded-2xl p-4 shadow-xs ${
                     isUser
                       ? 'bg-primary-600 text-white rounded-br-xs'
                       : 'bg-white border border-gray-200/90 text-gray-900 rounded-bl-xs'
@@ -523,8 +509,8 @@ export default function ChatInterface({
                     </div>
                   ) : (
                     <div className="space-y-3">
-                      {/* Assistant Header / Controls */}
-                      <div className="flex items-center justify-between border-b border-gray-100 pb-2 gap-2">
+                      {/* Assistant Header & Dynamic Regional Language Switcher */}
+                      <div className="flex items-center justify-between border-b border-gray-100 pb-2 gap-2 flex-wrap">
                         <div className="flex items-center gap-1.5">
                           <span className="w-2 h-2 rounded-full bg-primary-600" />
                           <span className="text-xs font-bold text-primary-900">
@@ -532,19 +518,27 @@ export default function ChatInterface({
                           </span>
                         </div>
 
-                        <div className="flex items-center gap-1.5">
-                          {/* Bilingual Toggle Button */}
-                          {msg.englishResponse && msg.regionalResponse && (
-                            <button
-                              type="button"
-                              onClick={() => toggleLanguageView(msg.id)}
-                              className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-semibold bg-primary-50 text-primary-700 border border-primary-200 hover:bg-primary-100 transition-colors"
-                              title="Switch language view"
+                        <div className="flex items-center gap-2">
+                          {/* Regional Language & Audio Switcher Dropdown */}
+                          <div className="flex items-center gap-1 bg-primary-50 border border-primary-200 rounded-lg px-2 py-0.5 shadow-2xs">
+                            <Languages className="w-3.5 h-3.5 text-primary-600 flex-shrink-0" />
+                            <select
+                              value={activeLang}
+                              onChange={(e) => handleSwitchMessageLanguage(msg, e.target.value)}
+                              disabled={translatingMsgId === msg.id}
+                              className="bg-transparent text-[11px] font-semibold text-primary-900 outline-none cursor-pointer"
+                              title="Change answer language and voice audio to any regional language of India"
                             >
-                              <Languages className="w-3 h-3" />
-                              {currentLang === 'english' ? 'View Regional' : 'View English'}
-                            </button>
-                          )}
+                              {INDIAN_LANGUAGES.map((l) => (
+                                <option key={l.code} value={l.code} className="text-gray-900">
+                                  {l.nativeName} ({l.name})
+                                </option>
+                              ))}
+                            </select>
+                            {translatingMsgId === msg.id && (
+                              <Loader2 className="w-3 h-3 text-primary-600 animate-spin ml-1" />
+                            )}
+                          </div>
 
                           {/* Copy button */}
                           <button
@@ -597,12 +591,12 @@ export default function ChatInterface({
                         </ReactMarkdown>
                       </div>
 
-                      {/* Voice Audio Readout Player (Web Speech + WAV) */}
+                      {/* Voice Audio Readout Player (Updated dynamically per chosen language) */}
                       <div className="mt-2 pt-2 border-t border-gray-100">
                         <AudioPlayer
                           textToSpeak={displayText}
-                          language={currentLang === 'english' ? 'en' : selectedLanguage}
-                          audioBase64={msg.audioBase64}
+                          language={activeLang}
+                          audioBase64={activeAudio}
                         />
                       </div>
 
@@ -637,7 +631,7 @@ export default function ChatInterface({
                   Analyzing legal statutes & traversing Neo4j knowledge graph...
                 </p>
                 <p className="text-[11px] text-gray-400">
-                  Retrieving BNS/BNSS/BSA law transitions with Gemini 3.8 Flash
+                  Retrieving BNS/BNSS/BSA law transitions with Gemini Multimodal AI
                 </p>
               </div>
             </div>
@@ -678,37 +672,16 @@ export default function ChatInterface({
           </div>
         )}
 
-        {/* Live Speech Recognition Banner */}
-        {isListening && (
-          <div className="flex items-center justify-between bg-amber-50 border border-amber-200 rounded-xl px-4 py-2 animate-pulse">
-            <div className="flex items-center gap-2 text-amber-900 text-xs font-medium">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-ping" />
-              <span>{t.listening}</span>
-              {speechInterim && (
-                <span className="italic text-gray-600 font-normal">"{speechInterim}"</span>
-              )}
-            </div>
-            <button
-              type="button"
-              onClick={stopListening}
-              className="flex items-center gap-1 text-xs font-bold bg-amber-600 text-white px-3 py-1 rounded-lg hover:bg-amber-700"
-            >
-              <Square className="w-3.5 h-3.5 fill-current" />
-              {t.stopSend}
-            </button>
-          </div>
-        )}
-
-        {/* MediaRecorder Fallback banner */}
-        {isMediaRecording && (
+        {/* Live Audio Recording Badge */}
+        {isRecording && (
           <div className="flex items-center justify-between bg-red-50 border border-red-200 rounded-xl px-4 py-2 animate-pulse">
             <div className="flex items-center gap-2 text-red-700 text-xs font-semibold">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-600" />
-              {t.listening} ({recordDuration}s)
+              <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-ping" />
+              <span>ऑडियो रिकॉर्ड हो रहा है (Speak in any Indian language: Bengali, Hindi, Tamil...)... {recordDuration}s</span>
             </div>
             <button
               type="button"
-              onClick={stopMediaRecording}
+              onClick={stopRecording}
               className="flex items-center gap-1 text-xs font-bold bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700"
             >
               <Square className="w-3.5 h-3.5 fill-current" />
@@ -736,17 +709,17 @@ export default function ChatInterface({
             <Paperclip className="w-5 h-5" />
           </button>
 
-          {/* Microphone button with Live Web Speech Recognition */}
+          {/* Microphone button with Automatic Language Recognition */}
           <button
             type="button"
-            onClick={toggleListening}
+            onClick={toggleRecording}
             disabled={isLoading}
             className={`p-3 rounded-xl border-2 transition-all flex-shrink-0 flex items-center justify-center ${
-              isListening || isMediaRecording
+              isRecording
                 ? 'border-red-500 bg-red-500 text-white animate-bounce'
                 : 'border-gray-200 text-gray-600 hover:border-primary-500 hover:text-primary-600 hover:bg-primary-50'
             } disabled:opacity-50`}
-            title={isListening ? t.stopSend : 'Speak query in your language (बोलकर पूछें)'}
+            title={isRecording ? t.stopSend : 'Speak query in any Indian language (बोलकर पूछें - स्वचालित भाषा पहचान)'}
             aria-label="Microphone record button"
           >
             <Mic className="w-5 h-5" />
@@ -757,7 +730,7 @@ export default function ChatInterface({
             type="text"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            placeholder={isListening ? 'Listening...' : t.inputPlaceholder}
+            placeholder={isRecording ? 'Listening in any language...' : t.inputPlaceholder}
             disabled={isLoading}
             className="flex-1 px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm text-gray-900 focus:bg-white focus:border-primary-500 focus:ring-4 focus:ring-primary-100 outline-none transition-all placeholder:text-gray-400 disabled:opacity-50"
           />
@@ -774,7 +747,7 @@ export default function ChatInterface({
         </form>
 
         <div className="flex items-center justify-between text-[11px] text-gray-400 px-1">
-          <span>Supported: Voice, Text & PDF reports in 14 Indian languages</span>
+          <span>Supported: Automatic Voice Detection, Text & PDF reports in 14 Indian languages</span>
           <span>Legal Aid Toll-Free: 15100</span>
         </div>
       </div>

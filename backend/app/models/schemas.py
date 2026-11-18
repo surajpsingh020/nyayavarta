@@ -26,6 +26,21 @@ class ChatResponse(BaseModel):
     english_response: str = Field(..., description="Response in English")
     citations: list[dict] = Field(default_factory=list, description="Legal citations")
     audio_base64: Optional[str] = Field(None, description="Base64-encoded TTS audio")
+    detected_language: Optional[str] = Field("hi", description="Detected language code (e.g. 'bn', 'hi', 'en')")
+
+
+class TranslateRequest(BaseModel):
+    """Request schema for on-demand response translation."""
+    text: str = Field(..., description="Text to translate")
+    target_language: str = Field(..., description="Target BCP-47 language code")
+    source_language: Optional[str] = Field("en", description="Source language code")
+
+
+class TranslateResponse(BaseModel):
+    """Response schema for on-demand response translation."""
+    translated_text: str = Field(..., description="Translated text")
+    target_language: str = Field(..., description="Target language code")
+    audio_base64: Optional[str] = Field(None, description="Base64-encoded TTS audio for translated text")
 
 
 class UploadResponse(BaseModel):

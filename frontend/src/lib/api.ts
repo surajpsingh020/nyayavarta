@@ -25,6 +25,13 @@ export interface ChatResponse {
   english_response: string;
   citations: Citation[];
   audio_base64?: string | null;
+  detected_language?: string;
+}
+
+export interface TranslateResponse {
+  translated_text: string;
+  target_language: string;
+  audio_base64?: string | null;
 }
 
 export interface UploadResponse {
@@ -44,6 +51,9 @@ export interface MessageItem {
   audioBase64?: string | null;
   timestamp: string;
   isAudioQuery?: boolean;
+  detectedLanguage?: string;
+  activeLanguage?: string;
+  languageVersions?: Record<string, { text: string; audioBase64?: string | null }>;
 }
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || '';
@@ -95,6 +105,38 @@ export async function uploadDocument(file: File): Promise<UploadResponse> {
       // Keep default error text
     }
     throw new Error(errorDetail || `Upload failed with status ${response.status}`);
+  }
+
+  return response.json();
+}
+
+/**
+ * Dynamically translate legal text into another Indian regional language with native audio.
+ */
+export async function translateLegalText(
+  text: string,
+  targetLanguage: string,
+  sourceLanguage: string = 'en'
+): Promise<TranslateResponse> {
+  const response = await fetch(`${API_BASE}/api/translate`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      text,
+      target_language: targetLanguage,
+      source_language: sourceLanguage,
+    }),
+  });
+
+  if (!response.ok) {
+    let errorDetail = response.statusText;
+    try {
+      const errJson = await response.json();
+      errorDetail = errJson.detail || errorDetail;
+    } catch {}
+    throw new Error(errorDetail || `Translation failed with status ${response.status}`);
   }
 
   return response.json();

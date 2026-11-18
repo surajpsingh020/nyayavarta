@@ -37,6 +37,54 @@ def is_dummy_or_empty_key(key: Optional[str]) -> bool:
     return "your_" in key_lower or "placeholder" in key_lower or len(key_lower) < 8
 
 
+def synthesize_google_tts_base64(text: str, language: str) -> Optional[str]:
+    """Synthesize high-fidelity voice audio in base64 format via Google TTS engine."""
+    if not text or not text.strip():
+        return None
+
+    # Clean markdown, asterisks, brackets, and links for clear voice synthesis
+    clean = re.sub(r"[#*`_\[\]]", " ", text)
+    clean = re.sub(r"https?://\S+", "", clean)
+    clean = re.sub(r"\s+", " ", clean).strip()
+    if not clean:
+        return None
+
+    # Google TTS supported language mapping
+    supported_langs = {
+        "hi": "hi",
+        "bn": "bn",
+        "ta": "ta",
+        "te": "te",
+        "mr": "mr",
+        "gu": "gu",
+        "kn": "kn",
+        "ml": "ml",
+        "pa": "pa",
+        "ur": "ur",
+        "en": "en-IN",
+        "ne": "ne"
+    }
+    tts_lang = supported_langs.get(language.lower(), "hi" if language.lower() in ("or", "as", "sa") else "en-IN")
+
+    # Take first ~280 characters (first 2-3 sentences) for instant responsive audio playback
+    chunk = clean[:280]
+    import urllib.request
+    import urllib.parse
+
+    q = urllib.parse.quote(chunk)
+    url = f"https://translate.google.com/translate_tts?ie=UTF-8&q={q}&tl={tts_lang}&client=tw-ob"
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    try:
+        with urllib.request.urlopen(req, timeout=4) as resp:
+            data = resp.read()
+            if len(data) > 500:
+                return base64.b64encode(data).decode("ascii")
+    except Exception as e:
+        logger.debug(f"Google TTS notice: {e}")
+
+    return None
+
+
 def generate_mock_wav_base64(duration_seconds: float = 0.5, sample_rate: int = 8000) -> str:
     """Generate a minimal valid PCM 8-bit mono WAV file encoded as base64."""
     num_samples = int(duration_seconds * sample_rate)
@@ -262,14 +310,14 @@ class BhashiniService:
         return self._mock_translation(text, source_lang, target_lang)
 
     async def text_to_speech(self, text: str, language: str = "hi", gender: str = "female") -> Optional[str]:
-        """Synthesize speech audio from text using BHASHINI TTS.
-
-        Returns base64-encoded audio (WAV/MP3). Falls back to mock audio on timeout/error.
-        """
+        """Synthesize speech audio from text using BHASHINI TTS or Google TTS fallback."""
         if not text or not text.strip():
             return None
 
         if not self.is_configured():
+            tts_audio = synthesize_google_tts_base64(text, language)
+            if tts_audio:
+                return tts_audio
             return generate_mock_wav_base64()
 
         try:

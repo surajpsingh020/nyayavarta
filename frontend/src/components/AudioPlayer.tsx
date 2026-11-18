@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Play, Pause, Square, Volume2, VolumeX, RotateCcw } from 'lucide-react';
+import { Play, Pause, Square, Volume2, RotateCcw } from 'lucide-react';
 
 interface AudioPlayerProps {
   audioBase64?: string | null;
@@ -51,37 +51,60 @@ export default function AudioPlayer({
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [useSpeechSynth, setUseSpeechSynth] = useState(true);
+  const isUsingAudioElement = useRef(false);
 
-  // Check if speech synthesis is available in the browser
-  useEffect(() => {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      setUseSpeechSynth(true);
-    } else {
-      setUseSpeechSynth(false);
-    }
-  }, []);
-
-  // Stop synthesis on unmount
+  // Stop synthesis or HTML audio on unmount or language change
   useEffect(() => {
     return () => {
-      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
+      handleStop();
     };
-  }, []);
+  }, [language, audioBase64]);
+
+  const hasRealAudio = Boolean(audioBase64 && audioBase64.length > 500);
+
+  const audioSrc = hasRealAudio && audioBase64
+    ? audioBase64.startsWith('data:')
+      ? audioBase64
+      : `data:audio/mp3;base64,${audioBase64}`
+    : undefined;
 
   const handleSpeechToggle = () => {
-    if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
-      // Fallback to HTML Audio if speech synth is not available
-      if (audioRef.current) {
-        if (isPlaying) {
-          audioRef.current.pause();
-          setIsPlaying(false);
-        } else {
-          audioRef.current.play().then(() => setIsPlaying(true));
-        }
+    // 1. If real backend audio is available, use HTML Audio tag
+    if (hasRealAudio && audioRef.current) {
+      if (isPlaying && !isPaused) {
+        audioRef.current.pause();
+        setIsPaused(true);
+        return;
       }
+      if (isPaused) {
+        audioRef.current.play().then(() => {
+          setIsPaused(false);
+          setIsPlaying(true);
+        }).catch(() => {
+          playWithSpeechSynthesis();
+        });
+        return;
+      }
+
+      isUsingAudioElement.current = true;
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+        setIsPaused(false);
+      }).catch((err) => {
+        console.warn('Audio tag playback failed, falling back to speech synthesis:', err);
+        playWithSpeechSynthesis();
+      });
+      return;
+    }
+
+    // 2. Fallback to Web Speech API
+    playWithSpeechSynthesis();
+  };
+
+  const playWithSpeechSynthesis = () => {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+      alert('Speech audio is not supported in this browser environment.');
       return;
     }
 
@@ -97,39 +120,57 @@ export default function AudioPlayer({
       return;
     }
 
-    // Start speaking afresh
+    isUsingAudioElement.current = false;
     window.speechSynthesis.cancel();
+
     const cleanText = cleanMarkdownForSpeech(textToSpeak || '');
     if (!cleanText) return;
 
-    const utterance = new SpeechSynthesisUtterance(cleanText);
+    // Chunk text by sentences to prevent Chromium 15s freeze bug
+    const sentences = cleanText.match(/[^.!?।]+[.!?।]+|[^.!?।]+/g) || [cleanText];
     const bcp47 = BCP47_LANG_MAP[language.toLowerCase()] || 'hi-IN';
-    utterance.lang = bcp47;
-    utterance.rate = 0.95; // Slightly slower for clear legal comprehension
-
-    // Pick best matching voice if available
     const voices = window.speechSynthesis.getVoices();
     const matchedVoice = voices.find((v) => v.lang.startsWith(language) || v.lang === bcp47);
-    if (matchedVoice) {
-      utterance.voice = matchedVoice;
-    }
 
-    utterance.onstart = () => {
-      setIsPlaying(true);
-      setIsPaused(false);
+    let currentIndex = 0;
+
+    const speakNextChunk = () => {
+      if (currentIndex >= sentences.length) {
+        setIsPlaying(false);
+        setIsPaused(false);
+        return;
+      }
+
+      const chunk = sentences[currentIndex].trim();
+      if (!chunk) {
+        currentIndex++;
+        speakNextChunk();
+        return;
+      }
+
+      const utterance = new SpeechSynthesisUtterance(chunk);
+      utterance.lang = bcp47;
+      utterance.rate = 0.95;
+      if (matchedVoice) {
+        utterance.voice = matchedVoice;
+      }
+
+      utterance.onend = () => {
+        currentIndex++;
+        speakNextChunk();
+      };
+
+      utterance.onerror = () => {
+        setIsPlaying(false);
+        setIsPaused(false);
+      };
+
+      window.speechSynthesis.speak(utterance);
     };
 
-    utterance.onend = () => {
-      setIsPlaying(false);
-      setIsPaused(false);
-    };
-
-    utterance.onerror = () => {
-      setIsPlaying(false);
-      setIsPaused(false);
-    };
-
-    window.speechSynthesis.speak(utterance);
+    setIsPlaying(true);
+    setIsPaused(false);
+    speakNextChunk();
   };
 
   const handleStop = () => {
@@ -144,24 +185,31 @@ export default function AudioPlayer({
     setIsPaused(false);
   };
 
-  const audioSrc = audioBase64
-    ? audioBase64.startsWith('data:')
-      ? audioBase64
-      : `data:audio/wav;base64,${audioBase64}`
-    : undefined;
-
   return (
     <div
       className={`flex items-center gap-3 bg-primary-50/90 border border-primary-200 rounded-xl px-3.5 py-2 shadow-2xs ${className}`}
     >
-      {audioSrc && <audio ref={audioRef} src={audioSrc} preload="none" />}
+      {audioSrc && (
+        <audio
+          ref={audioRef}
+          src={audioSrc}
+          preload="auto"
+          onEnded={() => {
+            setIsPlaying(false);
+            setIsPaused(false);
+          }}
+          onError={() => {
+            console.warn('Audio tag error, speech synthesis fallback ready');
+          }}
+        />
+      )}
 
       {/* Play/Pause Button */}
       <button
         type="button"
         onClick={handleSpeechToggle}
         className="w-8 h-8 flex items-center justify-center rounded-full bg-primary-600 text-white hover:bg-primary-700 active:scale-95 transition-transform shadow-xs flex-shrink-0"
-        title={isPlaying && !isPaused ? 'Pause Speech' : 'Listen to Answer'}
+        title={isPlaying && !isPaused ? 'Pause Voice' : 'Listen to Answer in Voice'}
         aria-label={isPlaying && !isPaused ? 'Pause voice' : 'Play voice'}
       >
         {isPlaying && !isPaused ? (
@@ -195,7 +243,9 @@ export default function AudioPlayer({
         </p>
         <p className="text-[10px] text-primary-700 truncate">
           {isPlaying
-            ? 'Browser Neural Speech Synthesizer Active'
+            ? hasRealAudio
+              ? 'High-Fidelity Indian Voice Active'
+              : 'Browser Speech Synthesizer Active'
             : 'Click play to hear full legal advice read aloud'}
         </p>
       </div>

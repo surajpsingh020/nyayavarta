@@ -16,7 +16,7 @@ import logging
 from typing import Optional
 from fastapi import APIRouter, HTTPException, Request, status
 
-from app.models.schemas import ChatRequest, ChatResponse, UserProfile
+from app.models.schemas import ChatRequest, ChatResponse, TranslateRequest, TranslateResponse, UserProfile
 from app.services.bhashini_utils import (
     detect_language_heuristic,
     generate_mock_wav_base64,
@@ -42,15 +42,27 @@ async def chat_endpoint(request: Request, payload: ChatRequest):
         # Step 1: Input Validation & Audio Transcription
         # ---------------------------------------------------------
         user_text = payload.text.strip() if payload.text else ""
-        target_output_lang = (payload.source_language or "hi").strip().lower()
+        target_output_lang = (payload.source_language or "auto").strip().lower()
 
         if not user_text and payload.audio_base64:
-            logger.info(f"Received audio query in language '{target_output_lang}', performing speech-to-text transcription")
+            logger.info("Received audio query, performing multimodal speech recognition & language identification")
             try:
-                user_text = await bhashini.speech_to_text(payload.audio_base64, language=target_output_lang)
+                asr_data = await llm_service.transcribe_and_detect_audio(payload.audio_base64)
+                if asr_data.get("transcription"):
+                    user_text = asr_data["transcription"]
+                    detected_audio_lang = asr_data.get("detected_language")
+                    if detected_audio_lang and (target_output_lang in ("auto", "hi", "en") or payload.source_language == "auto"):
+                        target_output_lang = detected_audio_lang
+                        logger.info(f"Auto-recognized speech language as '{target_output_lang}' from audio input")
             except Exception as e:
-                logger.warning(f"Audio transcription error ({e}).")
-                user_text = "Legal consultation query"
+                logger.warning(f"Multimodal ASR failed ({e}). Trying Bhashini...")
+
+            if not user_text:
+                try:
+                    user_text = await bhashini.speech_to_text(payload.audio_base64, language=target_output_lang if target_output_lang != "auto" else "hi")
+                except Exception as e:
+                    logger.warning(f"Audio transcription error ({e}).")
+                    user_text = "Legal consultation query"
 
         if not user_text:
             raise HTTPException(
@@ -60,6 +72,11 @@ async def chat_endpoint(request: Request, payload: ChatRequest):
 
         # Detect the actual script/language of the input text
         detected_input_lang = detect_language_heuristic(user_text)
+        if detected_input_lang != "en" and (target_output_lang in ("auto", "en") or payload.source_language == "auto"):
+            target_output_lang = detected_input_lang
+
+        if target_output_lang == "auto":
+            target_output_lang = detected_input_lang if detected_input_lang != "en" else "hi"
 
         # ---------------------------------------------------------
         # Step 2: Translation to English for Legal Search
@@ -164,6 +181,7 @@ async def chat_endpoint(request: Request, payload: ChatRequest):
             english_response=english_response,
             citations=citations,
             audio_base64=audio_base64,
+            detected_language=target_output_lang,
         )
 
     except HTTPException:
@@ -180,4 +198,52 @@ async def chat_endpoint(request: Request, payload: ChatRequest):
             english_response=fallback_en,
             citations=llm_service._extract_citations_from_text(fallback_en),
             audio_base64=generate_mock_wav_base64(),
+            detected_language="hi",
         )
+
+
+@router.post("/translate", response_model=TranslateResponse, summary="Translate legal guidance to another regional language on demand")
+async def translate_endpoint(request: Request, payload: TranslateRequest):
+    """Dynamically re-translate an answer and synthesize native audio for any Indian language."""
+    settings = getattr(request.app.state, "settings", None)
+    bhashini = get_bhashini_service()
+    llm_service = LLMService(settings)
+
+    text = (payload.text or "").strip()
+    target_lang = (payload.target_language or "hi").strip().lower()
+    source_lang = (payload.source_language or "en").strip().lower()
+
+    if not text:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Text to translate must not be empty."
+        )
+
+    if target_lang == source_lang:
+        audio = await bhashini.text_to_speech(text, language=target_lang)
+        return TranslateResponse(
+            translated_text=text,
+            target_language=target_lang,
+            audio_base64=audio,
+        )
+
+    logger.info(f"On-demand translating text from '{source_lang}' to '{target_lang}'")
+    translated_text = text
+    try:
+        translated_text = await llm_service.translate_with_llm(
+            text, source_lang=source_lang, target_lang=target_lang
+        )
+    except Exception as e:
+        logger.warning(f"On-demand translation failed ({e}). Returning original.")
+
+    audio_base64 = None
+    try:
+        audio_base64 = await bhashini.text_to_speech(translated_text, language=target_lang)
+    except Exception as e:
+        logger.debug(f"Audio synthesis error on translate: {e}")
+
+    return TranslateResponse(
+        translated_text=translated_text,
+        target_language=target_lang,
+        audio_base64=audio_base64,
+    )
