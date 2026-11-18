@@ -96,15 +96,18 @@ def _clean_llm_markdown(text: str) -> str:
         return text
 
     # Fix collapsed markdown table rows where | | occurs on a single line
-    # e.g., "| Key Changes | | :--- | :--- | | Murder | IPC Section 302 |"
     cleaned = re.sub(r"\|\s*\|\s*(:?-+:?)", r"|\n| \1", text)
     cleaned = re.sub(r"\|\s*\|\s*([^|\n]+)", r"|\n| \1", cleaned)
 
-    # Ensure table header separator | :--- | has a newline before and after
-    cleaned = re.sub(r"([^\n])\n(\|[\s:-]+\|)", r"\1\n\n\2", cleaned)
+    # Remove any empty blank lines between table rows (table rows must be strictly consecutive)
+    while re.search(r"(\|[^\n]*\|)\s*\n\s*\n+(\s*\|)", cleaned):
+        cleaned = re.sub(r"(\|[^\n]*\|)\s*\n\s*\n+(\s*\|)", r"\1\n\2", cleaned)
 
-    # Ensure double newlines before and after tables
-    cleaned = re.sub(r"(\|[^\n]+\|)\n([^|\n#\d\*\-])", r"\1\n\n\2", cleaned)
+    # Ensure table is preceded by an empty line (if preceded by non-table text)
+    cleaned = re.sub(r"([^|\n])\n(\|[^\n]*\|)", r"\1\n\n\2", cleaned)
+
+    # Ensure table is followed by an empty line (if followed by non-table text)
+    cleaned = re.sub(r"(\|[^\n]*\|)\n([^|\n])", r"\1\n\n\2", cleaned)
 
     return cleaned
 

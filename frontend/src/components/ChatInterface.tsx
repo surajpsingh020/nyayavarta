@@ -54,9 +54,14 @@ function formatLegalMarkdown(raw: string): string {
   // Fix collapsed markdown table rows where | | occurs on a single line
   let formatted = raw.replace(/\|\s*\|\s*(:?-+:?)/g, '|\n| $1');
   formatted = formatted.replace(/\|\s*\|\s*([^|\n]+)/g, '|\n| $1');
-  // Ensure tables have empty lines before and after
-  formatted = formatted.replace(/([^\n])\n\|/g, '$1\n\n|');
-  formatted = formatted.replace(/\|\n([^|\n#\d\*\-])/g, '|\n\n$1');
+  // Remove any blank lines between table rows (table rows must be strictly consecutive for GFM)
+  while (/(\|[^\n]*\|)\s*\n\s*\n+(\s*\|)/.test(formatted)) {
+    formatted = formatted.replace(/(\|[^\n]*\|)\s*\n\s*\n+(\s*\|)/g, '$1\n$2');
+  }
+  // Ensure table is preceded by an empty line (if preceded by non-table text)
+  formatted = formatted.replace(/([^|\n])\n(\|[^\n]*\|)/g, '$1\n\n$2');
+  // Ensure table is followed by an empty line (if followed by non-table text)
+  formatted = formatted.replace(/(\|[^\n]*\|)\n([^|\n])/g, '$1\n\n$2');
   return formatted;
 }
 
