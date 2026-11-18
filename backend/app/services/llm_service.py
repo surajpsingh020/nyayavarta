@@ -1185,6 +1185,15 @@ Here is clear guidance on how Indian law protects you and what steps you can tak
                 "key_changes": "Replaced IPC 384. Punishable with imprisonment up to 3 years, fine, or both (up to 10 years if threat to life)."
             })
 
+        # Murder / Homicide (IPC 302 -> BNS 103)
+        if ("murder" in t_lower or "302" in text or "103" in text or "homicide" in t_lower) and "103" not in seen and "302" not in seen:
+            seen.add("103")
+            citations.insert(0, {
+                "section": "BNS Section 103 (formerly IPC Section 302)",
+                "subject": "Punishment for Murder & Capital Offence",
+                "key_changes": "Death penalty or imprisonment for life, and fine. Substantive elements remain identical."
+            })
+
         # Financial Cheating / Conspiracy / Breach of Trust (Chit funds, 420, 406, 120B)
         if ("conspiracy" in t_lower or "120b" in t_lower or "61(2)" in text or "section 61" in t_lower) and "61" not in seen and "120B" not in seen:
             seen.add("61")

@@ -678,6 +678,8 @@ class RAGPipeline:
                             f"Key Changes: {rec.get('key_changes', '')}\n"
                             f"Legal Aid: {rec.get('legal_aid_name', 'NALSA / DLSA')} (Helpline: {rec.get('helpline', '15100')})"
                         )
+                        m_val = float(rec.get("match_score") or 100)
+                        norm_g_score = 1.0 if m_val >= 50 else round(max(0.35, m_val / 100.0), 3)
                         graph_results.append({
                             "text": formatted_text,
                             "metadata": {
@@ -688,7 +690,7 @@ class RAGPipeline:
                                 "source": "neo4j_knowledge_graph",
                                 "type": "law_mapping",
                             },
-                            "score": 1.0,
+                            "score": norm_g_score,
                         })
 
                 # Query uploaded document chunks in Neo4j
@@ -831,10 +833,16 @@ class RAGPipeline:
                 combined[key]["score"] = round(combined[key]["score"] + (0.3 * b_score), 4)
                 combined[key]["bm25_score"] = round(b_score, 4)
             else:
+                is_user_doc = (
+                    meta.get("type") in ("user_document", "adjudication")
+                    or meta.get("source") in ("test_upload", "user_petition", "upload")
+                    or bool(meta.get("filename"))
+                )
+                base_weight = 0.9 if is_user_doc else 0.5
                 combined[key] = {
                     "text": item["text"],
                     "metadata": item["metadata"],
-                    "score": round(0.5 * b_score, 4),
+                    "score": round(base_weight * b_score, 4),
                     "graph_score": 0.0,
                     "dense_score": 0.0,
                     "bm25_score": round(b_score, 4),

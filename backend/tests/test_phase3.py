@@ -82,7 +82,10 @@ def test_chat_endpoint_text_query_hindi():
         assert data["audio_base64"] is not None
 
         # Verify audio is valid base64
-        audio_bytes = base64.b64decode(data["audio_base64"])
+        audio_str = data["audio_base64"]
+        if audio_str.startswith("data:"):
+            audio_str = audio_str.split(",", 1)[1]
+        audio_bytes = base64.b64decode(audio_str)
         assert len(audio_bytes) > 20
 
 
