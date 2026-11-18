@@ -166,10 +166,6 @@ async def chat_endpoint(request: Request, payload: ChatRequest):
             audio_base64 = await bhashini.text_to_speech(regional_response, language=target_output_lang)
         except Exception as e:
             logger.debug(f"TTS synthesis notice: {e}")
-            audio_base64 = generate_mock_wav_base64()
-
-        if not audio_base64:
-            audio_base64 = generate_mock_wav_base64()
 
         # ---------------------------------------------------------
         # Step 7: Return Structured Response

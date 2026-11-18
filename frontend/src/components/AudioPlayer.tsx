@@ -37,7 +37,7 @@ function cleanMarkdownForSpeech(text: string): string {
     .replace(/\[(.*?)\]\(.*?\)/g, '$1') // Remove links
     .replace(/^[\s*-]+/gm, '') // Remove bullet dashes
     .replace(/`/g, '') // Remove code ticks
-    .replace(/\n+/g, '. ') // Turn newlines into pauses
+    .replace(/\n+/g, '. ') // Turn newlines into natural pauses
     .trim();
 }
 
@@ -51,15 +51,9 @@ export default function AudioPlayer({
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const isUsingAudioElement = useRef(false);
+  const activeUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
-  // Stop synthesis or HTML audio on unmount or language change
-  useEffect(() => {
-    return () => {
-      handleStop();
-    };
-  }, [language, audioBase64]);
-
+  // Check if real audio data URI or base64 is present (> 500 characters)
   const hasRealAudio = Boolean(audioBase64 && audioBase64.length > 500);
 
   const audioSrc = hasRealAudio && audioBase64
@@ -68,15 +62,23 @@ export default function AudioPlayer({
       : `data:audio/mp3;base64,${audioBase64}`
     : undefined;
 
+  // Cleanup on unmount or language change
+  useEffect(() => {
+    return () => {
+      handleStop();
+    };
+  }, [language, audioBase64]);
+
   const handleSpeechToggle = () => {
-    // 1. If real backend audio is available, use HTML Audio tag
-    if (hasRealAudio && audioRef.current) {
+    // 1. Priority: Play high-fidelity audio from backend via HTML5 Audio element
+    if (hasRealAudio && audioSrc) {
       if (isPlaying && !isPaused) {
-        audioRef.current.pause();
+        if (audioRef.current) audioRef.current.pause();
         setIsPaused(true);
         return;
       }
-      if (isPaused) {
+
+      if (isPaused && audioRef.current) {
         audioRef.current.play().then(() => {
           setIsPaused(false);
           setIsPlaying(true);
@@ -86,25 +88,50 @@ export default function AudioPlayer({
         return;
       }
 
-      isUsingAudioElement.current = true;
-      audioRef.current.currentTime = 0;
-      audioRef.current.play().then(() => {
-        setIsPlaying(true);
-        setIsPaused(false);
-      }).catch((err) => {
-        console.warn('Audio tag playback failed, falling back to speech synthesis:', err);
+      // Start fresh playback
+      try {
+        if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+        }
+
+        if (!audioRef.current) {
+          audioRef.current = new Audio(audioSrc);
+        } else {
+          audioRef.current.src = audioSrc;
+        }
+
+        audioRef.current.currentTime = 0;
+        audioRef.current.onended = () => {
+          setIsPlaying(false);
+          setIsPaused(false);
+        };
+        audioRef.current.onerror = (e) => {
+          console.warn('HTML5 audio error, falling back to Web Speech API:', e);
+          playWithSpeechSynthesis();
+        };
+
+        audioRef.current.play().then(() => {
+          setIsPlaying(true);
+          setIsPaused(false);
+        }).catch((err) => {
+          console.warn('HTML5 audio play blocked/failed, falling back to Web Speech API:', err);
+          playWithSpeechSynthesis();
+        });
+        return;
+      } catch (err) {
+        console.warn('Audio tag setup error:', err);
         playWithSpeechSynthesis();
-      });
-      return;
+        return;
+      }
     }
 
-    // 2. Fallback to Web Speech API
+    // 2. Fallback: Web Speech API
     playWithSpeechSynthesis();
   };
 
   const playWithSpeechSynthesis = () => {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
-      alert('Speech audio is not supported in this browser environment.');
+      alert('Speech audio is not supported in this browser.');
       return;
     }
 
@@ -120,17 +147,22 @@ export default function AudioPlayer({
       return;
     }
 
-    isUsingAudioElement.current = false;
     window.speechSynthesis.cancel();
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
 
     const cleanText = cleanMarkdownForSpeech(textToSpeak || '');
     if (!cleanText) return;
 
-    // Chunk text by sentences to prevent Chromium 15s freeze bug
+    // Chunk text by sentences to prevent Chromium 15-second freeze bug
     const sentences = cleanText.match(/[^.!?।]+[.!?।]+|[^.!?।]+/g) || [cleanText];
     const bcp47 = BCP47_LANG_MAP[language.toLowerCase()] || 'hi-IN';
     const voices = window.speechSynthesis.getVoices();
-    const matchedVoice = voices.find((v) => v.lang.startsWith(language) || v.lang === bcp47);
+    const matchedVoice = voices.find((v) =>
+      v.lang.toLowerCase() === bcp47.toLowerCase() ||
+      v.lang.toLowerCase().startsWith(language.toLowerCase())
+    );
 
     let currentIndex = 0;
 
@@ -138,6 +170,7 @@ export default function AudioPlayer({
       if (currentIndex >= sentences.length) {
         setIsPlaying(false);
         setIsPaused(false);
+        activeUtteranceRef.current = null;
         return;
       }
 
@@ -149,6 +182,7 @@ export default function AudioPlayer({
       }
 
       const utterance = new SpeechSynthesisUtterance(chunk);
+      activeUtteranceRef.current = utterance; // Prevent Chrome garbage collection bug
       utterance.lang = bcp47;
       utterance.rate = 0.95;
       if (matchedVoice) {
@@ -163,6 +197,7 @@ export default function AudioPlayer({
       utterance.onerror = () => {
         setIsPlaying(false);
         setIsPaused(false);
+        activeUtteranceRef.current = null;
       };
 
       window.speechSynthesis.speak(utterance);
@@ -181,6 +216,7 @@ export default function AudioPlayer({
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
     }
+    activeUtteranceRef.current = null;
     setIsPlaying(false);
     setIsPaused(false);
   };
@@ -189,6 +225,7 @@ export default function AudioPlayer({
     <div
       className={`flex items-center gap-3 bg-primary-50/90 border border-primary-200 rounded-xl px-3.5 py-2 shadow-2xs ${className}`}
     >
+      {/* Hidden audio element for HTML5 Audio playback */}
       {audioSrc && (
         <audio
           ref={audioRef}
@@ -197,9 +234,6 @@ export default function AudioPlayer({
           onEnded={() => {
             setIsPlaying(false);
             setIsPaused(false);
-          }}
-          onError={() => {
-            console.warn('Audio tag error, speech synthesis fallback ready');
           }}
         />
       )}

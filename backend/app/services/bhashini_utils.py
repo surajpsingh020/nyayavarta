@@ -52,10 +52,10 @@ def synthesize_google_tts_base64(text: str, language: str) -> Optional[str]:
     # Google TTS supported language mapping
     supported_langs = {
         "hi": "hi",
+        "mr": "mr",
         "bn": "bn",
         "ta": "ta",
         "te": "te",
-        "mr": "mr",
         "gu": "gu",
         "kn": "kn",
         "ml": "ml",
@@ -66,21 +66,47 @@ def synthesize_google_tts_base64(text: str, language: str) -> Optional[str]:
     }
     tts_lang = supported_langs.get(language.lower(), "hi" if language.lower() in ("or", "as", "sa") else "en-IN")
 
-    # Take first ~280 characters (first 2-3 sentences) for instant responsive audio playback
-    chunk = clean[:280]
+    # Split into short sentence chunks of max 120 characters each to avoid Google TTS 200-char limit
+    raw_sentences = re.split(r"[.!?।\n]+", clean)
+    chunks = []
+    current = ""
+    for s in raw_sentences:
+        s = s.strip()
+        if not s:
+            continue
+        if len(current) + len(s) + 1 <= 120:
+            current = (current + " " + s).strip()
+        else:
+            if current:
+                chunks.append(current)
+            current = s[:120]
+        if len(chunks) >= 3:
+            break
+    if current and len(chunks) < 3:
+        chunks.append(current)
+
+    if not chunks:
+        chunks = [clean[:120]]
+
     import urllib.request
     import urllib.parse
 
-    q = urllib.parse.quote(chunk)
-    url = f"https://translate.google.com/translate_tts?ie=UTF-8&q={q}&tl={tts_lang}&client=tw-ob"
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    try:
-        with urllib.request.urlopen(req, timeout=4) as resp:
-            data = resp.read()
-            if len(data) > 500:
-                return base64.b64encode(data).decode("ascii")
-    except Exception as e:
-        logger.debug(f"Google TTS notice: {e}")
+    combined_mp3 = bytearray()
+    for chunk in chunks[:3]:
+        q = urllib.parse.quote(chunk)
+        url = f"https://translate.google.com/translate_tts?ie=UTF-8&q={q}&tl={tts_lang}&client=tw-ob"
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        try:
+            with urllib.request.urlopen(req, timeout=4) as resp:
+                data = resp.read()
+                if len(data) > 200:
+                    combined_mp3.extend(data)
+        except Exception as e:
+            logger.debug(f"Google TTS chunk notice: {e}")
+
+    if len(combined_mp3) > 1000:
+        b64 = base64.b64encode(bytes(combined_mp3)).decode("ascii")
+        return f"data:audio/mp3;base64,{b64}"
 
     return None
 
@@ -135,6 +161,30 @@ def detect_language_heuristic(text: str) -> str:
 
     best_lang, max_count = max(script_counts.items(), key=lambda item: item[1])
     if max_count > 0:
+        # Devanagari script covers Hindi, Marathi, and Sanskrit
+        if best_lang == "hi":
+            t_lower = text.lower()
+            marathi_markers = [
+                "आहे", "आहेत", "नाही", "नाहीत", "होता", "होती", "होते", "होत्या",
+                "माझा", "माझी", "माझे", "माझ्या", "मला", "तुझा", "तुझी", "तुझे", "तुला",
+                "त्याला", "तिला", "आम्हाला", "तुम्हाला", "त्यांना", "आपला", "आपली", "आपले",
+                "काय", "कसे", "कशी", "कसा", "कुठे", "केव्हा", "का", "किती", "कशासाठी",
+                "त्रास", "देतो", "देते", "देत", "करणार", "करावे", "करावी", "झाले", "झाली", "झाला",
+                "पगार", "तक्रार", "सांगा", "करा", "नोकरी", "मालक", "कामगार", "पोलीस",
+                "माहिती", "कायदा", "न्याय", "सल्ला", "कायद्यानुसार"
+            ]
+            if any(marker in t_lower for marker in marathi_markers):
+                return "mr"
+
+            sanskrit_markers = ["अस्ति", "भवति", "करोति", "नमः", "सर्व", "एव", "इति"]
+            if any(marker in t_lower for marker in sanskrit_markers):
+                return "sa"
+
+        # Bengali script covers Bengali and Assamese
+        if best_lang == "bn":
+            if "ৰ" in text or "ৱ" in text:
+                return "as"
+
         return best_lang
 
     return "en"
@@ -310,76 +360,57 @@ class BhashiniService:
         return self._mock_translation(text, source_lang, target_lang)
 
     async def text_to_speech(self, text: str, language: str = "hi", gender: str = "female") -> Optional[str]:
-        """Synthesize speech audio from text using BHASHINI TTS or Google TTS fallback."""
+        """Synthesize high-fidelity speech audio from text using Google TTS or BHASHINI TTS."""
         if not text or not text.strip():
             return None
 
-        if not self.is_configured():
-            tts_audio = synthesize_google_tts_base64(text, language)
-            if tts_audio:
-                return tts_audio
-            return generate_mock_wav_base64()
+        # 1. Primary: High-fidelity native speech audio via Google TTS
+        tts_audio = synthesize_google_tts_base64(text, language)
+        if tts_audio:
+            return tts_audio
 
-        try:
-            async with aiohttp.ClientSession() as session:
-                pipeline_data = await self._get_pipeline_config(session, "tts", language)
-                if not pipeline_data:
-                    return generate_mock_wav_base64()
+        # 2. Secondary: BHASHINI TTS if configured
+        if self.is_configured():
+            try:
+                async with aiohttp.ClientSession() as session:
+                    pipeline_data = await self._get_pipeline_config(session, "tts", language)
+                    if pipeline_data:
+                        tasks = pipeline_data.get("pipelineResponseConfig", [])
+                        service_id = None
+                        for t in tasks:
+                            if t.get("taskType") == "tts":
+                                service_id = t["config"][0]["serviceId"]
+                                break
+                        inf_endpoint = pipeline_data.get("pipelineInferenceAPIEndPoint", {})
+                        callback_url = inf_endpoint.get("callbackUrl", self.inference_url)
+                        inf_key = inf_endpoint.get("inferenceApiKey", {}).get("value", self.inference_key)
 
-                service_id = None
-                try:
-                    tasks = pipeline_data.get("pipelineResponseConfig", [])
-                    for t in tasks:
-                        if t.get("taskType") == "tts":
-                            service_id = t["config"][0]["serviceId"]
-                            break
-                    inf_endpoint = pipeline_data.get("pipelineInferenceAPIEndPoint", {})
-                    callback_url = inf_endpoint.get("callbackUrl", self.inference_url)
-                    inf_key = inf_endpoint.get("inferenceApiKey", {}).get("value", self.inference_key)
-                except Exception as e:
-                    logger.warning(f"Error parsing TTS pipeline config: {e}")
-                    return generate_mock_wav_base64()
-
-                if not service_id:
-                    return generate_mock_wav_base64()
-
-                inf_payload = {
-                    "pipelineTasks": [
-                        {
-                            "taskType": "tts",
-                            "config": {
-                                "language": {
-                                    "sourceLanguage": language
-                                },
-                                "serviceId": service_id,
-                                "gender": gender
+                        if service_id:
+                            inf_payload = {
+                                "pipelineTasks": [{
+                                    "taskType": "tts",
+                                    "config": {
+                                        "language": {"sourceLanguage": language},
+                                        "serviceId": service_id,
+                                        "gender": gender
+                                    }
+                                }],
+                                "inputData": {"input": [{"source": text[:500]}]}
                             }
-                        }
-                    ],
-                    "inputData": {
-                        "input": [
-                            {"source": text[:500]}  # Clip length for single-shot TTS
-                        ]
-                    }
-                }
+                            inf_headers = {"Authorization": inf_key, "Content-Type": "application/json"}
+                            async with session.post(callback_url, json=inf_payload, headers=inf_headers, timeout=self.timeout) as resp:
+                                if resp.status == 200:
+                                    res_data = await resp.json()
+                                    audio_list = res_data.get("pipelineResponse", [{}])[0].get("audio", [])
+                                    if audio_list:
+                                        raw_b64 = audio_list[0].get("audioContent")
+                                        if raw_b64:
+                                            return f"data:audio/wav;base64,{raw_b64}"
+            except Exception as e:
+                logger.debug(f"BHASHINI TTS notice: {e}")
 
-                inf_headers = {
-                    "Authorization": inf_key,
-                    "Content-Type": "application/json"
-                }
-
-                async with session.post(callback_url, json=inf_payload, headers=inf_headers, timeout=self.timeout) as resp:
-                    if resp.status == 200:
-                        res_data = await resp.json()
-                        audio_list = res_data.get("pipelineResponse", [{}])[0].get("audio", [])
-                        if audio_list:
-                            return audio_list[0].get("audioContent")
-        except (aiohttp.ClientError, asyncio.TimeoutError) as e:
-            logger.warning(f"BHASHINI TTS request timed out or network failed ({e}). Using mock WAV.")
-        except Exception as e:
-            logger.error(f"Unexpected error in text_to_speech ({e}). Using mock WAV.")
-
-        return generate_mock_wav_base64()
+        # 3. Tertiary fallback: Clean minimal WAV
+        return f"data:audio/wav;base64,{generate_mock_wav_base64()}"
 
     async def speech_to_text(self, audio_base64: str, language: str = "hi") -> str:
         """Transcribe base64 audio to text using BHASHINI ASR.

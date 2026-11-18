@@ -358,11 +358,13 @@ Please answer the query thoroughly in English following the System Directives:
         prompt = (
             "You are an expert multilingual speech recognition system for Indian citizens.\n"
             "Listen to this audio recording carefully:\n"
-            "1. Automatically identify the language being spoken. Return the BCP-47 language code:\n"
-            "   'bn' (Bengali), 'hi' (Hindi), 'ta' (Tamil), 'te' (Telugu), 'mr' (Marathi), 'gu' (Gujarati),\n"
+            "1. Automatically identify the language being spoken. Return the exact BCP-47 language code:\n"
+            "   'mr' (Marathi), 'bn' (Bengali), 'hi' (Hindi), 'ta' (Tamil), 'te' (Telugu), 'gu' (Gujarati),\n"
             "   'kn' (Kannada), 'ml' (Malayalam), 'pa' (Punjabi), 'or' (Odia), 'ur' (Urdu), 'as' (Assamese),\n"
             "   'sa' (Sanskrit), or 'en' (English).\n"
-            "2. Transcribe the audio verbatim in its native script (for example, Bengali script if Bengali is spoken).\n"
+            "   IMPORTANT RULE: Carefully distinguish Marathi ('mr') from Hindi ('hi'). If the speaker uses Marathi words\n"
+            "   such as 'माझा', 'मला', 'आहे', 'नाही', 'काय', 'कसे', 'त्रास', 'होते', 'झाले', identify as 'mr' (Marathi), NOT 'hi'.\n"
+            "2. Transcribe the audio verbatim in its native script (e.g. Marathi/Devanagari, Bengali, Tamil, etc.).\n"
             "3. If the audio is empty, pure silence, or background noise without speech, return empty transcription.\n"
             "Respond ONLY with a JSON object:\n"
             "{\"detected_language\": \"<code>\", \"transcription\": \"<verbatim text>\"}"
@@ -386,6 +388,14 @@ Please answer the query thoroughly in English following the System Directives:
                 data = json.loads(clean_json)
                 detected = data.get("detected_language", "hi").strip().lower()
                 text = data.get("transcription", "").strip()
+
+                # Verify Marathi vs Hindi from transcribed text
+                if text:
+                    from app.services.bhashini_utils import detect_language_heuristic
+                    script_lang = detect_language_heuristic(text)
+                    if script_lang in ("mr", "bn", "ta", "te", "gu", "kn", "ml", "pa", "or", "ur", "as", "sa"):
+                        detected = script_lang
+
                 logger.info(f"Audio ASR detected language '{detected}': '{text[:60]}'")
                 return {"detected_language": detected, "transcription": text}
         except Exception as e:
