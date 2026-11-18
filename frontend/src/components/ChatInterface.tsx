@@ -996,8 +996,8 @@ export default function ChatInterface({
 
           {/* Uploading Spinner */}
           {isUploadingDoc && (
-            <div className="flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-xl px-3 py-1.5 text-xs text-blue-700 animate-pulse">
-              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+            <div className="flex items-center gap-2 bg-slate-100 border border-slate-300 rounded-xl px-3 py-1.5 text-xs text-slate-800 animate-pulse">
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-slate-900" />
               <span>Uploading & indexing legal document into Neo4j GraphRAG...</span>
             </div>
           )}

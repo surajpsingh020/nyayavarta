@@ -53,7 +53,52 @@ Key Directives:
    - Maintain strict factual correctness with respect to Indian law.
    - Respectfully clarify when appropriate that Nyayavarta focuses on statutory translation, citizen rights education, procedural roadmaps (FIR, arrest, bail), document analysis, and free legal aid routing. It does not contain the complete judgment archives, daily court cause lists, hearing transcripts, or case dockets of the Supreme Court of India, the 25 High Courts, or the 672 District Courts of India (which encompass hundreds of millions of case files across decades and require commercial multi-terabyte data warehouse infrastructure like SCC Online or e-Courts).
    - Add a brief, respectful legal disclaimer that this provides legal awareness and aid routing, not formal attorney representation.
+
+6. STRICT DOMAIN BOUNDARY & NON-LEGAL REFUSAL:
+   - You are exclusively a legal assistant for Indian Law.
+   - If the user asks a question about science, biology (e.g. "what is mitochondria"), chemistry, physics, mathematics, recipes/cooking, entertainment, movie gossip, sports trivia, software programming, or general trivia unrelated to law:
+     * YOU MUST POLITELY AND PROFESSIONALLY REFUSE to answer the question.
+     * Do NOT explain the scientific concept.
+     * Do NOT generate statutory punishment tables or fake legal analogies.
+     * Return NO citations.
+     * Greet the user with professional dignity and state:
+       "Greetings. I am Nyayavarta, an artificial intelligence assistant dedicated exclusively to Indian law, citizen rights, FIR procedures, court processes, and modern statutory transitions (BNS, BNSS, and BSA).
+       Because your inquiry concerns a non-legal topic outside the legal domain, I cannot assist with this question.
+       If you have any legal questions, dispute issues, police complaints, or document analysis matters, please feel free to ask, and I will be glad to assist you."
 """
+
+NON_LEGAL_INDICATORS = {
+    # Biology / Medicine / Life Science
+    "mitochondria", "photosynthesis", "cell membrane", "nucleus", "dna", "rna", "ribosome",
+    "chloroplast", "endoplasmic reticulum", "golgi", "amoeba", "bacteria", "virus structure",
+    "anatomy", "physiology", "hemoglobin", "cellular respiration", "mitosis", "meiosis", "organism",
+    # Physics / Chemistry
+    "speed of light", "quantum", "thermodynamics", "periodic table", "atomic mass", "gravity formula",
+    "electron", "proton", "neutron", "chemical reaction", "newton's laws", "kinetic energy", "potential energy",
+    "electromagnetism", "optics", "relativity",
+    # Math
+    "pythagoras", "derivative", "integral", "trigonometry", "solve equation", "algebra", "polynomial",
+    "calculus", "matrix multiplication", "logarithm",
+    # Cooking / Food
+    "recipe for", "how to cook", "how to bake", "ingredients for", "cake recipe", "biryani recipe",
+    # Tech / Coding Trivia
+    "binary search tree", "how to code", "write javascript", "css flexbox", "quicksort algorithm",
+    "write python", "debug code", "react component",
+    # General Trivia / Entertainment / Sports
+    "who won world cup", "best movie of", "celebrity gossip", "weather forecast", "cricket score",
+    "football match", "capital of"
+}
+
+
+def is_out_of_domain_query(query: str) -> bool:
+    """Detect if query is clearly outside the legal domain."""
+    if not query:
+        return False
+    q_clean = query.lower().strip()
+    for term in NON_LEGAL_INDICATORS:
+        if term in q_clean:
+            return True
+    return False
 
 
 def get_profile_instructions(profile: UserProfile) -> str:
@@ -171,6 +216,20 @@ class LLMService:
         user_profile: UserProfile = UserProfile.GENERAL,
     ) -> Dict[str, Any]:
         """Generate a profile-tailored legal response with citations and old/new law mappings."""
+        # 0. Domain Guardrail: strictly decline non-legal queries
+        if is_out_of_domain_query(query):
+            refusal_text = (
+                "Greetings. Welcome to Nyayavarta Legal Assistance.\n\n"
+                "I am an artificial intelligence assistant dedicated exclusively to the **Indian legal system**, citizen rights, police and FIR procedures, court processes, and modern statutory transitions (Bharatiya Nyaya Sanhita - BNS, BNSS, and BSA).\n\n"
+                "Because your question pertains to a subject outside the legal domain (such as general science, academic coursework, or general trivia), I cannot assist with this inquiry.\n\n"
+                "If you have any **legal questions, property or contract disputes, workplace grievances, police or FIR issues, bail matters, or citizen rights questions**, please feel free to ask, and I will be honored to provide comprehensive legal guidance."
+            )
+            return {
+                "english_response": refusal_text,
+                "citations": [],
+                "user_profile": user_profile.value
+            }
+
         # 1. Format retrieved RAG context
         context_blocks = []
         citations: List[Dict[str, str]] = []
@@ -216,10 +275,20 @@ RETRIEVED LEGAL CONTEXT FROM KNOWLEDGE BASE:
 USER QUERY:
 "{query}"
 
-STRUCTURE YOUR ANSWER IN CLEAN, BEAUTIFUL GITHUB FLAVORED MARKDOWN USING THESE EXACT NUMBERED SECTIONS:
+CRITICAL DOMAIN & SCOPE VERIFICATION:
+- Verify if the user query concerns Indian law, legal disputes, police/FIR complaints, citizen rights, or court processes.
+- IF THE QUERY IS NOT ABOUT LAW (e.g. general science, biology, chemistry, physics, mathematics, recipes, programming, or trivia):
+  DO NOT output any statutory tables, criminal offense mappings, or punishment sections.
+  Instead, begin with a courteous professional greeting, explain politely that you are Nyayavarta, an assistant dedicated exclusively to Indian law and citizen rights, state clearly that you cannot assist with non-legal topics, and invite the citizen to ask any legal or police complaint question.
 
-### 1. Executive Summary & Legal Assessment
-- State the legal position in 2-3 clear, authoritative sentences addressing the user's specific query.
+FOR LEGAL QUERIES, STRUCTURE YOUR ANSWER IN CLEAN, BEAUTIFUL GITHUB FLAVORED MARKDOWN:
+
+Begin with a warm, professional legal greeting:
+"Namaste. Welcome to Nyayavarta Legal Assistance. I am your artificial intelligence legal guide."
+
+### 1. Executive Summary & Layman Explanation
+- First, explain the entire situation in empathetic, easy-to-understand layman's language without legal jargon, so that any citizen clearly understands how the law views their situation.
+- Then, state the core legal assessment and statutory stance in 2-3 clear, authoritative sentences addressing the user's specific query.
 
 ### 2. Statutory Law Transition (IPC / CrPC → BNS / BNSS / BSA)
 Provide a clear comparative markdown table:
@@ -227,7 +296,7 @@ Provide a clear comparative markdown table:
 | :--- | :--- | :--- | :--- |
 | [Subject] | [e.g. IPC Section 420] | [e.g. BNS Section 318] | [Exact penalty, changes in definition, bailable status] |
 
-Explain any crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, Digital Evidence admissibility under BSA 63, or community service).
+Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, Digital Evidence admissibility under BSA 63, or community service).
 
 ### 3. Step-by-Step Action Plan for Citizen
 1. **[Step 1 Title]**: Exact practical action (e.g. preserving chats, emails, banking proofs).
@@ -434,6 +503,14 @@ Explain any crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 1
         user_profile: UserProfile
     ) -> str:
         """Deterministic legal response generator when external API is unreachable."""
+        if is_out_of_domain_query(query):
+            return (
+                "Greetings. Welcome to Nyayavarta Legal Assistance.\n\n"
+                "I am an artificial intelligence assistant dedicated exclusively to the **Indian legal system**, citizen rights, police and FIR procedures, court processes, and modern statutory transitions (such as Bharatiya Nyaya Sanhita - BNS, BNSS, and BSA).\n\n"
+                "Because your question pertains to a subject outside the legal domain (such as general science, academic coursework, or general trivia), I cannot assist with this inquiry.\n\n"
+                "If you have any **legal questions, property or contract disputes, workplace grievances, police or FIR issues, bail matters, or citizen rights questions**, please feel free to ask, and I will be honored to provide comprehensive legal guidance."
+            )
+
         q_lower = query.lower()
 
         # Workplace / Employer Harassment / Labor Issues
@@ -596,11 +673,13 @@ Explain any crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 1
 
         steps_rendered = "\n".join(f"{i+1}. {step}" for i, step in enumerate(immediate_steps))
 
-        response = f"""Here is clear guidance on how Indian law protects you and what steps you can take:
+        response = f"""Namaste. Welcome to Nyayavarta Legal Assistance. I am your artificial intelligence legal guide.
 
-### 1. Executive Summary & Legal Assessment
-- **Subject**: {subject}
-- Under India's modern criminal framework (effective July 1, 2024), citizens are protected against unlawful acts and have full legal recourse through police, courts, and state legal aid institutions.
+Here is clear guidance on how Indian law protects you and what steps you can take:
+
+### 1. Executive Summary & Layman Explanation
+- **In Plain Terms**: If you are experiencing this situation, Indian law recognizes that your personal rights, financial security, or peace of mind are legally protected. You do not have to endure unlawful actions alone; the legal framework provides structured mechanisms to report incidents, safeguard your evidence, and obtain state intervention.
+- **Legal Assessment**: {details[:250]}...
 
 ### 2. Statutory Law Transition (IPC / CrPC → BNS / BNSS / BSA)
 | Legal Subject | Historical Provision | Modern Provision (2023) | Key Statutory Changes |
@@ -632,6 +711,8 @@ Explain any crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 1
 
     def _extract_citations_from_text(self, text: str) -> List[Dict[str, str]]:
         """Extract only statutory citations that are genuinely mentioned in the generated text."""
+        if not text or "outside the legal domain" in text.lower() or "dedicated exclusively to the" in text.lower():
+            return []
         citations = []
         seen = set()
 
