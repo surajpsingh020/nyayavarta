@@ -374,3 +374,54 @@ export async function deleteThread(threadId: string): Promise<void> {
     throw new Error(detail);
   }
 }
+
+// -------------------------------------------------------------
+// Law Transition Matrix & Landmark Precedents
+// -------------------------------------------------------------
+export interface LawTransition {
+  id: string;
+  subject: string;
+  old_law: string;
+  new_law: string;
+  category: 'bns' | 'bnss' | 'bsa' | 'special';
+  category_label: string;
+  description: string;
+  key_changes: string;
+  suggested_query: string;
+}
+
+export interface CasePrecedent {
+  title: string;
+  citation: string;
+  neutral_citation: string;
+  court: string;
+  year: number;
+  bench: string;
+  headnote: string;
+  ratio_decidendi: string;
+  applied_sections: string[];
+  suggested_query: string;
+}
+
+export interface MatrixResponse {
+  status: string;
+  total_transitions: number;
+  total_precedents: number;
+  transitions: LawTransition[];
+  precedents: CasePrecedent[];
+}
+
+export async function fetchLawMatrix(category?: string, search?: string): Promise<MatrixResponse> {
+  const params = new URLSearchParams();
+  if (category && category !== 'all') params.set('category', category);
+  if (search) params.set('search', search);
+
+  const qs = params.toString() ? `?${params.toString()}` : '';
+  const response = await fetch(`${API_BASE}/api/matrix${qs}`);
+
+  if (!response.ok) {
+    throw new Error('Failed to load Law Transition Matrix');
+  }
+
+  return response.json();
+}

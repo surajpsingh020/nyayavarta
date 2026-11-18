@@ -70,6 +70,11 @@ interface ChatInterfaceProps {
   className?: string;
   currentUser?: UserInfo | null;
   onOpenAuthModal?: () => void;
+  attachedDoc?: UploadResponse | null;
+  onDocumentUploaded?: (res: UploadResponse) => void;
+  onDocumentRemoved?: () => void;
+  initialQuery?: string | null;
+  onClearInitialQuery?: () => void;
 }
 
 export default function ChatInterface({
@@ -77,6 +82,11 @@ export default function ChatInterface({
   className = '',
   currentUser = null,
   onOpenAuthModal,
+  attachedDoc: attachedDocProp,
+  onDocumentUploaded,
+  onDocumentRemoved,
+  initialQuery,
+  onClearInitialQuery,
 }: ChatInterfaceProps) {
   const t = getUITranslations(selectedLanguage);
   const [messages, setMessages] = useState<MessageItem[]>([]);
@@ -100,8 +110,23 @@ export default function ChatInterface({
 
   // Document Attachment State in Chat
   const [isUploadingDoc, setIsUploadingDoc] = useState(false);
-  const [attachedDoc, setAttachedDoc] = useState<UploadResponse | null>(null);
+  const [attachedDoc, setAttachedDoc] = useState<UploadResponse | null>(attachedDocProp || null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  // Sync external attachedDoc changes
+  useEffect(() => {
+    if (attachedDocProp !== undefined) {
+      setAttachedDoc(attachedDocProp);
+    }
+  }, [attachedDocProp]);
+
+  // Sync external initialQuery (e.g. from Law Matrix "Ask AI" button)
+  useEffect(() => {
+    if (initialQuery) {
+      setInputText(initialQuery);
+      onClearInitialQuery?.();
+    }
+  }, [initialQuery, onClearInitialQuery]);
 
   // Voice recording via MediaRecorder (universal multimodal recording)
   const [isRecording, setIsRecording] = useState(false);
@@ -301,6 +326,7 @@ export default function ChatInterface({
     try {
       const res = await uploadDocument(file);
       setAttachedDoc(res);
+      onDocumentUploaded?.(res);
 
       const sysMsgId = 'sys-' + Date.now();
       const isEnglish = selectedLanguage === 'en';
@@ -332,6 +358,7 @@ export default function ChatInterface({
 
   const removeAttachedDoc = () => {
     setAttachedDoc(null);
+    onDocumentRemoved?.();
   };
 
   // -------------------------------------------------------------

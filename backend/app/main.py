@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 import os
 
 from app.config import get_settings
-from app.routers import chat, upload, auth, history
+from app.routers import chat, upload, auth, history, matrix
 from app.services.rag_pipeline import RAGPipeline
 from app.services.auth_db import get_auth_db
 
@@ -61,6 +61,7 @@ app.include_router(auth.router, prefix="/api", tags=["Auth"])
 app.include_router(history.router, prefix="/api", tags=["History"])
 app.include_router(chat.router, prefix="/api", tags=["Chat"])
 app.include_router(upload.router, prefix="/api", tags=["Upload"])
+app.include_router(matrix.router, prefix="/api", tags=["Matrix"])
 
 
 @app.get("/health")

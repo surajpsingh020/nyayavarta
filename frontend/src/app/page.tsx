@@ -18,6 +18,7 @@ import {
 import LanguageSelector from '@/components/LanguageSelector';
 import ChatInterface from '@/components/ChatInterface';
 import DocumentUpload from '@/components/DocumentUpload';
+import LawMatrix from '@/components/LawMatrix';
 import AuthModal from '@/components/AuthModal';
 import { checkHealth, UploadResponse, getCurrentUser, logoutUser, UserInfo } from '@/lib/api';
 import { getUITranslations } from '@/lib/i18n';
@@ -27,6 +28,8 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<'chat' | 'upload' | 'reference'>('chat');
   const [backendStatus, setBackendStatus] = useState<'checking' | 'healthy' | 'offline'>('checking');
   const [uploadedFiles, setUploadedFiles] = useState<UploadResponse[]>([]);
+  const [activeDocument, setActiveDocument] = useState<UploadResponse | null>(null);
+  const [initialChatQuery, setInitialChatQuery] = useState<string | null>(null);
 
   // User Authentication State
   const [currentUser, setCurrentUser] = useState<UserInfo | null>(null);
@@ -49,7 +52,21 @@ export default function Home() {
   }, []);
 
   const handleDocumentUploaded = (res: UploadResponse) => {
-    setUploadedFiles((prev) => [res, ...prev]);
+    setUploadedFiles((prev) => {
+      const exists = prev.some((f) => f.filename === res.filename);
+      if (exists) return prev;
+      return [res, ...prev];
+    });
+    setActiveDocument(res);
+  };
+
+  const handleDocumentRemoved = () => {
+    setActiveDocument(null);
+  };
+
+  const handleMatrixSelectQuery = (queryText: string) => {
+    setInitialChatQuery(queryText);
+    setActiveTab('chat');
   };
 
   const handleLogout = async () => {
@@ -209,6 +226,11 @@ export default function Home() {
             selectedLanguage={selectedLanguage}
             currentUser={currentUser}
             onOpenAuthModal={() => setIsAuthModalOpen(true)}
+            attachedDoc={activeDocument}
+            onDocumentUploaded={handleDocumentUploaded}
+            onDocumentRemoved={handleDocumentRemoved}
+            initialQuery={initialChatQuery}
+            onClearInitialQuery={() => setInitialChatQuery(null)}
           />
         </div>
 
@@ -265,9 +287,22 @@ export default function Home() {
                           <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
                           <span className="font-semibold text-gray-800">{file.filename}</span>
                         </div>
-                        <span className="bg-primary-100 text-primary-800 px-2.5 py-0.5 rounded-full text-[11px] font-medium">
-                          {file.chunks_created} chunks in Neo4j
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="bg-primary-100 text-primary-800 px-2.5 py-0.5 rounded-full text-[11px] font-medium">
+                            {file.chunks_created} chunks in Neo4j
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setActiveDocument(file);
+                              setActiveTab('chat');
+                            }}
+                            className="inline-flex items-center gap-1 bg-primary-600 hover:bg-primary-700 text-white text-[11px] font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
+                          >
+                            <span>Ask in Chat</span>
+                            <ArrowRight className="w-3 h-3" />
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -319,67 +354,9 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Tab 3: Law Transition Matrix */}
-        <div className={activeTab === 'reference' ? 'card space-y-4' : 'hidden'}>
-          <div>
-            <h3 className="text-base font-bold text-gray-900">
-              {t.matrixTitle}
-            </h3>
-            <p className="text-xs text-gray-500 mt-1">
-              {t.matrixSubtitle}
-            </p>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse">
-              <thead>
-                <tr className="bg-primary-50 text-primary-950 border-b border-primary-200">
-                  <th className="p-3 font-bold">{t.matrixHeaders.crime}</th>
-                  <th className="p-3 font-bold">{t.matrixHeaders.oldLaw}</th>
-                  <th className="p-3 font-bold">{t.matrixHeaders.newLaw}</th>
-                  <th className="p-3 font-bold">{t.matrixHeaders.note}</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                <tr className="hover:bg-gray-50">
-                  <td className="p-3 font-semibold text-gray-900">Murder</td>
-                  <td className="p-3 font-mono text-gray-600">IPC Section 302</td>
-                  <td className="p-3 font-mono font-bold text-primary-700">BNS Section 103</td>
-                  <td className="p-3 text-gray-600">Punishment remains death or life imprisonment, and fine.</td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="p-3 font-semibold text-gray-900">Cheating & Fraud</td>
-                  <td className="p-3 font-mono text-gray-600">IPC Section 420</td>
-                  <td className="p-3 font-mono font-bold text-primary-700">BNS Section 318</td>
-                  <td className="p-3 text-gray-600">Dishonest inducement of property covered under Section 318.</td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="p-3 font-semibold text-gray-900">First Information Report (FIR)</td>
-                  <td className="p-3 font-mono text-gray-600">CrPC Section 154</td>
-                  <td className="p-3 font-mono font-bold text-primary-700">BNSS Section 173</td>
-                  <td className="p-3 text-gray-600">Formalizes Zero FIR and electronic FIR (e-FIR).</td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="p-3 font-semibold text-gray-900">Cruelty by Husband / Relatives</td>
-                  <td className="p-3 font-mono text-gray-600">IPC Section 498A</td>
-                  <td className="p-3 font-mono font-bold text-primary-700">BNS Section 86</td>
-                  <td className="p-3 text-gray-600">Substantive provisions maintained with enhanced focus on women safety.</td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="p-3 font-semibold text-gray-900">Electronic Evidence</td>
-                  <td className="p-3 font-mono text-gray-600">Evidence Act 65B</td>
-                  <td className="p-3 font-mono font-bold text-primary-700">BSA Section 63</td>
-                  <td className="p-3 text-gray-600">Expanded scope to server logs, GPS, emails, and mobile data.</td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="p-3 font-semibold text-gray-900">Theft</td>
-                  <td className="p-3 font-mono text-gray-600">IPC Section 379</td>
-                  <td className="p-3 font-mono font-bold text-primary-700">BNS Section 305</td>
-                  <td className="p-3 text-gray-600">Community service added as punishment for petty theft.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        {/* Tab 3: Law Transition Matrix & Landmark Precedents */}
+        <div className={activeTab === 'reference' ? 'space-y-4' : 'hidden'}>
+          <LawMatrix onSelectQuery={handleMatrixSelectQuery} />
         </div>
       </main>
 
