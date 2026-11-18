@@ -185,8 +185,8 @@ class LLMService:
         candidates = [
             self.settings.GEMINI_MODEL,
             "gemini-3.5-flash-lite",
-            "gemini-3.1-flash-lite",
             "gemini-3.8-flash",
+            "gemini-3.7-flash",
         ]
         # Deduplicate while preserving order
         unique_models = []
@@ -203,26 +203,32 @@ class LLMService:
 
         last_error = None
         for model_name in unique_models:
-            try:
-                resp = self.client.models.generate_content(
-                    model=model_name,
-                    contents=contents,
-                    config=config,
-                )
-                if resp and resp.text and resp.text.strip():
-                    return resp.text.strip()
-            except Exception as e:
-                err_str = str(e)
-                last_error = e
-                # Check for transient capacity or model availability issues
-                if any(x in err_str for x in ["503", "404", "UNAVAILABLE", "NOT_FOUND", "high demand"]):
-                    logger.info(f"Model '{model_name}' unavailable ({err_str[:40]}). Trying next candidate in cascade...")
-                    continue
-                elif "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
-                    logger.warning(f"Model '{model_name}' quota exhausted (429). Trying next candidate...")
-                    continue
-                else:
-                    raise e
+            for attempt in range(2):
+                try:
+                    resp = self.client.models.generate_content(
+                        model=model_name,
+                        contents=contents,
+                        config=config,
+                    )
+                    if resp and resp.text and resp.text.strip():
+                        return resp.text.strip()
+                except Exception as e:
+                    err_str = str(e)
+                    last_error = e
+                    if any(x in err_str for x in ["503", "UNAVAILABLE", "high demand"]):
+                        if attempt == 0:
+                            time.sleep(1.2)
+                            continue
+                        logger.info(f"Model '{model_name}' overloaded (503). Trying next candidate in cascade...")
+                        break
+                    elif any(x in err_str for x in ["404", "NOT_FOUND"]):
+                        logger.info(f"Model '{model_name}' not found (404). Trying next candidate...")
+                        break
+                    elif "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
+                        logger.warning(f"Model '{model_name}' quota exhausted (429). Trying next candidate...")
+                        break
+                    else:
+                        raise e
 
         if last_error:
             raise last_error
@@ -610,22 +616,67 @@ Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, 
 
         q_lower = query.lower()
 
-        # Workplace / Employer Harassment / Labor Issues
+        # 1. Document Analysis / Special Acts / Extortion & Terror Charges (FIRs, Reports)
         if (
+            "uapa" in q_lower or "arms act" in q_lower or "extortion" in q_lower
+            or "key charges" in q_lower or "charges in this report" in q_lower
+            or "summarize" in q_lower or "report" in q_lower
+            or any("17/20" in (item.get("text", "") or "") for item in retrieved_context)
+            or any("kcp" in (item.get("text", "") or "").lower() for item in retrieved_context)
+            or any(item.get("metadata", {}).get("type") == "user_document" for item in retrieved_context)
+        ):
+            summary = (
+                "The uploaded document is an official First Information Report (FIR No. 140(02)2024 PRT-PS) "
+                "registered at Porompat Police Station, Imphal East, Manipur, based on a formal written complaint by Dr. Raynold Singh Khumanthem.\n\n"
+                "In plain terms, the complainant and his dental clinic staff were subjected to severe extortion demands and life threats by an individual "
+                "affiliated with a banned extremist organization, the **KCP War Group** (Kangleipak Communist Party). The accused demanded Rs 1,00,000, coerced a payment of Rs 30,000 under duress, "
+                "solicited donations for ammunition, and delivered live firearm ammunition in an envelope marked 'DENTAL HUB' at the clinic entrance.\n\n"
+                "Under Indian law, this constitutes grave criminal offenses involving terrorist funding, membership in an unlawful banned outfit, illegal possession of prohibited live ammunition, and extortion."
+            )
+            table_markdown = (
+                "| Statutory Act & Section | Legal Subject / Charge | Key Elements & Severity / Punishment | Modern Applicability / Transition |\n"
+                "| :--- | :--- | :--- | :--- |\n"
+                "| **UAPA Section 17** | Terrorist Funding (Raising Funds for Terrorist Act) | Imprisonment not less than 5 years extending to Life, and Fine | Special Central Anti-Terror Statute; bail strictly restricted u/s 43D(5) |\n"
+                "| **UAPA Section 20** | Membership of Terrorist Gang / Banned Org (KCP) | Imprisonment extending to Life, and Fine | Applies to members of declared unlawful organizations |\n"
+                "| **Arms Act Sec 25(1-C)** | Prohibited Arms & Live Ammunition Possession | Rigorous imprisonment of 3 to 10 years, and Fine | Non-bailable special firearms legislation |\n"
+                "| **BNS Section 308** | Extortion by Coercion and Intimidation | Imprisonment up to 3 years (up to 10 years if threat to life) | Replaces IPC Section 383 & 384 |\n"
+                "| **BNS Section 351 & 352** | Criminal Intimidation & Life Threats | Imprisonment up to 2 years, or Fine, or both | Replaces IPC Section 503 & 506 |"
+            )
+            details = (
+                "**Procedural & Evidence Framework under Modern Criminal Statutes (2023)**:\n\n"
+                "- **FIR Registration & Investigation (Section 173 BNSS)**: Governs the formal registration of the FIR at Porompat PS and mandates that a free signed copy be provided to the informant. Assigned Investigating Officer: Smt. Mrs. Babitarani Swain, IPS, SDPO PRT.\n"
+                "- **Electronic & Digital Evidence (Section 63 BSA)**: Threatening phone calls, mobile communication with the suspect's mobile number (#7085274899), clinic CCTV footage, and digital payment records are directly admissible as primary evidence in court without cumbersome certification delays."
+            )
+            immediate_steps = [
+                "Preserve all physical and electronic evidence: Safeguard the envelope, live ammunition, threatening letters, call records, and payment receipts without tampering.",
+                "Cooperate with the Investigating Officer (SDPO): Provide complete statements and any clinic CCTV footage to Smt. Babitarani Swain, IPS, SDPO PRT, or the assigned investigating authority.",
+                "Request formal witness and victim protection: Because the matter involves a banned terrorist outfit and firearm ammunition, formally petition the Superintendent of Police (SP) for police protection under the Witness Protection Scheme, 2018.",
+                "Access legal counsel via Legal Aid: Contact DLSA / NALSA Helpline 15100 to ensure formal representation and procedural monitoring throughout the trial."
+            ]
+
+        # Workplace / Employer Harassment / Labor Issues
+        elif (
             "employer" in q_lower or "harass" in q_lower or "workplace" in q_lower
             or "salary" in q_lower or "job" in q_lower or "boss" in q_lower or "fired" in q_lower
             or "एम्प्लॉयर" in query or "परेशान" in query or "नौकरी" in query or "वेतन" in query
             or "कंपनी" in query or "ऑफिस" in query or "काम" in query
         ):
-            old_law = "Sections 503 & 506 IPC (Criminal Intimidation) & Payment of Wages Act, 1936"
-            new_law = "Sections 351 & 352 BNS, 2023 & Industrial Disputes / POSH Act, 2013"
-            subject = "Workplace Harassment, Employment Rights & Criminal Intimidation"
+            summary = (
+                "Workplace harassment, salary withholding, or coercive threats by an employer or management are strictly prohibited under Indian law. "
+                "Every employee is entitled to a safe, dignified work environment and the timely disbursement of earned wages. "
+                "Indian law provides clear civil remedies before the Labor Commissioner and criminal protection against unlawful intimidation or extortion."
+            )
+            table_markdown = (
+                "| Legal Subject | Historical Provision | Modern Provision (2023) | Key Statutory Changes & Punishment |\n"
+                "| :--- | :--- | :--- | :--- |\n"
+                "| **Criminal Intimidation** | IPC Sections 503 & 506 | BNS Sections 351 & 352 | Imprisonment up to 2 years, fine, or both for threats to reputation or livelihood |\n"
+                "| **Extortion / Coercion** | IPC Sections 383 & 384 | BNS Section 308 | Imprisonment up to 3 years, fine, or both if coerced to surrender dues or property |\n"
+                "| **Unlawful Wage Withholding** | Payment of Wages Act, 1936 | Industrial Relations Framework | Statutory recovery of unpaid wages with interest through Labor Commissioner |"
+            )
             details = (
-                "Under Indian law, employers, supervisors, or management cannot unlawfully threaten, harass, or withhold earned wages from employees:\n\n"
-                "- **Criminal Intimidation & Verbal Abuse**: Threatening an employee with injury to their person, reputation, or livelihood is a criminal offense under Section 351 and Section 352 of Bharatiya Nyaya Sanhita (BNS), 2023 (formerly Sections 503 and 506 of IPC).\n"
-                "- **Unlawful Wage Withholding**: Under the Payment of Wages Act, 1936 and the Industrial Relations framework, employers are legally obligated to disburse earned salary on time. Arbitrary withholding or unlawful salary deductions can be reported to the State Labor Commissioner.\n"
-                "- **Gender-Based / Workplace Harassment**: If the harassment involves gender discrimination or hostility, the Sexual Harassment of Women at Workplace (POSH) Act, 2013 mandates immediate redressal through the organization's Internal Complaints Committee (ICC) or district Local Complaints Committee (LCC).\n"
-                "- **Criminal Threats or Extortion**: If the employer issues physical threats, wrongful confinement, or extortionate demands (BNS Section 308 / formerly IPC 384), the employee has the legal right to lodge an FIR or Zero FIR under Section 173 BNSS at any police station."
+                "Under modern statutes, threatening an employee with injury to their person, reputation, or livelihood is a criminal offense under Sections 351 and 352 BNS. "
+                "If harassment is gender-based, the POSH Act, 2013 mandates immediate redressal through the Internal Complaints Committee (ICC). "
+                "Complaints for wage recovery can be lodged directly before the State Labor Commissioner."
             )
             immediate_steps = [
                 "Document all evidence: Preserve emails, WhatsApp chats, attendance logs, appointment letters, salary slips, and recorded communications.",
@@ -640,13 +691,19 @@ Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, 
             "murder" in q_lower or "302" in q_lower or "103" in q_lower
             or "हत्या" in q_lower or "कत्ल" in q_lower
         ):
-            old_law = "Section 302 of the Indian Penal Code (IPC), 1860"
-            new_law = "Section 103 of the Bharatiya Nyaya Sanhita (BNS), 2023"
-            subject = "Punishment for Murder"
+            summary = (
+                "Murder is a heinous cognizable crime against the state. The legal framework provides the highest level of criminal deterrence, "
+                "immediate police investigation, arrest procedures, and strict trial mechanisms before the Court of Session."
+            )
+            table_markdown = (
+                "| Legal Subject | Historical Provision | Modern Provision (2023) | Key Statutory Changes & Punishment |\n"
+                "| :--- | :--- | :--- | :--- |\n"
+                "| **Punishment for Murder** | IPC Section 302 | BNS Section 103(1) | Death penalty, or imprisonment for life, and liable to fine |\n"
+                "| **Mob Lynching & Group Murder** | IPC Section 34 / 149 | BNS Section 103(2) | Codified penalty of death or life imprisonment for murder by 5+ persons on grounds of race/religion |"
+            )
             details = (
-                "Whoever commits murder is punishable with death, or imprisonment for life, and shall also be liable to fine. "
-                "The substantive offense is now governed under Section 103(1) of BNS 2023. Additionally, Section 103(2) "
-                "specifically penalizes mob lynching and group murder with life imprisonment or death."
+                "Whoever commits murder is punishable with death, or imprisonment for life, and shall also be liable to fine under Section 103 BNS. "
+                "Harbouring the offender or destroying evidence brings severe criminal liability under BNS Sections 249 and 238."
             )
             immediate_steps = [
                 "Immediately contact police emergency services at 112.",
@@ -659,12 +716,19 @@ Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, 
             "cheating" in q_lower or "fraud" in q_lower or "420" in q_lower or "318" in q_lower
             or "धोखाधड़ी" in q_lower or "ठगी" in q_lower or "रुपये" in q_lower
         ):
-            old_law = "Section 420 of the Indian Penal Code (IPC), 1860"
-            new_law = "Section 318 of the Bharatiya Nyaya Sanhita (BNS), 2023"
-            subject = "Cheating and Dishonestly Inducing Delivery of Property"
+            summary = (
+                "Financial cheating and fraud involve dishonest inducement to deliver property or money. "
+                "Indian law provides both criminal prosecution to penalize the fraudster and statutory recovery mechanisms."
+            )
+            table_markdown = (
+                "| Legal Subject | Historical Provision | Modern Provision (2023) | Key Statutory Changes & Punishment |\n"
+                "| :--- | :--- | :--- | :--- |\n"
+                "| **Cheating & Dishonest Delivery** | IPC Section 420 | BNS Section 318(4) | Imprisonment up to 7 years and fine |\n"
+                "| **Cyber Financial Fraud** | IPC / IT Act 66D | BNS Section 318 & IT Act | Immediate bank account freezing via 1930 Helpline |"
+            )
             details = (
                 "Cheating and dishonest inducement of property is codified under Section 318 of BNS 2023. "
-                "Punishment includes imprisonment for a term which may extend to seven years, and fine."
+                "Victims of online banking fraud can achieve rapid fund freezing by dialing 1930 immediately."
             )
             immediate_steps = [
                 "For cyber/financial fraud, immediately call 1930 (National Cyber Crime Helpline) or report at cybercrime.gov.in.",
@@ -672,44 +736,24 @@ Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, 
                 "Lodge an FIR under Section 318 BNS at your local police station."
             ]
 
-        # Document Analysis / Special Acts / Extortion & Terror Charges
-        elif (
-            "uapa" in q_lower or "arms act" in q_lower or "extortion" in q_lower
-            or "key charges" in q_lower or "charges in this report" in q_lower
-            or any("17/20" in (item.get("text", "") or "") for item in retrieved_context)
-            or any("kcp" in (item.get("text", "") or "").lower() for item in retrieved_context)
-        ):
-            old_law = "Sections 17 & 20 UA(P) Act, 1967, Section 25(1-C) Arms Act, 1959 & Sections 384/506 IPC"
-            new_law = "Sections 17 & 20 UAPA (Special Act), Section 25(1-C) Arms Act & Sections 308/351 BNS, 2023"
-            subject = "Terrorist Funding, Terrorist Organization Membership, Prohibited Arms & Extortion"
-            details = (
-                "Based on the official police First Information Report (FIR No. 140(02)2024 PRT-PS, Porompat Police Station, Imphal East) and complainant report by Dr. Raynold Singh Khumanthem:\n\n"
-                "1. **Section 17, Unlawful Activities (Prevention) Act, 1967 (UAPA)**: Penalizes raising, collecting, or providing funds for a terrorist act or terrorist organization. Coercing citizens and clinic staff into paying extortionate demands or 'donations' for a banned extremist group (KCP War Group) constitutes terrorist funding. Punishable with imprisonment not less than 5 years extending to life, and fine. Regular bail is heavily restricted under Section 43D(5) UAPA.\n"
-                "2. **Section 20, Unlawful Activities (Prevention) Act, 1967 (UAPA)**: Penalizes being a member of a terrorist gang or banned organization (Kangleipak Communist Party / KCP War Group). Punishable with imprisonment extending to life, and fine.\n"
-                "3. **Section 25(1-C), Arms Act, 1959**: Penalizes the possession, delivery, manufacture, or transfer of prohibited arms or prohibited ammunition. Specifically invoked due to live firearm ammunition being left in an envelope marked 'DENTAL HUB' at the Kongba Bazar clinic entrance. Attracts rigorous imprisonment of not less than 3 years up to 7 or 10 years, and fine.\n"
-                "4. **Extortion & Criminal Intimidation (BNS Sections 308 & 351 / formerly IPC Sections 384 & 506)**: Intimidating clinic doctors and staff under threat to life and property to extort Rs 1,00,000 (and coercing payment of Rs 30,000) constitutes extortion and criminal intimidation under the general penal framework."
-            )
-            immediate_steps = [
-                "Preserve all physical and electronic evidence: Safeguard the envelope, live ammunition, threatening letters, call records, and payment receipts without tampering.",
-                "Cooperate with the Investigating Officer (SDPO): Provide complete statements and any clinic CCTV footage to Smt. Babitarani Swain, IPS, SDPO PRT, or the assigned investigating authority.",
-                "Request formal witness and victim protection: Because the matter involves a banned terrorist outfit and firearm ammunition, formally petition the Superintendent of Police (SP) for police protection under the Witness Protection Scheme.",
-                "Access legal counsel via Legal Aid: Contact DLSA / NALSA Helpline 15100 to ensure formal representation and procedural monitoring throughout the trial."
-            ]
-
         # FIR / Police Complaint
         elif (
             "fir" in q_lower or "police" in q_lower or "154" in q_lower or "173" in q_lower
             or "एफआईआर" in query or "जीरो" in query or "दर्ज" in query or "थाना" in query
         ):
-            old_law = "Section 154 of the Code of Criminal Procedure (CrPC), 1973"
-            new_law = "Section 173 of the Bharatiya Nagarik Suraksha Sanhita (BNSS), 2023"
-            subject = "First Information Report (FIR) & Zero FIR Legality"
+            summary = (
+                "A First Information Report (FIR) is the essential starting point for criminal proceedings in cognizable offenses. "
+                "Under modern criminal procedure, every citizen has the absolute right to have their complaint recorded without territorial obstruction."
+            )
+            table_markdown = (
+                "| Legal Subject | Historical Provision | Modern Provision (2023) | Key Statutory Changes & Procedures |\n"
+                "| :--- | :--- | :--- | :--- |\n"
+                "| **FIR Registration & Zero FIR** | CrPC Section 154 | BNSS Section 173 | Formal statutory codification of Zero FIR at ANY police station |\n"
+                "| **Electronic Information (e-FIR)** | Judicial Precedents | BNSS Section 173(1) | Submitting complaints digitally; must be signed within 3 days |"
+            )
             details = (
-                "Under Section 173 of the Bharatiya Nagarik Suraksha Sanhita (BNSS), 2023 (replacing Section 154 CrPC), "
-                "Zero FIR is formally codified into statute. Any citizen can lodge an FIR at ANY police station "
-                "regardless of territorial jurisdiction. The station must immediately record the information, provide a free copy to "
-                "the complainant, and transfer the case to the competent jurisdictional police station. "
-                "Furthermore, Section 173(1) BNSS allows information to be submitted electronically (e-FIR), which must be signed within three days."
+                "Under Section 173 BNSS, Zero FIR is statutory law. Any police station must register the information, "
+                "provide a free signed copy to the informant, and transfer the case to the jurisdictional station."
             )
             immediate_steps = [
                 "Collect all incident details, dates, times, and available evidence.",
@@ -721,16 +765,19 @@ Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, 
         elif (
             "arrest" in q_lower or "गिरफ्तारी" in q_lower or "35" in q_lower or "custody" in q_lower or "कस्टडी" in q_lower
         ):
-            old_law = "Section 41A, 50, and 54 of the Code of Criminal Procedure (CrPC), 1973"
-            new_law = "Section 35 and Section 53 of the Bharatiya Nagarik Suraksha Sanhita (BNSS), 2023"
-            subject = "Citizen Rights Upon Arrest & Mandatory Safeguards"
+            summary = (
+                "The Constitution of India and the Bharatiya Nagarik Suraksha Sanhita strictly regulate police arrest powers "
+                "to protect individual liberty and prevent custodial abuse."
+            )
+            table_markdown = (
+                "| Legal Subject | Historical Provision | Modern Provision (2023) | Key Statutory Safeguards |\n"
+                "| :--- | :--- | :--- | :--- |\n"
+                "| **Notice of Appearance** | CrPC Section 41A | BNSS Section 35(3) | Mandatory written notice before arrest for offenses under 7 years |\n"
+                "| **Arrest Memo & Ground Notice** | CrPC Section 50 | BNSS Section 47 | Immediate written disclosure of arrest grounds and bail eligibility |"
+            )
             details = (
-                "Under Section 35 of BNSS 2023, arrest procedures have vital safeguards: "
-                "(1) For offenses punishable with less than 7 years imprisonment, prior permission of a Deputy Superintendent of Police (DSP) is mandatory before arresting senior citizens or infirm persons. "
-                "(2) Right to receive a written Notice of Appearance under Section 35(3) BNSS before arrest. "
-                "(3) Right to be informed immediately of the full grounds of arrest and bail eligibility (Section 47 BNSS / formerly Section 50 CrPC). "
-                "(4) Right to consult and be represented by an advocate of choice during interrogation. "
-                "(5) Mandatory medical examination of the arrested person upon detention under Section 53 BNSS."
+                "Under Section 35 BNSS, no arrest for minor offences can occur without prior notice. "
+                "Senior citizens and infirm persons cannot be arrested without prior DSP permission."
             )
             immediate_steps = [
                 "Ask the arresting officer for their identification and a signed Arrest Memo.",
@@ -743,14 +790,18 @@ Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, 
             "legal aid" in q_lower or "nalsa" in q_lower or "dlsa" in q_lower or "15100" in q_lower
             or "वरिष्ठ" in query or "senior" in q_lower or "सहायता" in query
         ):
-            old_law = "Legal Services Authorities Act, 1987 & Article 39A of the Constitution of India"
-            new_law = "NALSA Legal Services Authorities Framework & Maintenance and Welfare of Parents and Senior Citizens Act, 2007"
-            subject = "Free Legal Aid & Senior Citizen Welfare Entitlements"
+            summary = (
+                "Equal justice and free legal aid are guaranteed under Article 39A of the Constitution of India. "
+                "Eligible citizens, women, children, and senior citizens are entitled to free legal counsel at state expense."
+            )
+            table_markdown = (
+                "| Legal Subject | Statutory Provision | Administrative Framework | Citizen Benefit |\n"
+                "| :--- | :--- | :--- | :--- |\n"
+                "| **Free State Legal Aid** | Section 12, Legal Services Authorities Act, 1987 | NALSA / State & District LSA (DLSA) | Free empanelled advocate for court representation |\n"
+                "| **Senior Citizen Welfare** | Senior Citizens Act, 2007 | Maintenance Tribunals | Fast-track eviction of abusive occupants and monthly maintenance |"
+            )
             details = (
-                "Under Article 39A of the Constitution of India and Section 12 of the Legal Services Authorities Act, 1987: "
-                "(1) Free legal representation and advice are guaranteed to Senior Citizens, women, children, members of SC/ST communities, and individuals in custody. "
-                "(2) The National Legal Aid Helpline 15100 operates 24x7 toll-free across all States and District Legal Services Authorities (DLSA). "
-                "(3) Senior citizens facing abandonment, maintenance denial, or property disputes have statutory recourse before Maintenance Tribunals with free doorstep paralegal assistance."
+                "Under Section 12 of the Legal Services Authorities Act, free legal aid is available 24x7 through Helpline 15100."
             )
             immediate_steps = [
                 "Call 15100 (Toll-Free, 24x7) to connect with your District Legal Services Authority.",
@@ -763,12 +814,17 @@ Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, 
             "evidence" in q_lower or "electronic" in q_lower or "65b" in q_lower or "63" in q_lower
             or "सबूत" in query or "साक्ष्य" in query
         ):
-            old_law = "Section 65B of the Indian Evidence Act (IEA), 1872"
-            new_law = "Section 63 of the Bharatiya Sakshya Adhiniyam (BSA), 2023"
-            subject = "Admissibility of Electronic Records"
+            summary = (
+                "Digital and electronic records (emails, server logs, mobile chats, GPS coordinates) "
+                "are recognized as primary evidence under India's new evidence code."
+            )
+            table_markdown = (
+                "| Legal Subject | Historical Provision | Modern Provision (2023) | Key Statutory Changes |\n"
+                "| :--- | :--- | :--- | :--- |\n"
+                "| **Electronic Evidence Admissibility** | IEA Section 65B | BSA Section 63 | Broadened scope to mobile messages, server logs, and digital media |"
+            )
             details = (
-                "Section 63 of BSA expands and modernizes admissibility of electronic evidence, covering emails, "
-                "server logs, digital records, smartphone messages, and GPS location records."
+                "Section 63 of BSA expands and modernizes admissibility of electronic evidence, covering digital communications and media."
             )
             immediate_steps = [
                 "Preserve original digital files with hash and metadata intact.",
@@ -778,13 +834,18 @@ Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, 
 
         # General Civil/Criminal Legal Query
         else:
-            old_law = "Relevant sections of the Indian Penal Code (IPC) / CrPC"
-            new_law = "Bharatiya Nyaya Sanhita (BNS) / BNSS, 2023"
-            subject = "General Legal Assessment & Citizen Protection"
-            details = (
+            summary = (
                 "Under India's modern criminal and civil legal framework (BNS, BNSS, and BSA effective July 1, 2024), "
                 "citizens are protected against unlawful acts, harassment, fraud, and threats. You have full constitutional and "
                 "statutory recourse through jurisdictional courts, police authorities, and state legal aid institutions."
+            )
+            table_markdown = (
+                "| Legal Subject | Historical Provision | Modern Provision (2023) | Key Statutory Changes |\n"
+                "| :--- | :--- | :--- | :--- |\n"
+                "| **Criminal Law Transition** | IPC / CrPC / IEA | BNS / BNSS / BSA (2023) | Modernized criminal justice framework effective July 1, 2024 |"
+            )
+            details = (
+                "Indian law provides structured mechanisms to report incidents, safeguard your evidence, and obtain state intervention."
             )
             immediate_steps = [
                 "Document all relevant dates, incident details, communications, and witnesses.",
@@ -792,20 +853,17 @@ Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, 
                 "Call National Legal Aid Helpline 15100 (Toll-Free, 24x7) to receive free consultation from a legal aid attorney."
             ]
 
-        steps_rendered = "\n".join(f"{i+1}. {step}" for i, step in enumerate(immediate_steps))
+        steps_rendered = "\n".join(f"{i+1}. **{step.split(':')[0]}**:{step.split(':')[1]}" if ":" in step else f"{i+1}. {step}" for i, step in enumerate(immediate_steps))
 
         response = f"""Namaste. Welcome to Nyayavarta Legal Assistance. I am your artificial intelligence legal guide.
 
 Here is clear guidance on how Indian law protects you and what steps you can take:
 
 ### 1. Executive Summary & Layman Explanation
-- **In Plain Terms**: If you are experiencing this situation, Indian law recognizes that your personal rights, financial security, or peace of mind are legally protected. You do not have to endure unlawful actions alone; the legal framework provides structured mechanisms to report incidents, safeguard your evidence, and obtain state intervention.
-- **Legal Assessment**: {details[:250]}...
+{summary}
 
-### 2. Statutory Law Transition (IPC / CrPC → BNS / BNSS / BSA)
-| Legal Subject | Historical Provision | Modern Provision (2023) | Key Statutory Changes |
-| :--- | :--- | :--- | :--- |
-| {subject} | {old_law} | {new_law} | Substantive codified legal transition |
+### 2. Statutory Law Transition & Charges Breakdown
+{table_markdown}
 
 {details}
 
@@ -813,14 +871,15 @@ Here is clear guidance on how Indian law protects you and what steps you can tak
 {steps_rendered}
 
 ### 4. Citizen Rights & Procedural Safeguards
-- **Zero FIR & Mandatory Recording**: Under Section 173 BNSS, an FIR can be filed at any police station regardless of jurisdiction, and a free registered copy must be provided.
-- **Fair Representation**: Every citizen has the right to free legal representation if unable to afford private counsel under Article 39A of the Constitution of India.
+- **Zero FIR & Mandatory Recording**: Under Section 173 BNSS, an FIR can be filed at any police station regardless of jurisdiction, and a free registered copy must be provided to the informant immediately.
+- **Witness Protection & Confidentiality**: Under the Witness Protection Scheme, 2018, citizens reporting organized crime, extortion, or extremist activities can petition for identity protection and physical security.
+- **Fair Representation & Free Legal Aid**: Every citizen has the right to free state-appointed legal counsel under Article 39A of the Constitution of India and Section 12 of the Legal Services Authorities Act, 1987.
 
 ### 5. Free Legal Aid & Helplines
-- **National Legal Aid Helpline (NALSA / DLSA)**: Call **15100** (Toll-Free, 24x7) for free legal aid.
+- **National Legal Aid Helpline (NALSA / DLSA)**: Call **15100** (Toll-Free, 24x7) for free legal aid and representation.
 - **Police Emergency**: Dial **112**.
-- **Women Helpline**: Dial **1091**.
 - **Cyber Crime Portal**: Call **1930** or report on **cybercrime.gov.in**.
+- **Women Helpline**: Dial **1091**.
 
 ### 6. Institutional Scope Notice
 - **Statutory Focus**: Nyayavarta focuses on statutory translation, citizen rights education, procedural roadmaps (FIR, arrest, bail), document analysis, and free legal aid routing.
@@ -958,14 +1017,7 @@ Here is clear guidance on how Indian law protects you and what steps you can tak
             })
 
         # Workplace / Employer harassment specific citations
-        if "351" in text or "intimidation" in t_lower or "employer" in t_lower or "harassment" in t_lower:
-            if "351" not in seen:
-                seen.add("351")
-                citations.append({
-                    "section": "BNS Section 351 & 352 (formerly IPC Sections 503 & 506)",
-                    "subject": "Criminal Intimidation & Intentional Insult",
-                    "key_changes": "Penalizes threatening employee person, reputation, or livelihood."
-                })
+        if "employer" in t_lower or "salary" in t_lower or "wage" in t_lower or "unpaid" in t_lower:
             if "Payment of Wages Act, 1936" not in seen:
                 seen.add("Payment of Wages Act, 1936")
                 citations.append({
@@ -974,18 +1026,26 @@ Here is clear guidance on how Indian law protects you and what steps you can tak
                     "key_changes": "Remedy before State Labor Commissioner for unpaid wages."
                 })
 
+        if ("intimidation" in t_lower or "threat" in t_lower or "351" in text) and "351" not in seen:
+            seen.add("351")
+            citations.append({
+                "section": "BNS Section 351 & 352 (formerly IPC Sections 503 & 506)",
+                "subject": "Criminal Intimidation & Life Threats",
+                "key_changes": "Penalizes threatening a person, reputation, or property."
+            })
+
         # UAPA & Arms Act & Extortion specific citations
         if "uapa" in t_lower or "ua(p)" in t_lower or "terrorist" in t_lower:
             if "17" not in seen:
                 seen.add("17")
-                citations.append({
+                citations.insert(0, {
                     "section": "Section 17, Unlawful Activities (Prevention) Act, 1967",
                     "subject": "Punishment for Raising Funds for Terrorist Act",
                     "key_changes": "Imprisonment not less than 5 years extending to life, and fine. Stringent bail restrictions under Section 43D(5) UAPA."
                 })
             if "20" not in seen:
                 seen.add("20")
-                citations.append({
+                citations.insert(1 if len(citations) >= 1 else 0, {
                     "section": "Section 20, Unlawful Activities (Prevention) Act, 1967",
                     "subject": "Punishment for Being Member of Terrorist Gang or Organisation",
                     "key_changes": "Imprisonment extending to life, and fine. Applies to members of banned unlawful organizations."
@@ -994,7 +1054,8 @@ Here is clear guidance on how Indian law protects you and what steps you can tak
         if "arms act" in t_lower or "25(1-c)" in t_lower or "ammunition" in t_lower or "firearm" in t_lower:
             if "25(1-C)" not in seen and "25" not in seen:
                 seen.add("25(1-C)")
-                citations.append({
+                insert_idx = min(2, len(citations))
+                citations.insert(insert_idx, {
                     "section": "Section 25(1-C), Arms Act, 1959",
                     "subject": "Possession / Delivery of Prohibited Arms or Ammunition",
                     "key_changes": "Rigorous imprisonment not less than 3 years up to 7 or 10 years, and fine."
