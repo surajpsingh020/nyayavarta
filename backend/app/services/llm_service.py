@@ -294,6 +294,11 @@ RETRIEVED LEGAL CONTEXT FROM KNOWLEDGE BASE:
 USER QUERY:
 "{query}"
 
+STRICT LANGUAGE CONSISTENCY REQUIREMENT:
+- You must generate this response ENTIRELY and 100% in fluent, professional ENGLISH.
+- DO NOT mix Hindi sentences, Hinglish words, or Devanagari script anywhere in the response (no "ज़मीन", "कब्जा", "थाना", etc.).
+- All section titles, explanations, legal assessments, action plans, and notices must be written in pure English. Explain Indian property and criminal concepts in clear, everyday plain English (e.g. use "unlawful land grabbing", "illegal encroachment", "criminal trespass", "property registry and mutation documents", "police complaint under BNSS Section 173", "civil suit for permanent injunction and recovery of possession under the Specific Relief Act").
+
 CRITICAL DOMAIN & SCOPE VERIFICATION:
 - Verify if the user query concerns Indian law, legal disputes, police/FIR complaints, citizen rights, or court processes.
 - IF THE QUERY IS NOT ABOUT LAW (e.g. general science, biology, chemistry, physics, mathematics, recipes, programming, or trivia):
@@ -443,15 +448,31 @@ Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, 
         src_name = lang_names.get(source_lang, source_lang)
         tgt_name = lang_names.get(target_lang, target_lang)
 
-        prompt = (
-            f"You are a professional multilingual translator specializing in Indian legal translation.\n"
-            f"Translate the following legal guidance accurately and completely from {src_name} to {tgt_name}.\n"
-            f"- Output the ENTIRE text in {tgt_name} script/language without leaving English sentences in the middle.\n"
-            f"- CRITICAL TABLE FORMATTING: Preserve Markdown table formatting with exact row line-breaks. Every table row starting with '|' MUST be on a new line (e.g. '| Col 1 | Col 2 |\n| :--- | :--- |\n| Val 1 | Val 2 |'). Never concatenate table rows into a single line.\n"
-            f"- Preserve section numbers (e.g., Section 318, BNS 2023, BNSS 173), phone numbers (15100, 112, 1930), bullet points, and '###' headers.\n"
-            f"- Output ONLY the translated text without commentary or prefixes.\n\n"
-            f"Text to translate:\n{text}"
-        )
+        if target_lang == "en":
+            prompt = (
+                f"You are a professional legal translator specializing in Indian statutes and citizen legal advice.\n"
+                f"Translate the following legal guidance completely and fluently into 100% pure ENGLISH.\n\n"
+                f"STRICT RULES FOR ENGLISH TRANSLATION:\n"
+                f"1. Output the ENTIRE document in 100% fluent, natural ENGLISH. DO NOT leave any sentences, words, or explanations in Hindi or Devanagari script.\n"
+                f"2. All section headers ('###'), table rows, bullet points, and citizen advice must be in clean English.\n"
+                f"3. Preserve exact Markdown table formatting with row line-breaks ('| Col 1 | Col 2 |\\n| :--- | :--- |\\n| Val 1 | Val 2 |').\n"
+                f"4. Preserve section numbers (e.g. BNS Section 318, BNSS 173, BSA 63) and emergency numbers (15100, 112, 1930, 1091).\n"
+                f"5. Output ONLY the translated text without introductory commentary or prefixes.\n\n"
+                f"Text to translate:\n{text}"
+            )
+        else:
+            prompt = (
+                f"You are a professional legal translator specializing in Indian statutes and citizen legal advice.\n"
+                f"Translate the following legal guidance completely and fluently from {src_name} into {tgt_name}.\n\n"
+                f"STRICT TRANSLATION RULES:\n"
+                f"1. Output the ENTIRE document in {tgt_name} script and language (including all section titles, '###' headers, bullet points, explanations, action steps, and advice).\n"
+                f"2. DO NOT leave half the response in English. The entire document must be translated into {tgt_name}.\n"
+                f"3. In tables, translate the table headers and descriptions into {tgt_name}, while keeping statutory names recognizable (e.g. 'भारतीय न्याय संहिता (BNS)', 'धारा 103').\n"
+                f"4. CRITICAL TABLE FORMATTING: Preserve Markdown table formatting with exact row line-breaks ('| Col 1 | Col 2 |\\n| :--- | :--- |\\n| Val 1 | Val 2 |'). Never concatenate table rows into a single line.\n"
+                f"5. Preserve section numbers and emergency phone numbers (15100, 112, 1930, 1091).\n"
+                f"6. Output ONLY the translated text without introductory commentary or prefixes.\n\n"
+                f"Text to translate:\n{text}"
+            )
 
         try:
             def _call_translate():

@@ -23,7 +23,7 @@ import { checkHealth, UploadResponse, getCurrentUser, logoutUser, UserInfo } fro
 import { getUITranslations } from '@/lib/i18n';
 
 export default function Home() {
-  const [selectedLanguage, setSelectedLanguage] = useState('hi');
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [activeTab, setActiveTab] = useState<'chat' | 'upload' | 'reference'>('chat');
   const [backendStatus, setBackendStatus] = useState<'checking' | 'healthy' | 'offline'>('checking');
   const [uploadedFiles, setUploadedFiles] = useState<UploadResponse[]>([]);

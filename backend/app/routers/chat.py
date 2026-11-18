@@ -83,9 +83,11 @@ async def chat_endpoint(
         detected_input_lang = detect_language_heuristic(user_text)
         if detected_input_lang != "en" and (target_output_lang in ("auto", "en") or payload.source_language == "auto"):
             target_output_lang = detected_input_lang
+        elif detected_input_lang == "en" and target_output_lang in ("auto", "en"):
+            target_output_lang = "en"
 
         if target_output_lang == "auto":
-            target_output_lang = detected_input_lang if detected_input_lang != "en" else "hi"
+            target_output_lang = detected_input_lang
 
         # Persist user message to consultation thread if user is authenticated
         if user:
@@ -109,20 +111,18 @@ async def chat_endpoint(
         # Step 2: Translation to English for Legal Search
         # ---------------------------------------------------------
         english_query = user_text
-        query_lang = detected_input_lang if detected_input_lang != "en" else target_output_lang
-
-        if query_lang != "en":
-            logger.info(f"Translating query from '{query_lang}' to 'en'")
+        if detected_input_lang != "en":
+            logger.info(f"Translating query from '{detected_input_lang}' to 'en'")
             try:
                 # Primary translation via Gemini model cascade
                 english_query = await llm_service.translate_with_llm(
-                    user_text, source_lang=query_lang, target_lang="en"
+                    user_text, source_lang=detected_input_lang, target_lang="en"
                 )
             except Exception as le:
                 logger.warning(f"LLM translation to English failed ({le}). Trying Bhashini...")
                 try:
                     english_query = await bhashini.translate_text(
-                        user_text, source_lang=query_lang, target_lang="en"
+                        user_text, source_lang=detected_input_lang, target_lang="en"
                     )
                 except Exception:
                     english_query = user_text
