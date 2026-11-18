@@ -37,9 +37,24 @@ export interface UITranslation {
     newLaw: string;
     note: string;
   };
+  historyTitle: string;
+  newConsultationBtn: string;
+  noHistoryTitle: string;
+  noHistorySub: string;
+  privateHistoryTitle: string;
+  privateHistorySub: string;
+  loginSignUpBtn: string;
+  loadingConsultations: string;
+  messagesCount: string;
+  privateDataBadge: string;
+  hideHistoryBtn: string;
+  showHistoryBtn: string;
+  clearChatBtn: string;
+  userLoginBtn: string;
+  userLogOutBtn: string;
 }
 
-export const I18N_STRINGS: Record<string, UITranslation> = {
+export const I18N_STRINGS: Record<string, Partial<UITranslation> & Record<string, any>> = {
   // 1. HINDI
   hi: {
     emergencyTitle: 'आपातकालीन एवं सहायता',
@@ -92,6 +107,21 @@ export const I18N_STRINGS: Record<string, UITranslation> = {
       newLaw: 'नया कानून 2023 (New Section)',
       note: 'प्रमुख बदलाव / टिप्पणी',
     },
+    historyTitle: 'परामर्श इतिहास (History)',
+    newConsultationBtn: '+ नया परामर्श (+ New Consultation)',
+    noHistoryTitle: 'कोई पुराना परामर्श नहीं',
+    noHistorySub: 'कानूनी प्रश्न पूछकर नया परामर्श शुरू करें।',
+    privateHistoryTitle: 'निजी परामर्श इतिहास',
+    privateHistorySub: 'अपने कानूनी परामर्श को सुरक्षित सहेजने और बाद में देखने के लिए लॉग इन करें। आपका डेटा पूरी तरह निजी है।',
+    loginSignUpBtn: 'लॉग इन / साइन अप (Log In)',
+    loadingConsultations: 'परामर्श लोड हो रहे हैं...',
+    messagesCount: 'संदेश',
+    privateDataBadge: 'निजी डेटा सुरक्षित',
+    hideHistoryBtn: 'परामर्श छुपाएं',
+    showHistoryBtn: 'परामर्श इतिहास',
+    clearChatBtn: 'हटाएं (Clear)',
+    userLoginBtn: 'लॉग इन / खाता',
+    userLogOutBtn: 'लॉग आउट',
   },
 
   // 2. ENGLISH
@@ -146,6 +176,21 @@ export const I18N_STRINGS: Record<string, UITranslation> = {
       newLaw: 'New Law Section (2023)',
       note: 'Key Transition Note',
     },
+    historyTitle: 'Consultation History',
+    newConsultationBtn: '+ New Consultation',
+    noHistoryTitle: 'No previous consultations',
+    noHistorySub: 'Ask a legal question to begin a consultation.',
+    privateHistoryTitle: 'Private Legal Consultations',
+    privateHistorySub: 'Log in or sign up to securely save your consultation history. Your data is isolated and completely private.',
+    loginSignUpBtn: 'Log In / Sign Up',
+    loadingConsultations: 'Loading consultations...',
+    messagesCount: 'messages',
+    privateDataBadge: 'Private & Encrypted',
+    hideHistoryBtn: 'Hide History',
+    showHistoryBtn: 'History',
+    clearChatBtn: 'Clear',
+    userLoginBtn: 'Log In / Sign Up',
+    userLogOutBtn: 'Log Out',
   },
 
   // 3. MARATHI (मराठी)
@@ -200,6 +245,21 @@ export const I18N_STRINGS: Record<string, UITranslation> = {
       newLaw: 'नवीन कलम (BNS/BNSS)',
       note: 'महत्त्वाचे बदल',
     },
+    historyTitle: 'सल्लामसलत इतिहास (History)',
+    newConsultationBtn: '+ नवीन सल्लामसलत (+ New)',
+    noHistoryTitle: 'कोणताही जुना सल्ला नाही',
+    noHistorySub: 'कायदेशीर प्रश्न विचारून नवीन सल्लामसलत सुरू करा.',
+    privateHistoryTitle: 'खाजगी कायदेशीर इतिहास',
+    privateHistorySub: 'आपली कायदेशीर चर्चा सुरक्षित ठेवण्यासाठी लॉग इन करा.',
+    loginSignUpBtn: 'लॉग इन / साइन अप',
+    loadingConsultations: 'लोड होत आहे...',
+    messagesCount: 'संदेश',
+    privateDataBadge: 'माहिती सुरक्षित',
+    hideHistoryBtn: 'इतिहास लपवा',
+    showHistoryBtn: 'इतिहास',
+    clearChatBtn: 'साफ करा',
+    userLoginBtn: 'लॉग इन / खाते',
+    userLogOutBtn: 'लॉग आउट',
   },
 
   // 4. BENGALI (বাংলা)
@@ -799,5 +859,10 @@ export const I18N_STRINGS: Record<string, UITranslation> = {
 
 export function getUITranslations(langCode: string): UITranslation {
   const code = (langCode || 'hi').toLowerCase().trim();
-  return I18N_STRINGS[code] || I18N_STRINGS['en'] || I18N_STRINGS['hi'];
+  const base = I18N_STRINGS[code] || I18N_STRINGS['hi'] || I18N_STRINGS['en'];
+  const defaults = I18N_STRINGS['en'];
+  return ({
+    ...defaults,
+    ...base,
+  } as unknown) as UITranslation;
 }

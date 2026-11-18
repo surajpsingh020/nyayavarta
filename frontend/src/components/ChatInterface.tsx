@@ -555,7 +555,7 @@ export default function ChatInterface({
             <div className="flex items-center gap-2">
               <History className="w-4 h-4 text-primary-700" />
               <span className="font-bold text-xs text-gray-800 tracking-tight">
-                परामर्श इतिहास (History)
+                {t.historyTitle}
               </span>
             </div>
             <button
@@ -576,7 +576,7 @@ export default function ChatInterface({
               className="w-full py-2 px-3 bg-primary-700 hover:bg-primary-800 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-xs transition-all cursor-pointer"
             >
               <Plus className="w-4 h-4" />
-              <span>+ नया परामर्श (+ New Consultation)</span>
+              <span>{t.newConsultationBtn}</span>
             </button>
           </div>
 
@@ -589,10 +589,10 @@ export default function ChatInterface({
                 </div>
                 <div>
                   <h4 className="text-xs font-bold text-gray-900">
-                    निजी परामर्श इतिहास
+                    {t.privateHistoryTitle}
                   </h4>
                   <p className="text-[11px] text-gray-500 mt-1 leading-relaxed">
-                    अपने कानूनी परामर्श को सुरक्षित सहेजने और बाद में देखने के लिए लॉग इन करें। आपका डेटा पूरी तरह निजी है।
+                    {t.privateHistorySub}
                   </p>
                 </div>
                 <button
@@ -601,20 +601,20 @@ export default function ChatInterface({
                   className="w-full py-2 px-3 bg-accent-500 hover:bg-accent-600 text-white text-xs font-bold rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <LogIn className="w-3.5 h-3.5" />
-                  Log In / Sign Up
+                  {t.loginSignUpBtn}
                 </button>
               </div>
             ) : isLoadingThreads ? (
               <div className="flex items-center justify-center p-6 text-gray-400 gap-2 text-xs">
                 <Loader2 className="w-4 h-4 animate-spin text-primary-600" />
-                <span>परामर्श लोड हो रहे हैं...</span>
+                <span>{t.loadingConsultations}</span>
               </div>
             ) : threads.length === 0 ? (
               <div className="flex flex-col items-center justify-center p-6 text-center text-gray-400 space-y-2 my-auto">
                 <MessageSquare className="w-8 h-8 text-gray-300 stroke-[1.5]" />
-                <p className="text-xs font-medium text-gray-600">कोई पुराना परामर्श नहीं</p>
+                <p className="text-xs font-medium text-gray-600">{t.noHistoryTitle}</p>
                 <p className="text-[11px] text-gray-400">
-                  कानूनी प्रश्न पूछकर नया परामर्श शुरू करें।
+                  {t.noHistorySub}
                 </p>
               </div>
             ) : (
@@ -644,7 +644,7 @@ export default function ChatInterface({
                             <Clock className="w-2.5 h-2.5" /> {formattedDate}
                           </span>
                           <span>•</span>
-                          <span>{th.message_count} संदेश</span>
+                          <span>{th.message_count} {t.messagesCount}</span>
                         </div>
                       </div>
                     </div>
@@ -666,7 +666,7 @@ export default function ChatInterface({
           {currentUser && (
             <div className="p-3 border-t border-gray-200 bg-white/60 text-[10px] text-gray-500 flex items-center justify-between">
               <span className="truncate">👤 {currentUser.full_name}</span>
-              <span className="text-primary-700 font-semibold">निजी डेटा सुरक्षित</span>
+              <span className="text-primary-700 font-semibold">{t.privateDataBadge}</span>
             </div>
           )}
         </aside>
@@ -683,12 +683,12 @@ export default function ChatInterface({
             <button
               type="button"
               onClick={() => setShowHistorySidebar((prev) => !prev)}
-              className="p-1.5 rounded-lg bg-primary-800/80 hover:bg-primary-700 text-gray-200 hover:text-white transition-colors flex items-center gap-1.5 text-xs font-medium"
-              title={showHistorySidebar ? 'Hide Consultations History' : 'View Recent Consultations History'}
+              className="p-1.5 rounded-lg bg-primary-800/80 hover:bg-primary-700 text-gray-200 hover:text-white transition-colors flex items-center gap-1.5 text-xs font-medium cursor-pointer"
+              title={showHistorySidebar ? t.hideHistoryBtn : t.showHistoryBtn}
             >
               <History className="w-4 h-4 text-accent-300" />
               <span className="hidden sm:inline">
-                {showHistorySidebar ? 'परामर्श छुपाएं' : 'परामर्श इतिहास'}
+                {showHistorySidebar ? t.hideHistoryBtn : t.showHistoryBtn}
               </span>
               {threads.length > 0 && (
                 <span className="bg-accent-500 text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold">
@@ -721,12 +721,12 @@ export default function ChatInterface({
               <button
                 type="button"
                 onClick={clearChat}
-                className="p-1.5 text-gray-300 hover:text-red-300 hover:bg-primary-800/80 rounded-lg transition-colors flex items-center gap-1 text-xs"
+                className="p-1.5 text-gray-300 hover:text-red-300 hover:bg-primary-800/80 rounded-lg transition-colors flex items-center gap-1 text-xs cursor-pointer"
                 title="Clear current consultation"
                 aria-label="Clear chat"
               >
                 <Trash2 className="w-4 h-4" />
-                <span className="hidden md:inline">हटाएं (Clear)</span>
+                <span className="hidden md:inline">{t.clearChatBtn}</span>
               </button>
             )}
           </div>
@@ -859,7 +859,67 @@ export default function ChatInterface({
 
                         {/* Markdown Formatted Legal Advice */}
                         <div className="prose prose-sm max-w-none text-gray-800 text-xs sm:text-sm leading-relaxed">
-                          <ReactMarkdown>{displayText}</ReactMarkdown>
+                          <ReactMarkdown
+                            components={{
+                              h1: ({ node, ...props }) => (
+                                <h2 className="text-base font-extrabold text-primary-950 mt-4 mb-2 pb-1 border-b border-primary-100 flex items-center gap-1.5" {...props} />
+                              ),
+                              h2: ({ node, ...props }) => (
+                                <h3 className="text-sm font-bold text-primary-900 mt-3.5 mb-2 flex items-center gap-1.5" {...props} />
+                              ),
+                              h3: ({ node, ...props }) => (
+                                <div className="bg-primary-50/90 text-primary-900 font-bold text-xs sm:text-sm px-3.5 py-2 rounded-xl border-l-4 border-primary-600 mt-3.5 mb-2 shadow-2xs">
+                                  {props.children}
+                                </div>
+                              ),
+                              h4: ({ node, ...props }) => (
+                                <h4 className="text-xs font-bold text-gray-900 mt-2.5 mb-1" {...props} />
+                              ),
+                              p: ({ node, ...props }) => (
+                                <p className="text-xs sm:text-sm text-gray-800 leading-relaxed mb-2.5 last:mb-0" {...props} />
+                              ),
+                              ul: ({ node, ...props }) => (
+                                <ul className="space-y-1.5 my-2.5 pl-5 list-disc text-xs sm:text-sm text-gray-800 marker:text-primary-600" {...props} />
+                              ),
+                              ol: ({ node, ...props }) => (
+                                <ol className="space-y-2 my-2.5 pl-5 list-decimal text-xs sm:text-sm text-gray-800 marker:font-bold marker:text-primary-700" {...props} />
+                              ),
+                              li: ({ node, ...props }) => (
+                                <li className="leading-relaxed pl-1" {...props} />
+                              ),
+                              strong: ({ node, ...props }) => (
+                                <strong className="font-bold text-primary-950" {...props} />
+                              ),
+                              blockquote: ({ node, ...props }) => (
+                                <blockquote className="border-l-4 border-accent-400 bg-amber-50/80 p-3 rounded-r-xl my-2.5 text-xs text-amber-900 shadow-2xs" {...props} />
+                              ),
+                              table: ({ node, ...props }) => (
+                                <div className="overflow-x-auto my-3 rounded-xl border border-gray-200 shadow-2xs">
+                                  <table className="w-full text-left text-xs border-collapse" {...props} />
+                                </div>
+                              ),
+                              thead: ({ node, ...props }) => (
+                                <thead className="bg-primary-100/80 text-primary-950 font-bold border-b border-primary-200" {...props} />
+                              ),
+                              th: ({ node, ...props }) => (
+                                <th className="p-2.5 font-bold text-primary-950 border-r border-primary-200/50 last:border-r-0" {...props} />
+                              ),
+                              tr: ({ node, ...props }) => (
+                                <tr className="hover:bg-primary-50/30 transition-colors border-b border-gray-100 last:border-b-0" {...props} />
+                              ),
+                              td: ({ node, ...props }) => (
+                                <td className="p-2.5 text-gray-700 border-r border-gray-100 last:border-r-0 align-top" {...props} />
+                              ),
+                              code: ({ node, inline, ...props }: any) =>
+                                inline ? (
+                                  <code className="bg-gray-100 text-primary-800 px-1.5 py-0.5 rounded text-[11px] font-mono font-semibold" {...props} />
+                                ) : (
+                                  <code className="block bg-gray-900 text-gray-100 p-3 rounded-xl text-xs font-mono overflow-x-auto my-2" {...props} />
+                                ),
+                            }}
+                          >
+                            {displayText}
+                          </ReactMarkdown>
                         </div>
 
                         {/* Audio Player for Spoken Voice Advice */}

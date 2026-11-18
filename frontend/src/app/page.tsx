@@ -127,8 +127,8 @@ export default function Home() {
                   type="button"
                   onClick={handleLogout}
                   className="p-1 text-gray-400 hover:text-red-600 rounded transition-colors ml-1 cursor-pointer"
-                  title="Log out"
-                  aria-label="Log out"
+                  title={t.userLogOutBtn}
+                  aria-label={t.userLogOutBtn}
                 >
                   <LogOut className="w-3.5 h-3.5" />
                 </button>
@@ -140,7 +140,7 @@ export default function Home() {
                 className="flex items-center gap-1.5 bg-primary-700 hover:bg-primary-800 text-white text-xs font-bold py-2 px-3.5 rounded-xl shadow-xs transition-all cursor-pointer"
               >
                 <User className="w-3.5 h-3.5" />
-                <span>लॉग इन / खाता (Log In)</span>
+                <span>{t.userLoginBtn}</span>
               </button>
             )}
 

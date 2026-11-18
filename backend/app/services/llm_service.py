@@ -206,7 +206,7 @@ class LLMService:
                 "addressing the user's specific problem directly."
             )
 
-        # 2. Build User Prompt
+        # 2. Build User Prompt with Structured Legal Directives
         profile_guide = get_profile_instructions(user_profile)
         user_prompt = f"""{profile_guide}
 
@@ -216,15 +216,39 @@ RETRIEVED LEGAL CONTEXT FROM KNOWLEDGE BASE:
 USER QUERY:
 "{query}"
 
-Please answer the query thoroughly in English following the System Directives:
-1. Explain the legal position clearly for this {user_profile.value} user profile. Address their specific situation directly with actionable rights and legal provisions.
-2. Explicitly map old law sections (IPC/CrPC/Evidence Act) to new law sections (BNS/BNSS/BSA), or cite relevant special Indian acts (e.g. POSH Act, Payment of Wages, Consumer Protection).
-3. Provide step-by-step actionable advice and legal aid contact info (NALSA DLSA Helpline 15100).
-4. Include an Institutional Scope Notice highlighting these exact points:
-   - Nyayavarta focuses on statutory translation, citizen rights education, procedural roadmaps (FIR, arrest, bail), document analysis, and free legal aid routing.
-   - It does not contain the complete judgment archives, daily court cause lists, hearing transcripts, or case dockets of the Supreme Court of India, the 25 High Courts, or the 672 District Courts.
-   - The entire Indian e-Courts case law archive spans hundreds of millions of case records and hundreds of gigabytes/terabytes of unstructured PDFs across decades, which requires commercial multi-terabyte data warehouse infrastructure (like SCC Online or Manupatra).
-5. List the primary statutory citations at the end.
+STRUCTURE YOUR ANSWER IN CLEAN, BEAUTIFUL GITHUB FLAVORED MARKDOWN USING THESE EXACT NUMBERED SECTIONS:
+
+### 1. Executive Summary & Legal Assessment
+- State the legal position in 2-3 clear, authoritative sentences addressing the user's specific query.
+
+### 2. Statutory Law Transition (IPC / CrPC → BNS / BNSS / BSA)
+Provide a clear comparative markdown table:
+| Legal Subject | Historical Provision | Modern Provision (2023) | Key Statutory Changes & Punishment |
+| :--- | :--- | :--- | :--- |
+| [Subject] | [e.g. IPC Section 420] | [e.g. BNS Section 318] | [Exact penalty, changes in definition, bailable status] |
+
+Explain any crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, Digital Evidence admissibility under BSA 63, or community service).
+
+### 3. Step-by-Step Action Plan for Citizen
+1. **[Step 1 Title]**: Exact practical action (e.g. preserving chats, emails, banking proofs).
+2. **[Step 2 Title]**: Statutory remedy (e.g. approaching police for FIR under BNSS 173 or Cyber Crime portal 1930).
+3. **[Step 3 Title]**: Legal escalation (e.g. filing grievance before Magistrate or Labor Commissioner).
+
+### 4. Citizen Rights & Procedural Safeguards
+- **[Right 1]**: Citizen protection under the law.
+- **[Right 2]**: Procedural safeguards against harassment or unlawful arrest.
+
+### 5. Free Legal Aid & Emergency Helplines
+- **National Legal Aid Helpline (NALSA / DLSA)**: Call **15100** (Toll-Free, 24x7) for free legal aid and counsel.
+- **Police Emergency**: Dial **112**
+- **Cyber Crime Portal**: Dial **1930** or visit **cybercrime.gov.in**
+- **Women Helpline**: Dial **1091**
+
+### 6. Institutional Scope Notice
+- **Statutory Focus**: Nyayavarta provides statutory translation, rights education, procedural roadmaps (FIR, arrest, bail), and free legal aid routing.
+- **Case Law Boundary**: It does not contain the complete judgment archives, daily court cause lists, hearing transcripts, or case dockets of the Supreme Court of India, the 25 High Courts, or the 672 District Courts (which span hundreds of millions of case files across decades and require commercial multi-terabyte data warehouse infrastructure like SCC Online or Manupatra).
+
+*Disclaimer: This response provides legal literacy and institutional aid routing under the Legal Services Authorities Act, 1987. For representation in court, consult an empanelled legal aid advocate.*
 """
 
         # 3. Call Gemini API via robust cascade
@@ -305,7 +329,7 @@ Please answer the query thoroughly in English following the System Directives:
             f"You are a professional multilingual translator specializing in Indian legal translation.\n"
             f"Translate the following legal guidance accurately and completely from {src_name} to {tgt_name}.\n"
             f"- Output the ENTIRE text in {tgt_name} script/language without leaving English sentences in the middle.\n"
-            f"- Preserve section numbers (e.g., Section 351, BNS 2023, BNSS 173), phone numbers (15100, 112), bullet points, and Markdown headers.\n"
+            f"- Preserve section numbers (e.g., Section 318, BNS 2023, BNSS 173), phone numbers (15100, 112, 1930), Markdown tables (| col | col |), bullet points, and '###' headers.\n"
             f"- Output ONLY the translated text without commentary or prefixes.\n\n"
             f"Text to translate:\n{text}"
         )
@@ -574,26 +598,33 @@ Please answer the query thoroughly in English following the System Directives:
 
         response = f"""Here is clear guidance on how Indian law protects you and what steps you can take:
 
-### 1. Legal Provision & Transition
-- **Old Law Reference**: {old_law}
-- **New Law Reference**: {new_law}
+### 1. Executive Summary & Legal Assessment
 - **Subject**: {subject}
+- Under India's modern criminal framework (effective July 1, 2024), citizens are protected against unlawful acts and have full legal recourse through police, courts, and state legal aid institutions.
+
+### 2. Statutory Law Transition (IPC / CrPC → BNS / BNSS / BSA)
+| Legal Subject | Historical Provision | Modern Provision (2023) | Key Statutory Changes |
+| :--- | :--- | :--- | :--- |
+| {subject} | {old_law} | {new_law} | Substantive codified legal transition |
 
 {details}
 
-### 2. Immediate Recommended Steps
+### 3. Immediate Recommended Steps
 {steps_rendered}
 
-### 3. Free Legal Aid & Helplines
-- **National Legal Aid Helpline**: Call **15100** (Toll-Free, 24x7) for free legal aid provided by NALSA / DLSA.
-- **Emergency Services**: Dial **112**.
-- **Women Helpline**: Dial **1091**.
-- **Cyber Crime Portal**: Call **1930** or report on cybercrime.gov.in.
+### 4. Citizen Rights & Procedural Safeguards
+- **Zero FIR & Mandatory Recording**: Under Section 173 BNSS, an FIR can be filed at any police station regardless of jurisdiction, and a free registered copy must be provided.
+- **Fair Representation**: Every citizen has the right to free legal representation if unable to afford private counsel under Article 39A of the Constitution of India.
 
-### 4. Institutional Scope Notice & System Boundaries
+### 5. Free Legal Aid & Helplines
+- **National Legal Aid Helpline (NALSA / DLSA)**: Call **15100** (Toll-Free, 24x7) for free legal aid.
+- **Police Emergency**: Dial **112**.
+- **Women Helpline**: Dial **1091**.
+- **Cyber Crime Portal**: Call **1930** or report on **cybercrime.gov.in**.
+
+### 6. Institutional Scope Notice
 - **Statutory Focus**: Nyayavarta focuses on statutory translation, citizen rights education, procedural roadmaps (FIR, arrest, bail), document analysis, and free legal aid routing.
-- **No Case Law Archives**: It does not contain the complete judgment archives, daily court cause lists, hearing transcripts, or case dockets of the Supreme Court of India, the 25 High Courts, or the 672 District Courts.
-- **Enterprise Infrastructure Requirement**: The entire Indian e-Courts case law archive spans hundreds of millions of case records and hundreds of gigabytes/terabytes of unstructured PDFs across decades, which requires commercial multi-terabyte data warehouse infrastructure (like SCC Online or Manupatra).
+- **Case Law Boundary**: It does not contain the complete judgment archives, daily court cause lists, hearing transcripts, or case dockets of the Supreme Court of India, the 25 High Courts, or the 672 District Courts (which require commercial multi-terabyte data warehouse infrastructure like SCC Online or Manupatra).
 
 *Disclaimer: Nyayavarta provides legal awareness and aid routing. For formal representation in a court of law, please consult an empanelled legal aid advocate or attorney.*
 """
