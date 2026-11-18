@@ -1012,6 +1012,32 @@ Here is clear guidance on how Indian law protects you and what steps you can tak
             "20": ("Section 20, Unlawful Activities (Prevention) Act, 1967", "Punishment for Being Member of Terrorist Gang or Organisation", "Imprisonment extending to life, and fine. Targets members of declared terrorist entities."),
             "25(1-C)": ("Section 25(1-C), Arms Act, 1959", "Possession / Delivery of Prohibited Arms or Ammunition", "Rigorous imprisonment not less than 3 years up to 7 or 10 years, and fine."),
             "25": ("Section 25, Arms Act, 1959", "Punishment for Certain Offences under Arms Act", "Rigorous imprisonment and fine for illegal arms/ammunition possession."),
+            # Negotiable Instruments Act (Cheque Bounce)
+            "138": ("Section 138, Negotiable Instruments Act, 1881", "Dishonour of Cheque for Insufficiency of Funds", "Quasi-criminal offence punishable with imprisonment up to 2 years, fine up to twice cheque amount, or both. Mandatory 15-day notice."),
+            # Cyber Fraud / Information Technology Act
+            "66C": ("Section 66C, Information Technology Act, 2000", "Identity Theft & Digital Impersonation", "Imprisonment up to 3 years and fine up to Rs 1 lakh for fraudulent use of digital passwords or identity."),
+            "66D": ("Section 66D, Information Technology Act, 2000", "Cheating by Personation using Computer Resource", "Imprisonment up to 3 years and fine up to Rs 1 lakh for online phishing and cyber financial fraud."),
+            # POCSO Act
+            "4_POCSO": ("Section 4, POCSO Act, 2012", "Punishment for Penetrative Sexual Assault on Child", "Rigorous imprisonment not less than 10 years extending to life, and fine."),
+            "6_POCSO": ("Section 6, POCSO Act, 2012", "Punishment for Aggravated Penetrative Sexual Assault", "Rigorous imprisonment not less than 20 years extending to life (rest of natural life) or death penalty, and fine."),
+            # NDPS Act
+            "20_NDPS": ("Section 20, NDPS Act, 1985", "Punishment for Offences Relating to Cannabis", "Rigorous imprisonment up to 10 or 20 years and fine depending on small vs commercial quantity."),
+            "21_NDPS": ("Section 21, NDPS Act, 1985", "Punishment for Contravention of Manufactured Drugs", "Rigorous imprisonment up to 20 years and fine; commercial quantity mandates minimum 10 years."),
+            "37_NDPS": ("Section 37, NDPS Act, 1985", "Stringent Bail Limitations under NDPS", "Non-bailable; court must find reasonable grounds that accused is not guilty before granting bail."),
+            # Consumer Protection Act
+            "35_CPA": ("Section 35, Consumer Protection Act, 2019", "Consumer Complaint before District Commission", "Remedy for deficiency of service, defect in goods, or unfair trade practice at consumer's location."),
+            "84_CPA": ("Section 84, Consumer Protection Act, 2019", "Product Liability of Manufacturer / Seller", "Strict liability for harm, personal injury, or damage caused by defective products or misleading service."),
+            # Domestic Violence Act
+            "12_DV": ("Section 12, Protection of Women from Domestic Violence Act, 2005", "Application to Magistrate for Protection & Relief", "Enables aggrieved woman to seek interim protection, right of residence, and maintenance within 60 days."),
+            "18_DV": ("Section 18, Protection of Women from Domestic Violence Act, 2005", "Protection Orders against Domestic Violence", "Prohibits abuser from committing violence, entering workplace, or communicating with victim."),
+            # Motor Vehicles Act
+            "166_MVA": ("Section 166, Motor Vehicles Act, 1988", "Application for Compensation in Motor Accidents (MACT)", "Statutory claim by accident victims or legal heirs for just compensation before Claims Tribunal."),
+            # RTI Act
+            "6_RTI": ("Section 6, Right to Information Act, 2005", "Request for Obtaining Public Information", "Statutory right to access public authority records with mandatory 30-day disclosure deadline."),
+            # Companies Act
+            "447": ("Section 447, Companies Act, 2013", "Punishment for Corporate Fraud", "Imprisonment from 6 months up to 10 years, and fine up to three times the fraud; cognizable and non-bailable under Sec 212(6)."),
+            # Arbitration Act
+            "9_ARB": ("Section 9, Arbitration and Conciliation Act, 1996", "Interim Measures by Court in Arbitration", "Enables party to secure preservation of property, goods, or assets before or during arbitral proceedings."),
         }
 
         # Check explicit section mentions in text (both "Section 103 BNS" and "BNS Section 103")
@@ -1030,6 +1056,20 @@ Here is clear guidance on how Indian law protects you and what steps you can tak
             (r"Section\s*(\d+[A-Za-z\-]*)\s*(?:of\s*)?(?:the\s*)?(?:UA\(P\)\s*Act|UAPA)\b", "UAPA"),
             (r"\b(?:Arms\s*Act|A\.\s*Act)\s*(?:Section|Sec\.?)?\s*(\d+[\(A-Za-z0-9\-\)]*)\b", "Arms Act"),
             (r"Section\s*(\d+[\(A-Za-z0-9\-\)]*)\s*(?:of\s*)?(?:the\s*)?(?:Arms\s*Act|A\.\s*Act)\b", "Arms Act"),
+            (r"\b(?:NI\s*Act|Negotiable\s*Instruments\s*Act)\s*(?:Section|Sec\.?)?\s*(\d+[A-Za-z\-]*)\b", "NI Act"),
+            (r"Section\s*(\d+[A-Za-z\-]*)\s*(?:of\s*)?(?:the\s*)?(?:NI\s*Act|Negotiable\s*Instruments\s*Act)\b", "NI Act"),
+            (r"\b(?:IT\s*Act|Information\s*Technology\s*Act)\s*(?:Section|Sec\.?)?\s*(\d+[A-Za-z\-]*)\b", "IT Act"),
+            (r"Section\s*(\d+[A-Za-z\-]*)\s*(?:of\s*)?(?:the\s*)?(?:IT\s*Act|Information\s*Technology\s*Act)\b", "IT Act"),
+            (r"\b(?:POCSO\s*Act|POCSO)\s*(?:Section|Sec\.?)?\s*(\d+[A-Za-z\-]*)\b", "POCSO Act"),
+            (r"Section\s*(\d+[A-Za-z\-]*)\s*(?:of\s*)?(?:the\s*)?(?:POCSO\s*Act|POCSO)\b", "POCSO Act"),
+            (r"\b(?:NDPS\s*Act|NDPS)\s*(?:Section|Sec\.?)?\s*(\d+[A-Za-z\-]*)\b", "NDPS Act"),
+            (r"Section\s*(\d+[A-Za-z\-]*)\s*(?:of\s*)?(?:the\s*)?(?:NDPS\s*Act|NDPS)\b", "NDPS Act"),
+            (r"\b(?:Consumer\s*Protection\s*Act|CPA)\s*(?:Section|Sec\.?)?\s*(\d+[A-Za-z\-]*)\b", "Consumer Protection Act"),
+            (r"Section\s*(\d+[A-Za-z\-]*)\s*(?:of\s*)?(?:the\s*)?(?:Consumer\s*Protection\s*Act|CPA)\b", "Consumer Protection Act"),
+            (r"\b(?:Domestic\s*Violence\s*Act|DV\s*Act)\s*(?:Section|Sec\.?)?\s*(\d+[A-Za-z\-]*)\b", "DV Act"),
+            (r"Section\s*(\d+[A-Za-z\-]*)\s*(?:of\s*)?(?:the\s*)?(?:Domestic\s*Violence\s*Act|DV\s*Act)\b", "DV Act"),
+            (r"\b(?:Companies\s*Act)\s*(?:Section|Sec\.?)?\s*(\d+[A-Za-z\-]*)\b", "Companies Act"),
+            (r"Section\s*(\d+[A-Za-z\-]*)\s*(?:of\s*)?(?:the\s*)?(?:Companies\s*Act)\b", "Companies Act"),
         ]
 
         for pat, act_code in patterns:
@@ -1172,6 +1212,78 @@ Here is clear guidance on how Indian law protects you and what steps you can tak
                 "section": "BNS Section 329 & 333 (formerly IPC Section 441 & 447)",
                 "subject": "Criminal Trespass & Unlawful Land Encroachment",
                 "key_changes": "Replaces IPC 441/447. Criminal remedy under BNSS 173 and civil injunction under Specific Relief Act."
+            })
+
+        # Cheque Bounce (Negotiable Instruments Act Section 138)
+        if ("cheque" in t_lower or "bounce" in t_lower or "138" in text or "dishonour" in t_lower) and "138" not in seen:
+            seen.add("138")
+            citations.append({
+                "section": "Section 138, Negotiable Instruments Act, 1881",
+                "subject": "Dishonour of Cheque for Insufficiency of Funds",
+                "key_changes": "Quasi-criminal proceeding punishable with imprisonment up to 2 years, fine up to twice cheque amount, or both. Requires 15-day demand notice."
+            })
+
+        # Cyber Crime & Identity Theft (IT Act 66C / 66D)
+        if ("cyber" in t_lower or "phishing" in t_lower or "66c" in t_lower or "66d" in t_lower or "online fraud" in t_lower or "impersonation" in t_lower) and "66C" not in seen:
+            seen.add("66C")
+            citations.append({
+                "section": "Section 66C & 66D, Information Technology Act, 2000",
+                "subject": "Identity Theft & Digital Impersonation Cheating",
+                "key_changes": "Penalizes electronic identity fraud and computer-assisted financial cheating with up to 3 years imprisonment and fine."
+            })
+
+        # Child Protection (POCSO Act)
+        if ("pocso" in t_lower or "child sexual" in t_lower or "minor sexual" in t_lower) and "POCSO" not in seen:
+            seen.add("POCSO")
+            citations.append({
+                "section": "Sections 4 & 6, POCSO Act, 2012",
+                "subject": "Penetrative & Aggravated Penetrative Sexual Assault on Child",
+                "key_changes": "Prescribes rigorous minimum punishment of 20 years extending to life imprisonment or death penalty. Mandatory reverse burden of proof."
+            })
+
+        # Narcotics & Drugs (NDPS Act)
+        if ("ndps" in t_lower or "narcotic" in t_lower or "contraband" in t_lower or "drugs" in t_lower) and "NDPS" not in seen:
+            seen.add("NDPS")
+            citations.append({
+                "section": "Sections 20, 21 & 37, NDPS Act, 1985",
+                "subject": "Trafficking of Narcotic Contraband & Stringent Bail Restrictions",
+                "key_changes": "Graded penalties based on commercial quantity (10-20 years RI). Strict non-bailable dual statutory test under Section 37."
+            })
+
+        # Consumer Protection (CPA 2019)
+        if ("consumer" in t_lower or "deficiency of service" in t_lower or "product liability" in t_lower or "edaakhil" in t_lower) and "CPA" not in seen:
+            seen.add("CPA")
+            citations.append({
+                "section": "Sections 35 & 84, Consumer Protection Act, 2019",
+                "subject": "Deficiency in Service & Strict Product Liability",
+                "key_changes": "Enables complaint at consumer's residence, e-filing (e-daakhil), and product liability against e-commerce and manufacturers."
+            })
+
+        # Domestic Violence (DV Act 2005)
+        if ("domestic violence" in t_lower or "shared household" in t_lower or "dv act" in t_lower or "stridhan" in t_lower) and "DV" not in seen:
+            seen.add("DV")
+            citations.append({
+                "section": "Sections 12, 18 & 19, Protection of Women from Domestic Violence Act, 2005",
+                "subject": "Right to Residence, Protection Orders & Monetary Maintenance",
+                "key_changes": "Enables magistrate to grant ex-parte protection orders, stop domestic abuse, and secure accommodation within 60 days."
+            })
+
+        # Motor Accidents Claims (MVA)
+        if ("accident" in t_lower or "mact" in t_lower or "motor vehicle" in t_lower or "hit and run" in t_lower) and "MVA" not in seen:
+            seen.add("MVA")
+            citations.append({
+                "section": "Sections 161 & 166, Motor Vehicles Act, 1988 (Amended 2019)",
+                "subject": "Compensation for Vehicular Accidents & Hit-and-Run Claims",
+                "key_changes": "Enhanced hit-and-run statutory payout (Rs 2,00,000 for death) and just compensation claims before Claims Tribunal."
+            })
+
+        # Corporate Fraud (Companies Act 447)
+        if ("corporate fraud" in t_lower or "sfio" in t_lower or "section 447" in t_lower) and "447" not in seen:
+            seen.add("447")
+            citations.append({
+                "section": "Section 447, Companies Act, 2013",
+                "subject": "Punishment for Corporate Fraud",
+                "key_changes": "Rigorous imprisonment from 6 months up to 10 years, and fine up to 3x fraud amount. Non-bailable under Section 212(6)."
             })
 
         # FIR citations

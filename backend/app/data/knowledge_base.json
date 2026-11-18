@@ -153,6 +153,76 @@
       "subject": "Punishment for criminal breach of trust",
       "description": "Whoever commits criminal breach of trust shall be punished with imprisonment of either description for a term which may extend to five years, or with fine, or with both.",
       "key_changes": "Section 406 IPC replaced by Section 316 BNS. Misappropriation of entrusted property, financial deposits, or investor funds is strictly punishable."
+    },
+    {
+      "old_law": "Negotiable Instruments Act, 1881 - Section 138",
+      "new_law": "Negotiable Instruments Act, 1881 - Section 138",
+      "subject": "Dishonour of cheque for insufficiency of funds (Cheque Bounce)",
+      "description": "Where any cheque drawn by a person on an account maintained by him with a banker for payment of any amount of money to another person for the discharge of any debt or other liability is returned unpaid by the bank.",
+      "key_changes": "Quasi-criminal proceeding. Punishable with imprisonment up to 2 years, or fine extending to twice the amount of the cheque, or both. Mandatory 15-day demand notice."
+    },
+    {
+      "old_law": "Information Technology Act, 2000 - Section 66C & 66D",
+      "new_law": "Information Technology Act, 2000 - Section 66C & 66D",
+      "subject": "Identity theft and cheating by personation using computer resource (Cyber Fraud)",
+      "description": "Penalizes fraudulently using electronic signatures, passwords, or unique identification features of others, and cheating by personating via computer resource or digital device.",
+      "key_changes": "Punishable with imprisonment up to 3 years and fine up to Rs 1,00,000. Operates alongside BNS Section 318(4) (Cheating) and Section 63 BSA (Digital Evidence)."
+    },
+    {
+      "old_law": "Protection of Children from Sexual Offences (POCSO) Act, 2012 - Section 4 & 6",
+      "new_law": "Protection of Children from Sexual Offences (POCSO) Act, 2012 - Section 4 & 6",
+      "subject": "Penetrative and aggravated penetrative sexual assault on children",
+      "description": "Special child protection enactment defining sexual offences against any person below the age of 18 years, establishing designated Special Courts and child-friendly procedures.",
+      "key_changes": "Mandatory minimum imprisonment of 20 years extending to imprisonment for life (rest of natural life) or death penalty for aggravated offences. Reverse burden of proof under Sections 29 & 30."
+    },
+    {
+      "old_law": "Narcotic Drugs and Psychotropic Substances (NDPS) Act, 1985 - Section 20 & 21",
+      "new_law": "Narcotic Drugs and Psychotropic Substances (NDPS) Act, 1985 - Section 20 & 21",
+      "subject": "Possession, trafficking and sale of manufactured drugs and psychotropic substances",
+      "description": "Penalizes the cultivation, production, manufacture, possession, sale, purchase, transportation, or interstate import/export of cannabis, manufactured drugs, or psychotropic substances.",
+      "key_changes": "Graded punishments based on small, intermediate, and commercial quantities (10 to 20 years rigorous imprisonment). Section 37 imposes strict dual negative conditions for grant of bail."
+    },
+    {
+      "old_law": "Consumer Protection Act, 2019 - Section 35 & 84",
+      "new_law": "Consumer Protection Act, 2019 - Section 35 & 84",
+      "subject": "Consumer complaints for deficiency of service, unfair trade practices, and product liability",
+      "description": "Modern comprehensive legislation replacing the 1986 Act, empowering consumers to file complaints before District, State, and National Commissions.",
+      "key_changes": "Introduced e-filing (e-daakhil portal), class action suits via CCPA, mediation cells, and strict product liability against manufacturers, service providers, and e-commerce platforms."
+    },
+    {
+      "old_law": "Protection of Women from Domestic Violence Act, 2005 - Section 12, 18 & 19",
+      "new_law": "Protection of Women from Domestic Violence Act, 2005 - Section 12, 18 & 19",
+      "subject": "Right to reside in shared household, protection orders, and monetary relief (DV Act)",
+      "description": "Provides civil-criminal legal protection to women facing domestic violence, physical injury, emotional harassment, or economic deprivation in a shared household.",
+      "key_changes": "Magistrate empowered to grant ex-parte interim protection orders, residence orders protecting eviction, and monetary maintenance within a time-bound statutory target of 60 days."
+    },
+    {
+      "old_law": "Motor Vehicles Act, 1988 - Section 166 & 161",
+      "new_law": "Motor Vehicles Act, 1988 (Amended 2019) - Section 166 & 161",
+      "subject": "Compensation for road accidents (MACT Claims) and Hit-and-Run victims",
+      "description": "Enables victims or legal heirs of deceased persons in vehicular accidents to claim just compensation before the Motor Accidents Claims Tribunal (MACT).",
+      "key_changes": "Enhanced statutory compensation for hit-and-run accidents (Rs 2,00,000 for death, Rs 50,000 for grievous injury). Cashless emergency treatment during the golden hour."
+    },
+    {
+      "old_law": "Right to Information Act, 2005 - Section 6, 7 & 19",
+      "new_law": "Right to Information Act, 2005 - Section 6, 7 & 19",
+      "subject": "Citizen request for public records, 30-day disclosure mandate, and Second Appeals",
+      "description": "Empowers Indian citizens to request inspection, certified copies, or electronic records from any public authority or government department.",
+      "key_changes": "Mandatory response within 30 days (48 hours if concerning life or liberty). Penalty up to Rs 25,000 on defaulting Public Information Officers (PIOs) and remedy before Central/State Information Commission."
+    },
+    {
+      "old_law": "Companies Act, 2013 - Section 447",
+      "new_law": "Companies Act, 2013 - Section 447",
+      "subject": "Punishment for corporate fraud and forensic investigation by SFIO",
+      "description": "Penalizes any act, omission, concealment of fact, or abuse of position committed by any person or director with intent to deceive, to gain undue advantage from, or to injure the interests of the company.",
+      "key_changes": "Rigorous imprisonment not less than 6 months extending to 10 years, and fine not less than the amount involved up to three times the fraud. Cognizable and non-bailable under Section 212(6)."
+    },
+    {
+      "old_law": "Arbitration and Conciliation Act, 1996 - Section 9 & 11",
+      "new_law": "Arbitration and Conciliation Act, 1996 - Section 9 & 11",
+      "subject": "Interim court protection and appointment of independent arbitrators",
+      "description": "Comprehensive framework for domestic and international commercial dispute resolution, interim measures by High Court / Commercial Court, and enforcement of arbitral awards.",
+      "key_changes": "Mandates completion of arbitral proceedings within 12 months under Section 29A with fast-track procedure, minimizing interference by regular civil courts."
     }
   ]
 }
