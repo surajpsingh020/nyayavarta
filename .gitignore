@@ -30,3 +30,6 @@ uploads/
 # Data artifacts
 *.faiss
 *.pkl
+*.db
+*.sqlite
+*.sqlite3

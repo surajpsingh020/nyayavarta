@@ -14,9 +14,11 @@ Implements the complete GraphRAG orchestration flow:
 
 import logging
 from typing import Optional
-from fastapi import APIRouter, HTTPException, Request, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 
 from app.models.schemas import ChatRequest, ChatResponse, TranslateRequest, TranslateResponse, UserProfile
+from app.routers.auth import get_optional_user
+from app.services.auth_db import get_auth_db
 from app.services.bhashini_utils import (
     detect_language_heuristic,
     generate_mock_wav_base64,
@@ -30,12 +32,19 @@ router = APIRouter()
 
 
 @router.post("/chat", response_model=ChatResponse, summary="Process multilingual legal consultation query")
-async def chat_endpoint(request: Request, payload: ChatRequest):
+async def chat_endpoint(
+    request: Request,
+    payload: ChatRequest,
+    user: Optional[dict] = Depends(get_optional_user)
+):
     """Multilingual legal consultation endpoint with GraphRAG and multi-model synthesis."""
     settings = getattr(request.app.state, "settings", None)
     rag_pipeline = getattr(request.app.state, "rag_pipeline", None)
     bhashini = get_bhashini_service()
     llm_service = LLMService(settings)
+    auth_db = get_auth_db()
+
+    current_thread_id = payload.thread_id
 
     try:
         # ---------------------------------------------------------
@@ -77,6 +86,24 @@ async def chat_endpoint(request: Request, payload: ChatRequest):
 
         if target_output_lang == "auto":
             target_output_lang = detected_input_lang if detected_input_lang != "en" else "hi"
+
+        # Persist user message to consultation thread if user is authenticated
+        if user:
+            try:
+                if not current_thread_id:
+                    thread_title = user_text[:60] if user_text else "Legal Consultation"
+                    created_th = auth_db.create_thread(user_id=user["id"], title=thread_title)
+                    current_thread_id = created_th["id"]
+
+                auth_db.add_message(
+                    user_id=user["id"],
+                    thread_id=current_thread_id,
+                    sender="user",
+                    original_query=user_text,
+                    detected_language=detected_input_lang,
+                )
+            except Exception as pe:
+                logger.warning(f"Could not persist user message to DB: {pe}")
 
         # ---------------------------------------------------------
         # Step 2: Translation to English for Legal Search
@@ -168,8 +195,25 @@ async def chat_endpoint(request: Request, payload: ChatRequest):
             logger.debug(f"TTS synthesis notice: {e}")
 
         # ---------------------------------------------------------
-        # Step 7: Return Structured Response
+        # Step 7: Return Structured Response & Persist Assistant Message
         # ---------------------------------------------------------
+        if user and current_thread_id:
+            try:
+                auth_db.add_message(
+                    user_id=user["id"],
+                    thread_id=current_thread_id,
+                    sender="assistant",
+                    original_query=user_text,
+                    english_query=english_query,
+                    regional_response=regional_response,
+                    english_response=english_response,
+                    citations=citations,
+                    audio_base64=audio_base64,
+                    detected_language=target_output_lang,
+                )
+            except Exception as pe:
+                logger.warning(f"Could not persist assistant message to DB: {pe}")
+
         return ChatResponse(
             original_query=user_text,
             english_query=english_query,
@@ -178,6 +222,7 @@ async def chat_endpoint(request: Request, payload: ChatRequest):
             citations=citations,
             audio_base64=audio_base64,
             detected_language=target_output_lang,
+            thread_id=current_thread_id,
         )
 
     except HTTPException:
@@ -187,14 +232,35 @@ async def chat_endpoint(request: Request, payload: ChatRequest):
         fallback_en = llm_service._generate_fallback_response(
             payload.text or "Legal query", [], payload.user_profile
         )
+        citations_fb = llm_service._extract_citations_from_text(fallback_en)
+        mock_audio = generate_mock_wav_base64()
+
+        if user and current_thread_id:
+            try:
+                auth_db.add_message(
+                    user_id=user["id"],
+                    thread_id=current_thread_id,
+                    sender="assistant",
+                    original_query=payload.text or "",
+                    english_query=payload.text or "",
+                    regional_response=fallback_en,
+                    english_response=fallback_en,
+                    citations=citations_fb,
+                    audio_base64=mock_audio,
+                    detected_language="hi",
+                )
+            except Exception as pe:
+                logger.warning(f"Could not persist fallback assistant message to DB: {pe}")
+
         return ChatResponse(
             original_query=payload.text or "",
             english_query=payload.text or "",
             regional_response=fallback_en,
             english_response=fallback_en,
-            citations=llm_service._extract_citations_from_text(fallback_en),
-            audio_base64=generate_mock_wav_base64(),
+            citations=citations_fb,
+            audio_base64=mock_audio,
             detected_language="hi",
+            thread_id=current_thread_id,
         )
 
 

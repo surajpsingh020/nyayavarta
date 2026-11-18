@@ -4,8 +4,9 @@ from contextlib import asynccontextmanager
 import os
 
 from app.config import get_settings
-from app.routers import chat, upload
+from app.routers import chat, upload, auth, history
 from app.services.rag_pipeline import RAGPipeline
+from app.services.auth_db import get_auth_db
 
 
 # Global RAG pipeline instance
@@ -24,6 +25,9 @@ async def lifespan(app: FastAPI):
     # Initialize RAG pipeline with knowledge base
     rag_pipeline = RAGPipeline(settings)
     rag_pipeline.initialize()
+
+    # Initialize SQLite Auth & Chat Database
+    get_auth_db()
 
     # Attach to app state for dependency injection
     app.state.rag_pipeline = rag_pipeline
@@ -53,6 +57,8 @@ app.add_middleware(
 )
 
 # Include routers
+app.include_router(auth.router, prefix="/api", tags=["Auth"])
+app.include_router(history.router, prefix="/api", tags=["History"])
 app.include_router(chat.router, prefix="/api", tags=["Chat"])
 app.include_router(upload.router, prefix="/api", tags=["Upload"])
 

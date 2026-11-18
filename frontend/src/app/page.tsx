@@ -12,11 +12,14 @@ import {
   ExternalLink,
   ArrowRight,
   FileText,
+  User,
+  LogOut,
 } from 'lucide-react';
 import LanguageSelector from '@/components/LanguageSelector';
 import ChatInterface from '@/components/ChatInterface';
 import DocumentUpload from '@/components/DocumentUpload';
-import { checkHealth, UploadResponse } from '@/lib/api';
+import AuthModal from '@/components/AuthModal';
+import { checkHealth, UploadResponse, getCurrentUser, logoutUser, UserInfo } from '@/lib/api';
 import { getUITranslations } from '@/lib/i18n';
 
 export default function Home() {
@@ -24,6 +27,10 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<'chat' | 'upload' | 'reference'>('chat');
   const [backendStatus, setBackendStatus] = useState<'checking' | 'healthy' | 'offline'>('checking');
   const [uploadedFiles, setUploadedFiles] = useState<UploadResponse[]>([]);
+
+  // User Authentication State
+  const [currentUser, setCurrentUser] = useState<UserInfo | null>(null);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const t = getUITranslations(selectedLanguage);
 
@@ -34,10 +41,20 @@ export default function Home() {
         else setBackendStatus('offline');
       })
       .catch(() => setBackendStatus('offline'));
+
+    // Check for existing user session
+    getCurrentUser()
+      .then((user) => setCurrentUser(user))
+      .catch(() => setCurrentUser(null));
   }, []);
 
   const handleDocumentUploaded = (res: UploadResponse) => {
     setUploadedFiles((prev) => [res, ...prev]);
+  };
+
+  const handleLogout = async () => {
+    await logoutUser();
+    setCurrentUser(null);
   };
 
   return (
@@ -96,8 +113,37 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Controls: Language Selector */}
+          {/* Controls: User Auth & Language Selector */}
           <div className="flex items-center gap-3">
+            {currentUser ? (
+              <div className="flex items-center gap-2 bg-primary-50 border border-primary-200/80 py-1.5 px-3 rounded-xl shadow-2xs">
+                <div className="w-6 h-6 rounded-lg bg-primary-700 text-white flex items-center justify-center text-xs font-bold">
+                  {currentUser.full_name.charAt(0).toUpperCase()}
+                </div>
+                <span className="text-xs font-semibold text-primary-950 max-w-[120px] truncate">
+                  {currentUser.full_name}
+                </span>
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="p-1 text-gray-400 hover:text-red-600 rounded transition-colors ml-1 cursor-pointer"
+                  title="Log out"
+                  aria-label="Log out"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setIsAuthModalOpen(true)}
+                className="flex items-center gap-1.5 bg-primary-700 hover:bg-primary-800 text-white text-xs font-bold py-2 px-3.5 rounded-xl shadow-xs transition-all cursor-pointer"
+              >
+                <User className="w-3.5 h-3.5" />
+                <span>लॉग इन / खाता (Log In)</span>
+              </button>
+            )}
+
             <LanguageSelector
               selectedLanguage={selectedLanguage}
               onLanguageChange={setSelectedLanguage}
@@ -114,7 +160,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => setActiveTab('chat')}
-              className={`flex items-center gap-2 py-3 px-4 font-semibold text-sm border-b-2 transition-all ${
+              className={`flex items-center gap-2 py-3 px-4 font-semibold text-sm border-b-2 transition-all cursor-pointer ${
                 activeTab === 'chat'
                   ? 'border-primary-600 text-primary-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -127,7 +173,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => setActiveTab('upload')}
-              className={`flex items-center gap-2 py-3 px-4 font-semibold text-sm border-b-2 transition-all ${
+              className={`flex items-center gap-2 py-3 px-4 font-semibold text-sm border-b-2 transition-all cursor-pointer ${
                 activeTab === 'upload'
                   ? 'border-primary-600 text-primary-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -140,7 +186,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => setActiveTab('reference')}
-              className={`flex items-center gap-2 py-3 px-4 font-semibold text-sm border-b-2 transition-all ${
+              className={`flex items-center gap-2 py-3 px-4 font-semibold text-sm border-b-2 transition-all cursor-pointer ${
                 activeTab === 'reference'
                   ? 'border-primary-600 text-primary-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -157,189 +203,192 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Tab 1: Chat Interface */}
-        {activeTab === 'chat' && (
-          <div className="space-y-5">
-            <ChatInterface
-              selectedLanguage={selectedLanguage}
-            />
-          </div>
-        )}
+        {/* Tab 1: Chat Interface (Rendered continuously to preserve chat state across tab switches!) */}
+        <div className={activeTab === 'chat' ? 'space-y-5' : 'hidden'}>
+          <ChatInterface
+            selectedLanguage={selectedLanguage}
+            currentUser={currentUser}
+            onOpenAuthModal={() => setIsAuthModalOpen(true)}
+          />
+        </div>
 
-        {/* Tab 2: Document Upload & Knowledge Base */}
-        {activeTab === 'upload' && (
-          <div className="space-y-6">
-            {/* Educational Explainer Banner */}
-            <div className="bg-gradient-to-r from-blue-900 via-primary-900 to-indigo-900 text-white rounded-2xl p-6 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-              <div className="space-y-2 max-w-2xl">
-                <div className="inline-flex items-center gap-1.5 bg-accent-500/20 text-accent-300 border border-accent-400/30 px-2.5 py-0.5 rounded-full text-xs font-semibold">
-                  <FileText className="w-3.5 h-3.5" />
-                  What is Document Upload? (दस्तावेज़ कैसे काम करता है?)
-                </div>
-                <h3 className="text-lg font-bold">
-                  Ask AI Questions Directly About Your Legal Report or FIR Copy
-                </h3>
-                <p className="text-xs text-gray-200 leading-relaxed">
-                  When you upload an FIR copy, court petition, agreement, or police report (PDF/DOCX), Nyayavarta parses its text, segments it into searchable chunks, and indexes it into the Neo4j Knowledge Graph. You can then ask questions in the <strong>Legal Chat</strong> (via text or voice) and the AI will reference your specific document!
-                </p>
+        {/* Tab 2: Document Upload & Knowledge Base (Kept mounted to preserve upload stats) */}
+        <div className={activeTab === 'upload' ? 'space-y-6' : 'hidden'}>
+          {/* Educational Explainer Banner */}
+          <div className="bg-gradient-to-r from-blue-900 via-primary-900 to-indigo-900 text-white rounded-2xl p-6 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="space-y-2 max-w-2xl">
+              <div className="inline-flex items-center gap-1.5 bg-accent-500/20 text-accent-300 border border-accent-400/30 px-2.5 py-0.5 rounded-full text-xs font-semibold">
+                <FileText className="w-3.5 h-3.5" />
+                What is Document Upload? (दस्तावेज़ कैसे काम करता है?)
               </div>
-
-              <button
-                type="button"
-                onClick={() => setActiveTab('chat')}
-                className="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow transition-all whitespace-nowrap self-start md:self-auto"
-              >
-                Go to Legal Chat <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2 space-y-6">
-                <DocumentUpload onUploadSuccess={handleDocumentUploaded} />
-
-                {/* Uploaded Documents History */}
-                <div className="card">
-                  <h4 className="font-bold text-gray-800 text-sm mb-3 flex items-center justify-between">
-                    <span>Indexed Documents in this Session (अपलोड किए गए दस्तावेज़)</span>
-                    <span className="text-xs font-normal text-gray-500">
-                      {uploadedFiles.length} file(s)
-                    </span>
-                  </h4>
-                  {uploadedFiles.length === 0 ? (
-                    <p className="text-xs text-gray-400 italic">
-                      No documents uploaded yet. Upload a PDF or Word file above (or using the paperclip button in the chat) to index its content into the knowledge graph.
-                    </p>
-                  ) : (
-                    <div className="space-y-2">
-                      {uploadedFiles.map((file, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-center justify-between p-3 rounded-xl bg-gray-50 border border-gray-200 text-xs"
-                        >
-                          <div className="flex items-center gap-2">
-                            <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
-                            <span className="font-semibold text-gray-800">{file.filename}</span>
-                          </div>
-                          <span className="bg-primary-100 text-primary-800 px-2.5 py-0.5 rounded-full text-[11px] font-medium">
-                            {file.chunks_created} chunks in Neo4j
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* RAG Knowledge Base Stats */}
-              <div className="space-y-4">
-                <div className="card bg-gradient-to-br from-primary-900 to-primary-950 text-white">
-                  <h4 className="font-bold text-sm mb-2 text-accent-300">
-                    GraphRAG Architecture (Neo4j)
-                  </h4>
-                  <p className="text-xs text-gray-300 leading-relaxed mb-4">
-                    Nyayavarta combines Neo4j Knowledge Graph traversal with BM25 keyword search to maximize legal accuracy.
-                  </p>
-                  <div className="space-y-2.5 text-xs">
-                    <div className="flex justify-between pb-1.5 border-b border-white/10">
-                      <span className="text-gray-300">Knowledge Graph</span>
-                      <span className="font-mono font-semibold text-white">Neo4j (Cypher Traversal)</span>
-                    </div>
-                    <div className="flex justify-between pb-1.5 border-b border-white/10">
-                      <span className="text-gray-300">Keyword Retrieval</span>
-                      <span className="font-mono font-semibold text-white">rank-bm25 (BM25Okapi)</span>
-                    </div>
-                    <div className="flex justify-between pb-1.5 border-b border-white/10">
-                      <span className="text-gray-300">Orchestration</span>
-                      <span className="font-mono font-semibold text-accent-300">LangChain Neo4jGraph</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-300">Statutory Graph Data</span>
-                      <span className="font-mono font-semibold text-white">IPC/CrPC → BNS/BNSS/BSA</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="card">
-                  <h4 className="font-bold text-gray-800 text-sm mb-2">
-                    Document Guidelines
-                  </h4>
-                  <ul className="text-xs text-gray-600 space-y-2 list-disc list-inside">
-                    <li>Supported: FIR copies, court petitions, bail orders, legal contracts.</li>
-                    <li>Text extraction via <strong>PyMuPDF</strong> with page-level metadata.</li>
-                    <li>Max file size: 20MB.</li>
-                    <li>Indexed chunks are automatically retrieved in subsequent chat queries.</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Tab 3: Law Transition Matrix */}
-        {activeTab === 'reference' && (
-          <div className="card space-y-4">
-            <div>
-              <h3 className="text-base font-bold text-gray-900">
-                {t.matrixTitle}
+              <h3 className="text-lg font-bold">
+                Ask AI Questions Directly About Your Legal Report or FIR Copy
               </h3>
-              <p className="text-xs text-gray-500 mt-1">
-                {t.matrixSubtitle}
+              <p className="text-xs text-gray-200 leading-relaxed">
+                When you upload an FIR copy, court petition, agreement, or police report (PDF/DOCX), Nyayavarta parses its text, segments it into searchable chunks, and indexes it into the Neo4j Knowledge Graph. You can then ask questions in the <strong>Legal Chat</strong> (via text or voice) and the AI will reference your specific document!
               </p>
             </div>
 
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr className="bg-primary-50 text-primary-950 border-b border-primary-200">
-                    <th className="p-3 font-bold">{t.matrixHeaders.crime}</th>
-                    <th className="p-3 font-bold">{t.matrixHeaders.oldLaw}</th>
-                    <th className="p-3 font-bold">{t.matrixHeaders.newLaw}</th>
-                    <th className="p-3 font-bold">{t.matrixHeaders.note}</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  <tr className="hover:bg-gray-50">
-                    <td className="p-3 font-semibold text-gray-900">Murder</td>
-                    <td className="p-3 font-mono text-gray-600">IPC Section 302</td>
-                    <td className="p-3 font-mono font-bold text-primary-700">BNS Section 103</td>
-                    <td className="p-3 text-gray-600">Punishment remains death or life imprisonment, and fine.</td>
-                  </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="p-3 font-semibold text-gray-900">Cheating & Fraud</td>
-                    <td className="p-3 font-mono text-gray-600">IPC Section 420</td>
-                    <td className="p-3 font-mono font-bold text-primary-700">BNS Section 318</td>
-                    <td className="p-3 text-gray-600">Dishonest inducement of property covered under Section 318.</td>
-                  </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="p-3 font-semibold text-gray-900">First Information Report (FIR)</td>
-                    <td className="p-3 font-mono text-gray-600">CrPC Section 154</td>
-                    <td className="p-3 font-mono font-bold text-primary-700">BNSS Section 173</td>
-                    <td className="p-3 text-gray-600">Formalizes Zero FIR and electronic FIR (e-FIR).</td>
-                  </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="p-3 font-semibold text-gray-900">Cruelty by Husband / Relatives</td>
-                    <td className="p-3 font-mono text-gray-600">IPC Section 498A</td>
-                    <td className="p-3 font-mono font-bold text-primary-700">BNS Section 86</td>
-                    <td className="p-3 text-gray-600">Substantive provisions maintained with enhanced focus on women safety.</td>
-                  </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="p-3 font-semibold text-gray-900">Electronic Evidence</td>
-                    <td className="p-3 font-mono text-gray-600">Evidence Act 65B</td>
-                    <td className="p-3 font-mono font-bold text-primary-700">BSA Section 63</td>
-                    <td className="p-3 text-gray-600">Expanded scope to server logs, GPS, emails, and mobile data.</td>
-                  </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="p-3 font-semibold text-gray-900">Theft</td>
-                    <td className="p-3 font-mono text-gray-600">IPC Section 379</td>
-                    <td className="p-3 font-mono font-bold text-primary-700">BNS Section 305</td>
-                    <td className="p-3 text-gray-600">Community service added as punishment for petty theft.</td>
-                  </tr>
-                </tbody>
-              </table>
+            <button
+              type="button"
+              onClick={() => setActiveTab('chat')}
+              className="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow transition-all whitespace-nowrap self-start md:self-auto cursor-pointer"
+            >
+              Go to Legal Chat <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2 space-y-6">
+              <DocumentUpload onUploadSuccess={handleDocumentUploaded} />
+
+              {/* Uploaded Documents History */}
+              <div className="card">
+                <h4 className="font-bold text-gray-800 text-sm mb-3 flex items-center justify-between">
+                  <span>Indexed Documents in this Session (अपलोड किए गए दस्तावेज़)</span>
+                  <span className="text-xs font-normal text-gray-500">
+                    {uploadedFiles.length} file(s)
+                  </span>
+                </h4>
+                {uploadedFiles.length === 0 ? (
+                  <p className="text-xs text-gray-400 italic">
+                    No documents uploaded yet. Upload a PDF or Word file above (or using the paperclip button in the chat) to index its content into the knowledge graph.
+                  </p>
+                ) : (
+                  <div className="space-y-2">
+                    {uploadedFiles.map((file, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center justify-between p-3 rounded-xl bg-gray-50 border border-gray-200 text-xs"
+                      >
+                        <div className="flex items-center gap-2">
+                          <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
+                          <span className="font-semibold text-gray-800">{file.filename}</span>
+                        </div>
+                        <span className="bg-primary-100 text-primary-800 px-2.5 py-0.5 rounded-full text-[11px] font-medium">
+                          {file.chunks_created} chunks in Neo4j
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* RAG Knowledge Base Stats */}
+            <div className="space-y-4">
+              <div className="card bg-gradient-to-br from-primary-900 to-primary-950 text-white">
+                <h4 className="font-bold text-sm mb-2 text-accent-300">
+                  GraphRAG Architecture (Neo4j)
+                </h4>
+                <p className="text-xs text-gray-300 leading-relaxed mb-4">
+                  Nyayavarta combines Neo4j Knowledge Graph traversal with BM25 keyword search to maximize legal accuracy.
+                </p>
+                <div className="space-y-2.5 text-xs">
+                  <div className="flex justify-between pb-1.5 border-b border-white/10">
+                    <span className="text-gray-300">Knowledge Graph</span>
+                    <span className="font-mono font-semibold text-white">Neo4j (Cypher Traversal)</span>
+                  </div>
+                  <div className="flex justify-between pb-1.5 border-b border-white/10">
+                    <span className="text-gray-300">Keyword Retrieval</span>
+                    <span className="font-mono font-semibold text-white">rank-bm25 (BM25Okapi)</span>
+                  </div>
+                  <div className="flex justify-between pb-1.5 border-b border-white/10">
+                    <span className="text-gray-300">Orchestration</span>
+                    <span className="font-mono font-semibold text-accent-300">LangChain Neo4jGraph</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-300">Statutory Graph Data</span>
+                    <span className="font-mono font-semibold text-white">IPC/CrPC → BNS/BNSS/BSA</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="card">
+                <h4 className="font-bold text-gray-800 text-sm mb-2">
+                  Document Guidelines
+                </h4>
+                <ul className="text-xs text-gray-600 space-y-2 list-disc list-inside">
+                  <li>Supported: FIR copies, court petitions, bail orders, legal contracts.</li>
+                  <li>Text extraction via <strong>PyMuPDF</strong> with page-level metadata.</li>
+                  <li>Max file size: 20MB.</li>
+                  <li>Indexed chunks are automatically retrieved in subsequent chat queries.</li>
+                </ul>
+              </div>
             </div>
           </div>
-        )}
+        </div>
+
+        {/* Tab 3: Law Transition Matrix */}
+        <div className={activeTab === 'reference' ? 'card space-y-4' : 'hidden'}>
+          <div>
+            <h3 className="text-base font-bold text-gray-900">
+              {t.matrixTitle}
+            </h3>
+            <p className="text-xs text-gray-500 mt-1">
+              {t.matrixSubtitle}
+            </p>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr className="bg-primary-50 text-primary-950 border-b border-primary-200">
+                  <th className="p-3 font-bold">{t.matrixHeaders.crime}</th>
+                  <th className="p-3 font-bold">{t.matrixHeaders.oldLaw}</th>
+                  <th className="p-3 font-bold">{t.matrixHeaders.newLaw}</th>
+                  <th className="p-3 font-bold">{t.matrixHeaders.note}</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                <tr className="hover:bg-gray-50">
+                  <td className="p-3 font-semibold text-gray-900">Murder</td>
+                  <td className="p-3 font-mono text-gray-600">IPC Section 302</td>
+                  <td className="p-3 font-mono font-bold text-primary-700">BNS Section 103</td>
+                  <td className="p-3 text-gray-600">Punishment remains death or life imprisonment, and fine.</td>
+                </tr>
+                <tr className="hover:bg-gray-50">
+                  <td className="p-3 font-semibold text-gray-900">Cheating & Fraud</td>
+                  <td className="p-3 font-mono text-gray-600">IPC Section 420</td>
+                  <td className="p-3 font-mono font-bold text-primary-700">BNS Section 318</td>
+                  <td className="p-3 text-gray-600">Dishonest inducement of property covered under Section 318.</td>
+                </tr>
+                <tr className="hover:bg-gray-50">
+                  <td className="p-3 font-semibold text-gray-900">First Information Report (FIR)</td>
+                  <td className="p-3 font-mono text-gray-600">CrPC Section 154</td>
+                  <td className="p-3 font-mono font-bold text-primary-700">BNSS Section 173</td>
+                  <td className="p-3 text-gray-600">Formalizes Zero FIR and electronic FIR (e-FIR).</td>
+                </tr>
+                <tr className="hover:bg-gray-50">
+                  <td className="p-3 font-semibold text-gray-900">Cruelty by Husband / Relatives</td>
+                  <td className="p-3 font-mono text-gray-600">IPC Section 498A</td>
+                  <td className="p-3 font-mono font-bold text-primary-700">BNS Section 86</td>
+                  <td className="p-3 text-gray-600">Substantive provisions maintained with enhanced focus on women safety.</td>
+                </tr>
+                <tr className="hover:bg-gray-50">
+                  <td className="p-3 font-semibold text-gray-900">Electronic Evidence</td>
+                  <td className="p-3 font-mono text-gray-600">Evidence Act 65B</td>
+                  <td className="p-3 font-mono font-bold text-primary-700">BSA Section 63</td>
+                  <td className="p-3 text-gray-600">Expanded scope to server logs, GPS, emails, and mobile data.</td>
+                </tr>
+                <tr className="hover:bg-gray-50">
+                  <td className="p-3 font-semibold text-gray-900">Theft</td>
+                  <td className="p-3 font-mono text-gray-600">IPC Section 379</td>
+                  <td className="p-3 font-mono font-bold text-primary-700">BNS Section 305</td>
+                  <td className="p-3 text-gray-600">Community service added as punishment for petty theft.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </main>
+
+      {/* Auth Modal for Log In / Sign Up */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        onSuccess={(user) => setCurrentUser(user)}
+      />
 
       {/* Footer */}
       <footer className="bg-white border-t border-gray-200 mt-auto py-6">
