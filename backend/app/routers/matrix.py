@@ -21,12 +21,12 @@ KB_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "knowledge_base.
 
 def _get_category(old_law: str, new_law: str) -> tuple[str, str]:
     """Classify law transition into one of 4 major statutory categories."""
-    if "BNS" in new_law or ("IPC" in old_law and "CrPC" not in old_law):
-        return "bns", "BNS (Penal)"
-    elif "BNSS" in new_law or "CrPC" in old_law:
+    if "BNSS" in new_law or "CrPC" in old_law or "Criminal Procedure" in old_law:
         return "bnss", "BNSS (Procedure & FIR)"
     elif "BSA" in new_law or "Evidence" in old_law:
         return "bsa", "BSA (Evidence & Records)"
+    elif "BNS" in new_law or "IPC" in old_law or "Penal Code" in old_law:
+        return "bns", "BNS (Penal)"
     else:
         return "special", "Special & Central Acts"
 
