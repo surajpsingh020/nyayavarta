@@ -248,6 +248,23 @@ class LLMService:
             raise last_error
         return ""
 
+    async def generate_custom_response(
+        self,
+        prompt: str,
+        system_instruction: Optional[str] = None,
+        temperature: float = 0.1
+    ) -> str:
+        """Asynchronously execute custom prompt via Gemini cascade (used for LLM-as-a-Judge and Evaluators)."""
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(
+            None,
+            lambda: self._generate_with_gemini_cascade(
+                contents=prompt,
+                system_instruction=system_instruction,
+                temperature=temperature
+            )
+        )
+
     async def generate_legal_response(
         self,
         query: str,
