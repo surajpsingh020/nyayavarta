@@ -104,8 +104,11 @@ def _clean_llm_markdown(text: str) -> str:
     if not text:
         return text
 
+    # Normalize any <br>, <br/>, <br > tags to <br />
+    cleaned = re.sub(r"<br\s*/?>", "<br />", text, flags=re.IGNORECASE)
+
     # Fix collapsed markdown table rows where | | occurs on a single line
-    cleaned = re.sub(r"\|\s*\|\s*(:?-+:?)", r"|\n| \1", text)
+    cleaned = re.sub(r"\|\s*\|\s*(:?-+:?)", r"|\n| \1", cleaned)
     cleaned = re.sub(r"\|\s*\|\s*([^|\n]+)", r"|\n| \1", cleaned)
 
     # Remove any empty blank lines between table rows (table rows must be strictly consecutive)
@@ -376,7 +379,7 @@ Structure your answer in clean GitHub Flavored Markdown with Sections 1 to 6:
 - State the core legal assessment and statutory stance in 2-3 clear, authoritative sentences addressing the user's specific query.
 
 ### 2. Statutory Law Transition & Charges Breakdown (Special Acts & BNS / BNSS / BSA)
-Provide a clear comparative markdown table covering all charges:
+Provide a clear comparative markdown table covering all charges (do NOT use raw HTML tags like <br> in table cells; keep text clean with parentheses or slashes):
 | Statutory Act & Section | Legal Subject / Charge | Key Elements & Severity / Punishment | Modern Applicability / Transition |
 | :--- | :--- | :--- | :--- |
 | [Statute e.g. UAPA Sec 17] | [Terrorist Funding] | [Min 5 yrs to Life, Fine] | [Special Anti-Terror Act; bail restricted u/s 43D(5)] |

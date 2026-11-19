@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import {
   Send,
   Mic,
@@ -51,8 +52,10 @@ import CitationCard from './CitationCard';
 
 function formatLegalMarkdown(raw: string): string {
   if (!raw) return '';
+  // Normalize <br>, <br/>, <br /> tags
+  let formatted = raw.replace(/<br\s*\/?>/gi, '<br />');
   // Fix collapsed markdown table rows where | | occurs on a single line
-  let formatted = raw.replace(/\|\s*\|\s*(:?-+:?)/g, '|\n| $1');
+  formatted = formatted.replace(/\|\s*\|\s*(:?-+:?)/g, '|\n| $1');
   formatted = formatted.replace(/\|\s*\|\s*([^|\n]+)/g, '|\n| $1');
   // Remove any blank lines between table rows (table rows must be strictly consecutive for GFM)
   while (/(\|[^\n]*\|)\s*\n\s*\n+(\s*\|)/.test(formatted)) {
@@ -966,6 +969,7 @@ export default function ChatInterface({
                         <div className="prose prose-sm max-w-none text-gray-800 text-xs sm:text-sm leading-relaxed">
                           <ReactMarkdown
                             remarkPlugins={[remarkGfm]}
+                            rehypePlugins={[rehypeRaw]}
                             components={{
                               h1: ({ node, ...props }) => (
                                 <h2 className="text-base font-extrabold text-primary-950 mt-4 mb-2 pb-1 border-b border-primary-100 flex items-center gap-1.5" {...props} />
