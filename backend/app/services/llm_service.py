@@ -450,13 +450,23 @@ FOR ADMINISTRATIVE, ACADEMIC, OR NON-LEGAL DOCUMENTS (e.g. campus recruitment ci
 
         # Strip greeting if not the first message of a chat
         if not is_first_message:
-            greeting_patterns = [
-                r"^Namaste[.,!]?\s*(Welcome to Nyayavarta Legal Assistance[.,!]?\s*)?(I am your artificial intelligence legal guide[.,!]?\s*)?",
-                r"^Greetings[.,!]?\s*(Welcome to Nyayavarta Legal Assistance[.,!]?\s*)?",
-                r"^Welcome to Nyayavarta Legal Assistance[.,!]?\s*",
+            greeting_prefixes = [
+                "namaste. welcome to nyayavarta legal assistance. i am your artificial intelligence legal guide.",
+                "namaste. welcome to nyayavarta legal assistance.",
+                "greetings. welcome to nyayavarta legal assistance.",
+                "welcome to nyayavarta legal assistance. i am your artificial intelligence legal guide.",
+                "welcome to nyayavarta legal assistance.",
+                "namaste. welcome to nyayavarta.",
+                "greetings. welcome to nyayavarta.",
+                "namaste.",
+                "greetings.",
             ]
-            for pat in greeting_patterns:
-                english_text = re.sub(pat, "", english_text, flags=re.IGNORECASE).strip()
+            t_strip = english_text.strip()
+            for prefix in greeting_prefixes:
+                if t_strip.lower().startswith(prefix):
+                    t_strip = t_strip[len(prefix):].strip()
+                    break
+            english_text = t_strip
 
         # 5. Check if response indicates an administrative / academic / non-legal document
         is_non_legal_doc = any(

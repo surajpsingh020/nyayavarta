@@ -97,6 +97,7 @@ export default function ChatInterface({
   // Consultation Threads & History State
   const [threads, setThreads] = useState<ConsultationThread[]>([]);
   const [activeThreadId, setActiveThreadId] = useState<string | null>(null);
+  const [chatSessionId, setChatSessionId] = useState<string>(() => 'guest-' + Date.now() + '-' + Math.random().toString(36).substring(2, 9));
   const [isLoadingThreads, setIsLoadingThreads] = useState(false);
   const [showHistorySidebar, setShowHistorySidebar] = useState(true);
 
@@ -185,6 +186,7 @@ export default function ChatInterface({
   // -------------------------------------------------------------
   const startNewConsultation = () => {
     setActiveThreadId(null);
+    setChatSessionId('guest-' + Date.now() + '-' + Math.random().toString(36).substring(2, 9));
     setMessages([]);
     setAttachedDoc(null);
   };
@@ -386,7 +388,7 @@ export default function ChatInterface({
         text,
         source_language: selectedLanguage,
         user_profile: 'general',
-        thread_id: activeThreadId || undefined,
+        thread_id: activeThreadId || chatSessionId,
         document_name: attachedDoc?.filename || undefined,
         is_first_message: isFirst,
       });
@@ -527,7 +529,7 @@ export default function ChatInterface({
         audio_base64: audioBase64,
         source_language: 'auto', // Request automatic audio language identification
         user_profile: 'general',
-        thread_id: activeThreadId || undefined,
+        thread_id: activeThreadId || chatSessionId,
         document_name: attachedDoc?.filename || undefined,
         is_first_message: isFirst,
       });

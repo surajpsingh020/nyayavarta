@@ -13,7 +13,7 @@ Implements the complete GraphRAG orchestration flow:
 """
 
 import logging
-from typing import Optional
+from typing import Optional, Dict
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 
 from app.models.schemas import ChatRequest, ChatResponse, TranslateRequest, TranslateResponse, UserProfile
@@ -31,6 +31,9 @@ from app.services.tracing_service import LLMTrace, get_tracing_service
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
+
+# In-memory turn tracker for active chat sessions: session_key -> message_count
+_SESSION_TURNS: Dict[str, int] = {}
 
 
 @router.post("/chat", response_model=ChatResponse, summary="Process multilingual legal consultation query")
@@ -205,16 +208,33 @@ async def chat_endpoint(
         # Step 4: Gemini LLM Generation (Context + Scope + Citations)
         # ---------------------------------------------------------
         # Determine whether to include greeting (only on turn 1 of a new chat)
-        is_first_turn = True
-        if payload.is_first_message is not None:
-            is_first_turn = payload.is_first_message
-        elif current_thread_id:
-            try:
-                thread_msgs = auth_db.get_thread_messages(current_thread_id)
-                if any(m.get("sender") == "assistant" for m in thread_msgs):
-                    is_first_turn = False
-            except Exception:
-                pass
+        client_ip = request.client.host if request.client else "default_client"
+        session_key = payload.thread_id or request.headers.get("x-session-id") or client_ip
+
+        if payload.is_first_message is False:
+            is_first_turn = False
+            _SESSION_TURNS[session_key] = _SESSION_TURNS.get(session_key, 1) + 1
+        elif payload.is_first_message is True:
+            is_first_turn = True
+            _SESSION_TURNS[session_key] = 1
+        else:
+            # When is_first_message is None (e.g. legacy client or older cached frontend)
+            prior_count = _SESSION_TURNS.get(session_key, 0)
+            if prior_count > 0:
+                is_first_turn = False
+                _SESSION_TURNS[session_key] = prior_count + 1
+            else:
+                is_first_turn = True
+                if current_thread_id and user:
+                    try:
+                        thread_msgs = auth_db.get_thread_messages(current_thread_id)
+                        if any(m.get("sender") == "assistant" for m in thread_msgs):
+                            is_first_turn = False
+                    except Exception:
+                        pass
+                _SESSION_TURNS[session_key] = 1
+
+        logger.info(f"Chat turn: is_first_turn={is_first_turn} (session_key={session_key}, turns={_SESSION_TURNS.get(session_key)})")
 
         gen_span = trace.start_span("llm_generation")
         try:
