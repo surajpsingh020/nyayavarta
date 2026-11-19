@@ -389,6 +389,10 @@ export interface LawTransition {
   description: string;
   key_changes: string;
   suggested_query: string;
+  punishment_comparison?: string;
+  procedural_classification?: string;
+  practical_citizen_advice?: string;
+  full_statutory_text?: string;
 }
 
 export interface CasePrecedent {
@@ -402,6 +406,8 @@ export interface CasePrecedent {
   ratio_decidendi: string;
   applied_sections: string[];
   suggested_query: string;
+  significance?: string;
+  practical_impact?: string;
 }
 
 export interface MatrixResponse {

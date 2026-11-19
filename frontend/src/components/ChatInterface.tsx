@@ -160,6 +160,26 @@ export default function ChatInterface({
     }
   }, [currentUser]);
 
+  // User Authentication State Tracking: clear chat history on logout / account switch
+  const prevUserIdRef = useRef<string | null>(currentUser?.id || null);
+
+  useEffect(() => {
+    const currentUserId = currentUser?.id || null;
+    if (prevUserIdRef.current !== currentUserId) {
+      // User logged out or switched accounts: wipe chat window, active thread, and session ID
+      setMessages([]);
+      setActiveThreadId(null);
+      setChatSessionId('guest-' + Date.now() + '-' + Math.random().toString(36).substring(2, 9));
+      setInputText('');
+      setMessageLanguages({});
+      setCachedTranslations({});
+      if (onDocumentRemoved) {
+        onDocumentRemoved();
+      }
+      prevUserIdRef.current = currentUserId;
+    }
+  }, [currentUser, onDocumentRemoved]);
+
   useEffect(() => {
     loadUserThreads();
   }, [loadUserThreads]);

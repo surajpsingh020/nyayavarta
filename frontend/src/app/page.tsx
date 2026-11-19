@@ -51,11 +51,43 @@ export default function Home() {
       .catch(() => setCurrentUser(null));
   }, []);
 
+  // Isolate and persist uploaded documents per authenticated user
+  useEffect(() => {
+    if (currentUser?.id) {
+      try {
+        const stored = localStorage.getItem(`nyayavarta_docs_${currentUser.id}`);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) {
+            setUploadedFiles(parsed);
+          } else {
+            setUploadedFiles([]);
+          }
+        } else {
+          setUploadedFiles([]);
+        }
+      } catch {
+        setUploadedFiles([]);
+      }
+    } else {
+      // Clear files completely when logged out / in guest mode
+      setUploadedFiles([]);
+      setActiveDocument(null);
+    }
+  }, [currentUser]);
+
   const handleDocumentUploaded = (res: UploadResponse) => {
     setUploadedFiles((prev) => {
       const exists = prev.some((f) => f.filename === res.filename);
-      if (exists) return prev;
-      return [res, ...prev];
+      const updated = exists ? prev : [res, ...prev];
+      if (currentUser?.id) {
+        try {
+          localStorage.setItem(`nyayavarta_docs_${currentUser.id}`, JSON.stringify(updated));
+        } catch {
+          // ignore
+        }
+      }
+      return updated;
     });
     setActiveDocument(res);
   };
@@ -70,8 +102,15 @@ export default function Home() {
   };
 
   const handleLogout = async () => {
-    await logoutUser();
+    try {
+      await logoutUser();
+    } catch {
+      // ignore
+    }
     setCurrentUser(null);
+    setUploadedFiles([]);
+    setActiveDocument(null);
+    setInitialChatQuery(null);
   };
 
   return (
