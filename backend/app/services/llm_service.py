@@ -65,6 +65,15 @@ Key Directives:
        "Greetings. I am Nyayavarta, an artificial intelligence assistant dedicated exclusively to Indian law, citizen rights, FIR procedures, court processes, and modern statutory transitions (BNS, BNSS, and BSA).
        Because your inquiry concerns a non-legal topic outside the legal domain, I cannot assist with this question.
        If you have any legal questions, dispute issues, police complaints, or document analysis matters, please feel free to ask, and I will be glad to assist you."
+
+7. UPLOADED ADMINISTRATIVE / ACADEMIC / NON-LEGAL DOCUMENTS:
+   - Carefully examine the true character of any attached document.
+   - If the uploaded document is an administrative circular, university/college notice, placement drive notification, job recruitment circular, academic syllabus, resume, exam schedule, fee receipt, or general office circular:
+     * Accurately explain its factual contents, eligibility requirements, dates, and administrative significance.
+     * State clearly that this is an administrative or institutional document with NO criminal allegations, penal proceedings, or statutory violations.
+     * In Section 2, state strictly: "Not Applicable — This document is an institutional/administrative record and contains no criminal allegations or penal violations."
+     * ABSOLUTE PROHIBITION: DO NOT generate any hypothetical, illustrative, or educational criminal charges table (do NOT add IPC 420 cheating, 406 breach of trust, or 506 intimidation tables).
+     * DO NOT cite any criminal sections or penal statutes.
 """
 
 NON_LEGAL_INDICATORS = {
@@ -300,21 +309,20 @@ class LLMService:
             docs_list_str = ", ".join(user_doc_filenames)
             doc_analysis_directive = f"""
 CRITICAL DOCUMENT-GROUNDED CHARGES & CASE SPECIFICS INSTRUCTION:
-The user is specifically asking about an uploaded official legal document/report ({docs_list_str}).
-You MUST strictly extract and ground your answer on the content of THIS attached document only. DO NOT confuse or mix details from other cases or previous uploads.
+The user is specifically asking about an uploaded document ({docs_list_str}).
+FIRST, EXAMINE THE TRUE NATURE OF THIS DOCUMENT:
 
-1. EXTRACT ALL FORMAL CHARGES FROM THIS DOCUMENT:
+A. IF THE ATTACHED DOCUMENT IS A LEGAL FILING, POLICE REPORT (FIR), COURT PETITION, OR CONTRACT:
    - Identify every statutory section, penal provision, and Act abbreviation explicitly recorded on the document.
-   - For general criminal offenses (IPC / CrPC), map them to their modern 2023 equivalents (BNS / BNSS / BSA) — e.g., IPC 120B -> BNS 61(2) (Criminal Conspiracy), IPC 406 -> BNS 316 (Criminal Breach of Trust), IPC 420 -> BNS 318(4) (Cheating), IPC 384 -> BNS 308 (Extortion), IPC 506 -> BNS 351 (Criminal Intimidation).
-   - For Special Acts (such as UAPA 17/20, Arms Act 25(1-C), NDPS, POCSO, NI Act), identify the specific sections, offense definitions, bail standards, and statutory penalties.
+   - For general criminal offenses (IPC / CrPC), map them to their modern 2023 equivalents (BNS / BNSS / BSA).
+   - In Section 2, provide the comparative markdown table of charges and penalties.
 
-2. CASE SPECIFICS STRICTLY FROM THIS DOCUMENT:
-   - State the Investigating Agency / Police Station (e.g., CBI EO-IV Kolkata, or Porompat PS), FIR / Case / Crime Number, and Date of Registration.
-   - Name the Informant / Complainant and the Accused individuals or companies exactly as recorded in this document.
-   - Summarize the concrete allegations, underlying facts, transactions, or offenses strictly as described in this document.
-
-3. STATUTORY CHARGES TABLE:
-   - Provide a structured comparative markdown table in Section 2 mapping each charged offense to its legal elements, penalties, and modern statutory transition.
+B. IF THE ATTACHED DOCUMENT IS ADMINISTRATIVE, ACADEMIC, OR NON-LEGAL (e.g. campus recruitment circular, job offer, resume, marksheet, fee receipt, syllabus, or general institutional notice):
+   - You MUST state clearly in Section 1 that this is an administrative or institutional document, NOT a criminal complaint or penal proceeding, and that no criminal penal sections apply.
+   - IN SECTION 2: State explicitly: "Not Applicable — This document is an institutional/administrative notification and contains no criminal allegations or penal violations."
+   - STRICT DIRECTIVE: DO NOT generate hypothetical or 'educational' criminal offense tables (e.g., DO NOT insert IPC 420, 406, or 506 cheating or intimidation tables). Leave Section 2 as 'Not Applicable'.
+   - DO NOT cite any criminal sections.
+   - In Sections 3 and 4, provide relevant practical administrative or institutional advice (e.g., application deadlines, eligibility criteria, student grievance redressal channels) without criminalizing the document.
 """
 
         # 2. Build User Prompt with Structured Legal Directives
@@ -344,26 +352,38 @@ Begin with a warm, professional legal greeting:
 "Namaste. Welcome to Nyayavarta Legal Assistance. I am your artificial intelligence legal guide."
 
 ### 1. Executive Summary & Layman Explanation
-- First, explain the entire situation in empathetic, easy-to-understand layman's language without legal jargon, so that any citizen clearly understands how the law views their situation.
-- Then, state the core legal assessment and statutory stance in 2-3 clear, authoritative sentences addressing the user's specific query.
+- First, explain the entire situation in empathetic, easy-to-understand layman's language without legal jargon.
+- If the attached document or query is an administrative, institutional, or academic record (e.g. campus placement notice, recruitment circular, job offer, resume, marksheet, syllabus, fee receipt):
+  Accurately summarize what the document is, its key eligibility criteria, important dates, and state clearly that it is an administrative institutional communication with no criminal allegations, penal proceedings, or statutory offenses.
+- For legal queries, state the core legal assessment and statutory stance in 2-3 clear, authoritative sentences addressing the user's specific query.
 
 ### 2. Statutory Law Transition & Charges Breakdown (Special Acts & BNS / BNSS / BSA)
-Provide a clear comparative markdown table covering all charges:
-| Statutory Act & Section | Legal Subject / Charge | Key Elements & Severity / Punishment | Modern Applicability / Transition |
-| :--- | :--- | :--- | :--- |
-| [Statute e.g. UAPA Sec 17] | [Terrorist Funding] | [Min 5 yrs to Life, Fine] | [Special Anti-Terror Act; bail restricted u/s 43D(5)] |
-| [Statute e.g. BNS Sec 308] | [Extortion] | [Imprisonment up to 3 yrs / 10 yrs] | [Replaces IPC Section 384] |
-
-Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, Digital Evidence admissibility under BSA 63, or special statutory bail standards).
+- FOR LEGAL CASES / DISPUTES / POLICE REPORTS (FIR) / CONTRACTS / PENAL STATUTES:
+  Provide a clear comparative markdown table covering all charges:
+  | Statutory Act & Section | Legal Subject / Charge | Key Elements & Severity / Punishment | Modern Applicability / Transition |
+  | :--- | :--- | :--- | :--- |
+  | [Statute e.g. UAPA Sec 17] | [Terrorist Funding] | [Min 5 yrs to Life, Fine] | [Special Anti-Terror Act; bail restricted u/s 43D(5)] |
+  | [Statute e.g. BNS Sec 308] | [Extortion] | [Imprisonment up to 3 yrs / 10 yrs] | [Replaces IPC Section 384] |
+  Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, Digital Evidence admissibility under BSA 63, or special statutory bail standards).
+- IF THE ATTACHED DOCUMENT OR QUERY IS ADMINISTRATIVE, ACADEMIC, OR NON-LEGAL (e.g. campus recruitment circular, job offer, resume, marksheet, fee receipt, syllabus, or general institutional notice):
+  State strictly:
+  "Not Applicable — This document is an institutional/administrative notification and contains no criminal allegations or penal violations."
+  ABSOLUTE PROHIBITION: DO NOT generate any comparative table. DO NOT provide hypothetical or educational criminal offense tables (e.g. DO NOT show cheating, fraud, breach of trust, or intimidation tables).
 
 ### 3. Step-by-Step Action Plan for Citizen
-1. **[Step 1 Title]**: Exact practical action (e.g. preserving chats, emails, banking proofs, physical evidence).
-2. **[Step 2 Title]**: Statutory remedy (e.g. approaching police for FIR under BNSS 173, cooperating with Investigating Officer, seeking witness protection).
-3. **[Step 3 Title]**: Legal escalation (e.g. filing grievance before Magistrate, seeking DLSA counsel).
+- For legal matters:
+  1. **[Step 1 Title]**: Exact practical action (e.g. preserving chats, emails, banking proofs, physical evidence).
+  2. **[Step 2 Title]**: Statutory remedy (e.g. approaching police for FIR under BNSS 173, cooperating with Investigating Officer, seeking witness protection).
+  3. **[Step 3 Title]**: Legal escalation (e.g. filing grievance before Magistrate, seeking DLSA counsel).
+- For administrative/academic documents:
+  1. **[Document Verification]**: Review eligibility criteria, minimum CGPA, full-time requirements, and submission formats.
+  2. **[Institutional Compliance]**: Adhere strictly to the submission deadlines via authorized portals (e.g. Superset, SAP, or departmental forms).
+  3. **[Institutional Grievance Redressal]**: Approach the university Training & Placement department, Dean, or student grievance redressal cell if any administrative discrepancies arise.
+  DO NOT recommend police FIR, criminal complaints, or court litigation for standard university circulars!
 
 ### 4. Citizen Rights & Procedural Safeguards
-- **[Right 1]**: Citizen protection under the law (e.g. Witness Protection Scheme, Zero FIR).
-- **[Right 2]**: Procedural safeguards against harassment or unlawful coercion.
+- For legal matters: Citizen protection under the law (e.g. Witness Protection Scheme, Zero FIR, bail safeguards).
+- For administrative/academic matters: Institutional rights (e.g. Right to transparent and non-discriminatory recruitment guidelines, academic fairness, and representation before university grievance cells).
 
 ### 5. Free Legal Aid & Emergency Helplines
 - **National Legal Aid Helpline (NALSA / DLSA)**: Call **15100** (Toll-Free, 24x7) for free legal aid and counsel.
@@ -413,7 +433,38 @@ Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, 
         # Clean markdown formatting so tables have proper newlines
         english_text = _clean_llm_markdown(english_text)
 
-        # 5. Combine and prioritize retrieved RAG citations and text-extracted citations
+        # 5. Check if response indicates an administrative / academic / non-legal document
+        is_non_legal_doc = any(
+            phrase in english_text.lower()
+            for phrase in [
+                "no criminal penal sections",
+                "not contain any criminal allegations",
+                "contains no criminal allegations",
+                "administrative institutional communication",
+                "placement notice",
+                "recruitment notice",
+                "recruitment drive",
+                "campus recruitment",
+                "academic notification",
+                "academic placement",
+                "institutional notification",
+                "administrative or institutional document",
+                "not applicable — this document is an institutional",
+                "not applicable — this document is an administrative",
+                "not applicable - this document is an institutional",
+                "not applicable - this document is an administrative",
+                "not applicable — this document",
+                "not applicable - this document",
+            ]
+        )
+
+        if is_non_legal_doc:
+            return {
+                "english_response": english_text,
+                "citations": [],
+                "user_profile": user_profile.value
+            }
+
         final_citations: List[Dict[str, str]] = []
         seen_sections = set()
 
@@ -460,7 +511,7 @@ Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, 
 
         return {
             "english_response": english_text,
-            "citations": final_citations[:5] if final_citations else citations[:5],
+            "citations": final_citations[:5] if final_citations else ([] if has_user_document else citations[:5]),
             "user_profile": user_profile.value
         }
 
@@ -653,8 +704,39 @@ Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, 
             or ("uapa" in q_lower or "arms act" in q_lower or "porompat" in q_lower or "kcp" in q_lower or "raynold" in q_lower)
         )
 
+        # 0. Document Analysis: Academic / Campus Recruitment / Institutional Notices
+        is_academic_admin_doc = (
+            any(w in all_doc_text or w in q_lower for w in [
+                "recruitment drive", "campus recruitment", "placement notice", "kiit", "graduating batch",
+                "training & placement", "superset", "syllabus", "marksheet", "fee receipt"
+            ])
+            and not any(w in all_doc_text or w in q_lower for w in ["rc225", "porompat", "kcp", "cbi", "chit fund", "uapa", "murder", "rape"])
+        )
+
+        if is_academic_admin_doc:
+            summary = (
+                "The document you have shared is an official institutional announcement and recruitment notice "
+                "(such as a campus recruitment circular or university placement drive notification).\n\n"
+                "In simple terms, this document sets out the academic and administrative terms, eligibility criteria, "
+                "selection procedures, and submission timelines for eligible students participating in a campus recruitment drive. "
+                "Because this document represents a standard academic placement notice and administrative institutional communication "
+                "rather than a criminal complaint, police report, or litigation matter, no criminal penal sections (such as BNS, IPC, or special penal statutes) apply."
+            )
+            table_markdown = "Not Applicable — This document is an institutional/administrative notification and contains no criminal allegations or penal violations."
+            details = (
+                "**Administrative Guidelines & Procedural Framework**:\n\n"
+                "- **Nature of Document**: Official academic placement notice / institutional circular.\n"
+                "- **Statutory Status**: No criminal or penal charges are recorded. This is an administrative matter governed by university guidelines and recruitment criteria.\n"
+                "- **Verification**: Review all eligibility prerequisites (such as CGPA, backlogs, academic gap years, and degree qualifications) prior to registration."
+            )
+            immediate_steps = [
+                "Verify Academic Eligibility: Carefully check all eligibility conditions, including CGPA criteria, full-time enrollment requirements, and allowed academic gaps.",
+                "Adhere to Registration Deadlines: Complete registration and upload soft copies of required documents through the authorized institutional portal (such as Superset) well before the deadline.",
+                "Contact Placement Coordination: If any administrative discrepancy or technical issue arises during application, approach the university Department of Training & Placement or the Student Grievance Cell."
+            ]
+
         # 1. Document Analysis: CBI Kolkata Chit Fund FIR (RC2252021E0011)
-        if is_cbi_chit_fund:
+        elif is_cbi_chit_fund:
             summary = (
                 "The uploaded document is an official First Information Report (FIR No. RC2252021E0011) "
                 "registered by the Central Bureau of Investigation (CBI), Economic Offences-IV (EO-IV) Kolkata, "
@@ -960,7 +1042,31 @@ Here is clear guidance on how Indian law protects you and what steps you can tak
 
     def _extract_citations_from_text(self, text: str) -> List[Dict[str, str]]:
         """Extract only statutory citations that are genuinely mentioned in the generated text."""
-        if not text or "outside the legal domain" in text.lower() or "dedicated exclusively to the" in text.lower():
+        if not text:
+            return []
+        lower_text = text.lower()
+        if any(p in lower_text for p in [
+            "outside the legal domain",
+            "dedicated exclusively to the",
+            "no criminal penal sections",
+            "not contain any criminal allegations",
+            "contains no criminal allegations",
+            "administrative institutional communication",
+            "placement notice",
+            "recruitment notice",
+            "recruitment drive",
+            "campus recruitment",
+            "academic notification",
+            "academic placement",
+            "institutional notification",
+            "administrative or institutional document",
+            "not applicable — this document is an institutional",
+            "not applicable — this document is an administrative",
+            "not applicable - this document is an institutional",
+            "not applicable - this document is an administrative",
+            "not applicable — this document",
+            "not applicable - this document",
+        ]):
             return []
         citations = []
         seen = set()

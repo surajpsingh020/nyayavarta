@@ -59,6 +59,43 @@ async def test_llm_service_profile_personas():
     service.client = original_client
 
 
+@pytest.mark.asyncio
+async def test_llm_service_academic_document_suppression():
+    service = LLMService()
+    original_client = service.client
+    service.client = None
+
+    kiit_chunk_text = """
+    KALINGA INSTITUTE OF INDUSTRIAL TECHNOLOGY (KIIT)
+    Department of Training & Placement
+    Notice: Registration for LTM Recruitment Drive - 2027 Graduating Batch
+    Eligibility: B.Tech / M.Tech / MCA (Eligible Branches: CSE, IT)
+    Deadline: Apply on Superset portal on or before 23rd September 2026.
+    """
+    result = await service.generate_legal_response(
+        query="Summarize key requirements and dates from this notice.",
+        retrieved_context=[{
+            "text": kiit_chunk_text,
+            "metadata": {
+                "type": "user_document",
+                "source": "user_upload",
+                "filename": "Registration_for_LTM_Recruitment_Drive_-_2027_Graduating_Batch.pdf",
+                "page": 1
+            },
+            "score": 0.95
+        }],
+        user_profile=UserProfile.STUDENT
+    )
+
+    service.client = original_client
+
+    assert "english_response" in result
+    resp = result["english_response"]
+    assert "not applicable" in resp.lower()
+    assert "cheating" not in resp.lower()
+    assert len(result["citations"]) == 0
+
+
 # ==========================================
 # 2. /api/chat Integration Tests
 # ==========================================
