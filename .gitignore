@@ -1,6 +1,10 @@
+# Test & Cache
+.pytest_cache/
+*.pyc
+__pycache__/
+
 # Dependencies
 node_modules/
-__pycache__/
 venv/
 .venv/
 
@@ -24,8 +28,14 @@ dist/
 .DS_Store
 Thumbs.db
 
-# Uploads
+# Uploads & Logs
 uploads/
+backend/uploads/*
+!backend/uploads/consumer_rights.pdf
+!backend/uploads/rti_handbook.txt
+logs/
+*.log
+*.jsonl
 
 # Data artifacts
 *.faiss
@@ -33,5 +43,3 @@ uploads/
 *.db
 *.sqlite
 *.sqlite3
-*.log
-*.jsonl
