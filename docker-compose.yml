@@ -70,6 +70,16 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: nyayavarta-tunnel
+    command: tunnel --protocol http2 --no-autoupdate --url http://frontend:3000
+    depends_on:
+      - frontend
+    restart: unless-stopped
+    profiles:
+      - tunnel
+
 volumes:
   neo4j-data:
   neo4j-logs:
