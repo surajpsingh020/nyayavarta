@@ -52,15 +52,17 @@ PII_PATTERNS = [
 # 2. Prompt Injection & Jailbreak Heuristics
 # -----------------------------------------------------------------------------
 PROMPT_INJECTION_PATTERNS = [
-    r"ignore\s+(all\s+)?(previous|prior|above)\s+instructions",
-    r"disregard\s+(all\s+)?(previous|prior|above)\s+instructions",
-    r"you\s+are\s+now\s+(in\s+)?(DAN|jailbreak|developer|god|unrestricted)\s+mode",
-    r"bypass\s+(all\s+)?(ethical|legal|safety|system)\s+(guidelines|restrictions|rules)",
-    r"(reveal|show|print|output|display)\s+(me\s+)?(your\s+)?(system\s+prompt|initial\s+prompt|hidden\s+instructions)",
+    r"ignore\s+(all\s+)?(previous|prior|above|former)\s+(instructions|directives|prompts|rules)",
+    r"disregard\s+(all\s+)?(previous|prior|above|former)\s+(instructions|directives|prompts|rules)",
+    r"you\s+are\s+now\s+(in\s+)?(dan|jailbreak|developer|god|unrestricted|unfiltered)\s+mode",
+    r"bypass\s+(all\s+)?(ethical|legal|safety|system|content)\s+(guidelines|restrictions|rules|filters)",
+    r"(reveal|show|print|output|display|share)\s+(me\s+)?(your\s+)?(system\s+prompt|initial\s+prompt|hidden\s+instructions|developer\s+prompt)",
     r"system\s*:\s*you\s+are\s+",
-    r"<\s*script\s*>",
+    r"<\s*script\b",
     r"DROP\s+TABLE|DELETE\s+FROM|UNION\s+SELECT",
-    r"base64\s+decode\s+and\s+execute",
+    r"base64\s+(decode|encoded)",
+    r"pretend\s+you\s+have\s+no\s+(rules|restrictions|limits)",
+    r"act\s+as\s+(an\s+unfiltered|an\s+unrestricted|a\s+jailbroken)\s+ai",
 ]
 
 COMPILED_INJECTIONS = [re.compile(p, re.IGNORECASE) for p in PROMPT_INJECTION_PATTERNS]
@@ -69,12 +71,12 @@ COMPILED_INJECTIONS = [re.compile(p, re.IGNORECASE) for p in PROMPT_INJECTION_PA
 # 3. Harmful & Illicit Intent Patterns
 # -----------------------------------------------------------------------------
 HARMFUL_INTENT_PATTERNS = [
-    r"how\s+to\s+(forge|counterfeit|fake)\s+(a\s+|an\s+)?(stamp\s+paper|signature|property\s+deed|deed|will|currency|document)",
-    r"how\s+to\s+(bribe|pay\s+bribe\s+to|pay\s+off)\s+(a\s+|an\s+)?(police|magistrate|judge|inspector|officer)",
-    r"how\s+to\s+(murder|kill|poison|assassinate)\s+",
-    r"how\s+to\s+(manufacture|smuggle|procure|traffic)\s+(illegal\s+arms|prohibited\s+weapons|narcotics|drugs|heroin)",
-    r"how\s+to\s+(evade|escape|run\s+away\s+from)\s+(police\s+arrest|warrant|custody)",
-    r"how\s+to\s+(hack|steal\s+money\s+from|phish)\s+(a\s+|an\s+)?(bank\s+account|upi|atm)",
+    r"how\s+to\s+(forge|counterfeit|fake|falsify)\s+(a\s+|an\s+)?(stamp\s+paper|signature|property\s+deed|deed|will|currency|document|affidavit|court\s+order)",
+    r"how\s+to\s+(bribe|pay\s+bribe\s+to|pay\s+off|corrupt)\s+(a\s+|an\s+)?(police|magistrate|judge|inspector|officer|official)",
+    r"how\s+to\s+(murder|kill|poison|assassinate|harm)\s+",
+    r"how\s+to\s+(manufacture|smuggle|procure|traffic)\s+(illegal\s+arms|prohibited\s+weapons|narcotics|drugs|heroin|contraband)",
+    r"how\s+to\s+(evade|escape|run\s+away\s+from|flee)\s+(police\s+arrest|warrant|custody|investigation)",
+    r"how\s+to\s+(hack|steal\s+money\s+from|phish|defraud)\s+(a\s+|an\s+)?(bank\s+account|upi|atm|citizen)",
 ]
 
 COMPILED_HARMFUL = [re.compile(p, re.IGNORECASE) for p in HARMFUL_INTENT_PATTERNS]

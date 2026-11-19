@@ -17,7 +17,7 @@ from typing import Optional, Dict
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 
 from app.models.schemas import ChatRequest, ChatResponse, TranslateRequest, TranslateResponse, UserProfile
-from app.routers.auth import get_optional_user
+from app.routers.auth import get_optional_user, get_current_authenticated_user
 from app.services.auth_db import get_auth_db
 from app.services.bhashini_utils import (
     detect_language_heuristic,
@@ -425,14 +425,14 @@ async def translate_endpoint(request: Request, payload: TranslateRequest):
 # -------------------------------------------------------------
 
 @router.get("/llmops/metrics", summary="Get aggregate LLMOps telemetry metrics")
-async def get_llmops_metrics():
-    """Retrieve online performance metrics, average latency, and guardrail interception statistics."""
+async def get_llmops_metrics(user: dict = Depends(get_current_authenticated_user)):
+    """Retrieve online performance metrics, average latency, and guardrail interception statistics (Authenticated)."""
     tracing_service = get_tracing_service()
     return tracing_service.get_telemetry_metrics()
 
 
 @router.get("/llmops/traces", summary="Get recent LLMOps consultation traces")
-async def get_llmops_traces(limit: int = 25):
-    """Retrieve detailed execution traces, guardrail redactions, and span timings."""
+async def get_llmops_traces(limit: int = 25, user: dict = Depends(get_current_authenticated_user)):
+    """Retrieve detailed execution traces, guardrail redactions, and span timings (Authenticated)."""
     tracing_service = get_tracing_service()
     return tracing_service.get_recent_traces(limit=limit)
