@@ -381,12 +381,14 @@ export default function ChatInterface({
     setIsLoading(true);
 
     try {
+      const isFirst = messages.filter((m) => m.sender === 'assistant').length === 0;
       const response: ChatResponse = await sendChatMessage({
         text,
         source_language: selectedLanguage,
         user_profile: 'general',
         thread_id: activeThreadId || undefined,
         document_name: attachedDoc?.filename || undefined,
+        is_first_message: isFirst,
       });
 
       if (response.thread_id && response.thread_id !== activeThreadId) {
@@ -520,12 +522,14 @@ export default function ChatInterface({
     setIsLoading(true);
 
     try {
+      const isFirst = messages.filter((m) => m.sender === 'assistant').length === 0;
       const response: ChatResponse = await sendChatMessage({
         audio_base64: audioBase64,
         source_language: 'auto', // Request automatic audio language identification
         user_profile: 'general',
         thread_id: activeThreadId || undefined,
         document_name: attachedDoc?.filename || undefined,
+        is_first_message: isFirst,
       });
 
       if (response.thread_id && response.thread_id !== activeThreadId) {

@@ -93,6 +93,8 @@ async def test_llm_service_academic_document_suppression():
     resp = result["english_response"]
     assert "not applicable" in resp.lower()
     assert "cheating" not in resp.lower()
+    assert "### 3" not in resp
+    assert "### 5" not in resp
     assert len(result["citations"]) == 0
 
 

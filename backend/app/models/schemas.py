@@ -18,6 +18,7 @@ class ChatRequest(BaseModel):
     user_profile: UserProfile = Field(UserProfile.GENERAL, description="User's profile category")
     thread_id: Optional[str] = Field(None, description="Active consultation thread ID")
     document_name: Optional[str] = Field(None, description="Filename of currently active/attached user document")
+    is_first_message: Optional[bool] = Field(None, description="True if this is the first turn/greeting in a new chat")
 
 
 class ChatResponse(BaseModel):

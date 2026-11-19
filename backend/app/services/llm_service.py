@@ -250,16 +250,24 @@ class LLMService:
         query: str,
         retrieved_context: List[Dict[str, Any]],
         user_profile: UserProfile = UserProfile.GENERAL,
+        is_first_message: bool = True,
     ) -> Dict[str, Any]:
         """Generate a profile-tailored legal response with citations and old/new law mappings."""
         # 0. Domain Guardrail: strictly decline non-legal queries
         if is_out_of_domain_query(query):
-            refusal_text = (
-                "Greetings. Welcome to Nyayavarta Legal Assistance.\n\n"
-                "I am an artificial intelligence assistant dedicated exclusively to the **Indian legal system**, citizen rights, police and FIR procedures, court processes, and modern statutory transitions (Bharatiya Nyaya Sanhita - BNS, BNSS, and BSA).\n\n"
-                "Because your question pertains to a subject outside the legal domain (such as general science, academic coursework, or general trivia), I cannot assist with this inquiry.\n\n"
-                "If you have any **legal questions, property or contract disputes, workplace grievances, police or FIR issues, bail matters, or citizen rights questions**, please feel free to ask, and I will be honored to provide comprehensive legal guidance."
-            )
+            if is_first_message:
+                refusal_text = (
+                    "Greetings. Welcome to Nyayavarta Legal Assistance.\n\n"
+                    "I am an artificial intelligence assistant dedicated exclusively to the **Indian legal system**, citizen rights, police and FIR procedures, court processes, and modern statutory transitions (Bharatiya Nyaya Sanhita - BNS, BNSS, and BSA).\n\n"
+                    "Because your question pertains to a subject outside the legal domain (such as general science, academic coursework, or general trivia), I cannot assist with this inquiry.\n\n"
+                    "If you have any **legal questions, property or contract disputes, workplace grievances, police or FIR issues, bail matters, or citizen rights questions**, please feel free to ask, and I will be honored to provide comprehensive legal guidance."
+                )
+            else:
+                refusal_text = (
+                    "I am dedicated exclusively to the **Indian legal system**, citizen rights, police/FIR procedures, court processes, and modern statutory transitions (BNS, BNSS, and BSA).\n\n"
+                    "Because your question pertains to a subject outside the legal domain (such as general science, academic coursework, or general trivia), I cannot assist with this inquiry.\n\n"
+                    "If you have any **legal questions, property or contract disputes, workplace grievances, police or FIR issues, bail matters, or citizen rights questions**, please feel free to ask, and I will be glad to provide legal guidance."
+                )
             return {
                 "english_response": refusal_text,
                 "citations": [],
@@ -318,15 +326,27 @@ A. IF THE ATTACHED DOCUMENT IS A LEGAL FILING, POLICE REPORT (FIR), COURT PETITI
    - In Section 2, provide the comparative markdown table of charges and penalties.
 
 B. IF THE ATTACHED DOCUMENT IS ADMINISTRATIVE, ACADEMIC, OR NON-LEGAL (e.g. campus recruitment circular, job offer, resume, marksheet, fee receipt, syllabus, or general institutional notice):
-   - You MUST state clearly in Section 1 that this is an administrative or institutional document, NOT a criminal complaint or penal proceeding, and that no criminal penal sections apply.
-   - IN SECTION 2: State explicitly: "Not Applicable — This document is an institutional/administrative notification and contains no criminal allegations or penal violations."
-   - STRICT DIRECTIVE: DO NOT generate hypothetical or 'educational' criminal offense tables (e.g., DO NOT insert IPC 420, 406, or 506 cheating or intimidation tables). Leave Section 2 as 'Not Applicable'.
-   - DO NOT cite any criminal sections.
-   - In Sections 3 and 4, provide relevant practical administrative or institutional advice (e.g., application deadlines, eligibility criteria, student grievance redressal channels) without criminalizing the document.
+   - You MUST state clearly in Section 1 that this is an administrative or institutional document, NOT a criminal complaint or legal proceeding, and that NO statutory sections apply.
+   - IN SECTION 2: State explicitly: "Not Applicable — This document is an institutional/administrative notification and contains no criminal allegations, penal proceedings, or statutory violations. No legal or penal sections apply."
+   - STRICT DIRECTIVE: DO NOT output Section 3 (Step-by-Step Action Plan), DO NOT output Section 4 (Citizen Rights), DO NOT output Section 5 (Free Legal Aid & Emergency Helplines), and DO NOT output Section 6 (Institutional Scope Notice).
+   - DO NOT cite any criminal sections or penal statutes.
+   - STOP YOUR RESPONSE AFTER SECTION 2. DO NOT output any legal aid helplines, police numbers, or court disclaimers.
 """
 
         # 2. Build User Prompt with Structured Legal Directives
         profile_guide = get_profile_instructions(user_profile)
+        
+        if is_first_message:
+            greeting_directive = """Begin with a warm, professional legal greeting:
+"Namaste. Welcome to Nyayavarta Legal Assistance. I am your artificial intelligence legal guide."
+"""
+        else:
+            greeting_directive = """CONVERSATION CONTINUATION DIRECTIVE:
+- This is an ongoing conversation (NOT the start of a new chat).
+- STRICT RULE: DO NOT greet the user! DO NOT say "Namaste", DO NOT say "Welcome to Nyayavarta Legal Assistance", and DO NOT say "I am your artificial intelligence legal guide".
+- Start immediately with the substantive response.
+"""
+
         user_prompt = f"""{profile_guide}
 
 RETRIEVED LEGAL CONTEXT FROM KNOWLEDGE BASE & UPLOADED DOCUMENTS:
@@ -344,46 +364,32 @@ CRITICAL DOMAIN & SCOPE VERIFICATION:
 - Verify if the user query concerns Indian law, legal disputes, police/FIR complaints, citizen rights, or court processes.
 - IF THE QUERY IS NOT ABOUT LAW (e.g. general science, biology, chemistry, physics, mathematics, recipes, programming, or trivia):
   DO NOT output any statutory tables, criminal offense mappings, or punishment sections.
-  Instead, begin with a courteous professional greeting, explain politely that you are Nyayavarta, an assistant dedicated exclusively to Indian law and citizen rights, state clearly that you cannot assist with non-legal topics, and invite the citizen to ask any legal or police complaint question.
+  State clearly and politely that you cannot assist with non-legal topics, and invite the citizen to ask any legal or police complaint question.
 
-FOR LEGAL QUERIES, STRUCTURE YOUR ANSWER IN CLEAN, BEAUTIFUL GITHUB FLAVORED MARKDOWN:
+{greeting_directive}
 
-Begin with a warm, professional legal greeting:
-"Namaste. Welcome to Nyayavarta Legal Assistance. I am your artificial intelligence legal guide."
+FOR GENUINE LEGAL QUERIES & DISPUTES (FIRs, police complaints, statutory disputes, court cases):
+Structure your answer in clean GitHub Flavored Markdown with Sections 1 to 6:
 
 ### 1. Executive Summary & Layman Explanation
 - First, explain the entire situation in empathetic, easy-to-understand layman's language without legal jargon.
-- If the attached document or query is an administrative, institutional, or academic record (e.g. campus placement notice, recruitment circular, job offer, resume, marksheet, syllabus, fee receipt):
-  Accurately summarize what the document is, its key eligibility criteria, important dates, and state clearly that it is an administrative institutional communication with no criminal allegations, penal proceedings, or statutory offenses.
-- For legal queries, state the core legal assessment and statutory stance in 2-3 clear, authoritative sentences addressing the user's specific query.
+- State the core legal assessment and statutory stance in 2-3 clear, authoritative sentences addressing the user's specific query.
 
 ### 2. Statutory Law Transition & Charges Breakdown (Special Acts & BNS / BNSS / BSA)
-- FOR LEGAL CASES / DISPUTES / POLICE REPORTS (FIR) / CONTRACTS / PENAL STATUTES:
-  Provide a clear comparative markdown table covering all charges:
-  | Statutory Act & Section | Legal Subject / Charge | Key Elements & Severity / Punishment | Modern Applicability / Transition |
-  | :--- | :--- | :--- | :--- |
-  | [Statute e.g. UAPA Sec 17] | [Terrorist Funding] | [Min 5 yrs to Life, Fine] | [Special Anti-Terror Act; bail restricted u/s 43D(5)] |
-  | [Statute e.g. BNS Sec 308] | [Extortion] | [Imprisonment up to 3 yrs / 10 yrs] | [Replaces IPC Section 384] |
-  Explain crucial modern statutory updates (e.g. Zero FIR / e-FIR under BNSS 173, Digital Evidence admissibility under BSA 63, or special statutory bail standards).
-- IF THE ATTACHED DOCUMENT OR QUERY IS ADMINISTRATIVE, ACADEMIC, OR NON-LEGAL (e.g. campus recruitment circular, job offer, resume, marksheet, fee receipt, syllabus, or general institutional notice):
-  State strictly:
-  "Not Applicable — This document is an institutional/administrative notification and contains no criminal allegations or penal violations."
-  ABSOLUTE PROHIBITION: DO NOT generate any comparative table. DO NOT provide hypothetical or educational criminal offense tables (e.g. DO NOT show cheating, fraud, breach of trust, or intimidation tables).
+Provide a clear comparative markdown table covering all charges:
+| Statutory Act & Section | Legal Subject / Charge | Key Elements & Severity / Punishment | Modern Applicability / Transition |
+| :--- | :--- | :--- | :--- |
+| [Statute e.g. UAPA Sec 17] | [Terrorist Funding] | [Min 5 yrs to Life, Fine] | [Special Anti-Terror Act; bail restricted u/s 43D(5)] |
+| [Statute e.g. BNS Sec 308] | [Extortion] | [Imprisonment up to 3 yrs / 10 yrs] | [Replaces IPC Section 384] |
 
 ### 3. Step-by-Step Action Plan for Citizen
-- For legal matters:
-  1. **[Step 1 Title]**: Exact practical action (e.g. preserving chats, emails, banking proofs, physical evidence).
-  2. **[Step 2 Title]**: Statutory remedy (e.g. approaching police for FIR under BNSS 173, cooperating with Investigating Officer, seeking witness protection).
-  3. **[Step 3 Title]**: Legal escalation (e.g. filing grievance before Magistrate, seeking DLSA counsel).
-- For administrative/academic documents:
-  1. **[Document Verification]**: Review eligibility criteria, minimum CGPA, full-time requirements, and submission formats.
-  2. **[Institutional Compliance]**: Adhere strictly to the submission deadlines via authorized portals (e.g. Superset, SAP, or departmental forms).
-  3. **[Institutional Grievance Redressal]**: Approach the university Training & Placement department, Dean, or student grievance redressal cell if any administrative discrepancies arise.
-  DO NOT recommend police FIR, criminal complaints, or court litigation for standard university circulars!
+1. **[Step 1 Title]**: Exact practical action (e.g. preserving chats, emails, banking proofs, physical evidence).
+2. **[Step 2 Title]**: Statutory remedy (e.g. approaching police for FIR under BNSS 173, cooperating with Investigating Officer, seeking witness protection).
+3. **[Step 3 Title]**: Legal escalation (e.g. filing grievance before Magistrate, seeking DLSA counsel).
 
 ### 4. Citizen Rights & Procedural Safeguards
-- For legal matters: Citizen protection under the law (e.g. Witness Protection Scheme, Zero FIR, bail safeguards).
-- For administrative/academic matters: Institutional rights (e.g. Right to transparent and non-discriminatory recruitment guidelines, academic fairness, and representation before university grievance cells).
+- **[Right 1]**: Citizen protection under the law (e.g. Witness Protection Scheme, Zero FIR).
+- **[Right 2]**: Procedural safeguards against harassment or unlawful coercion.
 
 ### 5. Free Legal Aid & Emergency Helplines
 - **National Legal Aid Helpline (NALSA / DLSA)**: Call **15100** (Toll-Free, 24x7) for free legal aid and counsel.
@@ -393,9 +399,18 @@ Begin with a warm, professional legal greeting:
 
 ### 6. Institutional Scope Notice
 - **Statutory Focus**: Nyayavarta provides statutory translation, rights education, procedural roadmaps (FIR, arrest, bail), document analysis, and free legal aid routing.
-- **Case Law Boundary**: It does not contain the complete judgment archives, daily court cause lists, hearing transcripts, or case dockets of the Supreme Court of India, the 25 High Courts, or the 672 District Courts (which span hundreds of millions of case files across decades and require commercial multi-terabyte data warehouse infrastructure like SCC Online or Manupatra).
+- **Case Law Boundary**: It does not contain the complete judgment archives, daily court cause lists, hearing transcripts, or case dockets of the Supreme Court of India, the 25 High Courts, or the 672 District Courts.
 
 *Disclaimer: This response provides legal literacy and institutional aid routing under the Legal Services Authorities Act, 1987. For representation in court, consult an empanelled legal aid advocate.*
+
+FOR ADMINISTRATIVE, ACADEMIC, OR NON-LEGAL DOCUMENTS (e.g. campus recruitment circular, job offer, resume, marksheet, fee receipt, syllabus, or general institutional notice):
+- You MUST ONLY output:
+  ### 1. Executive Summary & Document Overview
+  Accurately explain what the document is, its key eligibility criteria, important dates, and state clearly that it is an administrative institutional communication with no criminal allegations, penal proceedings, or statutory offenses.
+  ### 2. Statutory Law Transition & Charges Breakdown
+  Not Applicable — This document is an institutional/administrative notification and contains no criminal allegations or penal violations. No legal or penal sections apply.
+- STRICT PROHIBITION: DO NOT output Section 3 (Step-by-Step Action Plan), DO NOT output Section 4 (Citizen Rights), DO NOT output Section 5 (Free Legal Aid & Emergency Helplines), and DO NOT output Section 6 (Institutional Scope Notice).
+- Stop immediately after Section 2.
 """
 
         # 3. Call Gemini API via robust cascade
@@ -433,6 +448,16 @@ Begin with a warm, professional legal greeting:
         # Clean markdown formatting so tables have proper newlines
         english_text = _clean_llm_markdown(english_text)
 
+        # Strip greeting if not the first message of a chat
+        if not is_first_message:
+            greeting_patterns = [
+                r"^Namaste[.,!]?\s*(Welcome to Nyayavarta Legal Assistance[.,!]?\s*)?(I am your artificial intelligence legal guide[.,!]?\s*)?",
+                r"^Greetings[.,!]?\s*(Welcome to Nyayavarta Legal Assistance[.,!]?\s*)?",
+                r"^Welcome to Nyayavarta Legal Assistance[.,!]?\s*",
+            ]
+            for pat in greeting_patterns:
+                english_text = re.sub(pat, "", english_text, flags=re.IGNORECASE).strip()
+
         # 5. Check if response indicates an administrative / academic / non-legal document
         is_non_legal_doc = any(
             phrase in english_text.lower()
@@ -440,6 +465,7 @@ Begin with a warm, professional legal greeting:
                 "no criminal penal sections",
                 "not contain any criminal allegations",
                 "contains no criminal allegations",
+                "contains no legal allegations",
                 "administrative institutional communication",
                 "placement notice",
                 "recruitment notice",
@@ -456,9 +482,22 @@ Begin with a warm, professional legal greeting:
                 "not applicable — this document",
                 "not applicable - this document",
             ]
+        ) or (
+            has_user_document and any(
+                w in query.lower() or w in str(user_doc_filenames).lower()
+                for w in ["placement", "recruitment", "syllabus", "marksheet", "fee receipt", "circular", "resume"]
+            ) and not any(w in query.lower() for w in ["fir", "uapa", "crime", "cheating", "murder", "rape", "police", "arrest", "dispute", "tenant", "eviction"])
         )
 
         if is_non_legal_doc:
+            # Strip Sections 3, 4, 5, 6 for non-legal / academic / administrative documents
+            sec3_match = re.search(r"(?:###?\s*3\.|\n\s*3\.\s*Step-by-Step Action Plan)", english_text, re.IGNORECASE)
+            if sec3_match:
+                english_text = english_text[:sec3_match.start()].strip()
+            
+            # Clean trailing horizontal dividers
+            english_text = re.sub(r"\n---\s*$", "", english_text).strip()
+
             return {
                 "english_response": english_text,
                 "citations": [],
@@ -667,16 +706,24 @@ Begin with a warm, professional legal greeting:
         self,
         query: str,
         retrieved_context: List[Dict[str, Any]],
-        user_profile: UserProfile
+        user_profile: UserProfile,
+        is_first_message: bool = True,
     ) -> str:
         """Deterministic legal response generator when external API is unreachable."""
         if is_out_of_domain_query(query):
-            return (
-                "Greetings. Welcome to Nyayavarta Legal Assistance.\n\n"
-                "I am an artificial intelligence assistant dedicated exclusively to the **Indian legal system**, citizen rights, police and FIR procedures, court processes, and modern statutory transitions (such as Bharatiya Nyaya Sanhita - BNS, BNSS, and BSA).\n\n"
-                "Because your question pertains to a subject outside the legal domain (such as general science, academic coursework, or general trivia), I cannot assist with this inquiry.\n\n"
-                "If you have any **legal questions, property or contract disputes, workplace grievances, police or FIR issues, bail matters, or citizen rights questions**, please feel free to ask, and I will be honored to provide comprehensive legal guidance."
-            )
+            if is_first_message:
+                return (
+                    "Greetings. Welcome to Nyayavarta Legal Assistance.\n\n"
+                    "I am an artificial intelligence assistant dedicated exclusively to the **Indian legal system**, citizen rights, police and FIR procedures, court processes, and modern statutory transitions (such as Bharatiya Nyaya Sanhita - BNS, BNSS, and BSA).\n\n"
+                    "Because your question pertains to a subject outside the legal domain (such as general science, academic coursework, or general trivia), I cannot assist with this inquiry.\n\n"
+                    "If you have any **legal questions, property or contract disputes, workplace grievances, police or FIR issues, bail matters, or citizen rights questions**, please feel free to ask, and I will be honored to provide comprehensive legal guidance."
+                )
+            else:
+                return (
+                    "I am dedicated exclusively to the **Indian legal system**, citizen rights, police/FIR procedures, court processes, and modern statutory transitions (BNS, BNSS, and BSA).\n\n"
+                    "Because your question pertains to a subject outside the legal domain (such as general science, academic coursework, or general trivia), I cannot assist with this inquiry.\n\n"
+                    "If you have any **legal questions, property or contract disputes, workplace grievances, police or FIR issues, bail matters, or citizen rights questions**, please feel free to ask, and I will be glad to provide legal guidance."
+                )
 
         q_lower = query.lower()
 
@@ -714,6 +761,7 @@ Begin with a warm, professional legal greeting:
         )
 
         if is_academic_admin_doc:
+            greeting_str = "Namaste. Welcome to Nyayavarta Legal Assistance. I am your artificial intelligence legal guide.\n\n" if is_first_message else ""
             summary = (
                 "The document you have shared is an official institutional announcement and recruitment notice "
                 "(such as a campus recruitment circular or university placement drive notification).\n\n"
@@ -722,18 +770,20 @@ Begin with a warm, professional legal greeting:
                 "Because this document represents a standard academic placement notice and administrative institutional communication "
                 "rather than a criminal complaint, police report, or litigation matter, no criminal penal sections (such as BNS, IPC, or special penal statutes) apply."
             )
-            table_markdown = "Not Applicable — This document is an institutional/administrative notification and contains no criminal allegations or penal violations."
+            table_markdown = "Not Applicable — This document is an institutional/administrative notification and contains no criminal allegations, penal proceedings, or statutory violations. No legal or penal sections apply."
             details = (
                 "**Administrative Guidelines & Procedural Framework**:\n\n"
                 "- **Nature of Document**: Official academic placement notice / institutional circular.\n"
-                "- **Statutory Status**: No criminal or penal charges are recorded. This is an administrative matter governed by university guidelines and recruitment criteria.\n"
+                "- **Statutory Status**: No criminal or penal charges are recorded. This is strictly an administrative institutional communication.\n"
                 "- **Verification**: Review all eligibility prerequisites (such as CGPA, backlogs, academic gap years, and degree qualifications) prior to registration."
             )
-            immediate_steps = [
-                "Verify Academic Eligibility: Carefully check all eligibility conditions, including CGPA criteria, full-time enrollment requirements, and allowed academic gaps.",
-                "Adhere to Registration Deadlines: Complete registration and upload soft copies of required documents through the authorized institutional portal (such as Superset) well before the deadline.",
-                "Contact Placement Coordination: If any administrative discrepancy or technical issue arises during application, approach the university Department of Training & Placement or the Student Grievance Cell."
-            ]
+            return f"""{greeting_str}### 1. Executive Summary & Layman Explanation
+{summary}
+
+### 2. Statutory Law Transition & Charges Breakdown
+{table_markdown}
+
+{details}"""
 
         # 1. Document Analysis: CBI Kolkata Chit Fund FIR (RC2252021E0011)
         elif is_cbi_chit_fund:
@@ -1006,9 +1056,8 @@ Begin with a warm, professional legal greeting:
 
         steps_rendered = "\n".join(f"{i+1}. **{step.split(':')[0]}**:{step.split(':')[1]}" if ":" in step else f"{i+1}. {step}" for i, step in enumerate(immediate_steps))
 
-        response = f"""Namaste. Welcome to Nyayavarta Legal Assistance. I am your artificial intelligence legal guide.
-
-Here is clear guidance on how Indian law protects you and what steps you can take:
+        greeting_header = "Namaste. Welcome to Nyayavarta Legal Assistance. I am your artificial intelligence legal guide.\n\nHere is clear guidance on how Indian law protects you and what steps you can take:\n\n" if is_first_message else ""
+        response = f"""{greeting_header}
 
 ### 1. Executive Summary & Layman Explanation
 {summary}

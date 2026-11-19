@@ -18,6 +18,7 @@ export interface ChatRequest {
   user_profile?: UserProfileType;
   thread_id?: string;
   document_name?: string;
+  is_first_message?: boolean;
 }
 
 export interface ChatResponse {

@@ -204,25 +204,38 @@ async def chat_endpoint(
         # ---------------------------------------------------------
         # Step 4: Gemini LLM Generation (Context + Scope + Citations)
         # ---------------------------------------------------------
+        # Determine whether to include greeting (only on turn 1 of a new chat)
+        is_first_turn = True
+        if payload.is_first_message is not None:
+            is_first_turn = payload.is_first_message
+        elif current_thread_id:
+            try:
+                thread_msgs = auth_db.get_thread_messages(current_thread_id)
+                if any(m.get("sender") == "assistant" for m in thread_msgs):
+                    is_first_turn = False
+            except Exception:
+                pass
+
         gen_span = trace.start_span("llm_generation")
         try:
             llm_result = await llm_service.generate_legal_response(
                 query=english_query,
                 retrieved_context=retrieved_docs,
                 user_profile=payload.user_profile,
+                is_first_message=is_first_turn,
             )
             english_response = llm_result.get("english_response", "")
             citations = llm_result.get("citations", [])
         except Exception as ge:
             logger.error(f"LLM generation failed: {ge}. Using internal fallback.")
             english_response = llm_service._generate_fallback_response(
-                english_query, retrieved_docs, payload.user_profile
+                english_query, retrieved_docs, payload.user_profile, is_first_message=is_first_turn
             )
             citations = llm_service._extract_citations_from_text(english_response)
 
         if not english_response:
             english_response = llm_service._generate_fallback_response(
-                english_query, retrieved_docs, payload.user_profile
+                english_query, retrieved_docs, payload.user_profile, is_first_message=is_first_turn
             )
             citations = llm_service._extract_citations_from_text(english_response)
 
