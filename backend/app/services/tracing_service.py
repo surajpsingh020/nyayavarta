@@ -2,9 +2,8 @@
 
 Supports:
 1. Structured Trace Telemetry (Latency, Token Estimation, Retrieval Breakdown, Guardrails Status)
-2. Langfuse & LangSmith Integration Adapters
-3. Local Persistent Telemetry Log (/app/logs/llmops_traces.jsonl)
-4. Online Aggregate Quality & Error Metrics
+2. Local Persistent Telemetry Log (/app/logs/llmops_traces.jsonl)
+3. Online Aggregate Quality & Error Metrics
 """
 
 import json
@@ -115,53 +114,17 @@ class TracingService:
 
     def _init_service(self):
         os.makedirs(LOGS_DIR, exist_ok=True)
-        self.langfuse_client = None
-        self._init_langfuse()
-
-    def _init_langfuse(self):
-        """Attempts connection to Langfuse if environment credentials exist."""
-        pk = os.environ.get("LANGFUSE_PUBLIC_KEY")
-        sk = os.environ.get("LANGFUSE_SECRET_KEY")
-        host = os.environ.get("LANGFUSE_HOST", "https://cloud.langfuse.com")
-        if pk and sk:
-            try:
-                from langfuse import Langfuse
-                self.langfuse_client = Langfuse(public_key=pk, secret_key=sk, host=host)
-                logger.info("Langfuse LLMOps tracing client initialized successfully.")
-            except Exception as e:
-                logger.warning(f"Could not initialize Langfuse client: {e}. Falling back to structured local logging.")
 
     def record_trace(self, trace: LLMTrace):
-        """Persists the trace locally and exports to Langfuse/LangSmith if configured."""
+        """Persists the trace locally in structured JSONL format."""
         trace_data = trace.to_dict()
 
-        # 1. Local JSONL Persistence
+        # Local JSONL Persistence
         try:
             with open(TRACE_LOG_PATH, "a", encoding="utf-8") as f:
                 f.write(json.dumps(trace_data, ensure_ascii=False) + "\n")
         except Exception as e:
             logger.error(f"Failed to write local trace log: {e}")
-
-        # 2. Push to Langfuse if active
-        if self.langfuse_client:
-            try:
-                lf_trace = self.langfuse_client.trace(
-                    id=trace.trace_id,
-                    name="legal_consultation",
-                    user_id=trace.user_id,
-                    metadata={"thread_id": trace.thread_id, "guardrail": trace.guardrail_status},
-                    input={"query": trace.sanitized_query},
-                    output={"response_length": len(trace.response_text)},
-                )
-                for span_name, span in trace.spans.items():
-                    lf_trace.span(
-                        name=span_name,
-                        start_time=datetime.fromtimestamp(span.start_time, tz=timezone.utc),
-                        end_time=datetime.fromtimestamp(span.end_time, tz=timezone.utc),
-                        metadata=span.metadata,
-                    )
-            except Exception as le:
-                logger.debug(f"Langfuse dispatch notice: {le}")
 
     def get_recent_traces(self, limit: int = 50) -> List[Dict[str, Any]]:
         """Reads recent traces from the JSONL log."""

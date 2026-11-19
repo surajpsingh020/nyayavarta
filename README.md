@@ -133,7 +133,7 @@ The system includes an automated evaluation harness ([backend/app/services/eval_
 | **Hybrid Search** | BM25 Sparse Lexical Search + Neo4j Graph Traversal + LangChain |
 | **AI & LLM** | Google Gemini (3.5 Flash Lite), BHASHINI ASR/NMT, Web Speech API |
 | **Storage & Auth** | SQLite (Thread history & PBKDF2 credentials), Local JSONL Telemetry |
-| **Containerization** | Docker, Docker Compose, Cloudflare Tunnel |
+| **Containerization** | Docker, Docker Compose |
 
 ---
 
@@ -223,7 +223,7 @@ docker exec nyayavarta-backend python -m app.services.dataset_loader --all
 
 ```
 nyayavarta/
-├── docker-compose.yml              # Container orchestration (Backend, Frontend, Neo4j, Tunnel)
+├── docker-compose.yml              # Container orchestration (Backend, Frontend, Neo4j)
 ├── .env.example                    # Sample environment variables
 ├── .gitignore                      # Clean repository ignore patterns
 ├── README.md                       # Comprehensive platform documentation
