@@ -410,7 +410,6 @@ export default function ChatInterface({
       const response: ChatResponse = await sendChatMessage({
         text,
         source_language: selectedLanguage,
-        user_profile: 'general',
         thread_id: activeThreadId || chatSessionId,
         document_name: attachedDoc?.filename || undefined,
         is_first_message: isFirst,
@@ -551,7 +550,6 @@ export default function ChatInterface({
       const response: ChatResponse = await sendChatMessage({
         audio_base64: audioBase64,
         source_language: 'auto', // Request automatic audio language identification
-        user_profile: 'general',
         thread_id: activeThreadId || chatSessionId,
         document_name: attachedDoc?.filename || undefined,
         is_first_message: isFirst,
@@ -912,7 +910,8 @@ export default function ChatInterface({
                     : (msg.regionalResponse || msg.englishResponse)) || '';
               const activeAudio = isUser
                 ? null
-                : currentTranslation?.audioBase64 || msg.audioBase64;
+                : currentTranslation?.audioBase64 ||
+                  (activeLang === (msg.detectedLanguage || selectedLanguage) ? msg.audioBase64 : null);
 
               return (
                 <div

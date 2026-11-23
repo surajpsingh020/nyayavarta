@@ -14,7 +14,6 @@ import time
 from typing import Any, Dict, List, Optional
 
 from app.config import get_settings
-from app.models.schemas import UserProfile
 
 logger = logging.getLogger(__name__)
 
@@ -136,37 +135,6 @@ def is_out_of_domain_query(query: str) -> bool:
     return False
 
 
-def get_profile_instructions(profile: UserProfile) -> str:
-    """Return specific instructions tailored to user persona."""
-    if profile == UserProfile.STUDENT:
-        return (
-            "USER PROFILE: Student / Academic.\n"
-            "- Explain the legal concepts clearly with definitions and statutory reasoning.\n"
-            "- Highlight the theoretical and practical difference between the old law and new law.\n"
-            "- Use structured educational bullet points and cite relevant jurisprudence where helpful."
-        )
-    elif profile == UserProfile.PROFESSIONAL:
-        return (
-            "USER PROFILE: Working Professional / Corporate.\n"
-            "- Use concise, structured, and formal legal language.\n"
-            "- Focus on statutory compliance, procedural timelines, liability, and exact section numbers.\n"
-            "- Provide actionable corporate or workplace legal remedies if applicable."
-        )
-    elif profile == UserProfile.SENIOR_CITIZEN:
-        return (
-            "USER PROFILE: Senior Citizen.\n"
-            "- Use warm, highly respectful, reassuring, and completely jargon-free language.\n"
-            "- Break down the next steps into simple, numbered steps (Step 1, Step 2).\n"
-            "- Mention Senior Citizen welfare rights (e.g. Maintenance and Welfare of Parents and Senior Citizens Act) and free doorstep DLSA legal aid where relevant."
-        )
-    else:
-        return (
-            "USER PROFILE: General Citizen.\n"
-            "- Use plain, everyday language that is easy to understand without a legal background.\n"
-            "- Emphasize basic citizen rights, immediate practical remedies, and how to file a report or reach legal aid."
-        )
-
-
 class LLMService:
     """Orchestrates LLM requests via Google Gemini API with multi-model fallback cascade."""
 
@@ -201,6 +169,7 @@ class LLMService:
         candidates = [
             self.settings.GEMINI_MODEL,
             "gemini-3.5-flash-lite",
+            "gemini-3.5-flash",
         ]
         # Deduplicate while preserving order
         unique_models = []
@@ -269,10 +238,9 @@ class LLMService:
         self,
         query: str,
         retrieved_context: List[Dict[str, Any]],
-        user_profile: UserProfile = UserProfile.GENERAL,
         is_first_message: bool = True,
     ) -> Dict[str, Any]:
-        """Generate a profile-tailored legal response with citations and old/new law mappings."""
+        """Generate a comprehensive legal response with citations and old/new law mappings."""
         # 0. Domain Guardrail: strictly decline non-legal queries
         if is_out_of_domain_query(query):
             if is_first_message:
@@ -290,8 +258,7 @@ class LLMService:
                 )
             return {
                 "english_response": refusal_text,
-                "citations": [],
-                "user_profile": user_profile.value
+                "citations": []
             }
 
         # 1. Format retrieved RAG context
@@ -354,8 +321,6 @@ B. IF THE ATTACHED DOCUMENT IS ADMINISTRATIVE, ACADEMIC, OR NON-LEGAL (e.g. camp
 """
 
         # 2. Build User Prompt with Structured Legal Directives
-        profile_guide = get_profile_instructions(user_profile)
-        
         if is_first_message:
             greeting_directive = """Begin with a warm, professional legal greeting:
 "Namaste. Welcome to Nyayavarta Legal Assistance. I am your artificial intelligence legal guide."
@@ -367,9 +332,7 @@ B. IF THE ATTACHED DOCUMENT IS ADMINISTRATIVE, ACADEMIC, OR NON-LEGAL (e.g. camp
 - Start immediately with the substantive response.
 """
 
-        user_prompt = f"""{profile_guide}
-
-RETRIEVED LEGAL CONTEXT FROM KNOWLEDGE BASE & UPLOADED DOCUMENTS:
+        user_prompt = f"""RETRIEVED LEGAL CONTEXT FROM KNOWLEDGE BASE & UPLOADED DOCUMENTS:
 {context_str}
 
 USER QUERY:
@@ -463,7 +426,7 @@ FOR ADMINISTRATIVE, ACADEMIC, OR NON-LEGAL DOCUMENTS (e.g. campus recruitment ci
 
         # 4. Fallback generator if API call didn't return text
         if not english_text:
-            english_text = self._generate_fallback_response(query, retrieved_context, user_profile)
+            english_text = self._generate_fallback_response(query, retrieved_context)
 
         # Clean markdown formatting so tables have proper newlines
         english_text = _clean_llm_markdown(english_text)
@@ -530,8 +493,7 @@ FOR ADMINISTRATIVE, ACADEMIC, OR NON-LEGAL DOCUMENTS (e.g. campus recruitment ci
 
             return {
                 "english_response": english_text,
-                "citations": [],
-                "user_profile": user_profile.value
+                "citations": []
             }
 
         final_citations: List[Dict[str, str]] = []
@@ -580,8 +542,7 @@ FOR ADMINISTRATIVE, ACADEMIC, OR NON-LEGAL DOCUMENTS (e.g. campus recruitment ci
 
         return {
             "english_response": english_text,
-            "citations": final_citations[:5] if final_citations else ([] if has_user_document else citations[:5]),
-            "user_profile": user_profile.value
+            "citations": final_citations[:5] if final_citations else ([] if has_user_document else citations[:5])
         }
 
     async def translate_with_llm(self, text: str, source_lang: str, target_lang: str) -> str:
@@ -591,8 +552,7 @@ FOR ADMINISTRATIVE, ACADEMIC, OR NON-LEGAL DOCUMENTS (e.g. campus recruitment ci
 
         global _GEMINI_QUOTA_EXHAUSTED_UNTIL
         now = time.time()
-        if not self.client or now < _GEMINI_QUOTA_EXHAUSTED_UNTIL:
-            return text
+        gemini_ready = bool(self.client and now >= _GEMINI_QUOTA_EXHAUSTED_UNTIL)
 
         lang_names = {
             "hi": "Hindi (हिन्दी)",
@@ -639,23 +599,33 @@ FOR ADMINISTRATIVE, ACADEMIC, OR NON-LEGAL DOCUMENTS (e.g. campus recruitment ci
                 f"Text to translate:\n{text}"
             )
 
-        try:
-            def _call_translate():
-                return self._generate_with_gemini_cascade(
-                    contents=prompt,
-                    temperature=0.1
-                )
+        if gemini_ready:
+            try:
+                def _call_translate():
+                    return self._generate_with_gemini_cascade(
+                        contents=prompt,
+                        temperature=0.1
+                    )
 
-            response_text = await asyncio.wait_for(
-                asyncio.to_thread(_call_translate),
-                timeout=40.0
+                response_text = await asyncio.wait_for(
+                    asyncio.to_thread(_call_translate),
+                    timeout=6.0
+                )
+                if response_text and response_text.strip() and response_text.strip() != text.strip():
+                    return _clean_llm_markdown(response_text.strip())
+            except Exception as e:
+                logger.warning(f"Gemini translation notice ({e}). Falling back to Web NMT translation...")
+
+        # Robust Web NMT Fallback (preserves table structure across 14+ Indian languages)
+        try:
+            from app.services.bhashini_utils import translate_text_web
+            translated_web = await asyncio.to_thread(
+                translate_text_web, text, source_lang=source_lang, target_lang=target_lang
             )
-            if response_text and response_text.strip():
-                return _clean_llm_markdown(response_text.strip())
-        except asyncio.TimeoutError:
-            logger.warning("Gemini translation timed out after 40s. Returning text.")
-        except Exception as e:
-            logger.warning(f"LLM translation failed ({e}). Returning original text.")
+            if translated_web and translated_web.strip():
+                return _clean_llm_markdown(translated_web.strip())
+        except Exception as we:
+            logger.warning(f"Web NMT fallback translation notice: {we}")
 
         return text
 
@@ -736,7 +706,6 @@ FOR ADMINISTRATIVE, ACADEMIC, OR NON-LEGAL DOCUMENTS (e.g. campus recruitment ci
         self,
         query: str,
         retrieved_context: List[Dict[str, Any]],
-        user_profile: UserProfile,
         is_first_message: bool = True,
     ) -> str:
         """Deterministic legal response generator when external API is unreachable."""

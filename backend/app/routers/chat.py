@@ -16,7 +16,7 @@ import logging
 from typing import Optional, Dict
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 
-from app.models.schemas import ChatRequest, ChatResponse, TranslateRequest, TranslateResponse, UserProfile
+from app.models.schemas import ChatRequest, ChatResponse, TranslateRequest, TranslateResponse
 from app.routers.auth import get_optional_user, get_current_authenticated_user
 from app.services.auth_db import get_auth_db
 from app.services.bhashini_utils import (
@@ -241,7 +241,6 @@ async def chat_endpoint(
             llm_result = await llm_service.generate_legal_response(
                 query=english_query,
                 retrieved_context=retrieved_docs,
-                user_profile=payload.user_profile,
                 is_first_message=is_first_turn,
             )
             english_response = llm_result.get("english_response", "")
@@ -249,13 +248,13 @@ async def chat_endpoint(
         except Exception as ge:
             logger.error(f"LLM generation failed: {ge}. Using internal fallback.")
             english_response = llm_service._generate_fallback_response(
-                english_query, retrieved_docs, payload.user_profile, is_first_message=is_first_turn
+                english_query, retrieved_docs, is_first_message=is_first_turn
             )
             citations = llm_service._extract_citations_from_text(english_response)
 
         if not english_response:
             english_response = llm_service._generate_fallback_response(
-                english_query, retrieved_docs, payload.user_profile, is_first_message=is_first_turn
+                english_query, retrieved_docs, is_first_message=is_first_turn
             )
             citations = llm_service._extract_citations_from_text(english_response)
 
@@ -339,7 +338,7 @@ async def chat_endpoint(
         tracing_service.record_trace(trace)
         logger.error(f"Unhandled error in chat endpoint: {exc}", exc_info=True)
         fallback_en = llm_service._generate_fallback_response(
-            payload.text or "Legal query", [], payload.user_profile
+            payload.text or "Legal query", []
         )
         citations_fb = llm_service._extract_citations_from_text(fallback_en)
         mock_audio = generate_mock_wav_base64()

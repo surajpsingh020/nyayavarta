@@ -2,8 +2,6 @@
  * Client API services and TypeScript definitions for Nyayavarta.
  */
 
-export type UserProfileType = 'general' | 'student' | 'senior_citizen' | 'professional';
-
 export interface Citation {
   section: string;
   subject: string;
@@ -15,7 +13,6 @@ export interface ChatRequest {
   text?: string;
   audio_base64?: string;
   source_language: string;
-  user_profile?: UserProfileType;
   thread_id?: string;
   document_name?: string;
   is_first_message?: boolean;

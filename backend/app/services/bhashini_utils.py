@@ -37,15 +37,112 @@ def is_dummy_or_empty_key(key: Optional[str]) -> bool:
     return "your_" in key_lower or "placeholder" in key_lower or len(key_lower) < 8
 
 
+def clean_markdown_for_speech(text: str) -> str:
+    """Transform markdown tables, headers, and formatting into fluent natural spoken text."""
+    if not text:
+        return ""
+    lines = text.split("\n")
+    cleaned_lines = []
+    in_table = False
+    table_headers = []
+
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            continue
+        # Skip table divider rows
+        if re.match(r"^\|?\s*[-:]+\s*(\|[-:\s]+)+\|?$", stripped):
+            continue
+        # Process table row
+        if stripped.startswith("|") and stripped.endswith("|"):
+            cells = [c.strip() for c in stripped.split("|")[1:-1]]
+            if not in_table:
+                table_headers = cells
+                in_table = True
+            else:
+                row_parts = []
+                for val in cells:
+                    if val and val != "-" and val != "—":
+                        row_parts.append(val)
+                if row_parts:
+                    cleaned_lines.append(", ".join(row_parts) + ".")
+        else:
+            in_table = False
+            # Clean markdown formatting
+            line_clean = re.sub(r"^#+\s*", "", stripped)
+            line_clean = re.sub(r"\*\*([^*]+)\*\*", r"\1", line_clean)
+            line_clean = re.sub(r"\*([^*]+)\*", r"\1", line_clean)
+            line_clean = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", line_clean)
+            line_clean = re.sub(r"^[-*•\d\.]+\s*", "", line_clean)
+            line_clean = re.sub(r"[`_]", "", line_clean)
+            line_clean = re.sub(r"https?://\S+", "", line_clean)
+            if line_clean.strip():
+                cleaned_lines.append(line_clean.strip())
+
+    speech_text = " ".join(cleaned_lines)
+    return re.sub(r"\s+", " ", speech_text).strip()
+
+
+def translate_text_web(text: str, source_lang: str, target_lang: str) -> str:
+    """Robust web translation fallback for 14+ Indian languages with structure preservation."""
+    if not text or not text.strip() or source_lang == target_lang:
+        return text
+
+    import json
+    import urllib.parse
+    import urllib.request
+
+    tl = target_lang.lower().strip()
+    sl = source_lang.lower().strip()
+
+    lines = text.split("\n")
+    translated_lines = []
+    batch = []
+    batch_indices = []
+
+    for idx, line in enumerate(lines):
+        stripped = line.strip()
+        if not stripped or re.match(r"^\|?\s*[-:]+\s*(\|[-:\s]+)+\|?$", stripped):
+            translated_lines.append((idx, line))
+        else:
+            batch.append(line)
+            batch_indices.append(idx)
+
+    if batch:
+        chunks = []
+        cur = ""
+        for bl in batch:
+            if len(cur) + len(bl) + 1 <= 2000:
+                cur += ("\n" + bl if cur else bl)
+            else:
+                chunks.append(cur)
+                cur = bl
+        if cur:
+            chunks.append(cur)
+
+        translated_batch = []
+        for ch in chunks:
+            try:
+                url = f"https://translate.googleapis.com/translate_a/single?client=gtx&sl={sl}&tl={tl}&dt=t&q={urllib.parse.quote(ch)}"
+                req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+                with urllib.request.urlopen(req, timeout=10) as resp:
+                    data = json.loads(resp.read().decode("utf-8"))
+                    trans_chunk = "".join([part[0] for part in data[0] if part and part[0]])
+                    translated_batch.extend(trans_chunk.split("\n"))
+            except Exception as e:
+                logger.warning(f"Web translation fallback error on chunk: {e}")
+                translated_batch.extend(ch.split("\n"))
+
+        for i, t_line in zip(batch_indices, translated_batch):
+            translated_lines.append((i, t_line))
+
+    translated_lines.sort(key=lambda x: x[0])
+    return "\n".join([line for _, line in translated_lines])
+
+
 def synthesize_google_tts_base64(text: str, language: str) -> Optional[str]:
     """Synthesize high-fidelity voice audio in base64 format via Google TTS engine."""
-    if not text or not text.strip():
-        return None
-
-    # Clean markdown, asterisks, brackets, and links for clear voice synthesis
-    clean = re.sub(r"[#*`_\[\]]", " ", text)
-    clean = re.sub(r"https?://\S+", "", clean)
-    clean = re.sub(r"\s+", " ", clean).strip()
+    clean = clean_markdown_for_speech(text)
     if not clean:
         return None
 
@@ -62,11 +159,14 @@ def synthesize_google_tts_base64(text: str, language: str) -> Optional[str]:
         "pa": "pa",
         "ur": "ur",
         "en": "en-IN",
-        "ne": "ne"
+        "ne": "ne",
+        "or": "hi",  # Fallback to Hindi phonetics
+        "as": "bn",  # Fallback to Bengali phonetics
+        "sa": "hi",  # Fallback to Hindi phonetics
     }
     tts_lang = supported_langs.get(language.lower(), "hi" if language.lower() in ("or", "as", "sa") else "en-IN")
 
-    # Split into short sentence chunks of max 120 characters each to avoid Google TTS 200-char limit
+    # Split into clean sentence chunks of max 140 characters
     raw_sentences = re.split(r"[.!?।\n]+", clean)
     chunks = []
     current = ""
@@ -74,37 +174,47 @@ def synthesize_google_tts_base64(text: str, language: str) -> Optional[str]:
         s = s.strip()
         if not s:
             continue
-        if len(current) + len(s) + 1 <= 120:
+        if len(current) + len(s) + 1 <= 140:
             current = (current + " " + s).strip()
         else:
             if current:
                 chunks.append(current)
-            current = s[:120]
-        if len(chunks) >= 3:
+            current = s[:140]
+        if len(chunks) >= 6:
             break
-    if current and len(chunks) < 3:
+    if current and len(chunks) < 6:
         chunks.append(current)
 
     if not chunks:
-        chunks = [clean[:120]]
+        chunks = [clean[:140]]
 
-    import urllib.request
     import urllib.parse
+    import urllib.request
+    from concurrent.futures import ThreadPoolExecutor
 
-    combined_mp3 = bytearray()
-    for chunk in chunks[:3]:
-        q = urllib.parse.quote(chunk)
+    def _fetch_tts_chunk(c: str) -> bytes:
+        q = urllib.parse.quote(c)
         url = f"https://translate.google.com/translate_tts?ie=UTF-8&q={q}&tl={tts_lang}&client=tw-ob"
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
         try:
             with urllib.request.urlopen(req, timeout=4) as resp:
                 data = resp.read()
-                if len(data) > 200:
-                    combined_mp3.extend(data)
+                if len(data) > 100:
+                    return data
         except Exception as e:
             logger.debug(f"Google TTS chunk notice: {e}")
+        return b""
 
-    if len(combined_mp3) > 1000:
+    selected_chunks = chunks[:6]
+    with ThreadPoolExecutor(max_workers=min(len(selected_chunks), 4)) as executor:
+        chunk_results = list(executor.map(_fetch_tts_chunk, selected_chunks))
+
+    combined_mp3 = bytearray()
+    for data in chunk_results:
+        if data:
+            combined_mp3.extend(data)
+
+    if len(combined_mp3) > 500:
         b64 = base64.b64encode(bytes(combined_mp3)).decode("ascii")
         return f"data:audio/mp3;base64,{b64}"
 

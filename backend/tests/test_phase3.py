@@ -6,7 +6,6 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.main import app
-from app.models.schemas import UserProfile
 from app.services.bhashini_utils import generate_mock_wav_base64
 from app.services.llm_service import LLMService
 
@@ -28,8 +27,7 @@ async def test_llm_service_fallback_generation():
             "text": "Old Law: IPC 420\nNew Law: BNS 318\nSubject: Cheating\nDescription: Cheating provisions.",
             "metadata": {"old_law": "IPC 420", "new_law": "BNS 318", "subject": "Cheating"},
             "score": 0.85
-        }],
-        user_profile=UserProfile.GENERAL
+        }]
     )
 
     service.client = original_client
@@ -42,19 +40,17 @@ async def test_llm_service_fallback_generation():
 
 
 @pytest.mark.asyncio
-async def test_llm_service_profile_personas():
+async def test_llm_service_general_response():
     service = LLMService()
     original_client = service.client
     service.client = None
 
-    for profile in [UserProfile.STUDENT, UserProfile.PROFESSIONAL, UserProfile.SENIOR_CITIZEN]:
-        result = await service.generate_legal_response(
-            query="How to file an FIR?",
-            retrieved_context=[],
-            user_profile=profile
-        )
-        assert result["user_profile"] == profile.value
-        assert len(result["english_response"]) > 100
+    result = await service.generate_legal_response(
+        query="How to file an FIR?",
+        retrieved_context=[]
+    )
+    assert "english_response" in result
+    assert len(result["english_response"]) > 100
 
     service.client = original_client
 
@@ -83,8 +79,7 @@ async def test_llm_service_academic_document_suppression():
                 "page": 1
             },
             "score": 0.95
-        }],
-        user_profile=UserProfile.STUDENT
+        }]
     )
 
     service.client = original_client
@@ -106,8 +101,7 @@ def test_chat_endpoint_text_query_hindi():
     with TestClient(app) as client:
         payload = {
             "text": "एफआईआर कैसे दर्ज करें?",
-            "source_language": "hi",
-            "user_profile": "general"
+            "source_language": "hi"
         }
         response = client.post("/api/chat", json=payload)
         assert response.status_code == 200
@@ -128,12 +122,11 @@ def test_chat_endpoint_text_query_hindi():
         assert len(audio_bytes) > 20
 
 
-def test_chat_endpoint_text_query_english_student():
+def test_chat_endpoint_text_query_english():
     with TestClient(app) as client:
         payload = {
             "text": "Explain Section 302 IPC transition to Section 103 BNS for murder.",
-            "source_language": "en",
-            "user_profile": "student"
+            "source_language": "en"
         }
         response = client.post("/api/chat", json=payload)
         assert response.status_code == 200
@@ -145,12 +138,11 @@ def test_chat_endpoint_text_query_english_student():
         assert len(data["citations"]) > 0
 
 
-def test_chat_endpoint_senior_citizen_profile():
+def test_chat_endpoint_elderly_protection_query():
     with TestClient(app) as client:
         payload = {
             "text": "How can an elderly person seek protection from cruelty?",
-            "source_language": "en",
-            "user_profile": "senior_citizen"
+            "source_language": "en"
         }
         response = client.post("/api/chat", json=payload)
         assert response.status_code == 200
@@ -166,8 +158,7 @@ def test_chat_endpoint_audio_query():
         audio_b64 = generate_mock_wav_base64(duration_seconds=0.2)
         payload = {
             "audio_base64": audio_b64,
-            "source_language": "hi",
-            "user_profile": "general"
+            "source_language": "hi"
         }
         response = client.post("/api/chat", json=payload)
         assert response.status_code == 200
@@ -182,8 +173,7 @@ def test_chat_endpoint_empty_input_validation():
     with TestClient(app) as client:
         payload = {
             "text": "",
-            "source_language": "hi",
-            "user_profile": "general"
+            "source_language": "hi"
         }
         response = client.post("/api/chat", json=payload)
         assert response.status_code == 400
@@ -195,8 +185,7 @@ def test_chat_endpoint_empty_rag_graceful_handling():
         # A query completely unrelated to the seeded criminal laws
         payload = {
             "text": "What are the rules regarding maritime admiralty jurisdiction in outer continental shelf?",
-            "source_language": "en",
-            "user_profile": "professional"
+            "source_language": "en"
         }
         response = client.post("/api/chat", json=payload)
         assert response.status_code == 200

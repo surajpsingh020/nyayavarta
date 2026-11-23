@@ -3,19 +3,11 @@ from typing import Optional, List, Dict, Any
 from enum import Enum
 
 
-class UserProfile(str, Enum):
-    STUDENT = "student"
-    PROFESSIONAL = "professional"
-    SENIOR_CITIZEN = "senior_citizen"
-    GENERAL = "general"
-
-
 class ChatRequest(BaseModel):
     """Request schema for the /chat endpoint."""
     text: Optional[str] = Field(None, description="User's text input")
     audio_base64: Optional[str] = Field(None, description="Base64-encoded audio input")
     source_language: str = Field("hi", description="BCP-47 language code (e.g., 'hi', 'ta', 'bn')")
-    user_profile: UserProfile = Field(UserProfile.GENERAL, description="User's profile category")
     thread_id: Optional[str] = Field(None, description="Active consultation thread ID")
     document_name: Optional[str] = Field(None, description="Filename of currently active/attached user document")
     is_first_message: Optional[bool] = Field(None, description="True if this is the first turn/greeting in a new chat")

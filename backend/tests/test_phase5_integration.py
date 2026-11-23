@@ -4,7 +4,7 @@ Covers:
 1. Docker Compose specification and service dependency integrity.
 2. Full API integration: /health, /api/upload, and /api/chat.
 3. GraphRAG pipeline multi-hop resolution (Colonial IPC/CrPC -> 2023 BNS/BNSS).
-4. Persona adaptation in multilingual chat responses.
+4. Multilingual chat consultation and statutory resolution.
 5. Ingestion of user document chunks into the graph.
 """
 
@@ -163,7 +163,6 @@ def test_chat_ipc_to_bns_transition(client):
     payload = {
         "text": "What happens if an FIR is lodged under Section 302 IPC?",
         "source_language": "en",
-        "user_profile": "general",
     }
     response = client.post("/api/chat", json=payload)
     assert response.status_code == 200
@@ -184,7 +183,6 @@ def test_chat_multilingual_regional_translation(client):
     payload = {
         "text": "मुझे जीरो एफआईआर (Zero FIR) कैसे दर्ज करनी चाहिए?",
         "source_language": "hi",
-        "user_profile": "general",
     }
     response = client.post("/api/chat", json=payload)
     assert response.status_code == 200
@@ -196,20 +194,16 @@ def test_chat_multilingual_regional_translation(client):
     assert len(data["citations"]) > 0
 
 
-def test_chat_user_profiles(client):
-    """Verify persona adaptability across profiles."""
-    profiles = ["general", "student", "senior_citizen", "professional"]
-
-    for profile in profiles:
-        payload = {
-            "text": "What is the new law for cheating instead of 420 IPC?",
-            "source_language": "en",
-            "user_profile": profile,
-        }
-        res = client.post("/api/chat", json=payload)
-        assert res.status_code == 200
-        data = res.json()
-        assert len(data["english_response"]) > 0
-        # Check citations include 318 or 420
-        cit_secs = [c["section"] for c in data["citations"]]
-        assert any("318" in s or "420" in s for s in cit_secs)
+def test_chat_cheating_statutory_resolution(client):
+    """Verify statutory transition resolution for cheating provisions."""
+    payload = {
+        "text": "What is the new law for cheating instead of 420 IPC?",
+        "source_language": "en",
+    }
+    res = client.post("/api/chat", json=payload)
+    assert res.status_code == 200
+    data = res.json()
+    assert len(data["english_response"]) > 0
+    # Check citations include 318 or 420
+    cit_secs = [c["section"] for c in data["citations"]]
+    assert any("318" in s or "420" in s for s in cit_secs)

@@ -30,15 +30,49 @@ const BCP47_LANG_MAP: Record<string, string> = {
 
 function cleanMarkdownForSpeech(text: string): string {
   if (!text) return '';
-  return text
-    .replace(/#{1,6}\s+/g, '') // Remove Markdown headers
-    .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold
-    .replace(/\*(.*?)\*/g, '$1') // Remove italic
-    .replace(/\[(.*?)\]\(.*?\)/g, '$1') // Remove links
-    .replace(/^[\s*-]+/gm, '') // Remove bullet dashes
-    .replace(/`/g, '') // Remove code ticks
-    .replace(/\n+/g, '. ') // Turn newlines into natural pauses
-    .trim();
+  const lines = text.split('\n');
+  const cleanedLines: string[] = [];
+  let inTable = false;
+  let tableHeaders: string[] = [];
+
+  for (const line of lines) {
+    const stripped = line.trim();
+    if (!stripped) continue;
+    // Skip markdown table border/separator lines
+    if (/^\|?\s*[-:]+\s*(\|[-:\s]+)+\|?$/.test(stripped)) continue;
+    // Process table row
+    if (stripped.startsWith('|') && stripped.endsWith('|')) {
+      const cells = stripped.split('|').slice(1, -1).map((c) => c.trim());
+      if (!inTable) {
+        tableHeaders = cells;
+        inTable = true;
+      } else {
+        const rowParts: string[] = [];
+        cells.forEach((val) => {
+          if (val && val !== '-' && val !== '—') {
+            rowParts.push(val);
+          }
+        });
+        if (rowParts.length > 0) {
+          cleanedLines.push(rowParts.join(', ') + '.');
+        }
+      }
+    } else {
+      inTable = false;
+      let lineClean = stripped.replace(/^#+\s*/, '');
+      lineClean = lineClean.replace(/\*\*([^*]+)\*\*/g, '$1');
+      lineClean = lineClean.replace(/\*([^*]+)\*/g, '$1');
+      lineClean = lineClean.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+      lineClean = lineClean.replace(/^[-*•\d\.]+\s*/, '');
+      lineClean = lineClean.replace(/[`_]/g, '');
+      lineClean = lineClean.replace(/https?:\/\/\S+/g, '');
+      if (lineClean.trim()) {
+        cleanedLines.push(lineClean.trim());
+      }
+    }
+  }
+
+  return cleanedLines.join('. ').replace(/\s+/g, ' ').trim();
 }
 
 const AUDIO_LABELS: Record<string, { listen: string; playPrompt: string; paused: string; reading: string }> = {
