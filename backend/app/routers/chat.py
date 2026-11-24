@@ -13,6 +13,7 @@ Implements the complete GraphRAG orchestration flow:
 """
 
 import logging
+import asyncio
 from typing import Optional, Dict
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 
@@ -287,6 +288,16 @@ async def chat_endpoint(
                 logger.warning(f"Translation to '{target_output_lang}' failed: {trans_err}")
 
         # ---------------------------------------------------------
+        # Step 5b: Translate Citations into regional language if target != "en"
+        # ---------------------------------------------------------
+        regional_citations = citations
+        if target_output_lang != "en" and citations:
+            try:
+                regional_citations = await llm_service.translate_citations(citations, target_output_lang)
+            except Exception as ce:
+                logger.warning(f"Citation translation notice: {ce}")
+
+        # ---------------------------------------------------------
         # Step 6: Text-to-Speech (TTS)
         # ---------------------------------------------------------
         audio_base64: Optional[str] = None
@@ -303,6 +314,7 @@ async def chat_endpoint(
         # ---------------------------------------------------------
         # Step 7: Return Structured Response & Persist Assistant Message
         # ---------------------------------------------------------
+        final_citations = regional_citations if target_output_lang != "en" else citations
         if user and current_thread_id:
             try:
                 auth_db.add_message(
@@ -313,7 +325,7 @@ async def chat_endpoint(
                     english_query=english_query,
                     regional_response=regional_response,
                     english_response=english_response,
-                    citations=citations,
+                    citations=final_citations,
                     audio_base64=audio_base64,
                     detected_language=target_output_lang,
                 )
@@ -325,7 +337,8 @@ async def chat_endpoint(
             english_query=english_query,
             regional_response=regional_response,
             english_response=english_response,
-            citations=citations,
+            citations=final_citations,
+            english_citations=citations,
             audio_base64=audio_base64,
             detected_language=target_output_lang,
             thread_id=current_thread_id,
@@ -395,6 +408,7 @@ async def translate_endpoint(request: Request, payload: TranslateRequest):
             translated_text=text,
             target_language=target_lang,
             audio_base64=audio,
+            citations=payload.citations,
         )
 
     logger.info(f"On-demand translating text from '{source_lang}' to '{target_lang}'")
@@ -412,10 +426,18 @@ async def translate_endpoint(request: Request, payload: TranslateRequest):
     except Exception as e:
         logger.debug(f"Audio synthesis error on translate: {e}")
 
+    translated_citations = payload.citations
+    if payload.citations and target_lang != "en":
+        try:
+            translated_citations = await llm_service.translate_citations(payload.citations, target_lang)
+        except Exception as ce:
+            logger.warning(f"On-demand citation translation error: {ce}")
+
     return TranslateResponse(
         translated_text=translated_text,
         target_language=target_lang,
         audio_base64=audio_base64,
+        citations=translated_citations,
     )
 
 

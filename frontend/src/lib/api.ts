@@ -24,6 +24,7 @@ export interface ChatResponse {
   regional_response: string;
   english_response: string;
   citations: Citation[];
+  english_citations?: Citation[];
   audio_base64?: string | null;
   detected_language?: string;
   thread_id?: string;
@@ -33,6 +34,7 @@ export interface TranslateResponse {
   translated_text: string;
   target_language: string;
   audio_base64?: string | null;
+  citations?: Citation[];
 }
 
 export interface UploadResponse {
@@ -49,6 +51,7 @@ export interface MessageItem {
   regionalResponse?: string;
   englishResponse?: string;
   citations?: Citation[];
+  englishCitations?: Citation[];
   audioBase64?: string | null;
   timestamp: string;
   isAudioQuery?: boolean;
@@ -174,7 +177,8 @@ export async function uploadDocument(file: File): Promise<UploadResponse> {
 export async function translateLegalText(
   text: string,
   targetLanguage: string,
-  sourceLanguage: string = 'en'
+  sourceLanguage: string = 'en',
+  citations?: Citation[]
 ): Promise<TranslateResponse> {
   const response = await fetch(`${API_BASE}/api/translate`, {
     method: 'POST',
@@ -185,6 +189,7 @@ export async function translateLegalText(
       text,
       target_language: targetLanguage,
       source_language: sourceLanguage,
+      citations: citations && citations.length > 0 ? citations : undefined,
     }),
   });
 
@@ -415,10 +420,11 @@ export interface MatrixResponse {
   precedents: CasePrecedent[];
 }
 
-export async function fetchLawMatrix(category?: string, search?: string): Promise<MatrixResponse> {
+export async function fetchLawMatrix(category?: string, search?: string, lang: string = 'en'): Promise<MatrixResponse> {
   const params = new URLSearchParams();
   if (category && category !== 'all') params.set('category', category);
   if (search) params.set('search', search);
+  if (lang && lang !== 'en') params.set('lang', lang);
 
   const qs = params.toString() ? `?${params.toString()}` : '';
   const response = await fetch(`${API_BASE}/api/matrix${qs}`);

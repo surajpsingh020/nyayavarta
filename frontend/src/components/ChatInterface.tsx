@@ -106,9 +106,9 @@ export default function ChatInterface({
 
   // Per-message active language tracking: { [messageId]: 'bn' | 'hi' | 'en' | ... }
   const [messageLanguages, setMessageLanguages] = useState<Record<string, string>>({});
-  // Per-message cached translations: { [messageId]: { [langCode]: { text: string, audioBase64?: string } } }
+  // Per-message cached translations: { [messageId]: { [langCode]: { text: string, audioBase64?: string, citations?: any[] } } }
   const [cachedTranslations, setCachedTranslations] = useState<
-    Record<string, Record<string, { text: string; audioBase64?: string | null }>>
+    Record<string, Record<string, { text: string; audioBase64?: string | null; citations?: any[] }>>
   >({});
   const [translatingMsgId, setTranslatingMsgId] = useState<string | null>(null);
 
@@ -242,7 +242,7 @@ export default function ChatInterface({
 
       // Update message languages and translation cache
       const newLanguages: Record<string, string> = {};
-      const newCache: Record<string, Record<string, { text: string; audioBase64?: string | null }>> = {};
+      const newCache: Record<string, Record<string, { text: string; audioBase64?: string | null; citations?: any[] }>> = {};
 
       formattedMessages.forEach((msg) => {
         if (msg.sender === 'assistant') {
@@ -252,8 +252,9 @@ export default function ChatInterface({
             [lang]: {
               text: msg.regionalResponse || msg.englishResponse || '',
               audioBase64: msg.audioBase64,
+              citations: msg.citations,
             },
-            ...(msg.englishResponse ? { en: { text: msg.englishResponse, audioBase64: null } } : {}),
+            ...(msg.englishResponse ? { en: { text: msg.englishResponse, audioBase64: null, citations: msg.englishCitations || msg.citations } } : {}),
           };
         }
       });
@@ -270,7 +271,7 @@ export default function ChatInterface({
 
   const handleDeleteThread = async (e: React.MouseEvent, threadId: string) => {
     e.stopPropagation();
-    if (!confirm('Are you sure you want to delete this consultation history? This action is permanent.')) {
+    if (!confirm(t.deleteChatConfirm || 'Are you sure you want to delete this consultation history? This action is permanent.')) {
       return;
     }
     try {
@@ -319,8 +320,11 @@ export default function ChatInterface({
     try {
       const sourceText = msg.englishResponse || msg.regionalResponse || '';
       const sourceLang = msg.englishResponse ? 'en' : currentLang;
+      const citationsToTranslate = msg.englishCitations && msg.englishCitations.length > 0
+        ? msg.englishCitations
+        : msg.citations;
 
-      const res = await translateLegalText(sourceText, targetLang, sourceLang);
+      const res = await translateLegalText(sourceText, targetLang, sourceLang, citationsToTranslate);
 
       setCachedTranslations((prev) => ({
         ...prev,
@@ -329,6 +333,7 @@ export default function ChatInterface({
           [targetLang]: {
             text: res.translated_text,
             audioBase64: res.audio_base64,
+            citations: res.citations || msg.citations,
           },
         },
       }));
@@ -430,6 +435,7 @@ export default function ChatInterface({
         regionalResponse: response.regional_response,
         englishResponse: response.english_response,
         citations: response.citations,
+        englishCitations: response.english_citations,
         audioBase64: response.audio_base64,
         detectedLanguage: detectedLang,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -441,16 +447,23 @@ export default function ChatInterface({
         [assistantMessageId]: detectedLang,
       }));
 
-      // Pre-populate translation cache with initial responses
+      // Pre-populate translation cache with initial responses & citations
       setCachedTranslations((prev) => ({
         ...prev,
         [assistantMessageId]: {
           [detectedLang]: {
             text: response.regional_response,
             audioBase64: response.audio_base64,
+            citations: response.citations,
           },
           ...(response.english_response
-            ? { en: { text: response.english_response, audioBase64: null } }
+            ? {
+                en: {
+                  text: response.english_response,
+                  audioBase64: null,
+                  citations: response.english_citations || response.citations,
+                },
+              }
             : {}),
         },
       }));
@@ -579,6 +592,7 @@ export default function ChatInterface({
         regionalResponse: response.regional_response,
         englishResponse: response.english_response,
         citations: response.citations,
+        englishCitations: response.english_citations,
         audioBase64: response.audio_base64,
         detectedLanguage: detectedLang,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -597,9 +611,16 @@ export default function ChatInterface({
           [detectedLang]: {
             text: response.regional_response,
             audioBase64: response.audio_base64,
+            citations: response.citations,
           },
           ...(response.english_response
-            ? { en: { text: response.english_response, audioBase64: null } }
+            ? {
+                en: {
+                  text: response.english_response,
+                  audioBase64: null,
+                  citations: response.english_citations || response.citations,
+                },
+              }
             : {}),
         },
       }));
@@ -830,11 +851,11 @@ export default function ChatInterface({
                   {activeThread ? activeThread.title : t.chatHeader}
                 </h2>
                 <span className="hidden sm:inline bg-accent-500/30 text-accent-200 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-accent-400/20 shrink-0">
-                  Live GraphRAG
+                  {t.liveGraphRAG}
                 </span>
               </div>
               <p className="text-[10px] sm:text-[11px] text-gray-300 truncate">
-                {activeThread ? `Active Thread: ${activeThread.id}` : t.chatSubtitle}
+                {activeThread ? `${t.activeThread}: ${activeThread.id}` : t.chatSubtitle}
               </p>
             </div>
           </div>
@@ -845,11 +866,11 @@ export default function ChatInterface({
                 type="button"
                 onClick={clearChat}
                 className="px-2.5 py-1.5 text-red-300 hover:text-red-100 bg-red-950/40 hover:bg-red-900/60 border border-red-800/60 rounded-xl transition-all flex items-center gap-1.5 text-xs font-semibold cursor-pointer shadow-2xs"
-                title="Delete this consultation permanently / परामर्श हटाएँ"
+                title={t.deleteChatBtn}
                 aria-label="Delete chat"
               >
                 <Trash2 className="w-3.5 h-3.5 text-red-400" />
-                <span>Delete Chat</span>
+                <span>{t.deleteChatBtn}</span>
               </button>
             )}
           </div>
@@ -912,6 +933,12 @@ export default function ChatInterface({
                 ? null
                 : currentTranslation?.audioBase64 ||
                   (activeLang === (msg.detectedLanguage || selectedLanguage) ? msg.audioBase64 : null);
+              const activeCitations = isUser
+                ? []
+                : currentTranslation?.citations ||
+                  (activeLang === (msg.detectedLanguage || selectedLanguage)
+                    ? msg.citations
+                    : (msg.englishCitations && msg.englishCitations.length > 0 ? msg.englishCitations : msg.citations));
 
               return (
                 <div
@@ -941,7 +968,7 @@ export default function ChatInterface({
                           <div className="flex items-center gap-1.5">
                             <span className="w-2 h-2 rounded-full bg-primary-600" />
                             <span className="text-xs font-bold text-primary-900">
-                              Nyayavarta Legal Guidance
+                              {t.legalGuidanceHeader}
                             </span>
                           </div>
 
@@ -1064,16 +1091,16 @@ export default function ChatInterface({
                         )}
 
                         {/* Legal Citations & Law Transition Matrix */}
-                        {msg.citations && msg.citations.length > 0 && (
+                        {activeCitations && activeCitations.length > 0 && (
                           <div className="pt-2">
-                            <CitationCard citations={msg.citations} />
+                            <CitationCard citations={activeCitations} language={activeLang} />
                           </div>
                         )}
 
                         <div className="flex items-center justify-between pt-2 border-t border-gray-100 text-[10px] text-gray-400">
                           <span className="flex items-center gap-1">
                             <PhoneCall className="w-3 h-3 text-accent-500" />
-                            {t.emergencyTitle}: 15100 (Toll-Free, 24x7)
+                            {t.emergencyTitle}: {t.tollFree}
                           </span>
                           <span>{msg.timestamp}</span>
                         </div>
@@ -1211,8 +1238,8 @@ export default function ChatInterface({
           </form>
 
           <div className="flex items-center justify-between text-[11px] text-gray-400 px-1">
-            <span>Supported: Automatic Voice Detection, Text & PDF reports in 14 Indian languages</span>
-            <span>Legal Aid Toll-Free: 15100</span>
+            <span>{t.supportedLangs}</span>
+            <span>{t.legalAidHelpline}</span>
           </div>
         </div>
       </div>

@@ -3,13 +3,16 @@
 import React, { useRef, useState } from 'react';
 import { UploadCloud, FileText, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { uploadDocument, UploadResponse } from '@/lib/api';
+import { getUITranslations } from '@/lib/i18n';
 
 interface DocumentUploadProps {
   onUploadSuccess?: (res: UploadResponse) => void;
+  selectedLanguage?: string;
   className?: string;
 }
 
-export default function DocumentUpload({ onUploadSuccess, className = '' }: DocumentUploadProps) {
+export default function DocumentUpload({ onUploadSuccess, selectedLanguage = 'en', className = '' }: DocumentUploadProps) {
+  const t = getUITranslations(selectedLanguage);
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [statusMessage, setStatusMessage] = useState<{
@@ -89,12 +92,11 @@ export default function DocumentUpload({ onUploadSuccess, className = '' }: Docu
       <div className="flex items-center gap-2 mb-3">
         <FileText className="w-5 h-5 text-primary-600" />
         <h3 className="font-semibold text-gray-800 text-base">
-          Legal Document Ingestion (दस्तावेज़ अपलोड)
+          {t.uploadBoxTitle}
         </h3>
       </div>
       <p className="text-xs text-gray-500 mb-4 leading-relaxed">
-        Upload legal filings, FIR copies, petitions, or contracts (PDF, DOCX, TXT up to 20MB).
-        Our PyMuPDF engine extracts and indexes chunks dynamically into your RAG pipeline.
+        {t.uploadBoxDesc}
       </p>
 
       {/* Drag & Drop Zone */}
@@ -123,7 +125,7 @@ export default function DocumentUpload({ onUploadSuccess, className = '' }: Docu
             <div className="flex flex-col items-center">
               <Loader2 className="w-8 h-8 text-primary-600 animate-spin" />
               <p className="text-xs font-semibold text-primary-700 mt-2">
-                Extracting text and chunking into Neo4j Knowledge Graph & BM25...
+                {t.uploadingChunks}
               </p>
             </div>
           ) : (
@@ -132,10 +134,10 @@ export default function DocumentUpload({ onUploadSuccess, className = '' }: Docu
                 <UploadCloud className="w-6 h-6" />
               </div>
               <p className="text-sm font-medium text-gray-700">
-                Click to browse or drag and drop files here
+                {t.clickToBrowse}
               </p>
               <p className="text-[11px] text-gray-400">
-                PDF, Word (.docx) or plain text (.txt)
+                {t.supportedFormats}
               </p>
             </>
           )}

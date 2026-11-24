@@ -3,14 +3,17 @@
 import React, { useState } from 'react';
 import { Scale, ChevronDown, ChevronUp, BookOpen, AlertCircle } from 'lucide-react';
 import { Citation } from '@/lib/api';
+import { getUITranslations } from '@/lib/i18n';
 
 interface CitationCardProps {
   citations: Citation[];
+  language?: string;
   className?: string;
 }
 
-export default function CitationCard({ citations, className = '' }: CitationCardProps) {
+export default function CitationCard({ citations, language = 'en', className = '' }: CitationCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const t = getUITranslations(language);
 
   if (!citations || citations.length === 0) {
     return null;
@@ -24,22 +27,22 @@ export default function CitationCard({ citations, className = '' }: CitationCard
         <div className="flex items-center gap-2">
           <Scale className="w-4 h-4 text-amber-700 flex-shrink-0" />
           <span className="text-xs font-bold text-amber-900 tracking-wide uppercase">
-            Legal Citations & Law Mapping ({citations.length})
+            {t.citationsTitle} ({citations.length})
           </span>
         </div>
         {citations.length > 2 && (
           <button
             type="button"
             onClick={() => setIsExpanded(!isExpanded)}
-            className="flex items-center gap-1 text-xs font-semibold text-amber-800 hover:text-amber-950 transition-colors"
+            className="flex items-center gap-1 text-xs font-semibold text-amber-800 hover:text-amber-950 transition-colors cursor-pointer"
           >
             {isExpanded ? (
               <>
-                Show Less <ChevronUp className="w-3.5 h-3.5" />
+                {t.showLess} <ChevronUp className="w-3.5 h-3.5" />
               </>
             ) : (
               <>
-                Show All ({citations.length}) <ChevronDown className="w-3.5 h-3.5" />
+                {t.showAll} ({citations.length}) <ChevronDown className="w-3.5 h-3.5" />
               </>
             )}
           </button>
@@ -58,12 +61,12 @@ export default function CitationCard({ citations, className = '' }: CitationCard
                 {cit.section}
               </span>
               <span className="bg-amber-100 text-amber-800 text-[10px] font-medium px-2 py-0.5 rounded-full whitespace-nowrap">
-                {cit.subject || 'Statute'}
+                {cit.subject || t.statute}
               </span>
             </div>
             {cit.key_changes && (
               <p className="mt-1 text-gray-600 text-[11px] leading-relaxed pl-5">
-                <span className="font-medium text-gray-700">Transition / Notes: </span>
+                <span className="font-medium text-gray-700">{t.transitionNotes} </span>
                 {cit.key_changes}
               </p>
             )}

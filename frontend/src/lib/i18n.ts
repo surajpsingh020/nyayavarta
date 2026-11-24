@@ -1,6 +1,6 @@
 /**
  * UI Localization (i18n) dictionary for Nyayavarta.
- * Full multilingual translations for all 14 supported Indian languages.
+ * Full multilingual translations for all supported Indian languages.
  */
 
 export interface UITranslation {
@@ -22,21 +22,13 @@ export interface UITranslation {
   chatGreeting: string;
   chatGreetingSub: string;
   suggestedQueriesTitle: string;
-  suggestedQueries: Array<{ label: string; text: string }>;
   inputPlaceholder: string;
   sendBtn: string;
   listening: string;
   stopSend: string;
   attachDoc: string;
   docAttached: string;
-  matrixTitle: string;
-  matrixSubtitle: string;
-  matrixHeaders: {
-    crime: string;
-    oldLaw: string;
-    newLaw: string;
-    note: string;
-  };
+  legalGuidanceHeader: string;
   historyTitle: string;
   newConsultationBtn: string;
   noHistoryTitle: string;
@@ -52,809 +44,500 @@ export interface UITranslation {
   clearChatBtn: string;
   userLoginBtn: string;
   userLogOutBtn: string;
+  activeThread: string;
+  deleteChatBtn: string;
+  liveGraphRAG: string;
+  privateAndEncrypted: string;
+  supportedLangs: string;
+  legalAidHelpline: string;
+  nalsaPortal: string;
+  tollFreeHelpline: string;
+  empoweringCitizens: string;
+  clearChatConfirm: string;
+  deleteChatConfirm: string;
+  citationsTitle: string;
+  showLess: string;
+  showAll: string;
+  statute: string;
+  transitionNotes: string;
+  uploadBannerTag: string;
+  uploadBannerTitle: string;
+  uploadBannerDesc: string;
+  goToChatBtn: string;
+  uploadBoxTitle: string;
+  uploadBoxDesc: string;
+  clickToBrowse: string;
+  supportedFormats: string;
+  uploadingChunks: string;
+  indexedDocsTitle: string;
+  filesCount: string;
+  noDocsYet: string;
+  chunksInNeo4j: string;
+  askInChat: string;
+  architectureTitle: string;
+  architectureDesc: string;
+  knowledgeGraphLabel: string;
+  keywordRetrievalLabel: string;
+  orchestrationLabel: string;
+  statutoryGraphDataLabel: string;
+  guidelinesTitle: string;
+  guideline1: string;
+  guideline2: string;
+  guideline3: string;
+  guideline4: string;
+  matrixCorpusTag: string;
+  matrixMainTitle: string;
+  matrixMainDesc: string;
+  transitionsCountLabel: string;
+  precedentsCountLabel: string;
+  tabStatutoryConcordance: string;
+  tabLandmarkPrecedents: string;
+  searchStatutesPlaceholder: string;
+  searchPrecedentsPlaceholder: string;
+  categoryLabel: string;
+  catAll: string;
+  catBns: string;
+  catBnss: string;
+  catBsa: string;
+  catSpecial: string;
+  colSubject: string;
+  colOldLaw: string;
+  colNewLaw: string;
+  colKeyTransition: string;
+  colActions: string;
+  btnDetails: string;
+  btnAskAI: string;
+  colCaseTitle: string;
+  colIssue: string;
+  colHolding: string;
+  colApplication: string;
+  modalTitle: string;
+  modalSubtitle: string;
+  oldProvision: string;
+  modernProvision: string;
+  keyLegalShift: string;
+  proceduralNotes: string;
+  proceduralClassification: string;
+  askInLegalChat: string;
+  copied: string;
+  close: string;
+  suggestedQueries: Array<{ label: string; text: string }>;
 }
 
 export const I18N_STRINGS: Record<string, Partial<UITranslation> & Record<string, any>> = {
-  // 1. HINDI
-  hi: {
-    emergencyTitle: 'आपातकालीन एवं सहायता',
-    legalAidText: 'राष्ट्रीय विधिक सेवा प्राधिकरण हेल्पलाइन (NALSA / DLSA):',
-    tollFree: '15100 (निशुल्क, 24x7)',
-    police: 'पुलिस: 112',
-    cyberCrime: 'साइबर अपराध: 1930',
-    women: 'महिला हेल्पलाइन: 1091',
-    appTitle: 'न्यायवार्ता',
-    appSubtitle: 'भारतीय नागरिकों के लिए बहुभाषी कानूनी सहायक (IPC → BNS / CrPC → BNSS / BSA)',
-    apiOnline: 'सक्रिय (Online)',
-    tabChat: 'कानूनी परामर्श (Legal Chat)',
-    tabUpload: 'दस्तावेज़ / रिपोर्ट जोड़ें (Upload Document)',
-    tabMatrix: 'कानून परिवर्तन चार्ट (Law Matrix)',
-    ragTag: 'GraphRAG + Neo4j',
-    chatHeader: 'न्यायवार्ता AI कानूनी सहायक',
-    chatSubtitle: 'भारतीय दंड संहिता (IPC) → भारतीय न्याय संहिता (BNS) एवं विधिक सहायता',
-    chatGreeting: 'नमस्ते! न्यायवार्ता आज आपकी क्या सहायता कर सकता है?',
-    chatGreetingSub: 'अपनी भाषा में लिखें, बोलें या अपनी कानूनी रिपोर्ट/एफआईआर अपलोड करें। हमारा नॉलेज ग्राफ आपको सटीक कानूनी प्रावधान व सहायता प्रदान करेगा।',
-    suggestedQueriesTitle: 'सुझाए गए कानूनी प्रश्न (Suggested Legal Queries)',
-    suggestedQueries: [
-      {
-        label: 'जीरो एफआईआर (BNSS 173)',
-        text: 'एफआईआर (FIR) कैसे दर्ज कराएं? क्या Zero FIR मान्य है?',
-      },
-      {
-        label: 'धोखाधड़ी (IPC 420 → BNS 318)',
-        text: 'पुराने IPC 420 और नए BNS 318 (धोखाधड़ी) में क्या अंतर है?',
-      },
-      {
-        label: 'गिरफ्तारी अधिकार (BNSS 35)',
-        text: 'BNSS धारा 35 के तहत गिरफ्तारी के समय नागरिक के क्या अधिकार हैं?',
-      },
-      {
-        label: 'मुफ्त कानूनी सहायता (NALSA 15100)',
-        text: 'वरिष्ठ नागरिकों के लिए मुफ्त कानूनी सहायता और 15100 हेल्पलाइन की जानकारी दें।',
-      },
-    ],
-    inputPlaceholder: 'अपना कानूनी प्रश्न लिखें या बोलने के लिए माइक दबाएं...',
-    sendBtn: 'भेजें (Send)',
-    listening: 'ध्वनि सुनी जा रही है...',
-    stopSend: 'रोकें और भेजें',
-    attachDoc: 'दस्तावेज़ संलग्न करें (PDF / DOCX)',
-    docAttached: 'दस्तावेज़ इंडेक्स हो गया',
-    matrixTitle: 'प्रमुख आपराधिक कानून परिवर्तन (IPC → BNS / CrPC → BNSS / IEA → BSA)',
-    matrixSubtitle: '1 जुलाई 2024 से लागू नए आपराधिक कानूनों के प्रमुख धारा परिवर्तन:',
-    matrixHeaders: {
-      crime: 'अपराध / विषय',
-      oldLaw: 'पुराना कानून (Old Section)',
-      newLaw: 'नया कानून 2023 (New Section)',
-      note: 'प्रमुख बदलाव / टिप्पणी',
-    },
-    historyTitle: 'परामर्श इतिहास (History)',
-    newConsultationBtn: '+ नया परामर्श (+ New Consultation)',
-    noHistoryTitle: 'कोई पुराना परामर्श नहीं',
-    noHistorySub: 'कानूनी प्रश्न पूछकर नया परामर्श शुरू करें।',
-    privateHistoryTitle: 'निजी परामर्श इतिहास',
-    privateHistorySub: 'अपने कानूनी परामर्श को सुरक्षित सहेजने और बाद में देखने के लिए लॉग इन करें। आपका डेटा पूरी तरह निजी है।',
-    loginSignUpBtn: 'लॉग इन / साइन अप (Log In)',
-    loadingConsultations: 'परामर्श लोड हो रहे हैं...',
-    messagesCount: 'संदेश',
-    privateDataBadge: 'निजी डेटा सुरक्षित',
-    hideHistoryBtn: 'परामर्श छुपाएं',
-    showHistoryBtn: 'परामर्श इतिहास',
-    clearChatBtn: 'हटाएं (Clear)',
-    userLoginBtn: 'लॉग इन / खाता',
-    userLogOutBtn: 'लॉग आउट',
-  },
-
-  // 2. ENGLISH
   en: {
-    emergencyTitle: 'Emergency & Aid',
-    legalAidText: 'National Legal Aid Helpline (NALSA / DLSA):',
-    tollFree: '15100 (Toll-Free, 24x7)',
-    police: 'Police: 112',
-    cyberCrime: 'Cyber Crime: 1930',
-    women: 'Women: 1091',
-    appTitle: 'Nyayavarta',
-    appSubtitle: 'Multilingual Legal Assistant for Indian Citizens (IPC → BNS / CrPC → BNSS / BSA)',
-    apiOnline: 'API Online',
-    tabChat: 'Legal Chat',
-    tabUpload: 'Upload Legal Document',
-    tabMatrix: 'Law Transition Matrix',
-    ragTag: 'GraphRAG + Neo4j',
-    chatHeader: 'Nyayavarta AI Assistant',
-    chatSubtitle: 'Indian Penal Code (IPC) → Bharatiya Nyaya Sanhita (BNS) & Legal Aid',
-    chatGreeting: 'Namaste! How can Nyayavarta assist you today?',
-    chatGreetingSub: 'Type in your language, click the mic to speak, or upload your legal document/report. Our GraphRAG maps old laws to new BNS provisions and provides step-by-step aid.',
-    suggestedQueriesTitle: 'Suggested Legal Queries',
-    suggestedQueries: [
-      {
-        label: 'FIR / Zero FIR (BNSS 173)',
-        text: 'How to file an FIR? Is Zero FIR legally valid under BNSS Section 173?',
-      },
-      {
-        label: 'Cheating (IPC 420 → BNS 318)',
-        text: 'What is the difference between IPC 420 and the new BNS 318 for cheating?',
-      },
-      {
-        label: 'Arrest Rights (BNSS 35)',
-        text: 'What are my rights upon arrest under BNSS Section 35?',
-      },
-      {
-        label: 'Free Legal Aid (NALSA 15100)',
-        text: 'How can citizens get free legal aid from DLSA / NALSA Helpline 15100?',
-      },
-    ],
-    inputPlaceholder: 'Type your legal query, attach a PDF report, or click the mic to speak...',
-    sendBtn: 'Send',
-    listening: 'Listening to your voice...',
-    stopSend: 'Stop & Send',
-    attachDoc: 'Attach Legal Document (PDF / DOCX)',
-    docAttached: 'Document Indexed in Neo4j',
-    matrixTitle: 'Key Criminal Law Transitions (IPC → BNS / CrPC → BNSS / IEA → BSA)',
-    matrixSubtitle: 'Effective July 1, 2024, Indian criminal law transitioned to modernized statutes:',
-    matrixHeaders: {
-      crime: 'Subject / Crime',
-      oldLaw: 'Old Law Section',
-      newLaw: 'New Law Section (2023)',
-      note: 'Key Transition Note',
-    },
-    historyTitle: 'Consultation History',
-    newConsultationBtn: '+ New Consultation',
-    noHistoryTitle: 'No previous consultations',
-    noHistorySub: 'Ask a legal question to begin a consultation.',
-    privateHistoryTitle: 'Private Legal Consultations',
-    privateHistorySub: 'Log in or sign up to securely save your consultation history. Your data is isolated and completely private.',
-    loginSignUpBtn: 'Log In / Sign Up',
-    loadingConsultations: 'Loading consultations...',
-    messagesCount: 'messages',
-    privateDataBadge: 'Private & Encrypted',
-    hideHistoryBtn: 'Hide History',
-    showHistoryBtn: 'History',
-    clearChatBtn: 'Clear',
-    userLoginBtn: 'Log In / Sign Up',
-    userLogOutBtn: 'Log Out',
-  },
+    "emergencyTitle": "Emergency & Aid",
+    "legalAidText": "National Legal Aid Helpline (NALSA / DLSA):",
+    "tollFree": "15100 (Toll-Free, 24x7)",
+    "police": "Police: 112",
+    "cyberCrime": "Cyber Crime: 1930",
+    "women": "Women: 1091",
+    "appTitle": "Nyayavarta",
+    "appSubtitle": "Multilingual Legal Assistant for Indian Citizens (IPC → BNS / CrPC → BNSS / BSA)",
+    "apiOnline": "API Online",
+    "tabChat": "Legal Chat",
+    "tabUpload": "Upload Legal Document",
+    "tabMatrix": "Law Transition Matrix",
+    "ragTag": "GraphRAG + Neo4j",
+    "chatHeader": "Nyayavarta AI Assistant",
+    "chatSubtitle": "Indian Penal Code (IPC) → Bharatiya Nyaya Sanhita (BNS) & Legal Aid",
+    "chatGreeting": "Namaste! How can Nyayavarta assist you today?",
+    "chatGreetingSub": "Type in your language, click the mic to speak, or upload your legal document/report. Our GraphRAG maps old laws to new BNS provisions and provides step-by-step aid.",
+    "suggestedQueriesTitle": "Suggested Legal Queries",
+    "inputPlaceholder": "Type your legal query, attach a PDF report, or click the mic to speak...",
+    "sendBtn": "Send",
+    "listening": "Listening...",
+    "stopSend": "Stop & Send",
+    "attachDoc": "Attach Legal Document (PDF / DOCX)",
+    "docAttached": "Document attached & indexed",
+    "legalGuidanceHeader": "Nyayavarta Legal Guidance",
+    "historyTitle": "Consultation History",
+    "newConsultationBtn": "+ New Consultation",
+    "noHistoryTitle": "No Previous Consultations",
+    "noHistorySub": "Ask a legal question to begin a new consultation.",
+    "privateHistoryTitle": "Private Consultation History",
+    "privateHistorySub": "Log in to securely save and access your past consultations. Your consultations remain private.",
+    "loginSignUpBtn": "Log In / Sign Up",
+    "loadingConsultations": "Loading consultations...",
+    "messagesCount": "messages",
+    "privateDataBadge": "Private & Encrypted",
+    "hideHistoryBtn": "Hide History",
+    "showHistoryBtn": "Show History",
+    "clearChatBtn": "Clear",
+    "userLoginBtn": "Log In / Account",
+    "userLogOutBtn": "Log Out",
+    "activeThread": "Active Consultation",
+    "deleteChatBtn": "Delete Chat",
+    "liveGraphRAG": "Live GraphRAG",
+    "privateAndEncrypted": "Private & Encrypted",
+    "supportedLangs": "Supported: Automatic Voice Detection, Text & PDF reports in 14 Indian languages",
+    "legalAidHelpline": "Legal Aid Toll-Free: 15100",
+    "nalsaPortal": "NALSA Official Portal",
+    "tollFreeHelpline": "Toll-Free Helpline: 15100",
+    "empoweringCitizens": "Empowering Indian Citizens with AI Legal Literacy",
+    "clearChatConfirm": "Clear the current legal consultation conversation?",
+    "deleteChatConfirm": "Delete this active legal consultation from your history? This action is permanent.",
+    "citationsTitle": "Legal Citations & Law Mapping",
+    "showLess": "Show Less",
+    "showAll": "Show All",
+    "statute": "Statute",
+    "transitionNotes": "Transition / Notes:",
+    "uploadBannerTag": "What is Document Upload?",
+    "uploadBannerTitle": "Ask AI Questions Directly About Your Legal Report or FIR Copy",
+    "uploadBannerDesc": "When you upload an FIR copy, court petition, agreement, or police report (PDF/DOCX), Nyayavarta parses its text, segments it into searchable chunks, and indexes it into the Neo4j Knowledge Graph. You can then ask questions in the Legal Chat (via text or voice) and the AI will reference your specific document!",
+    "goToChatBtn": "Go to Legal Chat",
+    "uploadBoxTitle": "Legal Document Ingestion",
+    "uploadBoxDesc": "Upload legal filings, FIR copies, petitions, or contracts (PDF, DOCX, TXT up to 20MB). Our PyMuPDF engine extracts and indexes chunks dynamically into your RAG pipeline.",
+    "clickToBrowse": "Click to browse or drag and drop files here",
+    "supportedFormats": "PDF, Word (.docx) or plain text (.txt)",
+    "uploadingChunks": "Extracting text and chunking into Neo4j Knowledge Graph & BM25...",
+    "indexedDocsTitle": "Indexed Documents in this Session",
+    "filesCount": "file(s)",
+    "noDocsYet": "No documents uploaded yet. Upload a PDF or Word file above (or using the paperclip button in the chat) to index its content into the knowledge graph.",
+    "chunksInNeo4j": "chunks in Neo4j",
+    "askInChat": "Ask in Chat",
+    "architectureTitle": "GraphRAG Architecture (Neo4j)",
+    "architectureDesc": "Nyayavarta combines Neo4j Knowledge Graph traversal with BM25 keyword search to maximize legal accuracy.",
+    "knowledgeGraphLabel": "Knowledge Graph",
+    "keywordRetrievalLabel": "Keyword Retrieval",
+    "orchestrationLabel": "Orchestration",
+    "statutoryGraphDataLabel": "Statutory Graph Data",
+    "guidelinesTitle": "Document Guidelines",
+    "guideline1": "Supported: FIR copies, court petitions, bail orders, legal contracts.",
+    "guideline2": "Text extraction via PyMuPDF with page-level metadata.",
+    "guideline3": "Max file size: 20MB.",
+    "guideline4": "Indexed chunks are automatically retrieved in subsequent chat queries.",
+    "matrixCorpusTag": "Official Indian Criminal Law Concordance & Precedent Corpus",
+    "matrixMainTitle": "Indian Law Transition Matrix & Landmark Precedents",
+    "matrixMainDesc": "Explore 105 statutory transitions (IPC ↔ BNS, CrPC ↔ BNSS, Evidence Act ↔ BSA, Special Acts) and 38 Landmark Supreme Court Precedents. Click on any provision or case to view complete comparative penalties, procedural classifications, and citizen rights.",
+    "transitionsCountLabel": "Transitions",
+    "precedentsCountLabel": "SC Precedents",
+    "tabStatutoryConcordance": "Statutory Concordance",
+    "tabLandmarkPrecedents": "Landmark Precedents",
+    "searchStatutesPlaceholder": "Search offense, section (e.g. 420, 302, 173), or penalty...",
+    "searchPrecedentsPlaceholder": "Search precedent (e.g. Lalita Kumari, Arnesh Kumar, Bail)...",
+    "categoryLabel": "Category:",
+    "catAll": "All",
+    "catBns": "BNS (Penal)",
+    "catBnss": "BNSS (Procedure & Police)",
+    "catBsa": "BSA (Evidence & Records)",
+    "catSpecial": "Special & Central Acts",
+    "colSubject": "Subject / Offence",
+    "colOldLaw": "Colonial / Old Law",
+    "colNewLaw": "Modern Law (2023 / Special)",
+    "colKeyTransition": "Key Statutory Transition & Penalty",
+    "colActions": "Actions",
+    "btnDetails": "Details",
+    "btnAskAI": "Ask AI",
+    "colCaseTitle": "Landmark Case & Citation",
+    "colIssue": "Legal Issue & Topic",
+    "colHolding": "Supreme Court Holding & Ratio",
+    "colApplication": "BNS / BNSS Statutory Application",
+    "modalTitle": "Statutory Transition Analysis",
+    "modalSubtitle": "Colonial Law vs Modern 2023 Enactment",
+    "oldProvision": "Old Statutory Provision",
+    "modernProvision": "Modern Statutory Provision",
+    "keyLegalShift": "Key Legal Shift & Citizen Impact",
+    "proceduralNotes": "Procedural & Penalty Notes",
+    "proceduralClassification": "Procedural Classification",
+    "askInLegalChat": "Ask AI in Legal Chat",
+    "copied": "Copied!",
+    "close": "Close",
+    "suggestedQueries": [
+        {
+            "label": "FIR / Zero FIR (BNSS 173)",
+            "text": "How to file an FIR? Is Zero FIR legally valid under BNSS Section 173?"
+        },
+        {
+            "label": "Cheating (IPC 420 → BNS 318)",
+            "text": "What is the difference between old IPC 420 and new BNS 318 for cheating?"
+        },
+        {
+            "label": "Arrest Rights (BNSS 35)",
+            "text": "What are the rights of an arrested citizen under BNSS Section 35?"
+        },
+        {
+            "label": "Free Legal Aid (15100)",
+            "text": "How can an eligible citizen get free state legal counsel via NALSA 15100 helpline?"
+        }
+    ]
+},
 
-  // 3. MARATHI (मराठी)
-  mr: {
-    emergencyTitle: 'तातडीची मदत व सहाय्य',
-    legalAidText: 'राष्ट्रीय विधी सेवा प्राधिकरण हेल्पलाइन (NALSA / DLSA):',
-    tollFree: '15100 (मोफत, 24x7)',
-    police: 'पोलीस: 112',
-    cyberCrime: 'सायबर गुन्हे: 1930',
-    women: 'महिला हेल्पलाइन: 1091',
-    appTitle: 'न्यायवार्ता',
-    appSubtitle: 'भारतीय नागरिकांसाठी बहुभाषिक कायदेशीर सहाय्यक (IPC → BNS / CrPC → BNSS / BSA)',
-    apiOnline: 'सक्रिय (Online)',
-    tabChat: 'कायदेशीर सल्ला (Legal Chat)',
-    tabUpload: 'दस्तऐवज / अहवाल जोडा (Upload Document)',
-    tabMatrix: 'कायदा बदल तक्ता (Law Matrix)',
-    ragTag: 'GraphRAG + Neo4j',
-    chatHeader: 'न्यायवार्ता AI कायदेशीर सहाय्यक',
-    chatSubtitle: 'भारतीय न्याय संहिता (BNS) आणि मोफत कायदेशीर मदत',
-    chatGreeting: 'नमस्कार! न्यायवार्ता आज आपल्याला कशी मदत करू शकते?',
-    chatGreetingSub: 'आपल्या भाषेत लिहा, बोला किंवा आपला एफआयआर/दस्तऐवज अपलोड करा. आमचा नॉलेज ग्राफ योग्य कलमे आणि कायदेशीर मार्गदर्शन देईल.',
-    suggestedQueriesTitle: 'सुचवलेले कायदेशीर प्रश्न',
-    suggestedQueries: [
-      {
-        label: 'झिरो एफआयआर (BNSS 173)',
-        text: 'एफआयआर कशी नोंदवावी? झिरो एफआयआर कायदेशीररित्या वैध आहे का?',
-      },
-      {
-        label: 'फसवणूक (IPC 420 → BNS 318)',
-        text: 'जुने IPC 420 आणि नवीन BNS 318 (फसवणूक) यामध्ये काय फरक आहे?',
-      },
-      {
-        label: 'अटकेचे अधिकार (BNSS 35)',
-        text: 'BNSS कलम 35 अन्वये अटक करताना नागरिकांचे कोणते अधिकार आहेत?',
-      },
-      {
-        label: 'मोफत कायदेशीर मदत (15100)',
-        text: 'ज्येष्ठ नागरिकांसाठी मोफत विधी सेवा आणि NALSA 15100 ची माहिती द्या.',
-      },
-    ],
-    inputPlaceholder: 'आपला कायदेशीर प्रश्न येथे लिहा किंवा बोलण्यासाठी माईक दाबा...',
-    sendBtn: 'पाठवा (Send)',
-    listening: 'ऐकत आहे...',
-    stopSend: 'थांबवा आणि पाठवा',
-    attachDoc: 'दस्तऐवज जोडा (PDF / DOCX)',
-    docAttached: 'दस्तऐवज जोडला गेला',
-    matrixTitle: 'प्रमुख गुन्हेगारी कायदा बदल (IPC → BNS / CrPC → BNSS / IEA → BSA)',
-    matrixSubtitle: '1 जुलै 2024 पासून लागू झालेले नवीन कायद्यांचे प्रमुख बदल:',
-    matrixHeaders: {
-      crime: 'गुन्हा / विषय',
-      oldLaw: 'जुने कलम (Old)',
-      newLaw: 'नवीन कलम (BNS/BNSS)',
-      note: 'महत्त्वाचे बदल',
-    },
-    historyTitle: 'सल्लामसलत इतिहास (History)',
-    newConsultationBtn: '+ नवीन सल्लामसलत (+ New)',
-    noHistoryTitle: 'कोणताही जुना सल्ला नाही',
-    noHistorySub: 'कायदेशीर प्रश्न विचारून नवीन सल्लामसलत सुरू करा.',
-    privateHistoryTitle: 'खाजगी कायदेशीर इतिहास',
-    privateHistorySub: 'आपली कायदेशीर चर्चा सुरक्षित ठेवण्यासाठी लॉग इन करा.',
-    loginSignUpBtn: 'लॉग इन / साइन अप',
-    loadingConsultations: 'लोड होत आहे...',
-    messagesCount: 'संदेश',
-    privateDataBadge: 'माहिती सुरक्षित',
-    hideHistoryBtn: 'इतिहास लपवा',
-    showHistoryBtn: 'इतिहास',
-    clearChatBtn: 'साफ करा',
-    userLoginBtn: 'लॉग इन / खाते',
-    userLogOutBtn: 'लॉग आउट',
-  },
-
-  // 4. BENGALI (বাংলা)
-  bn: {
-    emergencyTitle: 'জরুরী ও আইনি সহায়তা',
-    legalAidText: 'জাতীয় আইনি পরিষেবা কর্তৃপক্ষ হেল্পলাইন (NALSA / DLSA):',
-    tollFree: '15100 (টোল-ফ্রি, 24x7)',
-    police: 'পুলিশ: 112',
-    cyberCrime: 'সাইবার অপরাধ: 1930',
-    women: 'মহিলা হেল্পলাইন: 1091',
-    appTitle: 'ন্যায়বার্তা',
-    appSubtitle: 'ভারতীয় নাগরিকদের জন্য বহুভাষিক আইনি সহকারী (IPC → BNS / CrPC → BNSS / BSA)',
-    apiOnline: 'সক্রিয় (Online)',
-    tabChat: 'আইনি পরামর্শ (Legal Chat)',
-    tabUpload: 'নথি / রিপোর্ট আপলোড করুন',
-    tabMatrix: 'আইন পরিবর্তন তালিকা (Law Matrix)',
-    ragTag: 'GraphRAG + Neo4j',
-    chatHeader: 'ন্যায়বার্তা AI আইনি সহায়ক',
-    chatSubtitle: 'ভারতীয় দণ্ডবিধি (IPC) → ভারতীয় ন্যায় সংহিতা (BNS) ও আইনি সাহায্য',
-    chatGreeting: 'নমস্কার! ন্যায়বার্তা আজ আপনাকে কীভাবে সাহায্য করতে পারে?',
-    chatGreetingSub: 'আপনার ভাষায় লিখুন, কথা বলুন বা আপনার আইনি নথি আপলোড করুন। আমাদের নলেজ গ্রাফ আপনাকে সঠিক আইন ও অধিকার সম্পর্কে জানাবে।',
-    suggestedQueriesTitle: 'প্রস্তাবিত আইনি প্রশ্ন',
-    suggestedQueries: [
-      {
-        label: 'জিরো এফআইআর (BNSS 173)',
-        text: 'এফআইআর (FIR) কীভাবে দায়ের করবেন? জিরো এফআইআর কি বৈধ?',
-      },
-      {
-        label: 'প্রতারণা (IPC 420 → BNS 318)',
-        text: 'পুরানো IPC 420 এবং নতুন BNS 318 (প্রতারণা) এর মধ্যে পার্থক্য কী?',
-      },
-      {
-        label: 'গ্রেপ্তারির অধিকার (BNSS 35)',
-        text: 'BNSS ধারা 35 এর অধীনে গ্রেপ্তারির সময় নাগরিকের অধিকার কী কী?',
-      },
-      {
-        label: 'বিনামূল্যে আইনি সাহায্য (15100)',
-        text: 'বিনামূল্যে আইনি সহায়তা পেতে নালসা (NALSA) হেল্পলাইন 15100 কীভাবে কাজ করে?',
-      },
-    ],
-    inputPlaceholder: 'আপনার আইনি প্রশ্ন লিখুন বা কথা বলতে মাইক ক্লিক করুন...',
-    sendBtn: 'পাঠান',
-    listening: 'শুনছি...',
-    stopSend: 'থামুন ও পাঠান',
-    attachDoc: 'নথি যুক্ত করুন (PDF / DOCX)',
-    docAttached: 'নথি যুক্ত হয়েছে',
-    matrixTitle: 'প্রধান ফৌজদারি আইন পরিবর্তন (IPC → BNS / CrPC → BNSS)',
-    matrixSubtitle: '১ জুলাই ২০২৪ থেকে কার্যকর নতুন আইনের ধারা পরিবর্তন:',
-    matrixHeaders: {
-      crime: 'অপরাধ / বিষয়',
-      oldLaw: 'পুরানো ধারা (Old)',
-      newLaw: 'নতুন ধারা (New)',
-      note: 'প্রধান পরিবর্তন',
-    },
-  },
-
-  // 5. TAMIL (தமிழ்)
   ta: {
-    emergencyTitle: 'அவசரம் மற்றும் உதவி',
-    legalAidText: 'தேசிய சட்ட சேவைகள் ஆணைய உதவி எண் (NALSA / DLSA):',
-    tollFree: '15100 (கட்டணமில்லா, 24x7)',
-    police: 'காவல்துறை: 112',
-    cyberCrime: 'சைபர் குற்றம்: 1930',
-    women: 'பெண்கள் உதவி எண்: 1091',
-    appTitle: 'நியாயவார்தா',
-    appSubtitle: 'இந்தியக் குடிமக்களுக்கான பன்மொழி சட்ட உதவியாளர் (IPC → BNS / CrPC → BNSS / BSA)',
-    apiOnline: 'செயலில் உள்ளது',
-    tabChat: 'சட்ட ஆலோசனை (Legal Chat)',
-    tabUpload: 'ஆவணத்தைப் பதிவேற்றுக',
-    tabMatrix: 'சட்ட மாற்ற அட்டவணை',
-    ragTag: 'GraphRAG + Neo4j',
-    chatHeader: 'நியாயவார்தா AI சட்ட உதவியாளர்',
-    chatSubtitle: 'இந்திய தண்டனைச் சட்டம் (IPC) → பாரதிய நியாய சன்ஹிதா (BNS)',
-    chatGreeting: 'வணக்கம்! நியாயவார்தா உங்களுக்கு இன்று எவ்வாறு உதவ முடியும்?',
-    chatGreetingSub: 'உங்கள் மொழியில் தட்டச்சு செய்யவும், பேசவும் அல்லது உங்கள் புகாரை பதிவேற்றவும்.',
-    suggestedQueriesTitle: 'பரிந்துரைக்கப்பட்ட சட்டக் கேள்விகள்',
-    suggestedQueries: [
-      {
-        label: 'ஜீரோ எஃப்.ஐ.ஆர் (BNSS 173)',
-        text: 'எஃப்ஐஆர் பதிவு செய்வது எப்படி? ஜீரோ எஃப்ஐஆர் செல்லுபடியாகுமா?',
-      },
-      {
-        label: 'மோசடி (IPC 420 → BNS 318)',
-        text: 'பழைய IPC 420 மற்றும் புதிய BNS 318 இடையே உள்ள வேறுபாடு என்ன?',
-      },
-      {
-        label: 'கைது உரிமைகள் (BNSS 35)',
-        text: 'BNSS பிரிவு 35 இன் கீழ் கைது செய்யப்படும் போது குடிமக்களின் உரிமைகள் யாவை?',
-      },
-      {
-        label: 'இலவச சட்ட உதவி (15100)',
-        text: 'நல்சா (NALSA) 15100 உதவி எண் மூலம் இலவச சட்ட உதவி பெறுவது எப்படி?',
-      },
-    ],
-    inputPlaceholder: 'உங்கள் சட்டக் கேள்வியை உள்ளிடவும் அல்லது மைக் கிளிக் செய்யவும்...',
-    sendBtn: 'அனுப்புக',
-    listening: 'கேட்கிறது...',
-    stopSend: 'நிறுத்தி அனுப்புக',
-    attachDoc: 'ஆவணத்தை இணைக்கவும் (PDF / DOCX)',
-    docAttached: 'ஆவணம் இணைக்கப்பட்டது',
-    matrixTitle: 'முக்கிய குற்றவியல் சட்ட மாற்றங்கள் (IPC → BNS)',
-    matrixSubtitle: 'ஜூலை 1, 2024 முதல் நடைமுறைக்கு வந்துள்ள புதிய சட்டப் பிரிவுகள்:',
-    matrixHeaders: {
-      crime: 'குற்றம் / பொருள்',
-      oldLaw: 'பழைய பிரிவு',
-      newLaw: 'புதிய பிரிவு (2023)',
-      note: 'முக்கிய குறிப்பு',
-    },
-  },
+    "emergencyTitle": "அவசர மற்றும் உதவி",
+    "legalAidText": "தேசிய சட்ட உதவி ஹெல்ப்லைன் (NALSA / DLSA):",
+    "tollFree": "15100 (கட்டணமில்லா, 24x7)",
+    "police": "போலீஸ்: 112",
+    "cyberCrime": "சைபர் கிரைம்: 1930",
+    "women": "பெண்கள்: 1091",
+    "appTitle": "நியாயவர்தா",
+    "appSubtitle": "இந்திய குடிமக்களுக்கான பன்மொழி சட்ட உதவியாளர் (IPC → BNS / CrPC → BNSS / BSA)",
+    "apiOnline": "API ஆன்லைன்",
+    "tabChat": "சட்ட அரட்டை",
+    "tabUpload": "சட்ட ஆவணத்தைப் பதிவேற்றவும்",
+    "tabMatrix": "சட்ட மாற்றம் மேட்ரிக்ஸ்",
+    "ragTag": "வரைபடம் + நியோ4ஜே",
+    "chatHeader": "நியாயவர்தா AI உதவியாளர்",
+    "chatSubtitle": "இந்திய தண்டனைச் சட்டம் (IPC) → பாரதிய நியாய சன்ஹிதா (BNS) & சட்ட உதவி",
+    "chatGreeting": "நமஸ்தே! இன்று நியாயவர்தா உங்களுக்கு எப்படி உதவ முடியும்?",
+    "chatGreetingSub": "உங்கள் மொழியில் தட்டச்சு செய்யவும், பேச மைக்கைக் கிளிக் செய்யவும் அல்லது உங்கள் சட்ட ஆவணம்/அறிக்கையைப் பதிவேற்றவும். எங்கள் GraphRAG ஆனது பழைய சட்டங்களை புதிய BNS விதிகளுக்கு வரைபடமாக்குகிறது மற்றும் படிப்படியான உதவியை வழங்குகிறது.",
+    "suggestedQueriesTitle": "பரிந்துரைக்கப்படும் சட்ட வினாக்கள்",
+    "inputPlaceholder": "உங்கள் சட்ட வினவலை உள்ளிடவும், PDF அறிக்கையை இணைக்கவும் அல்லது பேச மைக்கை கிளிக் செய்யவும்...",
+    "sendBtn": "அனுப்பு",
+    "listening": "கேட்கிறது...",
+    "stopSend": "நிறுத்து & அனுப்பு",
+    "attachDoc": "சட்ட ஆவணத்தை இணைக்கவும் (PDF / DOCX)",
+    "docAttached": "ஆவணம் இணைக்கப்பட்டுள்ளது & அட்டவணைப்படுத்தப்பட்டது",
+    "legalGuidanceHeader": "நியாயவர்தா சட்ட வழிகாட்டுதல்",
+    "historyTitle": "ஆலோசனை வரலாறு",
+    "newConsultationBtn": "+ புதிய ஆலோசனை",
+    "noHistoryTitle": "முந்தைய ஆலோசனைகள் இல்லை",
+    "noHistorySub": "புதிய ஆலோசனையைத் தொடங்க சட்டக் கேள்வியைக் கேளுங்கள்.",
+    "privateHistoryTitle": "தனிப்பட்ட ஆலோசனை வரலாறு",
+    "privateHistorySub": "உங்கள் கடந்தகால ஆலோசனைகளைப் பாதுகாப்பாகச் சேமிக்கவும் அணுகவும் உள்நுழையவும். உங்கள் ஆலோசனைகள் தனிப்பட்டதாக இருக்கும்.",
+    "loginSignUpBtn": "உள்நுழையவும் / பதிவு செய்யவும்",
+    "loadingConsultations": "ஆலோசனைகளை ஏற்றுகிறது...",
+    "messagesCount": "செய்திகள்",
+    "privateDataBadge": "தனிப்பட்ட & மறைகுறியாக்கப்பட்ட",
+    "hideHistoryBtn": "வரலாற்றை மறை",
+    "showHistoryBtn": "வரலாற்றைக் காட்டு",
+    "clearChatBtn": "தெளிவு",
+    "userLoginBtn": "உள்நுழைக / கணக்கு",
+    "userLogOutBtn": "வெளியேறு",
+    "activeThread": "செயலில் கலந்தாய்வு",
+    "deleteChatBtn": "அரட்டையை நீக்கு",
+    "liveGraphRAG": "நேரடி வரைபடம்",
+    "privateAndEncrypted": "தனிப்பட்ட & மறைகுறியாக்கப்பட்ட",
+    "supportedLangs": "ஆதரிக்கப்படும்: தானியங்கி குரல் கண்டறிதல், 14 இந்திய மொழிகளில் உரை & PDF அறிக்கைகள்",
+    "legalAidHelpline": "சட்ட உதவி இலவசம்: 15100",
+    "nalsaPortal": "NALSA அதிகாரப்பூர்வ போர்டல்",
+    "tollFreeHelpline": "கட்டணமில்லா உதவி எண்: 15100",
+    "empoweringCitizens": "இந்திய குடிமக்களுக்கு AI சட்ட கல்வியறிவு மூலம் அதிகாரமளித்தல்",
+    "clearChatConfirm": "தற்போதைய சட்ட ஆலோசனை உரையாடலை அழிக்கவா?",
+    "deleteChatConfirm": "இந்த செயலில் உள்ள சட்ட ஆலோசனையை உங்கள் வரலாற்றிலிருந்து நீக்கவா? இந்த நடவடிக்கை நிரந்தரமானது.",
+    "citationsTitle": "சட்ட மேற்கோள்கள் & சட்ட மேப்பிங்",
+    "showLess": "குறைவாகக் காட்டு",
+    "showAll": "அனைத்தையும் காட்டு",
+    "statute": "சட்டம்",
+    "transitionNotes": "மாற்றம் / குறிப்புகள்:",
+    "uploadBannerTag": "ஆவணப் பதிவேற்றம் என்றால் என்ன?",
+    "uploadBannerTitle": "உங்கள் சட்ட அறிக்கை அல்லது FIR நகல் பற்றி நேரடியாக AI கேள்விகளைக் கேளுங்கள்",
+    "uploadBannerDesc": "நீங்கள் எஃப்ஐஆர் நகல், நீதிமன்ற மனு, ஒப்பந்தம் அல்லது போலீஸ் அறிக்கை (PDF/DOCX) ஆகியவற்றைப் பதிவேற்றும்போது, ​​Nyayavarta அதன் உரையை அலசி, தேடக்கூடிய பகுதிகளாகப் பிரித்து, அதை Neo4j அறிவு வரைபடத்தில் அட்டவணைப்படுத்துகிறது. நீங்கள் சட்ட அரட்டையில் (உரை அல்லது குரல் வழியாக) கேள்விகளைக் கேட்கலாம் மற்றும் AI உங்கள் குறிப்பிட்ட ஆவணத்தைக் குறிப்பிடும்!",
+    "goToChatBtn": "சட்ட அரட்டைக்குச் செல்லவும்",
+    "uploadBoxTitle": "சட்ட ஆவண உட்செலுத்துதல்",
+    "uploadBoxDesc": "சட்டப்பூர்வ பதிவுகள், FIR நகல்கள், மனுக்கள் அல்லது ஒப்பந்தங்கள் (PDF, DOCX, TXT வரை 20MB வரை) பதிவேற்றவும். எங்கள் PyMuPDF இன்ஜின் உங்கள் RAG பைப்லைனில் மாறும் வகையில் பிரித்தெடுக்கிறது மற்றும் அட்டவணைப்படுத்துகிறது.",
+    "clickToBrowse": "இங்கே கோப்புகளை உலாவ அல்லது இழுத்து விட கிளிக் செய்யவும்",
+    "supportedFormats": "PDF, Word (.docx) அல்லது எளிய உரை (.txt)",
+    "uploadingChunks": "உரையைப் பிரித்தெடுத்து, Neo4j அறிவு வரைபடம் & BM25 ஆக இணைக்கிறது...",
+    "indexedDocsTitle": "இந்த அமர்வில் அட்டவணைப்படுத்தப்பட்ட ஆவணங்கள்",
+    "filesCount": "கோப்பு(கள்)",
+    "noDocsYet": "இதுவரை எந்த ஆவணங்களும் பதிவேற்றப்படவில்லை. ஒரு PDF அல்லது வேர்ட் கோப்பை மேலே பதிவேற்றவும் (அல்லது அரட்டையில் உள்ள காகித கிளிப் பொத்தானைப் பயன்படுத்தி) அதன் உள்ளடக்கத்தை அறிவு வரைபடத்தில் அட்டவணைப்படுத்தவும்.",
+    "chunksInNeo4j": "Neo4j இல் உள்ள துண்டுகள்",
+    "askInChat": "அரட்டையில் கேளுங்கள்",
+    "architectureTitle": "கிராஃப்ராக் கட்டிடக்கலை (Neo4j)",
+    "architectureDesc": "Nyayavarta சட்ட துல்லியத்தை அதிகரிக்க, Neo4j அறிவு வரைபடத்தை BM25 முக்கிய தேடலுடன் இணைக்கிறது.",
+    "knowledgeGraphLabel": "அறிவு வரைபடம்",
+    "keywordRetrievalLabel": "முக்கிய வார்த்தை மீட்டெடுப்பு",
+    "orchestrationLabel": "இசைக்குழு",
+    "statutoryGraphDataLabel": "சட்டப்பூர்வ வரைபடத் தரவு",
+    "guidelinesTitle": "ஆவண வழிகாட்டுதல்கள்",
+    "guideline1": "ஆதரிக்கப்படும்: FIR நகல்கள், நீதிமன்ற மனுக்கள், ஜாமீன் உத்தரவுகள், சட்ட ஒப்பந்தங்கள்.",
+    "guideline2": "பக்க நிலை மெட்டாடேட்டாவுடன் PyMuPDF வழியாக உரை பிரித்தெடுத்தல்.",
+    "guideline3": "அதிகபட்ச கோப்பு அளவு: 20MB.",
+    "guideline4": "அடுத்தடுத்த அரட்டை வினவல்களில் அட்டவணைப்படுத்தப்பட்ட துண்டுகள் தானாகவே மீட்டெடுக்கப்படும்.",
+    "matrixCorpusTag": "அதிகாரப்பூர்வ இந்திய குற்றவியல் சட்ட ஒத்திசைவு & முன்னோடி கார்பஸ்",
+    "matrixMainTitle": "இந்திய சட்ட மாற்றம் அணி & முக்கிய முன்மாதிரிகள்",
+    "matrixMainDesc": "105 சட்டரீதியான மாற்றங்கள் (IPC ↔ BNS, CrPC ↔ BNSS, எவிடன்ஸ் சட்டம் ↔ BSA, சிறப்புச் சட்டங்கள்) மற்றும் 38 முக்கிய உச்ச நீதிமன்ற முன்மாதிரிகளை ஆராயுங்கள். முழுமையான ஒப்பீட்டு அபராதங்கள், நடைமுறை வகைப்பாடுகள் மற்றும் குடிமக்கள் உரிமைகளைப் பார்க்க ஏதேனும் விதி அல்லது வழக்கின் மீது கிளிக் செய்யவும்.",
+    "transitionsCountLabel": "மாற்றங்கள்",
+    "precedentsCountLabel": "SC முன்மாதிரிகள்",
+    "tabStatutoryConcordance": "சட்டப்பூர்வ ஒத்திசைவு",
+    "tabLandmarkPrecedents": "மைல்கல் முன்மாதிரிகள்",
+    "searchStatutesPlaceholder": "தேடல் குற்றம், பிரிவு (எ.கா. 420, 302, 173) அல்லது அபராதம்...",
+    "searchPrecedentsPlaceholder": "தேடல் முன்னோடி (எ.கா. லலிதா குமாரி, அர்னேஷ் குமார், ஜாமீன்)...",
+    "categoryLabel": "வகை:",
+    "catAll": "அனைத்து",
+    "catBns": "BNS (தண்டனை)",
+    "catBnss": "பிஎன்எஸ்எஸ் (செயல்முறை & போலீஸ்)",
+    "catBsa": "BSA (ஆதாரம் & பதிவுகள்)",
+    "catSpecial": "சிறப்பு மற்றும் மத்திய சட்டங்கள்",
+    "colSubject": "பொருள் / குற்றம்",
+    "colOldLaw": "காலனித்துவ / பழைய சட்டம்",
+    "colNewLaw": "நவீன சட்டம் (2023 / சிறப்பு)",
+    "colKeyTransition": "முக்கிய சட்டப்பூர்வ மாற்றம் & அபராதம்",
+    "colActions": "செயல்கள்",
+    "btnDetails": "விவரங்கள்",
+    "btnAskAI": "AI ஐக் கேளுங்கள்",
+    "colCaseTitle": "முக்கிய வழக்கு & மேற்கோள்",
+    "colIssue": "சட்டச் சிக்கல் & தலைப்பு",
+    "colHolding": "சுப்ரீம் கோர்ட் ஹோல்டிங் & ரேஷியோ",
+    "colApplication": "BNS / BNSS சட்டப்பூர்வ விண்ணப்பம்",
+    "modalTitle": "சட்டப்பூர்வ மாற்றம் பகுப்பாய்வு",
+    "modalSubtitle": "காலனித்துவ சட்டம் vs நவீன 2023 அமலாக்கம்",
+    "oldProvision": "பழைய சட்ட ஏற்பாடு",
+    "modernProvision": "நவீன சட்ட ஏற்பாடு",
+    "keyLegalShift": "முக்கிய சட்ட மாற்றம் & குடிமகன் தாக்கம்",
+    "proceduralNotes": "நடைமுறை & அபராதக் குறிப்புகள்",
+    "proceduralClassification": "நடைமுறை வகைப்பாடு",
+    "askInLegalChat": "சட்ட அரட்டையில் AI ஐக் கேளுங்கள்",
+    "copied": "நகலெடுக்கப்பட்டது!",
+    "close": "மூடு",
+    "suggestedQueries": [
+        {
+            "label": "ஜீரோ எஃப்.ஐ.ஆர் (BNSS 173)",
+            "text": "எஃப்ஐஆர் பதிவு செய்வது எப்படி? ஜீரோ எஃப்ஐஆர் செல்லுபடியாகுமா?"
+        },
+        {
+            "label": "மோசடி (IPC 420 → BNS 318)",
+            "text": "பழைய IPC 420 மற்றும் புதிய BNS 318 இடையே உள்ள வேறுபாடு என்ன?"
+        },
+        {
+            "label": "கைது உரிமைகள் (BNSS 35)",
+            "text": "BNSS பிரிவு 35 இன் கீழ் கைது செய்யப்படும் போது குடிமக்களின் உரிமைகள் யாவை?"
+        },
+        {
+            "label": "இலவச சட்ட உதவி (15100)",
+            "text": "நல்சா (NALSA) 15100 உதவி எண் மூலம் இலவச சட்ட உதவி பெறுவது எப்படி?"
+        }
+    ]
+},
 
-  // 6. TELUGU (తెలుగు)
-  te: {
-    emergencyTitle: 'అత్యవసర మరియు చట్టపరమైన సహాయం',
-    legalAidText: 'జాతీయ న్యాయ సేవల ప్రాధికార సంస్థ హెల్ప్‌లైన్ (NALSA / DLSA):',
-    tollFree: '15100 (ఉచితం, 24x7)',
-    police: 'పోలీస్: 112',
-    cyberCrime: 'సైబర్ నేరాలు: 1930',
-    women: 'మహిళల హెల్ప్‌లైన్: 1091',
-    appTitle: 'న్యాయవార్త',
-    appSubtitle: 'భారతీయ పౌరుల కోసం బహుభాషా చట్టపరమైన సహాయకుడు (IPC → BNS)',
-    apiOnline: 'యాక్టివ్ (Online)',
-    tabChat: 'చట్టపరమైన సలహా (Legal Chat)',
-    tabUpload: 'పత్రం / నివేదికను అప్‌లోడ్ చేయండి',
-    tabMatrix: 'చట్టాల మార్పు పట్టిక',
-    ragTag: 'GraphRAG + Neo4j',
-    chatHeader: 'న్యాయవార్త AI న్యాయ సహాయకుడు',
-    chatSubtitle: 'భారతీయ శిక్షాస్మృతి (IPC) → భారతీయ న్యాయ సంహిత (BNS)',
-    chatGreeting: 'నమస్కారం! న్యాయవార్త మీకు ఈరోజు ఎలా సహాయం చేయగలదు?',
-    chatGreetingSub: 'మీ భాషలో రాయండి, మాట్లాడండి లేదా మీ ఎఫ్ఐఆర్ పత్రాన్ని అప్‌లోడ్ చేయండి.',
-    suggestedQueriesTitle: 'సూచించిన చట్టపరమైన ప్రశ్నలు',
-    suggestedQueries: [
-      {
-        label: 'జీరో ఎఫ్ఐఆర్ (BNSS 173)',
-        text: 'ఎఫ్ఐఆర్ ఎలా నమోదు చేయాలి? జీరో ఎఫ్ఐఆర్ చెల్లుతుందా?',
-      },
-      {
-        label: 'మోసం (IPC 420 → BNS 318)',
-        text: 'పాత IPC 420 మరియు కొత్త BNS 318 మధ్య తేడా ఏమిటి?',
-      },
-      {
-        label: 'అరెస్ట్ హక్కులు (BNSS 35)',
-        text: 'BNSS సెక్షన్ 35 ప్రకారం అరెస్ట్ సమయంలో పౌరుల హక్కులు ఏమిటి?',
-      },
-      {
-        label: 'ఉచిత న్యాయ సహాయం (15100)',
-        text: 'ఉచిత న్యాయ సహాయం కోసం NALSA 15100 ఎలా సంప్రదించాలి?',
-      },
-    ],
-    inputPlaceholder: 'మీ ప్రశ్నను ఇక్కడ నమోదు చేయండి లేదా మాట్లాడటానికి మైక్ నొక్కండి...',
-    sendBtn: 'పంపండి',
-    listening: 'వింటోంది...',
-    stopSend: 'ఆపి పంపండి',
-    attachDoc: 'పత్రం జతచేయండి (PDF / DOCX)',
-    docAttached: 'పత్రం జోడించబడింది',
-    matrixTitle: 'ప్రధాన నేర చట్టాల మార్పులు (IPC → BNS / CrPC → BNSS)',
-    matrixSubtitle: 'జులై 1, 2024 నుండి అమల్లోకి వచ్చిన కొత్త చట్టాల సెక్షన్లు:',
-    matrixHeaders: {
-      crime: 'నేరం / అంశం',
-      oldLaw: 'పాత సెక్షన్',
-      newLaw: 'కొత్త సెక్షన్',
-      note: 'ముఖ్య మార్పులు',
-    },
-  },
-
-  // 7. GUJARATI (ગુજરાતી)
-  gu: {
-    emergencyTitle: 'કટોકટી અને કાનૂની સહાય',
-    legalAidText: 'રાષ્ટ્રીય કાનૂની સેવા સત્તામંડળ હેલ્પલાઇન (NALSA / DLSA):',
-    tollFree: '15100 (ટોલ-ફ્રી, 24x7)',
-    police: 'પોલીસ: 112',
-    cyberCrime: 'સાયબર ક્રાઇમ: 1930',
-    women: 'મહિલા હેલ્પલાઇન: 1091',
-    appTitle: 'ન્યાયવાર્તા',
-    appSubtitle: 'ભારતીય નાગરિકો માટે બહુભાષી કાનૂની સહાયક (IPC → BNS / BNSS / BSA)',
-    apiOnline: 'સક્રિય (Online)',
-    tabChat: 'કાનૂની સલાહ (Legal Chat)',
-    tabUpload: 'દસ્તાવેજ અપલોડ કરો',
-    tabMatrix: 'કાયદા પરિવર્તન ચાર્ટ',
-    ragTag: 'GraphRAG + Neo4j',
-    chatHeader: 'ન્યાયવાર્તા AI કાનૂની સહાયક',
-    chatSubtitle: 'ભારતીય દંડ સંહિતા (IPC) → ભારતીય ન્યાય સંહિતા (BNS)',
-    chatGreeting: 'નમસ્તે! ન્યાયવાર્તા આજે આપને કેવી રીતે મદદ કરી શકે છે?',
-    chatGreetingSub: 'તમારી ભાષામાં લખો, બોલો અથવા કાનૂની અહેવાલ અપલોડ કરો.',
-    suggestedQueriesTitle: 'સૂચવેલા કાનૂની પ્રશ્નો',
-    suggestedQueries: [
-      {
-        label: 'ઝીરો એફઆઇઆર (BNSS 173)',
-        text: 'FIR કેવી રીતે નોંધાવવી? શું ઝીરો એફઆઈઆર માન્ય છે?',
-      },
-      {
-        label: 'છેતરપિંડી (IPC 420 → BNS 318)',
-        text: 'જૂની IPC 420 અને નવી BNS 318 (છેતરપિંડી) વચ્ચે શું તફાવત છે?',
-      },
-      {
-        label: 'ધરપકડ અધિકારો (BNSS 35)',
-        text: 'BNSS કલમ 35 હેઠળ ધરપકડ સમયે નાગરિકોના કયા અધિકારો છે?',
-      },
-      {
-        label: 'મફત કાનૂની સહાય (15100)',
-        text: 'નાગરિકો NALSA 15100 પરથી મફત કાનૂની સહાય કેવી રીતે મેળવી શકે?',
-      },
-    ],
-    inputPlaceholder: 'તમારો પ્રશ્ન અહીં લખો અથવા બોલવા માટે માઇક ક્લિક કરો...',
-    sendBtn: 'મોકલો',
-    listening: 'સાંભળી રહ્યું છે...',
-    stopSend: 'રોકો અને મોકલો',
-    attachDoc: 'દસ્તાવેજ જોડો (PDF / DOCX)',
-    docAttached: 'દસ્તાવેજ જોડાઈ ગયો',
-    matrixTitle: 'મુખ્ય ફોજદારી કાયદા પરિવર્તન (IPC → BNS)',
-    matrixSubtitle: '1 જુલાઈ 2024 થી અમલમાં આવેલા નવા કાયદાની કલમો:',
-    matrixHeaders: {
-      crime: 'ગુનો / વિષય',
-      oldLaw: 'જૂની કલમ',
-      newLaw: 'નવી કલમ',
-      note: 'મહત્વના ફેરફાર',
-    },
-  },
-
-  // 8. KANNADA (ಕನ್ನಡ)
-  kn: {
-    emergencyTitle: 'ತುರ್ತು ಮತ್ತು ಕಾನೂನು ನೆರವು',
-    legalAidText: 'ರಾಷ್ಟ್ರೀಯ ಕಾನೂನು ಸೇವೆಗಳ ಪ್ರಾಧಿಕಾರ ಸಹಾಯವಾಣಿ (NALSA / DLSA):',
-    tollFree: '15100 (ಉಚಿತ, 24x7)',
-    police: 'ಪೊಲೀಸ್: 112',
-    cyberCrime: 'ಸೈಬರ್ ಅಪರಾಧ: 1930',
-    women: 'ಮಹಿಳಾ ಸಹಾಯವಾಣಿ: 1091',
-    appTitle: 'ನ್ಯಾಯವಾರ್ತಾ',
-    appSubtitle: 'ಭಾರತೀಯ ನಾಗರಿಕರಿಗೆ ಬಹುಭಾಷಾ ಕಾನೂನು ಸಹಾಯಕ (IPC → BNS / BNSS)',
-    apiOnline: 'ಸಕ್ರಿಯವಾಗಿದೆ',
-    tabChat: 'ಕಾನೂನು ಸಮಾಲೋಚನೆ',
-    tabUpload: 'ದಾಖಲೆ / ವರದಿ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ',
-    tabMatrix: 'ಕಾನೂನು ಬದಲಾವಣೆ ಪಟ್ಟಿ',
-    ragTag: 'GraphRAG + Neo4j',
-    chatHeader: 'ನ್ಯಾಯವಾರ್ತಾ AI ಕಾನೂನು ಸಹಾಯಕ',
-    chatSubtitle: 'ಭಾರತೀಯ ದಂಡ ಸಂಹಿತೆ (IPC) → ಭಾರತೀಯ ನ್ಯಾಯ ಸಂಹಿತಾ (BNS)',
-    chatGreeting: 'ನಮಸ್ಕಾರ! ನ್ಯಾಯವಾರ್ತಾ ನಿಮಗೆ ಇಂದು ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?',
-    chatGreetingSub: 'ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ ಬರೆಯಿರಿ, ಮಾತನಾಡಿ ಅಥವಾ ನಿಮ್ಮ ಎಫ್‌ಐಆರ್ ದಾಖಲೆಯನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ.',
-    suggestedQueriesTitle: 'ಸೂಚಿಸಲಾದ ಕಾನೂನು ಪ್ರಶ್ನೆಗಳು',
-    suggestedQueries: [
-      {
-        label: 'ಜೀರೋ ಎಫ್‌ಐಆರ್ (BNSS 173)',
-        text: 'ಎಫ್‌ಐಆರ್ ದಾಖಲಿಸುವುದು ಹೇಗೆ? ಜೀರೋ ಎಫ್‌ಐಆರ್ ಮಾನ್ಯವಾಗಿದೆಯೇ?',
-      },
-      {
-        label: 'ವಂಚನೆ (IPC 420 → BNS 318)',
-        text: 'ಹಳೆಯ IPC 420 ಮತ್ತು ಹೊಸ BNS 318 ನಡುವಿನ ವ್ಯತ್ಯಾಸವೇನು?',
-      },
-      {
-        label: 'ಬಂಧನದ ಹಕ್ಕುಗಳು (BNSS 35)',
-        text: 'BNSS ಸೆಕ್ಷನ್ 35 ರ ಅಡಿಯಲ್ಲಿ ಬಂಧನದ ಸಮಯದಲ್ಲಿ ನಾಗರಿಕರ ಹಕ್ಕುಗಳೇನು?',
-      },
-      {
-        label: 'ಉಚಿತ ಕಾನೂನು ನೆರವು (15100)',
-        text: 'NALSA 15100 ಸಹಾಯವಾಣಿಯಿಂದ ಉಚಿತ ಕಾನೂನು ನೆರವು ಪಡೆಯುವುದು ಹೇಗೆ?',
-      },
-    ],
-    inputPlaceholder: 'ನಿಮ್ಮ ಕಾನೂನು ಪ್ರಶ್ನೆಯನ್ನು ನಮೂದಿಸಿ ಅಥವಾ ಮಾತನಾಡಲು ಮೈಕ್ ಕ್ಲಿಕ್ ಮಾಡಿ...',
-    sendBtn: 'ಕಳುಹಿಸಿ',
-    listening: 'ಆಲಿಸುತ್ತಿದೆ...',
-    stopSend: 'ನಿಲ್ಲಿಸಿ ಕಳುಹಿಸಿ',
-    attachDoc: 'ದಾಖಲೆ ಲಗತ್ತಿಸಿ (PDF / DOCX)',
-    docAttached: 'ದಾಖಲೆ ಲಗತ್ತಿಸಲಾಗಿದೆ',
-    matrixTitle: 'ಪ್ರಮುಖ ಕ್ರಿಮಿನಲ್ ಕಾನೂನು ಬದಲಾವಣೆಗಳು (IPC → BNS)',
-    matrixSubtitle: 'ಜುಲೈ 1, 2024 ರಿಂದ ಜಾರಿಗೆ ಬಂದ ಹೊಸ ಕಾನೂನಿನ ಸೆಕ್ಷನ್‌ಗಳು:',
-    matrixHeaders: {
-      crime: 'ಅಪರಾಧ / ವಿಷಯ',
-      oldLaw: 'ಹಳೆಯ ಸೆಕ್ಷನ್',
-      newLaw: 'ಹೊಸ ಸೆಕ್ಷನ್',
-      note: 'ಪ್ರಮುಖ ಟಿಪ್ಪಣಿ',
-    },
-  },
-
-  // 9. MALAYALAM (മലയാളം)
-  ml: {
-    emergencyTitle: 'അടിയന്തര നിയമ സഹായം',
-    legalAidText: 'ദേശീയ നിയമ സേവന അതോറിറ്റി ഹെൽപ്പ് ലൈൻ (NALSA / DLSA):',
-    tollFree: '15100 (ടോൾ ഫ്രീ, 24x7)',
-    police: 'പോലീസ്: 112',
-    cyberCrime: 'സൈബർ കുറ്റകൃത്യങ്ങൾ: 1930',
-    women: 'വനിതാ ഹെൽപ്പ് ലൈൻ: 1091',
-    appTitle: 'ന്യായവാർത്ത',
-    appSubtitle: 'ഇന്ത്യൻ പൗരന്മാർക്കുള്ള ബഹുഭാഷാ നിയമ സഹായി (IPC → BNS / BNSS)',
-    apiOnline: 'സജീവം (Online)',
-    tabChat: 'നിയമ സംഭാഷണം',
-    tabUpload: 'രേഖകൾ അപ്‌ലോഡ് ചെയ്യുക',
-    tabMatrix: 'നിയമ മാറ്റ പട്ടിക',
-    ragTag: 'GraphRAG + Neo4j',
-    chatHeader: 'ന്യായവാർത്ത AI നിയമ സഹായി',
-    chatSubtitle: 'ഇന്ത്യൻ പീനൽ കോഡ് (IPC) → ഭാരതീയ ന്യായ സംഹിത (BNS)',
-    chatGreeting: 'നമസ്കാരം! ന്യായവാർത്തയ്ക്ക് ഇന്ന് നിങ്ങളെ എങ്ങനെ സഹായിക്കാനാകും?',
-    chatGreetingSub: 'നിങ്ങളുടെ ഭാഷയിൽ ടൈപ്പ് ചെയ്യുകയോ സംസാരിക്കുകയോ രേഖകൾ അപ്‌ലോഡ് ചെയ്യുകയോ ചെയ്യാം.',
-    suggestedQueriesTitle: 'നിർദ്ദേശിച്ച നിയമ ചോദ്യങ്ങൾ',
-    suggestedQueries: [
-      {
-        label: 'സീറോ എഫ്ഐആർ (BNSS 173)',
-        text: 'എഫ്ഐആർ എങ്ങനെ ഫയൽ ചെയ്യാം? സീറോ എഫ്ഐആർ സാധുവാണോ?',
-      },
-      {
-        label: 'തട്ടിപ്പ് (IPC 420 → BNS 318)',
-        text: 'പഴയ IPC 420 ഉം പുതിയ BNS 318 ഉം തമ്മിലുള്ള വ്യത്യാസം എന്താണ്?',
-      },
-      {
-        label: 'അറസ്റ്റ് അവകാശങ്ങൾ (BNSS 35)',
-        text: 'BNSS സെക്ഷൻ 35 പ്രകാരം അറസ്റ്റിലാകുമ്പോൾ പൗരന്റെ അവകാശങ്ങൾ എന്തൊക്കെയാണ്?',
-      },
-      {
-        label: 'സൗജന്യ നിയമ സഹായം (15100)',
-        text: 'നൽസ 15100 വഴി സൗജന്യ നിയമ സഹായം എങ്ങനെ നേടാം?',
-      },
-    ],
-    inputPlaceholder: 'നിങ്ങളുടെ ചോദ്യം ടൈപ്പ് ചെയ്യുക അല്ലെങ്കിൽ സംസാരിക്കാൻ മൈക്ക് ക്ലിക്ക് ചെയ്യുക...',
-    sendBtn: 'അയക്കുക',
-    listening: 'കേൾക്കുന്നു...',
-    stopSend: 'നിർത്തുക & അയക്കുക',
-    attachDoc: 'രേഖ ചേർക്കുക (PDF / DOCX)',
-    docAttached: 'രേഖ ചേർത്തു',
-    matrixTitle: 'പ്രധാന ക്രിമിനൽ നിയമ മാറ്റങ്ങൾ (IPC → BNS)',
-    matrixSubtitle: '2024 ജൂലൈ 1 മുതൽ പ്രാബല്യത്തിൽ വന്ന പുതിയ നിയമങ്ങൾ:',
-    matrixHeaders: {
-      crime: 'കുറ്റകൃത്യം / വിഷയം',
-      oldLaw: 'പഴയ വകുപ്പ്',
-      newLaw: 'പുതിയ വകുപ്പ്',
-      note: 'പ്രധാന മാറ്റങ്ങൾ',
-    },
-  },
-
-  // 10. PUNJABI (ਪੰਜਾਬੀ)
-  pa: {
-    emergencyTitle: 'ਐਮਰਜੈਂਸੀ ਅਤੇ ਕਾਨੂੰਨੀ ਸਹਾਇਤਾ',
-    legalAidText: 'ਰਾਸ਼ਟਰੀ ਕਾਨੂੰਨੀ ਸੇਵਾਵਾਂ ਅਥਾਰਟੀ ਹੈਲਪਲਾਈਨ (NALSA / DLSA):',
-    tollFree: '15100 (ਟੋਲ-ਫ੍ਰੀ, 24x7)',
-    police: 'ਪੁਲਿਸ: 112',
-    cyberCrime: 'ਸਾਈਬਰ ਅਪਰਾਧ: 1930',
-    women: 'ਮਹਿਲਾ ਹੈਲਪਲਾਈਨ: 1091',
-    appTitle: 'ਨਿਆਇਵਾਰਤਾ',
-    appSubtitle: 'ਭਾਰਤੀ ਨਾਗਰਿਕਾਂ ਲਈ ਬਹੁਭਾਸ਼ਾਈ ਕਾਨੂੰਨੀ ਸਹਾਇਕ (IPC → BNS / BNSS)',
-    apiOnline: 'ਸਰਗਰਮ (Online)',
-    tabChat: 'ਕਾਨੂੰਨੀ ਸਲਾਹ (Legal Chat)',
-    tabUpload: 'ਦਸਤਾਵੇਜ਼ ਅਪਲੋਡ ਕਰੋ',
-    tabMatrix: 'ਕਾਨੂੰਨ ਬਦਲਾਅ ਚਾਰਟ',
-    ragTag: 'GraphRAG + Neo4j',
-    chatHeader: 'ਨਿਆਇਵਾਰਤਾ AI ਕਾਨੂੰਨੀ ਸਹਾਇਕ',
-    chatSubtitle: 'ਭਾਰਤੀ ਦੰਡਾਵਲੀ (IPC) → ਭਾਰਤੀ ਨਿਆਂ ਸੰਹਿਤਾ (BNS)',
-    chatGreeting: 'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਨਿਆਇਵਾਰਤਾ ਅੱਜ ਤੁਹਾਡੀ ਕੀ ਮਦਦ ਕਰ ਸਕਦੀ ਹੈ?',
-    chatGreetingSub: 'ਆਪਣੀ ਭਾਸ਼ਾ ਵਿੱਚ ਲਿਖੋ, ਬੋਲੋ ਜਾਂ ਦਸਤਾਵੇਜ਼ ਅਪਲੋਡ ਕਰੋ।',
-    suggestedQueriesTitle: 'ਸੁਝਾਏ ਗਏ ਕਾਨੂੰਨੀ ਸਵਾਲ',
-    suggestedQueries: [
-      {
-        label: 'ਜ਼ੀਰੋ ਐਫਆਈਆਰ (BNSS 173)',
-        text: 'ਐਫਆਈਆਰ ਕਿਵੇਂ ਦਰਜ ਕਰਵਾਈ ਜਾਵੇ? ਕੀ ਜ਼ੀਰੋ ਐਫਆਈਆਰ ਜਾਇਜ਼ ਹੈ?',
-      },
-      {
-        label: 'ਧੋਖਾਧੜੀ (IPC 420 → BNS 318)',
-        text: 'ਪੁਰਾਣੀ IPC 420 ਅਤੇ ਨਵੀਂ BNS 318 ਵਿੱਚ ਕੀ ਫਰਕ ਹੈ?',
-      },
-      {
-        label: 'ਗ੍ਰਿਫਤਾਰੀ ਅਧਿਕਾਰ (BNSS 35)',
-        text: 'BNSS ਧਾਰਾ 35 ਅਧੀਨ ਗ੍ਰਿਫਤਾਰੀ ਸਮੇਂ ਨਾਗਰਿਕ ਦੇ ਕੀ ਅਧਿਕਾਰ ਹਨ?',
-      },
-      {
-        label: 'ਮੁਫਤ ਕਾਨੂੰਨੀ ਸਹਾਇਤਾ (15100)',
-        text: 'ਨਾਲਸਾ 15100 ਤੋਂ ਮੁਫਤ ਕਾਨੂੰਨੀ ਸਹਾਇਤਾ ਕਿਵੇਂ ਲਈਏ?',
-      },
-    ],
-    inputPlaceholder: 'ਆਪਣਾ ਕਾਨੂੰਨੀ ਸਵਾਲ ਇੱਥੇ ਲਿਖੋ ਜਾਂ ਬੋਲਣ ਲਈ ਮਾਈਕ ਦਬਾਓ...',
-    sendBtn: 'ਭੇਜੋ',
-    listening: 'ਸੁਣ ਰਿਹਾ ਹੈ...',
-    stopSend: 'ਰੋਕੋ ਅਤੇ ਭੇਜੋ',
-    attachDoc: 'ਦਸਤਾਵੇਜ਼ ਜੋੜੋ (PDF / DOCX)',
-    docAttached: 'ਦਸਤਾਵੇਜ਼ ਜੋੜਿਆ ਗਿਆ',
-    matrixTitle: 'ਮੁੱਖ ਅਪਰਾਧਿਕ ਕਾਨੂੰਨ ਬਦਲਾਅ (IPC → BNS)',
-    matrixSubtitle: '1 ਜੁਲਾਈ 2024 ਤੋਂ ਲਾਗੂ ਹੋਏ ਨਵੇਂ ਕਾਨੂੰਨ:',
-    matrixHeaders: {
-      crime: 'ਅਪਰਾਧ / ਵਿਸ਼ਾ',
-      oldLaw: 'ਪੁਰਾਣੀ ਧਾਰਾ',
-      newLaw: 'ਨਵੀਂ ਧਾਰਾ',
-      note: 'ਮੁੱਖ ਨੁਕਤੇ',
-    },
-  },
-
-  // 11. ODIA (ଓଡ଼ିଆ)
-  or: {
-    emergencyTitle: 'ଜରୁରୀକାଳୀନ ଏବଂ ଆଇନଗତ ସହାୟତା',
-    legalAidText: 'ଜାତୀୟ ଆଇନ ସେବା ପ୍ରାଧିକରଣ ହେଲ୍ପଲାଇନ (NALSA / DLSA):',
-    tollFree: '15100 (ଟୋଲ-ଫ୍ରି, 24x7)',
-    police: 'ପୋଲିସ: 112',
-    cyberCrime: 'ସାଇବର ଅପରାଧ: 1930',
-    women: 'ମହିଳା ହେଲ୍ପଲାଇନ: 1091',
-    appTitle: 'ନ୍ୟାୟବାର୍ତ୍ତା',
-    appSubtitle: 'ଭାରତୀୟ ନାଗରିକଙ୍କ ପାଇଁ ବହୁଭାଷୀ ଆଇନ ସହାୟକ (IPC → BNS)',
-    apiOnline: 'ସକ୍ରିୟ (Online)',
-    tabChat: 'ଆଇନ ପରାମର୍ଶ (Legal Chat)',
-    tabUpload: 'ଦଲିଲ ଅପଲୋଡ୍ କରନ୍ତୁ',
-    tabMatrix: 'ଆଇନ ପରିବର୍ତ୍ତନ ଚାର୍ଟ',
-    ragTag: 'GraphRAG + Neo4j',
-    chatHeader: 'ନ୍ୟାୟବାର୍ତ୍ତା AI ଆଇନ ସହାୟକ',
-    chatSubtitle: 'ଭାରତୀୟ ଦଣ୍ଡବିଧି (IPC) → ଭାରତୀୟ ନ୍ୟାୟ ସଂହିତା (BNS)',
-    chatGreeting: 'ନମସ୍କାର! ନ୍ୟାୟବାର୍ତ୍ତା ଆଜି ଆପଣଙ୍କୁ କିପରି ସାହାଯ୍ୟ କରିପାରିବ?',
-    chatGreetingSub: 'ନିଜ ଭାଷାରେ ଲେଖନ୍ତୁ, କୁହନ୍ତୁ କିମ୍ବା ଆପଣଙ୍କ ରିପୋର୍ଟ ଅପଲୋଡ୍ କରନ୍ତୁ।',
-    suggestedQueriesTitle: 'ପ୍ରସ୍ତାବିତ ଆଇନଗତ ପ୍ରଶ୍ନ',
-    suggestedQueries: [
-      {
-        label: 'ଜିରୋ ଏଫଆଇଆର (BNSS 173)',
-        text: 'FIR କିପରି ରୁଜୁ କରିବେ? ଜିରୋ FIR ବୈଧ କି?',
-      },
-      {
-        label: 'ଠକେଇ (IPC 420 → BNS 318)',
-        text: 'ପୁରୁଣା IPC 420 ଏବଂ ନୂଆ BNS 318 ମଧ୍ୟରେ କଣ ପାର୍ଥକ୍ୟ ଅଛି?',
-      },
-      {
-        label: 'ଗିରଫ ଅଧିକାର (BNSS 35)',
-        text: 'BNSS ଧାରା 35 ଅନୁଯାୟୀ ଗିରଫ ସମୟରେ ନାଗରିକଙ୍କ ଅଧିକାର କଣ?',
-      },
-      {
-        label: 'ମାଗଣା ଆଇନ ସହାୟତା (15100)',
-        text: 'ନାଲସା 15100 ରୁ ମାଗଣା ଆଇନ ସହାୟତା କିପରି ପାଇବେ?',
-      },
-    ],
-    inputPlaceholder: 'ଆପଣଙ୍କ ପ୍ରଶ୍ନ ଲେଖନ୍ତୁ କିମ୍ବା କହିବାକୁ ମାଇକ୍ କ୍ଲିକ୍ କରନ୍ତୁ...',
-    sendBtn: 'ପଠାନ୍ତୁ',
-    listening: 'ଶୁଣୁଛି...',
-    stopSend: 'ବନ୍ଦ କରି ପଠାନ୍ତୁ',
-    attachDoc: 'ଦଲିଲ ଯୋଡନ୍ତୁ (PDF / DOCX)',
-    docAttached: 'ଦଲିଲ ଯୋଡାଗଲା',
-    matrixTitle: 'ମୁଖ୍ୟ ଫୌଜଦାରୀ ଆଇନ ପରିବର୍ତ୍ତନ (IPC → BNS)',
-    matrixSubtitle: '୧ ଜୁଲାଇ ୨୦୨୪ ରୁ ଲାଗୁ ନୂତନ ଆଇନ ଧାରା:',
-    matrixHeaders: {
-      crime: 'ଅପରାଧ / ବିଷୟ',
-      oldLaw: 'ପୁରୁଣା ଧାରା',
-      newLaw: 'ନୂତନ ଧାରା',
-      note: 'ମୁଖ୍ୟ ଟିପ୍ପଣୀ',
-    },
-  },
-
-  // 12. URDU (اردو)
-  ur: {
-    emergencyTitle: 'ہنگامی اور قانونی امداد',
-    legalAidText: 'قومی قانونی خدمات اتھارٹی ہیلپ لائن (NALSA / DLSA):',
-    tollFree: '15100 (ٹول فری، 24x7)',
-    police: 'پولیس: 112',
-    cyberCrime: 'سائبر کرائم: 1930',
-    women: 'خواتین ہیلپ لائن: 1091',
-    appTitle: 'نیاۓ وارتا',
-    appSubtitle: 'ہندوستانی شہریوں کے لیے کثیر لسانی قانونی معاون (IPC → BNS)',
-    apiOnline: 'فعال (Online)',
-    tabChat: 'قانونی مشورہ (Legal Chat)',
-    tabUpload: 'دستاویز / رپورٹ اپ لوڈ کریں',
-    tabMatrix: 'قانون منتقلی چارٹ',
-    ragTag: 'GraphRAG + Neo4j',
-    chatHeader: 'نیاۓ وارتا AI قانونی معاون',
-    chatSubtitle: 'تعزیرات ہند (IPC) → بھارتیہ نیائے سنہیتا (BNS)',
-    chatGreeting: 'آداب! نیاۓ وارتا آج آپ کی کس طرح مدد کر سکتا ہے؟',
-    chatGreetingSub: 'اپنی زبان میں لکھیں، بولیں یا اپنی رپورٹ اپ لوڈ کریں۔',
-    suggestedQueriesTitle: 'تجویز کردہ قانونی سوالات',
-    suggestedQueries: [
-      {
-        label: 'زیرو ایف آئی آر (BNSS 173)',
-        text: 'ایف آئی آر کیسے درج کروائیں؟ کیا زیرو ایف آئی آر قانونی طور پر درست ہے؟',
-      },
-      {
-        label: 'دھوکہ دہی (IPC 420 → BNS 318)',
-        text: 'پرانی IPC 420 اور نئی BNS 318 میں کیا فرق ہے؟',
-      },
-      {
-        label: 'گرفتاری کے حقوق (BNSS 35)',
-        text: 'BNSS دفعہ 35 کے تحت گرفتاری کے وقت شہری کے کیا حقوق ہیں؟',
-      },
-      {
-        label: 'مفت قانونی امداد (15100)',
-        text: 'نالسا 15100 کے ذریعے مفت قانونی امداد کیسے حاصل کی جائے؟',
-      },
-    ],
-    inputPlaceholder: 'اپنا قانونی سوال درج کریں یا بولنے کے لیے مائیک دبائیں...',
-    sendBtn: 'ارسال کریں',
-    listening: 'آواز سنی جا رہی ہے...',
-    stopSend: 'روکیں اور بھیجیں',
-    attachDoc: 'دستاویز منسلک کریں (PDF / DOCX)',
-    docAttached: 'دستاویز منسلک ہو گئی',
-    matrixTitle: 'اہم فوجداری قوانین کی تبدیلیاں (IPC → BNS)',
-    matrixSubtitle: '1 جولائی 2024 سے نافذ العمل نئے قوانین:',
-    matrixHeaders: {
-      crime: 'جرم / موضوع',
-      oldLaw: 'پرانی دفعہ',
-      newLaw: 'نئی دفعہ',
-      note: 'اہم نکات',
-    },
-  },
-
-  // 13. ASSAMESE (অসমীয়া)
-  as: {
-    emergencyTitle: 'জৰুৰী আৰু আইনী সাহায্য',
-    legalAidText: 'ৰাষ্ট্ৰীয় আইনী সেৱা প্ৰাধিকৰণ হেল্পলাইন (NALSA / DLSA):',
-    tollFree: '15100 (টোল-ফ্ৰী, 24x7)',
-    police: 'আৰক্ষী: 112',
-    cyberCrime: 'চাইবাৰ অপৰাধ: 1930',
-    women: 'মহিলা হেল্পলাইন: 1091',
-    appTitle: 'ন্যায়বাৰ্তা',
-    appSubtitle: 'ভাৰতীয় নাগৰিকৰ বাবে বহুভাষিক আইনী সহায়ক (IPC → BNS)',
-    apiOnline: 'সক্ৰিয় (Online)',
-    tabChat: 'আইনী পৰামৰ্শ (Legal Chat)',
-    tabUpload: 'নথি / ৰিপৰ্ট আপলোড কৰক',
-    tabMatrix: 'আইন পৰিৱৰ্তন তালিকা',
-    ragTag: 'GraphRAG + Neo4j',
-    chatHeader: 'ন্যায়বাৰ্তা AI আইনী সহায়ক',
-    chatSubtitle: 'ভাৰতীয় দণ্ডবিধি (IPC) → ভাৰতীয় ন্যায় সংহিতা (BNS)',
-    chatGreeting: 'নমস্কাৰ! ন্যায়বাৰ্তাই আজি আপোনাক কেনেকৈ সহায় কৰিব পাৰে?',
-    chatGreetingSub: 'আপোনাৰ ভাষাত লিখক, কওক বা আপোনাৰ আইনী নথি আপলোড কৰক।',
-    suggestedQueriesTitle: 'প্ৰস্তাৱিত আইনী প্ৰশ্নসমূহ',
-    suggestedQueries: [
-      {
-        label: 'জিৰো এফআইআৰ (BNSS 173)',
-        text: 'এফআইআৰ কেনেকৈ দাখিল কৰিব? জিৰো এফআইআৰ বৈধনে?',
-      },
-      {
-        label: 'প্ৰতাৰণা (IPC 420 → BNS 318)',
-        text: 'পুৰণি IPC 420 আৰু নতুন BNS 318 ৰ মাজত পাৰ্থক্য কি?',
-      },
-      {
-        label: 'গ্ৰেপ্তাৰৰ অধিকাৰ (BNSS 35)',
-        text: 'BNSS ধাৰা 35 ৰ অধীনত গ্ৰেপ্তাৰৰ সময়ত নাগৰিকৰ অধিকাৰ কি কি?',
-      },
-      {
-        label: 'বিনামূলীয়া আইনী সাহায্য (15100)',
-        text: 'নালসা 15100 ৰ পৰা বিনামূলীয়া আইনী সাহায্য কেনেকৈ লাভ কৰিব?',
-      },
-    ],
-    inputPlaceholder: 'আপোনাৰ আইনী প্ৰশ্ন লিখক বা ক’বলৈ মাইক ক্লিক কৰক...',
-    sendBtn: 'প্ৰেৰণ কৰক',
-    listening: 'শুনি থকা হৈছে...',
-    stopSend: 'বন্ধ কৰি প্ৰেৰণ কৰক',
-    attachDoc: 'নথি সংযোগ কৰক (PDF / DOCX)',
-    docAttached: 'নথি সংযুক্ত হ’ল',
-    matrixTitle: 'প্ৰধান ফৌজদাৰী আইন পৰিৱৰ্তন (IPC → BNS)',
-    matrixSubtitle: '১ জুলাই ২০২৪ ৰ পৰা কাৰ্যকৰী নতুন আইনৰ ধাৰাসমূহ:',
-    matrixHeaders: {
-      crime: 'অপৰাধ / বিষয়',
-      oldLaw: 'পুৰণি ধাৰা',
-      newLaw: 'নতুন ধাৰা',
-      note: 'মুখ্য পৰিৱৰ্তন',
-    },
-  },
-
-  // 14. SANSKRIT (संस्कृतम्)
-  sa: {
-    emergencyTitle: 'आत्ययिकं विधिकसाहाय्यं च',
-    legalAidText: 'राष्ट्रीय विधिक सेवा प्राधिकरण हेल्पलाइन (NALSA / DLSA):',
-    tollFree: '15100 (निःशुल्कम्, 24x7)',
-    police: 'आरक्षकदलम्: 112',
-    cyberCrime: 'अन्तर्जाल-अपराधः: 1930',
-    women: 'महिला हेल्पलाइन: 1091',
-    appTitle: 'न्यायवार्ता',
-    appSubtitle: 'भारतीयनागरिकाणां कृते बहुभाषीय विधिकसहायकः (IPC → BNS)',
-    apiOnline: 'सक्रियम् (Online)',
-    tabChat: 'विधिकपरामर्शः (Legal Chat)',
-    tabUpload: 'प्रलेखं योजयतु (Upload Document)',
-    tabMatrix: 'विधिपरिवर्तनसारणी (Law Matrix)',
-    ragTag: 'GraphRAG + Neo4j',
-    chatHeader: 'न्यायवार्ता AI विधिकसहायकः',
-    chatSubtitle: 'भारतीय न्याय संहिता (BNS) तथा निःशुल्क विधिकसाहाय्यम्',
-    chatGreeting: 'नमस्ते! न्यायवार्ता अद्य भवतः कां सहायतां कर्तुं शक्नोति?',
-    chatGreetingSub: 'स्वभाषायां लिखतु, वदतु वा स्वप्रलेखम् आरोपयतु। ज्ञानचित्रकं भवते मार्गदर्शनं दास्यति।',
-    suggestedQueriesTitle: 'सुझाविताः विधिकप्रश्नाः',
-    suggestedQueries: [
-      {
-        label: 'शून्य प्राथमिकी (BNSS 173)',
-        text: 'प्राथमिकी (FIR) कथं पञ्जीकरणीया? शून्य-एफआईआर मान्या वा?',
-      },
-      {
-        label: 'प्रतारणा (IPC 420 → BNS 318)',
-        text: 'पुरातन IPC 420 तथा नूतन BNS 318 मध्ये कः भेदः अस्ति?',
-      },
-      {
-        label: 'बन्धन-अधिकारः (BNSS 35)',
-        text: 'BNSS धारा 35 अन्तर्गतं बन्धनसमये नागरिकस्य के अधिकाराः सन्ति?',
-      },
-      {
-        label: 'निःशुल्क विधिकसाहाय्यम् (15100)',
-        text: 'नागरिकाः NALSA 15100 द्वारा निःशुल्कं विधिकसाहाय्यं कथं प्राप्नुयुः?',
-      },
-    ],
-    inputPlaceholder: 'स्वस्य विधिकप्रश्नं लिखतु अथवा वक्तुं ध्वनिग्राहकं नुदतु...',
-    sendBtn: 'प्रेषयतु',
-    listening: 'श्रूयते...',
-    stopSend: 'विरामय प्रेषय च',
-    attachDoc: 'प्रलेखं योजयतु (PDF / DOCX)',
-    docAttached: 'प्रलेखः योजितः',
-    matrixTitle: 'प्रमुखाः दण्डविधिपरिवर्तनाः (IPC → BNS)',
-    matrixSubtitle: '१ जुलै २०२४ तः प्रवृत्ताः नूतनविधिधाराः:',
-    matrixHeaders: {
-      crime: 'अपराधः / विषयः',
-      oldLaw: 'पुरातनधारा',
-      newLaw: 'नूतनधारा (BNS)',
-      note: 'प्रमुखपरिवर्तनानि',
-    },
-  },
+  hi: {
+    "emergencyTitle": "आपातकालीन एवं सहायता",
+    "legalAidText": "राष्ट्रीय कानूनी सहायता हेल्पलाइन (एनएएलएसए/डीएलएसए):",
+    "tollFree": "15100 (टोल-फ्री, 24x7)",
+    "police": "पुलिस: 112",
+    "cyberCrime": "साइबर अपराध: 1930",
+    "women": "महिला: 1091",
+    "appTitle": "न्यायवार्ता",
+    "appSubtitle": "भारतीय नागरिकों के लिए बहुभाषी कानूनी सहायक (आईपीसी → बीएनएस / सीआरपीसी → बीएनएसएस / बीएसए)",
+    "apiOnline": "एपीआई ऑनलाइन",
+    "tabChat": "कानूनी चैट",
+    "tabUpload": "कानूनी दस्तावेज़ अपलोड करें",
+    "tabMatrix": "कानून संक्रमण मैट्रिक्स",
+    "ragTag": "ग्राफ्रैग + Neo4j",
+    "chatHeader": "न्यायवार्ता एआई असिस्टेंट",
+    "chatSubtitle": "भारतीय दंड संहिता (आईपीसी) → भारतीय न्याय संहिता (बीएनएस) और कानूनी सहायता",
+    "chatGreeting": "नमस्ते! आज न्यायवार्ता आपकी कैसे सहायता कर सकता है?",
+    "chatGreetingSub": "अपनी भाषा टाइप करें, बोलने के लिए माइक पर क्लिक करें, या अपना कानूनी दस्तावेज़/रिपोर्ट अपलोड करें। हमारा ग्राफआरएजी पुराने कानूनों को नए बीएनएस प्रावधानों में मैप करता है और चरण-दर-चरण सहायता प्रदान करता है।",
+    "suggestedQueriesTitle": "सुझाए गए कानूनी प्रश्न",
+    "inputPlaceholder": "अपनी कानूनी क्वेरी टाइप करें, एक पीडीएफ रिपोर्ट संलग्न करें, या बोलने के लिए माइक पर क्लिक करें...",
+    "sendBtn": "भेजना",
+    "listening": "सुनना...",
+    "stopSend": "रोकें और भेजें",
+    "attachDoc": "कानूनी दस्तावेज़ संलग्न करें (पीडीएफ/डीओसीएक्स)",
+    "docAttached": "दस्तावेज़ संलग्न एवं अनुक्रमित",
+    "legalGuidanceHeader": "न्यायवार्ता कानूनी मार्गदर्शन",
+    "historyTitle": "परामर्श इतिहास",
+    "newConsultationBtn": "+ नया परामर्श",
+    "noHistoryTitle": "कोई पिछला परामर्श नहीं",
+    "noHistorySub": "नया परामर्श शुरू करने के लिए कानूनी प्रश्न पूछें।",
+    "privateHistoryTitle": "निजी परामर्श इतिहास",
+    "privateHistorySub": "अपने पिछले परामर्शों को सुरक्षित रूप से सहेजने और उन तक पहुंचने के लिए लॉग इन करें। आपके परामर्श निजी रहते हैं.",
+    "loginSignUpBtn": "लॉगइन साइनअप",
+    "loadingConsultations": "परामर्श लोड हो रहा है...",
+    "messagesCount": "संदेशों",
+    "privateDataBadge": "निजी एवं एन्क्रिप्टेड",
+    "hideHistoryBtn": "इतिहास छिपाएँ",
+    "showHistoryBtn": "इतिहास दिखाएँ",
+    "clearChatBtn": "स्पष्ट",
+    "userLoginBtn": "लॉगिन खाता",
+    "userLogOutBtn": "लॉग आउट",
+    "activeThread": "सक्रिय परामर्श",
+    "deleteChatBtn": "चैट हटाएँ",
+    "liveGraphRAG": "लाइव ग्राफ़आरएजी",
+    "privateAndEncrypted": "निजी एवं एन्क्रिप्टेड",
+    "supportedLangs": "समर्थित: 14 भारतीय भाषाओं में स्वचालित वॉयस डिटेक्शन, टेक्स्ट और पीडीएफ रिपोर्ट",
+    "legalAidHelpline": "कानूनी सहायता टोल-फ्री: 15100",
+    "nalsaPortal": "नालसा आधिकारिक पोर्टल",
+    "tollFreeHelpline": "टोल-फ्री हेल्पलाइन: 15100",
+    "empoweringCitizens": "एआई कानूनी साक्षरता के साथ भारतीय नागरिकों को सशक्त बनाना",
+    "clearChatConfirm": "वर्तमान कानूनी परामर्श वार्तालाप साफ़ करें?",
+    "deleteChatConfirm": "इस सक्रिय कानूनी परामर्श को अपने इतिहास से हटा दें? यह क्रिया स्थायी है.",
+    "citationsTitle": "कानूनी उद्धरण और कानून मानचित्रण",
+    "showLess": "कम दिखाएँ",
+    "showAll": "सब दिखाएं",
+    "statute": "क़ानून",
+    "transitionNotes": "संक्रमण/नोट्स:",
+    "uploadBannerTag": "दस्तावेज़ अपलोड क्या है?",
+    "uploadBannerTitle": "अपनी कानूनी रिपोर्ट या एफआईआर कॉपी के बारे में सीधे एआई प्रश्न पूछें",
+    "uploadBannerDesc": "जब आप एक एफआईआर कॉपी, अदालत की याचिका, समझौते, या पुलिस रिपोर्ट (पीडीएफ/डीओसीएक्स) अपलोड करते हैं, तो न्यायवार्ता इसके पाठ को पार्स करता है, इसे खोजने योग्य टुकड़ों में विभाजित करता है, और इसे Neo4j नॉलेज ग्राफ में अनुक्रमित करता है। फिर आप कानूनी चैट में (पाठ या आवाज के माध्यम से) प्रश्न पूछ सकते हैं और एआई आपके विशिष्ट दस्तावेज़ का संदर्भ देगा!",
+    "goToChatBtn": "लीगल चैट पर जाएं",
+    "uploadBoxTitle": "कानूनी दस्तावेज़ अंतर्ग्रहण",
+    "uploadBoxDesc": "कानूनी फाइलिंग, एफआईआर प्रतियां, याचिकाएं, या अनुबंध (पीडीएफ, डीओसीएक्स, टीएक्सटी 20 एमबी तक) अपलोड करें। हमारा PyMuPDF इंजन आपके RAG पाइपलाइन में टुकड़ों को गतिशील रूप से निकालता और अनुक्रमित करता है।",
+    "clickToBrowse": "फ़ाइलों को ब्राउज़ करने या खींचने और छोड़ने के लिए यहां क्लिक करें",
+    "supportedFormats": "पीडीएफ, वर्ड (.docx) या सादा पाठ (.txt)",
+    "uploadingChunks": "टेक्स्ट निकालना और Neo4j नॉलेज ग्राफ़ और BM25 में विभाजित करना...",
+    "indexedDocsTitle": "इस सत्र में अनुक्रमित दस्तावेज़",
+    "filesCount": "फ़ाइल",
+    "noDocsYet": "अभी तक कोई दस्तावेज़ अपलोड नहीं किया गया. इसकी सामग्री को ज्ञान ग्राफ़ में अनुक्रमित करने के लिए ऊपर एक पीडीएफ या वर्ड फ़ाइल अपलोड करें (या चैट में पेपरक्लिप बटन का उपयोग करें)।",
+    "chunksInNeo4j": "Neo4j में टुकड़े",
+    "askInChat": "चैट में पूछें",
+    "architectureTitle": "ग्राफआरएजी आर्किटेक्चर (Neo4j)",
+    "architectureDesc": "न्यायवार्ता कानूनी सटीकता को अधिकतम करने के लिए Neo4j नॉलेज ग्राफ़ ट्रैवर्सल को BM25 कीवर्ड खोज के साथ जोड़ती है।",
+    "knowledgeGraphLabel": "ज्ञान ग्राफ",
+    "keywordRetrievalLabel": "कीवर्ड पुनर्प्राप्ति",
+    "orchestrationLabel": "वाद्य-स्थान",
+    "statutoryGraphDataLabel": "वैधानिक ग्राफ़ डेटा",
+    "guidelinesTitle": "दस्तावेज़ दिशानिर्देश",
+    "guideline1": "समर्थित: एफआईआर प्रतियां, अदालत याचिकाएं, जमानत आदेश, कानूनी अनुबंध।",
+    "guideline2": "पृष्ठ-स्तरीय मेटाडेटा के साथ PyMuPDF के माध्यम से पाठ निष्कर्षण।",
+    "guideline3": "अधिकतम फ़ाइल आकार: 20MB.",
+    "guideline4": "अनुक्रमित भाग बाद की चैट क्वेरी में स्वचालित रूप से पुनर्प्राप्त हो जाते हैं।",
+    "matrixCorpusTag": "आधिकारिक भारतीय आपराधिक कानून सहमति और मिसाल कॉर्पस",
+    "matrixMainTitle": "भारतीय कानून संक्रमण मैट्रिक्स और ऐतिहासिक मिसालें",
+    "matrixMainDesc": "105 वैधानिक परिवर्तन (आईपीसी ↔ बीएनएस, सीआरपीसी ↔ बीएनएसएस, साक्ष्य अधिनियम ↔ बीएसए, विशेष अधिनियम) और 38 ऐतिहासिक सुप्रीम कोर्ट मिसालें देखें। संपूर्ण तुलनात्मक दंड, प्रक्रियात्मक वर्गीकरण और नागरिक अधिकार देखने के लिए किसी भी प्रावधान या मामले पर क्लिक करें।",
+    "transitionsCountLabel": "बदलाव",
+    "precedentsCountLabel": "एससी मिसालें",
+    "tabStatutoryConcordance": "वैधानिक सहमति",
+    "tabLandmarkPrecedents": "ऐतिहासिक मिसालें",
+    "searchStatutesPlaceholder": "तलाशी अपराध, धारा (जैसे 420, 302, 173), या जुर्माना...",
+    "searchPrecedentsPlaceholder": "उदाहरण खोजें (जैसे ललिता कुमारी, अर्नेश कुमार, जमानत)...",
+    "categoryLabel": "वर्ग:",
+    "catAll": "सभी",
+    "catBns": "बीएनएस (दंड)",
+    "catBnss": "बीएनएसएस (प्रक्रिया एवं पुलिस)",
+    "catBsa": "बीएसए (साक्ष्य एवं अभिलेख)",
+    "catSpecial": "विशेष एवं केंद्रीय अधिनियम",
+    "colSubject": "विषय/अपराध",
+    "colOldLaw": "औपनिवेशिक/पुराना कानून",
+    "colNewLaw": "आधुनिक कानून (2023/विशेष)",
+    "colKeyTransition": "मुख्य वैधानिक परिवर्तन और जुर्माना",
+    "colActions": "कार्रवाई",
+    "btnDetails": "विवरण",
+    "btnAskAI": "एआई से पूछें",
+    "colCaseTitle": "ऐतिहासिक मामला और उद्धरण",
+    "colIssue": "कानूनी मुद्दा और विषय",
+    "colHolding": "सुप्रीम कोर्ट होल्डिंग और अनुपात",
+    "colApplication": "बीएनएस/बीएनएसएस वैधानिक आवेदन",
+    "modalTitle": "वैधानिक संक्रमण विश्लेषण",
+    "modalSubtitle": "औपनिवेशिक कानून बनाम आधुनिक 2023 अधिनियम",
+    "oldProvision": "पुराना वैधानिक प्रावधान",
+    "modernProvision": "आधुनिक वैधानिक प्रावधान",
+    "keyLegalShift": "मुख्य कानूनी बदलाव और नागरिक प्रभाव",
+    "proceduralNotes": "प्रक्रियात्मक एवं दंड संबंधी टिप्पणियाँ",
+    "proceduralClassification": "प्रक्रियात्मक वर्गीकरण",
+    "askInLegalChat": "कानूनी चैट में एआई से पूछें",
+    "copied": "नकल की गई!",
+    "close": "बंद करना",
+    "suggestedQueries": [
+        {
+            "label": "जीरो एफआईआर (BNSS 173)",
+            "text": "एफआईआर (FIR) कैसे दर्ज कराएं? क्या Zero FIR मान्य है?"
+        },
+        {
+            "label": "धोखाधड़ी (IPC 420 → BNS 318)",
+            "text": "पुराने IPC 420 और नए BNS 318 (धोखाधड़ी) में क्या अंतर है?"
+        },
+        {
+            "label": "गिरफ्तारी अधिकार (BNSS 35)",
+            "text": "BNSS धारा 35 के तहत गिरफ्तारी के समय नागरिक के क्या अधिकार हैं?"
+        },
+        {
+            "label": "मुफ्त कानूनी सहायता (NALSA 15100)",
+            "text": "वरिष्ठ नागरिकों के लिए मुफ्त कानूनी सहायता और 15100 हेल्पलाइन की जानकारी दें।"
+        }
+    ]
+}
 };
 
 export function getUITranslations(langCode: string): UITranslation {

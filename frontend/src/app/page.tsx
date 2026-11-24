@@ -280,13 +280,13 @@ export default function Home() {
             <div className="space-y-2 max-w-2xl">
               <div className="inline-flex items-center gap-1.5 bg-amber-500/15 text-amber-300 border border-amber-500/30 px-2.5 py-0.5 rounded-full text-xs font-semibold">
                 <FileText className="w-3.5 h-3.5" />
-                What is Document Upload? (दस्तावेज़ कैसे काम करता है?)
+                {t.uploadBannerTag}
               </div>
               <h3 className="text-lg font-bold text-slate-100">
-                Ask AI Questions Directly About Your Legal Report or FIR Copy
+                {t.uploadBannerTitle}
               </h3>
               <p className="text-xs text-slate-300 leading-relaxed">
-                When you upload an FIR copy, court petition, agreement, or police report (PDF/DOCX), Nyayavarta parses its text, segments it into searchable chunks, and indexes it into the Neo4j Knowledge Graph. You can then ask questions in the <strong>Legal Chat</strong> (via text or voice) and the AI will reference your specific document!
+                {t.uploadBannerDesc}
               </p>
             </div>
 
@@ -295,25 +295,28 @@ export default function Home() {
               onClick={() => setActiveTab('chat')}
               className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold px-4 py-2.5 rounded-xl shadow transition-all whitespace-nowrap self-start md:self-auto cursor-pointer"
             >
-              Go to Legal Chat <ArrowRight className="w-4 h-4" />
+              {t.goToChatBtn} <ArrowRight className="w-4 h-4" />
             </button>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 space-y-6">
-              <DocumentUpload onUploadSuccess={handleDocumentUploaded} />
+              <DocumentUpload
+                selectedLanguage={selectedLanguage}
+                onUploadSuccess={handleDocumentUploaded}
+              />
 
               {/* Uploaded Documents History */}
               <div className="card">
                 <h4 className="font-bold text-gray-800 text-sm mb-3 flex items-center justify-between">
-                  <span>Indexed Documents in this Session (अपलोड किए गए दस्तावेज़)</span>
+                  <span>{t.indexedDocsTitle}</span>
                   <span className="text-xs font-normal text-gray-500">
-                    {uploadedFiles.length} file(s)
+                    {uploadedFiles.length} {t.filesCount}
                   </span>
                 </h4>
                 {uploadedFiles.length === 0 ? (
                   <p className="text-xs text-gray-400 italic">
-                    No documents uploaded yet. Upload a PDF or Word file above (or using the paperclip button in the chat) to index its content into the knowledge graph.
+                    {t.noDocsYet}
                   </p>
                 ) : (
                   <div className="space-y-2">
@@ -328,7 +331,7 @@ export default function Home() {
                         </div>
                         <div className="flex items-center gap-2">
                           <span className="bg-primary-100 text-primary-800 px-2.5 py-0.5 rounded-full text-[11px] font-medium">
-                            {file.chunks_created} chunks in Neo4j
+                            {file.chunks_created} {t.chunksInNeo4j}
                           </span>
                           <button
                             type="button"
@@ -338,7 +341,7 @@ export default function Home() {
                             }}
                             className="inline-flex items-center gap-1 bg-primary-600 hover:bg-primary-700 text-white text-[11px] font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
                           >
-                            <span>Ask in Chat</span>
+                            <span>{t.askInChat}</span>
                             <ArrowRight className="w-3 h-3" />
                           </button>
                         </div>
@@ -353,26 +356,26 @@ export default function Home() {
             <div className="space-y-4">
               <div className="card bg-gradient-to-br from-primary-900 to-primary-950 text-white">
                 <h4 className="font-bold text-sm mb-2 text-accent-300">
-                  GraphRAG Architecture (Neo4j)
+                  {t.architectureTitle}
                 </h4>
                 <p className="text-xs text-gray-300 leading-relaxed mb-4">
-                  Nyayavarta combines Neo4j Knowledge Graph traversal with BM25 keyword search to maximize legal accuracy.
+                  {t.architectureDesc}
                 </p>
                 <div className="space-y-2.5 text-xs">
                   <div className="flex justify-between pb-1.5 border-b border-white/10">
-                    <span className="text-gray-300">Knowledge Graph</span>
+                    <span className="text-gray-300">{t.knowledgeGraphLabel}</span>
                     <span className="font-mono font-semibold text-white">Neo4j (Cypher Traversal)</span>
                   </div>
                   <div className="flex justify-between pb-1.5 border-b border-white/10">
-                    <span className="text-gray-300">Keyword Retrieval</span>
+                    <span className="text-gray-300">{t.keywordRetrievalLabel}</span>
                     <span className="font-mono font-semibold text-white">rank-bm25 (BM25Okapi)</span>
                   </div>
                   <div className="flex justify-between pb-1.5 border-b border-white/10">
-                    <span className="text-gray-300">Orchestration</span>
+                    <span className="text-gray-300">{t.orchestrationLabel}</span>
                     <span className="font-mono font-semibold text-accent-300">LangChain Neo4jGraph</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-300">Statutory Graph Data</span>
+                    <span className="text-gray-300">{t.statutoryGraphDataLabel}</span>
                     <span className="font-mono font-semibold text-white">IPC/CrPC → BNS/BNSS/BSA</span>
                   </div>
                 </div>
@@ -380,13 +383,13 @@ export default function Home() {
 
               <div className="card">
                 <h4 className="font-bold text-gray-800 text-sm mb-2">
-                  Document Guidelines
+                  {t.guidelinesTitle}
                 </h4>
                 <ul className="text-xs text-gray-600 space-y-2 list-disc list-inside">
-                  <li>Supported: FIR copies, court petitions, bail orders, legal contracts.</li>
-                  <li>Text extraction via <strong>PyMuPDF</strong> with page-level metadata.</li>
-                  <li>Max file size: 20MB.</li>
-                  <li>Indexed chunks are automatically retrieved in subsequent chat queries.</li>
+                  <li>{t.guideline1}</li>
+                  <li>{t.guideline2}</li>
+                  <li>{t.guideline3}</li>
+                  <li>{t.guideline4}</li>
                 </ul>
               </div>
             </div>
@@ -395,7 +398,10 @@ export default function Home() {
 
         {/* Tab 3: Law Transition Matrix & Landmark Precedents */}
         <div className={activeTab === 'reference' ? 'space-y-4' : 'hidden'}>
-          <LawMatrix onSelectQuery={handleMatrixSelectQuery} />
+          <LawMatrix
+            selectedLanguage={selectedLanguage}
+            onSelectQuery={handleMatrixSelectQuery}
+          />
         </div>
       </main>
 
@@ -410,9 +416,9 @@ export default function Home() {
       <footer className="bg-white border-t border-gray-200 mt-auto py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-gray-800">न्यायवार्ता (Nyayavarta)</span>
+            <span className="font-bold text-gray-800">{t.appTitle}</span>
             <span>—</span>
-            <span>Empowering Indian Citizens with AI Legal Literacy</span>
+            <span>{t.empoweringCitizens}</span>
           </div>
 
           <div className="flex items-center gap-4">
@@ -422,10 +428,10 @@ export default function Home() {
               rel="noreferrer"
               className="text-primary-700 hover:text-primary-900 inline-flex items-center gap-1 font-medium"
             >
-              NALSA Official Portal <ExternalLink className="w-3 h-3" />
+              {t.nalsaPortal} <ExternalLink className="w-3 h-3" />
             </a>
             <span>•</span>
-            <span>Toll-Free Helpline: <strong>15100</strong></span>
+            <span>{t.tollFreeHelpline}</span>
           </div>
         </div>
       </footer>

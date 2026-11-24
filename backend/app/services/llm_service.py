@@ -629,6 +629,52 @@ FOR ADMINISTRATIVE, ACADEMIC, OR NON-LEGAL DOCUMENTS (e.g. campus recruitment ci
 
         return text
 
+    async def translate_citations(self, citations: List[Dict[str, Any]], target_lang: str) -> List[Dict[str, Any]]:
+        """Translate structured legal citations into target language using Gemini with robust fallback."""
+        if not citations or target_lang == "en":
+            return citations
+
+        lang_names = {
+            "hi": "Hindi (हिन्दी)",
+            "bn": "Bengali (বাংলা)",
+            "ta": "Tamil (தமிழ்)",
+            "te": "Telugu (తెలుగు)",
+            "mr": "Marathi (मराठी)",
+            "gu": "Gujarati (ગુજરાતી)",
+            "kn": "Kannada (ಕನ್ನಡ)",
+            "ml": "Malayalam (മലയാളം)",
+            "pa": "Punjabi (ਪੰਜਾਬੀ)",
+            "or": "Odia (ଓଡ଼ିଆ)",
+            "ur": "Urdu (اردو)",
+            "as": "Assamese (অসমীয়া)",
+        }
+        tgt_name = lang_names.get(target_lang, target_lang)
+
+        prompt = (
+            f"You are a professional legal translator specializing in the Indian criminal legal system (IPC, CrPC, BNS, BNSS, BSA).\n"
+            f"Translate the following list of legal citation objects into fluent, formal {tgt_name}.\n"
+            f"RULES:\n"
+            f"1. For each citation object, translate the 'subject' and 'key_changes' fields into {tgt_name}.\n"
+            f"2. Keep the 'section' field recognizable with act names (e.g. 'BNS Section 173', 'பாரதிய நாகரிக் சுரக்ஷா சன்ஹிதா (BNSS) பிரிவு 173').\n"
+            f"3. Return ONLY a valid JSON array of objects with identical keys: 'section', 'subject', 'key_changes'. Do not wrap in markdown or backticks.\n\n"
+            f"Input Citations:\n{json.dumps(citations, ensure_ascii=False)}"
+        )
+
+        try:
+            raw = await self.generate_custom_response(prompt, temperature=0.1)
+            raw_clean = raw.strip()
+            if raw_clean.startswith("```"):
+                raw_clean = re.sub(r"^```(?:json)?\s*", "", raw_clean)
+                raw_clean = re.sub(r"\s*```$", "", raw_clean)
+            parsed = json.loads(raw_clean)
+            if isinstance(parsed, list) and len(parsed) == len(citations):
+                return parsed
+        except Exception as e:
+            logger.warning(f"Gemini citation translation notice ({e}). Falling back to dictionary mapper.")
+
+        from app.services.bhashini_utils import translate_citations as fallback_tc
+        return fallback_tc(citations, target_lang)
+
     async def transcribe_and_detect_audio(self, audio_base64: str) -> Dict[str, str]:
         """Automatically detect spoken Indian language and transcribe audio verbatim."""
         if not audio_base64 or not self.client:

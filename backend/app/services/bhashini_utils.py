@@ -15,7 +15,7 @@ import base64
 import logging
 import re
 import struct
-from typing import Optional
+from typing import Optional, List, Dict, Any, Union
 import aiohttp
 
 from app.config import get_settings
@@ -138,6 +138,38 @@ def translate_text_web(text: str, source_lang: str, target_lang: str) -> str:
 
     translated_lines.sort(key=lambda x: x[0])
     return "\n".join([line for _, line in translated_lines])
+
+
+def translate_citations(citations: List[Dict[str, Any]], target_lang: str) -> List[Dict[str, Any]]:
+    """Translate citation cards (section, subject, key_changes) accurately into the target language."""
+    if not citations or not target_lang or target_lang.lower().strip() == "en":
+        return citations
+
+    tl = target_lang.lower().strip()
+    from concurrent.futures import ThreadPoolExecutor
+
+    def _translate_one_citation(cit: Dict[str, Any]) -> Dict[str, Any]:
+        item = dict(cit)
+        sec = cit.get("section", "")
+        subj = cit.get("subject", "")
+        kc = cit.get("key_changes", "")
+        try:
+            if sec:
+                item["section"] = translate_text_web(sec, source_lang="en", target_lang=tl)
+            if subj:
+                item["subject"] = translate_text_web(subj, source_lang="en", target_lang=tl)
+            if kc:
+                item["key_changes"] = translate_text_web(kc, source_lang="en", target_lang=tl)
+        except Exception as e:
+            logger.debug(f"Citation field translation error: {e}")
+        return item
+
+    try:
+        with ThreadPoolExecutor(max_workers=min(len(citations), 5)) as executor:
+            return list(executor.map(_translate_one_citation, citations))
+    except Exception as e:
+        logger.warning(f"Error in translate_citations: {e}")
+        return citations
 
 
 def synthesize_google_tts_base64(text: str, language: str) -> Optional[str]:

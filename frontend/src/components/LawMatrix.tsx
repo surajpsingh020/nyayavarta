@@ -23,16 +23,19 @@ import {
   HelpCircle,
 } from 'lucide-react';
 import { fetchLawMatrix, LawTransition, CasePrecedent } from '@/lib/api';
+import { getUITranslations } from '@/lib/i18n';
 
 interface LawMatrixProps {
   onSelectQuery?: (query: string) => void;
+  selectedLanguage?: string;
   className?: string;
 }
 
 type MatrixTab = 'statutes' | 'precedents';
 type CategoryFilter = 'all' | 'bns' | 'bnss' | 'bsa' | 'special';
 
-export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixProps) {
+export default function LawMatrix({ onSelectQuery, selectedLanguage = 'en', className = '' }: LawMatrixProps) {
+  const t = getUITranslations(selectedLanguage);
   const [activeSubTab, setActiveSubTab] = useState<MatrixTab>('statutes');
   const [selectedCategory, setSelectedCategory] = useState<CategoryFilter>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -48,13 +51,13 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
 
   useEffect(() => {
     loadMatrixData();
-  }, []);
+  }, [selectedLanguage]);
 
   const loadMatrixData = async () => {
     setIsLoading(true);
     setError(null);
     try {
-      const data = await fetchLawMatrix();
+      const data = await fetchLawMatrix(undefined, undefined, selectedLanguage);
       setTransitions(data.transitions || []);
       setPrecedents(data.precedents || []);
     } catch (err: any) {
@@ -84,9 +87,9 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
 
   // Filtered transitions based on Category and Search
   const filteredTransitions = useMemo(() => {
-    return transitions.filter((t) => {
+    return transitions.filter((item) => {
       const matchesCat =
-        selectedCategory === 'all' || t.category === selectedCategory;
+        selectedCategory === 'all' || item.category === selectedCategory;
 
       if (!matchesCat) return false;
 
@@ -94,12 +97,12 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
 
       const q = searchQuery.toLowerCase().trim();
       return (
-        t.subject.toLowerCase().includes(q) ||
-        t.old_law.toLowerCase().includes(q) ||
-        t.new_law.toLowerCase().includes(q) ||
-        t.description.toLowerCase().includes(q) ||
-        t.key_changes.toLowerCase().includes(q) ||
-        (t.punishment_comparison && t.punishment_comparison.toLowerCase().includes(q))
+        item.subject.toLowerCase().includes(q) ||
+        item.old_law.toLowerCase().includes(q) ||
+        item.new_law.toLowerCase().includes(q) ||
+        item.description.toLowerCase().includes(q) ||
+        item.key_changes.toLowerCase().includes(q) ||
+        (item.punishment_comparison && item.punishment_comparison.toLowerCase().includes(q))
       );
     });
   }, [transitions, selectedCategory, searchQuery]);
@@ -128,24 +131,24 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
           <div className="space-y-1.5 max-w-2xl">
             <div className="inline-flex items-center gap-1.5 bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2.5 py-0.5 rounded-full text-xs font-semibold">
               <Scale className="w-3.5 h-3.5" />
-              Official Indian Criminal Law Concordance & Precedent Corpus
+              {t.matrixCorpusTag}
             </div>
             <h2 className="text-xl font-bold tracking-tight text-white">
-              Indian Law Transition Matrix & Landmark Precedents
+              {t.matrixMainTitle}
             </h2>
             <p className="text-xs text-slate-300 leading-relaxed">
-              Explore <strong>{transitions.length} statutory transitions</strong> (IPC ↔ BNS, CrPC ↔ BNSS, Evidence Act ↔ BSA, Special Acts) and <strong>{precedents.length} Landmark Supreme Court Precedents</strong>. Click on any provision or case to view complete comparative penalties, procedural classifications, and citizen rights.
+              {t.matrixMainDesc}
             </p>
           </div>
 
           <div className="flex items-center gap-3">
             <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-3 text-center min-w-[100px]">
               <span className="block text-2xl font-black text-amber-300">{transitions.length}</span>
-              <span className="text-[10px] text-slate-300 uppercase tracking-wider font-semibold">Transitions</span>
+              <span className="text-[10px] text-slate-300 uppercase tracking-wider font-semibold">{t.transitionsCountLabel}</span>
             </div>
             <div className="bg-white/10 backdrop-blur-xs border border-white/15 rounded-xl p-3 text-center min-w-[100px]">
               <span className="block text-2xl font-black text-emerald-300">{precedents.length}</span>
-              <span className="text-[10px] text-slate-300 uppercase tracking-wider font-semibold">SC Precedents</span>
+              <span className="text-[10px] text-slate-300 uppercase tracking-wider font-semibold">{t.precedentsCountLabel}</span>
             </div>
           </div>
         </div>
@@ -165,7 +168,7 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
             }`}
           >
             <BookOpen className="w-3.5 h-3.5" />
-            <span>Statutory Concordance ({transitions.length})</span>
+            <span>{t.tabStatutoryConcordance} ({transitions.length})</span>
           </button>
 
           <button
@@ -178,7 +181,7 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
             }`}
           >
             <Gavel className="w-3.5 h-3.5" />
-            <span>Landmark Precedents ({precedents.length})</span>
+            <span>{t.tabLandmarkPrecedents} ({precedents.length})</span>
           </button>
         </div>
 
@@ -191,8 +194,8 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={
               activeSubTab === 'statutes'
-                ? 'Search offense, section (e.g. 420, 302, 173), or penalty...'
-                : 'Search precedent (e.g. Lalita Kumari, Arnesh Kumar, Bail)...'
+                ? t.searchStatutesPlaceholder
+                : t.searchPrecedentsPlaceholder
             }
             className="w-full pl-9 pr-8 py-2 text-xs bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 text-slate-900 placeholder:text-slate-400 shadow-2xs"
           />
@@ -212,14 +215,14 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
       {activeSubTab === 'statutes' && (
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs">
           <span className="text-slate-400 text-[11px] font-semibold mr-1 flex items-center gap-1">
-            <Filter className="w-3 h-3" /> Category:
+            <Filter className="w-3 h-3" /> {t.categoryLabel}
           </span>
           {[
-            { id: 'all', label: `All (${transitions.length})` },
-            { id: 'bns', label: 'BNS (Penal)' },
-            { id: 'bnss', label: 'BNSS (Procedure & Police)' },
-            { id: 'bsa', label: 'BSA (Evidence & Records)' },
-            { id: 'special', label: 'Special & Central Acts' },
+            { id: 'all', label: `${t.catAll} (${transitions.length})` },
+            { id: 'bns', label: t.catBns },
+            { id: 'bnss', label: t.catBnss },
+            { id: 'bsa', label: t.catBsa },
+            { id: 'special', label: t.catSpecial },
           ].map((cat) => (
             <button
               key={cat.id}
@@ -256,11 +259,11 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
             <table className="w-full text-left text-xs border-collapse">
               <thead>
                 <tr className="bg-slate-50 text-slate-900 border-b border-slate-200">
-                  <th className="p-3.5 font-bold w-1/5">Subject / Offense</th>
-                  <th className="p-3.5 font-bold w-1/5">Colonial / Old Law</th>
-                  <th className="p-3.5 font-bold w-1/5">Modern Law (2023 / Special)</th>
-                  <th className="p-3.5 font-bold w-1/4">Key Statutory Transition & Penalty</th>
-                  <th className="p-3.5 font-bold text-center w-32">Actions</th>
+                  <th className="p-3.5 font-bold w-1/5">{t.colSubject}</th>
+                  <th className="p-3.5 font-bold w-1/5">{t.colOldLaw}</th>
+                  <th className="p-3.5 font-bold w-1/5">{t.colNewLaw}</th>
+                  <th className="p-3.5 font-bold w-1/4">{t.colKeyTransition}</th>
+                  <th className="p-3.5 font-bold text-center w-32">{t.colActions}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -271,57 +274,57 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
                     </td>
                   </tr>
                 ) : (
-                  filteredTransitions.map((t) => (
+                  filteredTransitions.map((item) => (
                     <tr
-                      key={t.id}
-                      onClick={() => setSelectedTransition(t)}
+                      key={item.id}
+                      onClick={() => setSelectedTransition(item)}
                       className="hover:bg-primary-50/40 transition-colors cursor-pointer group"
                     >
                       <td className="p-3.5 align-top">
                         <div className="font-bold text-slate-900 leading-snug group-hover:text-primary-800 transition-colors">
-                          {t.subject}
+                          {item.subject}
                         </div>
                         <span className="inline-block mt-1 text-[10px] font-semibold uppercase px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200">
-                          {t.category_label}
+                          {item.category_label}
                         </span>
                       </td>
 
                       <td className="p-3.5 align-top">
                         <div className="font-mono text-xs font-semibold text-rose-700 bg-rose-50 px-2 py-1 rounded-md border border-rose-100 inline-block mb-1">
-                          {t.old_law}
+                          {item.old_law}
                         </div>
                       </td>
 
                       <td className="p-3.5 align-top">
                         <div className="font-mono text-xs font-bold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-md border border-emerald-200 inline-block mb-1">
-                          {t.new_law}
+                          {item.new_law}
                         </div>
                       </td>
 
                       <td className="p-3.5 align-top text-slate-700 leading-relaxed text-[11px]">
-                        <p className="font-medium text-slate-800 mb-1">{t.key_changes}</p>
-                        <p className="text-slate-500 text-[10px] line-clamp-2">{t.description}</p>
+                        <p className="font-medium text-slate-800 mb-1">{item.key_changes}</p>
+                        <p className="text-slate-500 text-[10px] line-clamp-2">{item.description}</p>
                       </td>
 
                       <td className="p-3.5 align-top text-center" onClick={(e) => e.stopPropagation()}>
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5">
                           <button
                             type="button"
-                            onClick={() => setSelectedTransition(t)}
+                            onClick={() => setSelectedTransition(item)}
                             className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-semibold transition-all cursor-pointer whitespace-nowrap"
                             title="View full details and penalties"
                           >
                             <Info className="w-3 h-3 text-primary-600" />
-                            <span>Details</span>
+                            <span>{t.btnDetails}</span>
                           </button>
                           <button
                             type="button"
-                            onClick={() => onSelectQuery?.(t.suggested_query)}
+                            onClick={() => onSelectQuery?.(item.suggested_query)}
                             className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-primary-50 hover:bg-primary-600 text-primary-800 hover:text-white border border-primary-200 text-[11px] font-semibold transition-all cursor-pointer shadow-2xs whitespace-nowrap"
                             title="Ask Nyayavarta AI in chat"
                           >
                             <Sparkles className="w-3 h-3" />
-                            <span>Ask AI</span>
+                            <span>{t.btnAskAI}</span>
                           </button>
                         </div>
                       </td>
@@ -404,7 +407,7 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
                       className="inline-flex items-center gap-1 text-[11px] font-semibold text-primary-700 hover:text-primary-900 cursor-pointer"
                     >
                       <Info className="w-3.5 h-3.5" />
-                      <span>View Full Ruling & Impact</span>
+                      <span>{t.btnDetails}</span>
                     </button>
                     <button
                       type="button"
@@ -412,7 +415,7 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
                       className="inline-flex items-center gap-1.5 bg-primary-50 hover:bg-primary-600 text-primary-800 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer shadow-2xs"
                     >
                       <Sparkles className="w-3 h-3" />
-                      <span>Ask AI</span>
+                      <span>{t.btnAskAI}</span>
                     </button>
                   </div>
                 </div>
@@ -461,7 +464,7 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200">
                 <div className="space-y-1">
                   <span className="text-[11px] font-semibold text-rose-700 uppercase tracking-wider block">
-                    Colonial / Former Law
+                    {t.oldProvision}
                   </span>
                   <div className="font-mono text-xs font-bold text-rose-900 bg-rose-50/80 p-2 rounded-lg border border-rose-200">
                     {selectedTransition.old_law}
@@ -469,7 +472,7 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
                 </div>
                 <div className="space-y-1">
                   <span className="text-[11px] font-semibold text-emerald-700 uppercase tracking-wider block">
-                    Modern Law (2023 / Present)
+                    {t.modernProvision}
                   </span>
                   <div className="font-mono text-xs font-bold text-emerald-950 bg-emerald-50 p-2 rounded-lg border border-emerald-200">
                     {selectedTransition.new_law}
@@ -480,7 +483,7 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
               {/* Key Statutory Transition */}
               <div className="space-y-1.5">
                 <h4 className="font-bold text-slate-900 text-xs flex items-center gap-1.5">
-                  <Scale className="w-4 h-4 text-primary-600" /> Key Statutory Shift & Transition
+                  <Scale className="w-4 h-4 text-primary-600" /> {t.keyLegalShift}
                 </h4>
                 <p className="bg-primary-50/60 p-3 rounded-xl border border-primary-100 text-primary-950 font-medium">
                   {selectedTransition.key_changes}
@@ -491,7 +494,7 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
               {selectedTransition.punishment_comparison && (
                 <div className="space-y-1.5">
                   <h4 className="font-bold text-slate-900 text-xs flex items-center gap-1.5">
-                    <ShieldAlert className="w-4 h-4 text-amber-600" /> Punishment & Severity Comparison
+                    <ShieldAlert className="w-4 h-4 text-amber-600" /> {t.proceduralNotes}
                   </h4>
                   <div className="bg-amber-50/70 p-3 rounded-xl border border-amber-200 text-amber-950 whitespace-pre-line font-mono text-[11px]">
                     {selectedTransition.punishment_comparison}
@@ -503,7 +506,7 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
               {selectedTransition.procedural_classification && (
                 <div className="space-y-1.5">
                   <h4 className="font-bold text-slate-900 text-xs flex items-center gap-1.5">
-                    <Gavel className="w-4 h-4 text-indigo-600" /> Procedural & Court Classification
+                    <Gavel className="w-4 h-4 text-indigo-600" /> {t.proceduralClassification}
                   </h4>
                   <div className="p-2.5 rounded-xl bg-indigo-50/60 border border-indigo-100 text-indigo-950 font-semibold text-[11px]">
                     {selectedTransition.procedural_classification}
@@ -558,7 +561,7 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-slate-900 bg-white border border-slate-300 px-3 py-2 rounded-xl transition-colors cursor-pointer"
               >
                 {isCopied ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{isCopied ? 'Copied' : 'Copy Details'}</span>
+                <span>{isCopied ? t.copied : 'Copy Details'}</span>
               </button>
 
               <div className="flex items-center gap-2">
@@ -567,7 +570,7 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
                   onClick={() => setSelectedTransition(null)}
                   className="px-3.5 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900 rounded-xl hover:bg-slate-200/60 transition-colors cursor-pointer"
                 >
-                  Close
+                  {t.close}
                 </button>
                 <button
                   type="button"
@@ -579,7 +582,7 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
                   className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white text-xs font-bold px-4 py-2 rounded-xl shadow-xs transition-all cursor-pointer"
                 >
                   <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                  <span>Ask AI in Legal Chat</span>
+                  <span>{t.askInLegalChat}</span>
                 </button>
               </div>
             </div>
@@ -704,7 +707,7 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-slate-900 bg-white border border-slate-300 px-3 py-2 rounded-xl transition-colors cursor-pointer"
               >
                 {isCopied ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{isCopied ? 'Copied' : 'Copy Citation'}</span>
+                <span>{isCopied ? t.copied : 'Copy Citation'}</span>
               </button>
 
               <div className="flex items-center gap-2">
@@ -713,7 +716,7 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
                   onClick={() => setSelectedPrecedent(null)}
                   className="px-3.5 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900 rounded-xl hover:bg-slate-200/60 transition-colors cursor-pointer"
                 >
-                  Close
+                  {t.close}
                 </button>
                 <button
                   type="button"
@@ -725,7 +728,7 @@ export default function LawMatrix({ onSelectQuery, className = '' }: LawMatrixPr
                   className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white text-xs font-bold px-4 py-2 rounded-xl shadow-xs transition-all cursor-pointer"
                 >
                   <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                  <span>Ask AI About This Case</span>
+                  <span>{t.askInLegalChat}</span>
                 </button>
               </div>
             </div>
