@@ -154,6 +154,12 @@ const AUDIO_LABELS: Record<string, { listen: string; playPrompt: string; paused:
     paused: 'শব্দ স্থগিত (Paused)',
     reading: 'আইনী পৰামৰ্শ পাঠ কৰা হৈছে (Speaking...)',
   },
+  sa: {
+    listen: 'स्वरेण शृण्वन्तु (Listen in Voice)',
+    playPrompt: 'सम्पूर्णां विधिक-परामर्शं श्रोतुं प्ले-बटनं नुदन्तु',
+    paused: 'स्वरः स्थगितः (Paused)',
+    reading: 'विधिक-परामर्शः पठ्यते (Speaking...)',
+  },
 };
 
 export default function AudioPlayer({
@@ -165,7 +171,7 @@ export default function AudioPlayer({
 }: AudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioInstanceRef = useRef<HTMLAudioElement | null>(null);
   const activeUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
   // Check if real audio data URI or base64 is present (> 500 characters)
@@ -184,17 +190,36 @@ export default function AudioPlayer({
     };
   }, [language, audioBase64]);
 
-  const handleSpeechToggle = () => {
-    // 1. Priority: Play high-fidelity audio from backend via HTML5 Audio element
-    if (hasRealAudio && audioSrc) {
-      if (isPlaying && !isPaused) {
-        if (audioRef.current) audioRef.current.pause();
-        setIsPaused(true);
-        return;
-      }
+  const handleStop = () => {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+    if (audioInstanceRef.current) {
+      audioInstanceRef.current.pause();
+      audioInstanceRef.current.currentTime = 0;
+      audioInstanceRef.current = null;
+    }
+    activeUtteranceRef.current = null;
+    setIsPlaying(false);
+    setIsPaused(false);
+  };
 
-      if (isPaused && audioRef.current) {
-        audioRef.current.play().then(() => {
+  const handleSpeechToggle = () => {
+    // 1. If currently playing, pause
+    if (isPlaying && !isPaused) {
+      if (audioInstanceRef.current) {
+        audioInstanceRef.current.pause();
+      } else if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.pause();
+      }
+      setIsPaused(true);
+      return;
+    }
+
+    // 2. If paused, resume
+    if (isPaused) {
+      if (audioInstanceRef.current) {
+        audioInstanceRef.current.play().then(() => {
           setIsPaused(false);
           setIsPlaying(true);
         }).catch(() => {
@@ -202,34 +227,39 @@ export default function AudioPlayer({
         });
         return;
       }
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.resume();
+        setIsPaused(false);
+        setIsPlaying(true);
+        return;
+      }
+    }
 
-      // Start fresh playback
+    // 3. Start fresh playback
+    handleStop();
+
+    // Priority: Play high-fidelity backend MP3 audio via Audio instance
+    if (hasRealAudio && audioSrc) {
       try {
-        if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-          window.speechSynthesis.cancel();
-        }
-
-        if (!audioRef.current) {
-          audioRef.current = new Audio(audioSrc);
-        } else {
-          audioRef.current.src = audioSrc;
-        }
-
-        audioRef.current.currentTime = 0;
-        audioRef.current.onended = () => {
+        const sound = new Audio(audioSrc);
+        audioInstanceRef.current = sound;
+        sound.onended = () => {
           setIsPlaying(false);
           setIsPaused(false);
+          audioInstanceRef.current = null;
         };
-        audioRef.current.onerror = (e) => {
+        sound.onerror = (e) => {
           console.warn('HTML5 audio error, falling back to Web Speech API:', e);
+          audioInstanceRef.current = null;
           playWithSpeechSynthesis();
         };
 
-        audioRef.current.play().then(() => {
+        sound.play().then(() => {
           setIsPlaying(true);
           setIsPaused(false);
         }).catch((err) => {
           console.warn('HTML5 audio play blocked/failed, falling back to Web Speech API:', err);
+          audioInstanceRef.current = null;
           playWithSpeechSynthesis();
         });
         return;
@@ -240,7 +270,7 @@ export default function AudioPlayer({
       }
     }
 
-    // 2. Fallback: Web Speech API
+    // Fallback: Web Speech API
     playWithSpeechSynthesis();
   };
 
@@ -263,8 +293,8 @@ export default function AudioPlayer({
     }
 
     window.speechSynthesis.cancel();
-    if (audioRef.current) {
-      audioRef.current.pause();
+    if (audioInstanceRef.current) {
+      audioInstanceRef.current.pause();
     }
 
     const cleanText = cleanMarkdownForSpeech(textToSpeak || '');
@@ -323,36 +353,10 @@ export default function AudioPlayer({
     speakNextChunk();
   };
 
-  const handleStop = () => {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-    }
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-    }
-    activeUtteranceRef.current = null;
-    setIsPlaying(false);
-    setIsPaused(false);
-  };
-
   return (
     <div
       className={`flex items-center gap-3 bg-primary-50/90 border border-primary-200 rounded-xl px-3.5 py-2 shadow-2xs ${className}`}
     >
-      {/* Hidden audio element for HTML5 Audio playback */}
-      {audioSrc && (
-        <audio
-          ref={audioRef}
-          src={audioSrc}
-          preload="auto"
-          onEnded={() => {
-            setIsPlaying(false);
-            setIsPaused(false);
-          }}
-        />
-      )}
-
       {/* Play/Pause Button */}
       <button
         type="button"

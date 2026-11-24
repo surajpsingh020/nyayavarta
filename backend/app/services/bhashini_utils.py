@@ -551,8 +551,8 @@ class BhashiniService:
             except Exception as e:
                 logger.debug(f"BHASHINI TTS notice: {e}")
 
-        # 3. Tertiary fallback: Clean minimal WAV
-        return f"data:audio/wav;base64,{generate_mock_wav_base64()}"
+        # 3. Tertiary fallback: Return None so frontend cleanly uses Web Speech synthesis
+        return None
 
     async def speech_to_text(self, audio_base64: str, language: str = "hi") -> str:
         """Transcribe base64 audio to text using BHASHINI ASR.

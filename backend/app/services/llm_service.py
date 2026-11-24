@@ -609,7 +609,7 @@ FOR ADMINISTRATIVE, ACADEMIC, OR NON-LEGAL DOCUMENTS (e.g. campus recruitment ci
 
                 response_text = await asyncio.wait_for(
                     asyncio.to_thread(_call_translate),
-                    timeout=6.0
+                    timeout=18.0
                 )
                 if response_text and response_text.strip() and response_text.strip() != text.strip():
                     return _clean_llm_markdown(response_text.strip())
